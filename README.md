@@ -131,7 +131,7 @@ To effectively work with STUDIO Design we have hard requirements and some recomm
 - [nodejs](https://nodejs.org) >= 14
 - a text editor
 - a shell
-- [lilaquadrat DESIGN](links)
+- [lilaquadrat DESIGN](https://github.com/lilaquadrat/design)
 
 The following is required if you want to commit your changes to a project.
 
@@ -277,10 +277,8 @@ yarn cli create design
 
 If you have a project that needs a more custom approach and will not be reused in any way, just clone/download the STUDIO Design repository again and change everything to your needs.
 
-//TODO add project to github
-
 ```bash
-git clone URL
+git clone https://github.com/lilaquadrat/design
 ```
 
 ### how to: workflow or see what you do
