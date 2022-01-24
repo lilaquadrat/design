@@ -1,0 +1,60 @@
+.mediadetection {
+    .tablet,
+    .desktop,
+    .wide,
+    .desktopExt {
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+    
+    @media @tablet {
+        .mobile,
+        .desktop,
+        .wide,
+        .desktopExt {
+            display: none;
+        }
+        .tablet {
+            display: block
+        }
+    }
+    
+    @media @desktop {
+        .mobile,
+        .tablet,
+        .wide,
+        .desktopExt {
+            display: none;
+        }
+        .desktop {
+            display: block;
+        }
+    }
+
+    @media @desktopExt {
+        .mobile,
+        .tablet,
+        .wide,
+        .desktop {
+            display: none;
+        }
+        .desktopExt {
+            display: block;
+        }
+    }
+   
+    @media @wide {
+        .mobile,
+        .tablet,
+        .desktop,
+        .desktopExt {
+            display: none;
+        }
+        .wide {
+            display: block
+        }
+    }
+
+}

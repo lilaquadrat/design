@@ -1,0 +1,41 @@
+.textblock {
+  h1 + h2 {
+    .multi(margin-top, 4);
+  }
+
+  h2 + h3 {
+    .multi(margin-top, 2);
+  }
+
+  h3 {
+    .multi(margin, 3, 0);
+  }
+
+  ul {
+    .multi(margin-top, 4);
+  }
+
+  h1, h2 {
+    &+p {
+      .multi(margin-top, 4);
+    }
+  }
+
+  h3 {
+    &+p {
+      .multi(margin-top, 6);
+    }
+  }
+
+  p {
+    .multi(margin-top, 4);
+  }
+
+  ul {
+    li {
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

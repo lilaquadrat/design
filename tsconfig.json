@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "ES2019",
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "strictFunctionTypes": false,
+        "strictNullChecks": false,
+        "baseUrl": "./",
+        "paths": {
+            "@screens/*": ["src/screens/*"],
+            "@partials/*": ["src/partials/*"],
+            "@modules/*": ["modules/*"],
+            "@libs/*": ["src/libs/*"],
+            "@store/*": ["src/store/*"],
+            "@mixins/*": ["src/mixins/*"],
+            "@interfaces/*": ["src/interfaces/*"],
+            "@mock/*": ["test/mock/*"],
+            "@worker/*": ["./worker/*"],
+            "@source/*": ["./source/*"],
+            "@stories/*": ["stories/*"]
+        }
+    },
+    "exclude": [
+       "node_modules",
+       "examples"
+    ]
+}

@@ -1,0 +1,52 @@
+.mediadetection {
+
+  @media @tablet {
+
+    .mobile,
+    .desktop,
+    .wide {
+      display: none;
+    }
+
+    .tablet {
+      display: block
+    }
+  }
+
+  @media @desktop {
+
+    .mobile,
+    .tablet,
+    .wide {
+      display: none;
+    }
+
+    .desktop {
+      display: block;
+    }
+  }
+
+  @media @wide {
+
+    .mobile,
+    .tablet,
+    .desktop {
+      display: none;
+    }
+
+    .wide {
+      display: block
+    }
+  }
+
+  .tablet,
+  .desktop,
+  .wide {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+}

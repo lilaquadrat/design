@@ -1,0 +1,74 @@
+&.variant2 {
+
+    .indexIndicator {
+        display: none;
+    }
+
+}
+
+&.hasElementDescription {
+
+    .indexIndicator {
+
+        @media @desktop {
+            background-color: @white;
+            position: absolute;
+            grid-row-start: 2;
+            .multi(padding, 4, 7);
+        }
+
+        .multi(padding, 0, 8);
+
+        grid-row-start: 3;
+    }
+
+}
+
+.indexIndicator {
+
+    .font-normal;
+
+    position: absolute;
+
+    align-self: end;
+    justify-self: end;
+
+    justify-content: end;
+
+    width: 100%;
+
+    grid-column-start: 1;
+    grid-row-start: 2;
+
+    .multi(padding, 0, 8);
+
+    @media @desktop {
+
+        height: 100%;
+        grid-column-start: 2;
+        // grid-row-start: 2;
+
+        // .multi(padding, 0, 7);
+
+    }
+
+    display: grid;
+
+    grid-template-columns: min-content auto min-content;
+    grid-template-rows: min-content;
+
+    gap: 10px;
+
+
+    span {
+        font-size: @fontText;
+        display: inline-block;
+
+        &.seperator {
+            width: 2px;
+            background-color: @grey;
+            height: 100%;
+        }
+    }
+
+}

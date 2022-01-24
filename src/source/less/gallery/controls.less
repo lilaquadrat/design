@@ -1,0 +1,88 @@
+
+    .gallery-controls {
+        pointer-events: none;
+
+        display: grid;
+        grid-template-columns: 50% 50%;
+
+        top: var(--top);
+        transform: translateY(-50%);
+        
+        position: absolute;
+
+        width: 100%;
+        // height: 40px;
+
+    }
+    &.variant2 {
+
+        .gallery-controls {
+            grid-template-columns: auto;
+            grid-template-rows: minmax(55px, min-content) min-content;
+
+            grid-row-start: 2;
+            grid-row-end: 2;
+
+            transform: translateY(0);
+        
+            position: relative;
+
+            @media @desktop {
+                grid-column-end: 3;
+                grid-column-start: 1;
+            }
+
+            height: auto;
+
+            position: relative;
+
+            width: 100%;
+
+            gap: 10px;
+
+
+            .row-container {
+
+                display: grid;
+                grid-template-columns: min-content minmax(50px, max-content) min-content;
+                gap: 10px;
+
+                text-align: center;
+
+                justify-content: center;
+
+                h4 {
+                    align-self: center;
+                    justify-self: center;
+                }
+            }
+
+            .carousel-indicators {
+                grid-row-start: 2;
+
+                align-self: center;
+                justify-self: center;
+
+                display: flex;
+                gap: 10px;
+              
+                justify-content: end;
+                flex-direction: row-reverse;
+                flex-wrap: wrap;
+              
+                &.gap {
+                  gap: 20px;
+                }
+
+
+                button {
+                    border-radius: 100%;
+                    width: 10px;
+                    height: 10px;
+                }
+                
+            }
+        }
+    
+    }
+

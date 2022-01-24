@@ -1,0 +1,105 @@
+.module.emotion-module {
+  .multi(padding, 8);
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  video, picture img {
+    
+    z-index: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    overflow: hidden;
+
+  }
+
+  &.bright {
+    h1,
+    h2,
+    h3,
+    p {
+      color: @white;
+    }
+
+    h1 {
+      &:after {
+        background-color: @white;
+      }
+    }
+  }
+
+  &.dark {
+    a {
+      &.callToAction, &.linkButton {
+        color: @color1;
+        border-color: @color1;
+
+        &:hover {
+          color: @color3;
+          border-color: @color3;
+
+        }
+      }
+    }
+  }
+
+  &:first-child {
+    .multi(margin-top, 0);
+  }
+
+  .position-container {
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+  }
+
+  &.variant1 {
+    text-align: center;
+
+    h1 {
+      &::after {
+        display: none;
+      }
+      @media @tablet, @desktop {
+        font-size: 5em;
+      }
+    }
+
+    .position-container {
+      position: absolute;
+      top: 0;
+      left: 40px;
+      right: 40px;
+      bottom: 50%;
+      margin: auto;
+      transform: translateY(50%);
+    }
+  }
+
+  ul.list-links {
+    .multi(margin-top, 10);
+    .clearfix;
+
+    li {
+      display: inline-block;
+      .clearfix;
+      @media @tablet, @desktop {
+        a {
+          font-size: 1.5em;
+        }
+      }
+
+      + li {
+        .multi(margin-top, 2);
+        @media @tablet, @desktop {
+        }
+      }
+    }
+  }
+}

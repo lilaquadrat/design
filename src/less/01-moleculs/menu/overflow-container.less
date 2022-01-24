@@ -1,0 +1,26 @@
+nav.menu {
+  &.closed {
+    .overflow-container {
+      @media only screen and (min-width: 520px) {
+        height: 90vh;
+        overflow: hidden;
+        width   : 60px;
+      }
+      @media only screen and (min-width: 800px) {
+        overflow: visible;
+
+        width   : 250px;
+      }
+    }
+
+  }
+
+  .overflow-container {
+
+    @media only screen and (min-width: 800px) {
+      overflow: visible;
+
+      width   : 250px;
+    }
+  }
+}

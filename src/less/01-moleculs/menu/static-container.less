@@ -1,0 +1,43 @@
+nav {
+    
+    &.isTop {
+
+        .static-container {
+            
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        
+        }
+
+    }
+    
+    .static-container {
+        
+        .multi(padding, 4);
+        background-color: transparent;
+        transform: translateY(-100%);
+        user-select: none;
+        pointer-events: none;
+        opacity: 0;
+
+        transition      : opacity @aTimeMedium @aType, transform @aTimeMedium @aType;
+
+        text-align: right;
+
+        a.home { 
+            
+            .font-head;
+            line-height: 44px;
+            .multi(margin-right, 12);
+            display: inline-block;
+            color: @color1;
+            
+            @media @tablet, @desktop {
+                font-size: 1.8em;
+            }
+        }
+
+    }
+
+}

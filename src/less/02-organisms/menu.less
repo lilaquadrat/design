@@ -1,0 +1,73 @@
+.menu {
+  .index(8);
+  position: fixed;
+  left: 0;
+  width: 80%;
+  transition: width @aTime @aType, transform @aTime @aType;
+  transition-delay: .6S;
+  transform: translateX(0);
+  background-color: transparent;
+  user-select: none;
+  pointer-events: none;
+
+  &.top {
+    .index(7);
+    transition-delay: 0S;
+    top: 0;
+    width: 100%;
+    height: 60PX;
+    background-color: transparent;
+
+    .links-container {
+      padding: 0 20%;
+      max-width: none;
+      .clearfix;
+    }
+
+    &.variant1 {
+      height: 40PX;
+
+      .links-container {
+        text-align: right;
+
+        .link-group {
+          border: 0PX;
+        }
+      }
+
+    }
+
+  }
+
+  a {
+    color: @white;
+  }
+
+  &.offsetTop {
+    top: 40PX;
+  }
+
+  &.closed.left {
+    transition-delay: 1S;
+    transform: translateX(-100%);
+
+    @media only screen and (min-width: 520PX) {
+      width: 60PX;
+      transform: translateX(0);
+    }
+
+    @media only screen and (min-width: 800PX) {
+      width: 250PX;
+    }
+  }
+
+  &.left {
+    max-width: 250PX;
+
+    @media only screen and (min-width: 520PX) {
+      width: 80%;
+      max-width: 250PX;
+      transform: translateX(0);
+    }
+  }
+}

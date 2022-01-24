@@ -1,0 +1,47 @@
+.module.profiles-module {
+
+  max-width: @desktopWidthExt;
+  margin-left: auto;
+  margin-right: auto;
+  .clearfix();
+
+  .textblock {
+    .multi(padding, 8);
+    clear: both;
+  }
+
+  .profiles {
+    clear: both;
+  }
+
+  @media @tablet {
+
+    .profile {
+      width: 49%;
+      float: left;
+
+      &:nth-child(odd) {
+        margin-right: 1%;
+      }
+      &:nth-child(even) {
+        margin-left: 1%;
+      }
+
+    }
+
+  }
+  @media @desktop {
+
+    .profile {
+      width: 32%;
+      float: left;
+
+      &:nth-child(3n+2) {
+        margin: 0 1.5%;
+      }
+
+    }
+
+  }
+
+}

@@ -1,0 +1,16 @@
+.module {
+
+  .multi(margin, 10, 0);
+  @media @desktop {
+    .multi(margin, 15, 0);
+  }
+
+  &:first-child {
+    .multi(margin-top, 18);
+  }
+
+  &:nth-child(even), &:nth-child(odd) {
+    background: @white;
+  }
+
+}
