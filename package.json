@@ -1,14 +1,10 @@
 {
   "name": "@lilaquadrat/design",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.4",
   "description": "design and content renderer for lilaquadrat STUDIO",
   "license": "CC-BY-NC-4.0",
   "homepage": "https://lilaquadrat.de",
-  "author": {
-    "email": "m.schuebel@lila2.de",
-    "name": "Mathias Schübel",
-    "url": "https://lilaquadrat.de"
-  },
+  "author": "Mathias Schübel <m.schuebel@lila2.de> (https://lilaquadrat.de)",
   "files": [
     "src/partials/**/*",
     "src/modules/**/*",
@@ -111,7 +107,7 @@
     "webpack-watch-files-plugin": "^1.2.0"
   },
   "dependencies": {
-    "@lila2/studio": "^2.2.0-beta.5",
+    "@lilaquadrat/studio": "^2.2.0",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",
     "vue": "^2.6.14",
@@ -120,5 +116,12 @@
     "vue-router": "^3.5.3",
     "vue-youtube-embed": "^2.2.2",
     "vuex": "^3.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilaquadrat/design.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lilaquadrat/design/issues"
   }
 }
