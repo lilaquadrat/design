@@ -1,4 +1,4 @@
-import { Editor } from '@lila2/studio/lib/interfaces';
+import { Editor } from '@lilaquadrat/studio/lib/interfaces';
 
 export default interface ChildData {
     data: {

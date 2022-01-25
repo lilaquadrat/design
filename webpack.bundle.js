@@ -44,7 +44,7 @@ module.exports = (env, argv) => merge(baseConfig, {
       'dayjs',
       'dayjs/locale/de',
       'dayjs/plugin/relativeTime',
-      '@lila2/studio/frontend/main'
+      '@lilaquadrat/studio/frontend/main'
     ]
   }),
 

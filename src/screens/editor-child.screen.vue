@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import { ExtComponent, Component, vue } from '@libs/lila-component';
-import { Editor, ModuleGeneric } from '@lila2/studio/lib/interfaces';
+import { Editor, ModuleGeneric } from '@lilaquadrat/studio/lib/interfaces';
 import log from 'loglevel';
 
 @Component

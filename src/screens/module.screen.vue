@@ -13,7 +13,7 @@
 import {
   ExtComponent, Component, Watch,
 } from '@libs/lila-component';
-import { filterMergeModules } from '@lila2/studio/lib/src/frontend/main';
+import { filterMergeModules } from '@lilaquadrat/studio/lib/src/frontend/main';
 
 @Component
 export default class ModuleScreen extends ExtComponent {

@@ -44,8 +44,8 @@
 import Textblock from '@interfaces/textblock.interface';
 import ChildData from '@interfaces/ChildData.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
-import { filterMergeModules } from '@lila2/studio/lib/src/frontend/main';
-import { Editor } from '@lila2/studio/lib/interfaces';
+import { filterMergeModules } from '@lilaquadrat/studio/lib/src/frontend/main';
+import { Editor } from '@lilaquadrat/studio/lib/interfaces';
 
 @Component
 export default class TrainingModule extends ExtComponent {

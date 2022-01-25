@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
-import { ModuleGeneric } from '@lila2/studio/lib/interfaces';
+import { ModuleGeneric } from '@lilaquadrat/studio/lib/interfaces';
 
 @Component
 export default class partialModule extends ExtComponent {
