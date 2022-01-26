@@ -24,7 +24,7 @@
     "bundle-preview": "webpack --config webpack.dev-bundle.js --progress",
     "cli": "node node_modules/@lila2/cli/lib/src/index.js",
     "storybook": "start-storybook -s ./src/source/storybook -p 6006",
-    "build-storybook": "build-storybook -s ./source/storybook"
+    "build-storybook": "build-storybook -s ./src/source/storybook"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
@@ -38,7 +38,7 @@
     "@babel/register": "^7.16.7",
     "@babel/template": "^7.16.7",
     "@ianwalter/exclude-assets-plugin": "^1.0.0",
-    "@lila2/cli": "^0.9.0",
+    "@lilaquadrat/cli": "^0.9.1",
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
