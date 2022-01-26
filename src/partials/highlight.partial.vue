@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="lila-highlight">
     <pre>
       <code>
         <!-- Todo: Code-txt doesnt automatically update -->

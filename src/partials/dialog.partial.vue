@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant, {hasBackground: colorScheme === 'transparent'}]" class="dialog-partial">
+  <section :class="[variant, {hasBackground: colorScheme === 'transparent'}]" class="lila-dialog-partial">
     <slot></slot>
 
     <section class="message-container">
@@ -81,7 +81,7 @@ export default class DialogPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.dialog-partial {
+.lila-dialog-partial {
 
   .multi(padding, 4);
 

@@ -7,6 +7,7 @@ export default {
         options: [
           'center',
           'actions',
+          'notice',
         ],
       },
     },

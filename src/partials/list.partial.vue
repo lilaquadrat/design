@@ -1,5 +1,5 @@
 <template>
-  <section class="list-links" v-if="notEmpty" :class="variant">
+  <section class="lila-list-links" v-if="notEmpty" :class="variant">
     <h4 v-if="title">{{ title }}</h4>
 
     <ul v-if="!actions || mode === 'list'">
@@ -84,7 +84,7 @@ export default class listPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.list-links {
+.lila-list-links {
   counter-reset: listItem;
   display: grid;
 

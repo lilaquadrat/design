@@ -1,8 +1,5 @@
 <template>
-  <section
-    :class="[view, { hasImage: picture }, variant]"
-    class="module pictureandtext-module"
-  >
+  <section :class="[view, { hasImage: picture }, variant]" class="lila-pictureandtext-module lila-module">
     <picture-partial :fit="fitVariant" v-bind="picture" />
 
     <section class="grid-container">
@@ -55,7 +52,7 @@ export default class PictureAndTextModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.pictureandtext-module {
+.lila-pictureandtext-module {
   .module;
 
   .modulePadding('none');

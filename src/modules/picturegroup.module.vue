@@ -1,5 +1,5 @@
 <template>
-<section :class="[variant, view]" class="module picturegroup-module">
+<section :class="[variant, view]" class="lila-picturegroup-module lila-module">
 
   <section class="content-container">
     <textblock-partial :variant="[brightText]" v-if="textblock" v-bind="textblock" />
@@ -86,7 +86,7 @@ export default class PicturegroupModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.picturegroup-module {
+.lila-picturegroup-module {
   .module;
   .modulePadding();
 
@@ -104,14 +104,14 @@ export default class PicturegroupModule extends ExtComponent {
 
   &.noText {
 
-    .textblock {
+    .lila-textblock {
       display: none;
     }
   }
 
   &.centerText {
 
-    .textblock {
+    .lila-textblock {
       text-align: center;
     }
   }
@@ -137,7 +137,7 @@ export default class PicturegroupModule extends ExtComponent {
 
   }
 
-  .textblock {
+  .lila-textblock {
     justify-self: center;
 
     width: 100%;
@@ -208,7 +208,7 @@ export default class PicturegroupModule extends ExtComponent {
 
         }
 
-        .textblock {
+        .lila-textblock {
           align-content: start;
           text-align: center;
 
@@ -417,11 +417,11 @@ export default class PicturegroupModule extends ExtComponent {
           justify-content: start;
           text-align: left;
 
-          .list-links, .textblock {
+          .lila-list-links, .lila-textblock {
             .multi(padding, 0, 4)
-                    }
+          }
 
-          .textblock::v-deep {
+          .lila-textblock::v-deep {
             gap: 5px;
             text-align: left;
 
@@ -477,11 +477,11 @@ export default class PicturegroupModule extends ExtComponent {
           justify-content: center;
           justify-self: center;
 
-          .list-links, .textblock {
+          .lila-list-links, .lila-textblock {
             .multi(padding, 0, 4)
-                    }
+          }
 
-          .textblock::v-deep {
+          .lila-textblock::v-deep {
             gap: 5px;
             max-width: @moduleWidth_XS;
             text-align: center;

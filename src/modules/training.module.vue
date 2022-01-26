@@ -1,5 +1,5 @@
 <template>
-  <section :class="[view, variant]" class="module training-module fullscreen">
+  <section :class="[view, variant]" class="lila-training-module lila-module fullscreen">
     <section v-if="textblock" class="module generic-module">
       <textblock-partial v-bind="textblock" />
     </section>
@@ -165,7 +165,7 @@ export default class TrainingModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) '@{projectPath}/source/less/shared.less';
 
-.module.training-module {
+.lila-training-module {
   .module;
   .modulePadding('none');
   gap: 40px;
@@ -175,8 +175,11 @@ export default class TrainingModule extends ExtComponent {
   }
 
   &.offsetTop {
+
     .main-grid-container {
+
       .current-content-container {
+
         .content-head {
           top: 40px;
         }
@@ -190,14 +193,14 @@ export default class TrainingModule extends ExtComponent {
 
   .main-grid-container {
     display: grid;
+
+    gap: 40px;
     justify-self: center;
     width: 100%;
 
-    gap: 40px;
-
     @media @desktop {
-      grid-template-columns: 300px 1fr;
       grid-template-rows: 1fr;
+      grid-template-columns: 300px 1fr;
 
       align-items: start;
       justify-items: start;
@@ -209,21 +212,21 @@ export default class TrainingModule extends ExtComponent {
       .modulePadding();
 
       display: grid;
+
+      display: none;
+      grid-template-columns: 1fr;
       gap: 20px;
 
       justify-content: start;
-      grid-template-columns: 1fr;
-
-      display: none;
 
       @media @desktop {
-        display: grid;
-        grid-column-start: 1;
-        grid-row-start: 1;
-        width: 100%;
 
         position: sticky;
         top: 40px;
+        display: grid;
+        grid-row-start: 1;
+        grid-column-start: 1;
+        width: 100%;
         .multi(padding, 0);
       }
 
@@ -231,53 +234,53 @@ export default class TrainingModule extends ExtComponent {
         display: grid;
         grid-template-columns: max-content 1fr;
         gap: 15px;
+        align-content: start;
+
+        justify-content: start;
 
         background-color: @grey1;
 
         .multi(padding, 4);
 
-        justify-content: start;
-        align-content: start;
-
         .index-indicator {
           .font-head;
-          font-size: @headline_XS;
+
+          justify-self: start;
           height: @headlineLineHeight_XS;
 
           padding-top: 4px;
 
           color: @grey;
-
-          justify-self: start;
+          font-size: @headline_XS;
 
           .trans(color);
         }
 
         button {
-              background: transparent;
-
-    border: none;
-    cursor: pointer;
-
-    outline: none;
-
-    -webkit-tap-highlight-color: transparent;
-
-    white-space: nowrap;
-          color: @grey;
 
           display: grid;
           justify-content: start;
 
+          border: none;
+          background: transparent;
+          color: @grey;
+
+          outline: none;
+
           text-align: left;
 
+          white-space: nowrap;
+
           white-space: pre-wrap;
+          cursor: pointer;
+
+          -webkit-tap-highlight-color: transparent;
 
           h2 {
-            font-size: @headline_XS;
             color: @grey;
-            .trans(color);
+            font-size: @headline_XS;
             text-transform: uppercase;
+            .trans(color);
           }
 
           p {
@@ -289,8 +292,8 @@ export default class TrainingModule extends ExtComponent {
 
         &:hover,
         &.active {
-          color: @textColor;
           background-color: @grey2;
+          color: @textColor;
 
           p {
             color: @textColor;
@@ -307,7 +310,7 @@ export default class TrainingModule extends ExtComponent {
       }
     }
 
-    .current-content-container::v-deep {
+    .current-content-container {
 
       min-width: 100%;
 
@@ -319,37 +322,41 @@ export default class TrainingModule extends ExtComponent {
         position: relative;
         display: grid;
 
-        .container .module:first-child {
+        .container .lila-module:first-child {
           .multi(margin-top, 8);
         }
       }
 
       .content-head {
-        height: @buttonHeight;
-        line-height: @buttonHeight;
-        display: grid;
+        .index(5);
         position: sticky;
         top: 0;
-
-        .grid-container {
-          grid-template-columns: 1fr max-content;
-          display: grid;
-          width: 100%;
-          max-width: @desktopWidthExt;
-          justify-self: center;
-          .modulePadding();
-        }
+        display: grid;
+        height: @buttonHeight;
 
         background-color: @grey2;
-        .index(5);
+        line-height: @buttonHeight;
+
+        @media @desktop {
+          display: none;
+        }
+
+        .grid-container {
+          display: grid;
+          grid-template-columns: 1fr max-content;
+          justify-self: center;
+          width: 100%;
+          max-width: @desktopWidthExt;
+          .modulePadding();
+        }
 
         .current-indicator {
           font-size: @fontTextSmaller;
         }
 
         .titleButton {
-          text-align: left;
           width: 100%;
+          text-align: left;
 
           .font-bold;
 
@@ -359,12 +366,12 @@ export default class TrainingModule extends ExtComponent {
         }
 
         .headIndex {
-          transition: opacity @aTime @aType, transform @aTime @aType;
           background-color: @white;
-          box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.13);
+          box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .13);
 
           opacity: 0;
           pointer-events: 0;
+          transition: opacity @aTime @aType, transform @aTime @aType;
           transform: translateY(-5px);
 
           &.open {
@@ -375,6 +382,7 @@ export default class TrainingModule extends ExtComponent {
           .index(5);
 
           ul {
+
             li {
               border-bottom: solid 1px @grey2;
               .modulePadding();
@@ -385,10 +393,6 @@ export default class TrainingModule extends ExtComponent {
               }
             }
           }
-        }
-
-        @media @desktop {
-          display: none;
         }
       }
     }

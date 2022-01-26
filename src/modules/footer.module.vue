@@ -1,5 +1,5 @@
 <template>
-  <footer :class="[view, fontVariant, variant]" class="module footer">
+  <footer :class="[view, fontVariant, variant]" class="lila-footer-module lila-module">
     <section class="footer-container">
       <template v-if="sitemap">
         <section v-for="(element, index) in sitemap" :key="`sitemap-elements-${index}`" class="content">
@@ -58,7 +58,7 @@ export default class FooterModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) '@{projectPath}/source/less/shared.less';
 
-.module.footer {
+.lila-footer-module {
 
   .multi(padding, 4, 8);
   .multi(margin-top, 50);

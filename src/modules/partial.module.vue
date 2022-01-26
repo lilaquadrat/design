@@ -1,5 +1,5 @@
 <template>
-<section class="partial-container" v-if="modules">
+<section class="lila-partial-container lila-module" v-if="modules">
 
   <component
   v-for="(single, i) in modules" :class="single.classes" :is="single.type" v-bind:key="`module-${i}`" v-bind="single"></component>
@@ -27,7 +27,7 @@ export default class partialModule extends ExtComponent {
 </script>
 <style lang="less" scoped>
 
-  .partial-container {
+  .lila-partial-container {
     display: grid;
   }
 

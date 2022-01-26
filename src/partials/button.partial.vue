@@ -1,5 +1,5 @@
 <template>
-    <button class="base button" :disabled="disabled"
+    <button class="lila-button base" :disabled="disabled"
     :class="[colorScheme, {doublecheck: doublecheck, showCheck: showCheck, confirmed: confirmed, icon, noPadding}]"
     @click="confirm"
     >
@@ -82,7 +82,7 @@ export default class buttonPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-button {
+.lila-button {
 
   border: none;
   background: transparent;

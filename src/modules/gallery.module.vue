@@ -1,5 +1,5 @@
 <template>
-  <section class="module gallery-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription }]">
+  <section class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription }]">
     <section class="elements">
       <div :style="cssElementsLength" ref='scrollContainer' :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
         <template v-for="(element, elementIndex) in elements">
@@ -368,7 +368,7 @@ export default class galleryModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) '@{projectPath}/source/less/shared.less';
 
-.module.gallery-module {
+.lila-module.gallery-module {
   .module;
 
   @import '../source/less/gallery/element.less';
@@ -382,8 +382,6 @@ export default class galleryModule extends ExtComponent {
   @import '../source/less/gallery/controls.less';
 
   @import '../source/less/gallery/elements.less';
-
-  .modulePadding();
 
   .modulePadding('none');
 
@@ -401,8 +399,6 @@ export default class galleryModule extends ExtComponent {
   width: 100%;
 
   max-width: @moduleWidth_M;
-  // font-size: .9px;
-  // text-align: center;
 
   cursor: grabbing;
   -moz-user-select: none;

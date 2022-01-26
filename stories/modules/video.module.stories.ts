@@ -4,7 +4,12 @@ export default {
     variant: {
       control: {
         type: 'multi-select',
-        options: ['small', 'middle', 'fullscreen'],
+        options: [
+          'small',
+          'middle',
+          'fullscreen',
+          'bright',
+        ],
       },
     },
     js: { control: { type: 'boolean' } },

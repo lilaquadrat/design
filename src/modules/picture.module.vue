@@ -1,5 +1,5 @@
 <template>
-<section :class="[variant, view]" class="module picture-module">
+<section :class="[variant, view]" class="lila-picture-module lila-module">
   <picture-partial v-bind="picture" />
 
   <div v-if="showText" class="position-container">
@@ -41,7 +41,7 @@ export default class PictureModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.picture-module {
+.lila-picture-module {
   .module;
   max-width: @moduleWidth_L;
   .modulePadding('none');
@@ -49,9 +49,9 @@ export default class PictureModule extends ExtComponent {
   picture {
 
     img {
+      display: block;
       min-width: 100%;
       max-width: 100%;
-      display: block;
     }
 
   }
@@ -62,6 +62,22 @@ export default class PictureModule extends ExtComponent {
 
   &.middle {
     max-width: @moduleWidth_M;
+  }
+
+  .position-container {
+
+    width: 100%;
+    background-color: rgba(255, 255, 255, .9);
+
+    .lila-textblock::v-deep {
+      .multi(padding, 4, 8);
+
+      h3 {
+        color: @textColor;
+      }
+
+    }
+
   }
 
   &.fullscreen {
@@ -77,22 +93,6 @@ export default class PictureModule extends ExtComponent {
 
   }
 
-  .position-container {
-
-    width: 100%;
-    background-color: rgba(255, 255, 255, .9);
-
-    .textblock {
-      .multi(padding, 4, 8);
-
-      h3 {
-        color: @textColor;
-      }
-
-    }
-
-  }
-
   &.variant1 {
 
     position: relative;
@@ -102,9 +102,9 @@ export default class PictureModule extends ExtComponent {
       @media @tablet,  @desktop {
 
         position: absolute;
-        max-width: 50%;
         top: 0;
         right: 0;
+        max-width: 50%;
         height: 100%;
         background-color: rgba(255, 255, 255, .9);
 

@@ -1,5 +1,5 @@
 <template>
-<article :class="[view,{hasImage: picture}]" class="module blog-intro-module">
+<article :class="[view,{hasImage: picture}]" class="lila-blog-intro-module lila-module">
 
   <header>
     <template v-if="!linkExists">
@@ -82,23 +82,23 @@ export default class BlogIntroModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.blog-intro-module {
+.lila-blog-intro-module {
   .module;
 
   display: grid;
   gap: 20px;
-
-  max-width: @moduleWidth_M;
-  .modulePadding('none');
-
-  background: transparent;
   justify-items: center;
 
+  max-width: @moduleWidth_M;
+
+  background: transparent;
+  .modulePadding('none');
+
   header {
-    width: 100%;
     display: grid;
-    max-width: @moduleWidth_S;
     gap: 10px;
+    width: 100%;
+    max-width: @moduleWidth_S;
 
     a {
       display: grid;
@@ -107,15 +107,15 @@ export default class BlogIntroModule extends ExtComponent {
 
   }
 
-  .textblock {
-
-    max-width: @moduleWidth_S;
-
-    .modulePadding();
+  .lila-textblock {
 
     gap: 10px;
 
     width: 100%;
+
+    max-width: @moduleWidth_S;
+
+    .modulePadding();
 
     &.top {
       display: grid;
@@ -144,7 +144,7 @@ export default class BlogIntroModule extends ExtComponent {
     margin-left: -2px;
   }
 
-  a {
+  .lila-link {
     display: grid;
     justify-items: center;
     width: 100%;
@@ -165,11 +165,11 @@ export default class BlogIntroModule extends ExtComponent {
 
   time, address {
 
+    display: grid;
+
     width: 100%;
     max-width: @moduleWidth_S;
     color: @textColor;
-
-    display: grid;
     .modulePadding();
   }
 

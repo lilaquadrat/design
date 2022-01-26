@@ -1,7 +1,7 @@
 <template>
-  <section :class="[variant, view, {fullscreen: isNotice}]" class="module text-module">
+  <section :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
 
-    <textblock-partial v-bind="$props" />
+    <textblock-partial v-bind="$props" :variant="textblockVariant" />
 
     <list-partial v-bind="list" mode="list" :variant="listVariant('list')"></list-partial>
     <list-partial v-bind="links" mode="links" :variant="listVariant('links')"></list-partial>
@@ -48,6 +48,12 @@ export default class TextModule extends ExtComponent {
 
   }
 
+  get textblockVariant() {
+
+    return this.variant.includes('notice') ? ['bright'] : [];
+
+  }
+
   listVariant(type: string) {
 
     const base = this[type]?.variant || [];
@@ -75,39 +81,39 @@ export default class TextModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-  .module.text-module {
-    .module;
+.lila-text-module {
+  .module;
 
-    display: grid;
-    gap: 40px;
+  display: grid;
+  gap: 40px;
 
-    max-width: @moduleWidth_S;
+  max-width: @moduleWidth_S;
 
-    &.center {
-      text-align: center;
-    }
-
-    &.notice {
-
-      .modulePadding('none');
-      max-width: 100%;
-      justify-content: center;
-
-      .textblock {
-        .modulePadding('full');
-
-        max-width: @moduleWidth_S;
-        color: @white;
-
-        h1, h2, h3, p {
-
-          color: @white;
-        }
-      }
-
-      background-color: @color1;
-
-    }
+  &.center {
+    text-align: center;
   }
+
+  &.notice {
+
+    .modulePadding('none');
+    justify-content: center;
+    max-width: 100%;
+
+    background-color: @color1;
+
+    .lila-textblock {
+      .modulePadding('full');
+
+      max-width: @moduleWidth_S;
+      color: @white;
+
+      h1, h2, h3, p {
+
+        color: @white;
+      }
+    }
+
+  }
+}
 
 </style>

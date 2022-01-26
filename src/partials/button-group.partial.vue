@@ -1,5 +1,5 @@
 <template>
-  <section :class="{gap: gap}" class="button-group">
+  <section :class="{gap: gap}" class="lila-button-group">
     <slot></slot>
   </section>
 </template>
@@ -16,7 +16,7 @@ export default class ButtonGroupPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.button-group {
+.lila-button-group {
 
   display: flex;
   gap: 10px;

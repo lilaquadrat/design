@@ -29,51 +29,54 @@ export default class ContentModule extends FunctionalComponent<ContentData> {}
 @import (reference) '@{projectPath}/source/less/shared.less';
 
 .content-module {
+  position: relative;
+  overflow-y: hidden;
 
   max-width: 100%;
-  overflow-y: hidden;
-  position: relative;
 
   .container {
     display: grid;
-    max-width: 100%;
-
-    align-items: center;
 
     grid-template-columns: 100%;
+
+    align-items: center;
+    max-width: 100%;
     .multi(margin-bottom, 4);
 
     &.top, &.inline {
-        .multi(margin-bottom, 0);
+      .multi(margin-bottom, 0);
     }
 
-    .module {
-        &:first-child {
+    .lila-module {
 
-            .multi(margin-top, 16);
+      &:first-child {
 
-            &.fullscreen {
-                .multi(margin-top, 0);
-            }
+        .multi(margin-top, 16);
+
+        &.fullscreen {
+          .multi(margin-top, 0);
         }
+      }
     }
 
     &.inline {
-      .module {
+
+      .lila-module {
+
         &:first-child {
-            .multi(margin-top, 0);
+          .multi(margin-top, 0);
         }
       }
     }
 
     &.presentation {
-        gap: @rowGapPresentation;
+      gap: @rowGapPresentation;
     }
 
     &.content {
-        gap: @rowGapContent;
+      gap: @rowGapContent;
     }
-}
+  }
 
 }
 </style>

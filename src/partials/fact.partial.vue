@@ -1,5 +1,5 @@
 <template>
-<section class="fact" :class="[variant, {hasPicture: picture}]">
+<section class="lila-fact-partial" :class="[variant, {hasPicture: picture}]">
 
     <picture-partial v-if="picture" v-bind="picture" />
 
@@ -27,81 +27,72 @@ export default class FactPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.fact::v-deep {
+.lila-fact-partial {
+  display: grid;
+
+  @media @desktop {
+
+    &.hasPicture {
+      grid-template-columns: 15% 1fr;
+      grid-column-gap: 20px;
+    }
+
+    .lila-figure::v-deep {
+      display: grid;
+    }
+  }
+
+  img::v-deep {
+    max-width: 80px;
+    max-height: 80px;
+  }
+
+  &.variant2 {
+
     display: grid;
+    grid-template-rows: min-content;
 
-    figure {
-        display: none;
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+    align-content: start;
+
+    justify-content: start;
+
+    max-width: 500px;
+    text-align: center;
+
+    // &.hasPicture {
+    //   grid-template-rows: 1fr;
+    //   grid-template-columns: 1fr;
+    // }
+
+    .lila-textblock::v-deep {
+      width: 100%;
+      // background-color: @grey1;
+      // .multi(padding, 12, 4, 4, 4);
+      // margin-top: -40px;
     }
 
-    @media @desktop {
+    .lila-figure::v-deep {
+      position: relative;
+      display: grid;
+      justify-self: center;
 
-        &.hasPicture {
-            grid-template-columns: 15% 1fr;
-            grid-column-gap: 20px;
-        }
+      .index(2);
 
-        figure {
-            display: grid;
-        }
+      img {
+
+        min-width: 80px;
+
+        max-width: 150px;
+        min-height: 80px;
+
+      }
     }
 
-    img {
-        max-width: 80px;
-        max-height: 80px;
-    }
+  }
 
 }
 
-.facts-module.module {
-
-    &.variant2 {
-
-        .fact {
-            text-align: center;
-
-            display: grid;
-
-            max-width: 500px;
-
-            grid-template-columns: 1fr;
-            grid-template-rows: min-content;
-
-            justify-content: start;
-            align-content: start;
-
-            gap: 20px;
-
-            // &.hasPicture {
-            //     grid-template-columns: 1fr;
-            //     grid-template-rows: 1fr;
-            // }
-
-            .textblock {
-                width: 100%;
-                // background-color: @grey1;
-                // .multi(padding, 12, 4, 4, 4);
-                // margin-top: -40px;
-            }
-
-            figure {
-                display: grid;
-                position: relative;
-                justify-self: center;
-
-                .index(2);
-
-                img {
-
-                    min-width: 80px;
-                    min-height: 80px;
-
-                    max-width: 150px;
-
-                }
-            }
-
-        }
-    }
-}
 </style>

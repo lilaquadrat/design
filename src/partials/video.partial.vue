@@ -1,5 +1,5 @@
 <template>
-    <video @click="toggle" @keyup="toggle" v-attributes="attributes" :poster="poster" :class="[state, { loading: loading }]" :key="src" v-if="src">
+    <video class="lila-video-partial" @click="toggle" @keyup="toggle" v-attributes="attributes" :poster="poster" :class="[state, { loading: loading }]" :key="src" v-if="src">
       <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
       <track kind="captions" />
       <source v-if="src" :data-src="src" />
@@ -188,7 +188,7 @@ export default class VideoPartial extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-video {
+.lila-video-partial {
   display: grid;
   max-width: 100%;
 

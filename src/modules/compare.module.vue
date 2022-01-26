@@ -1,5 +1,5 @@
 <template>
-<section class="compare-module module">
+<section class="lila-compare-module lila-module">
 
   <textblock-partial v-bind="textblock" />
 
@@ -151,15 +151,16 @@ export {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.compare-module {
+.lila-compare-module {
   .module;
   .modulePadding();
+  .headlines;
 
   display: grid;
   justify-items: center;
   gap: 40px;
 
-  .textblock {
+  .lila-textblock::v-deep {
     max-width: @desktopWidth;
   }
 

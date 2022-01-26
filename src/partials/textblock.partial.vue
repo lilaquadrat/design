@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant]" v-if="notEmpty" class="textblock">
+  <section :class="[variant]" v-if="notEmpty" class="lila-textblock">
     <h1 v-if="headline">{{ headline }}</h1>
     <h2 v-if="subline">{{ subline }}</h2>
 
@@ -41,14 +41,16 @@ export default class textblockPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) '@{projectPath}/source/less/shared.less';
 
-.textblock {
+.lila-textblock {
   display: grid;
   gap: 15px;
-  word-break: break-word;
   width: 100%;
+  word-break: break-word;
 
   .headlines;
+
   &.bright {
+
     h1, h2, h3, h4, h5, p {
       color: @white;
     }
@@ -56,8 +58,8 @@ export default class textblockPartial extends ExtPartial {
 
   p {
     .font-normal;
-    font-size: @fontText;
     color: @textColor;
+    font-size: @fontText;
   }
 
   h2 + h3 {

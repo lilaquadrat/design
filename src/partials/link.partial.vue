@@ -2,6 +2,7 @@
   <component
     v-if="link"
     :class="[variant, classes, {hasIcon: icon}]"
+    class="lila-link"
     :is="type"
     :to="link"
     :href="link"
@@ -82,7 +83,7 @@ export default class LinkPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-a {
+.lila-link {
 
   color: @link;
   .font-normal;
@@ -94,7 +95,7 @@ a {
 
   &.hasIcon {
 
-    .icon-partial {
+    .lila-icon-partial {
       display: inline
     }
   }

@@ -1,88 +1,86 @@
 
-    .gallery-controls {
-        pointer-events: none;
+.gallery-controls {
 
-        display: grid;
-        grid-template-columns: 50% 50%;
+  position: absolute;
 
-        top: var(--top);
-        transform: translateY(-50%);
-        
-        position: absolute;
+  top: var(--top);
 
-        width: 100%;
-        // height: 40px;
+  display: grid;
+  grid-template-columns: 50% 50%;
 
-    }
-    &.variant2 {
+  width: 100%;
+  pointer-events: none;
+  transform: translateY(-50%);
+  // height: 40px;
 
-        .gallery-controls {
-            grid-template-columns: auto;
-            grid-template-rows: minmax(55px, min-content) min-content;
+}
 
-            grid-row-start: 2;
-            grid-row-end: 2;
+&.variant2 {
 
-            transform: translateY(0);
-        
-            position: relative;
+  .gallery-controls {
 
-            @media @desktop {
-                grid-column-end: 3;
-                grid-column-start: 1;
-            }
+    position: relative;
 
-            height: auto;
+    position: relative;
+    grid-template-rows: minmax(55px, min-content) min-content;
+    grid-template-columns: auto;
 
-            position: relative;
+    grid-row-start: 2;
+    grid-row-end: 2;
 
-            width: 100%;
+    gap: 10px;
 
-            gap: 10px;
+    width: 100%;
 
+    height: auto;
 
-            .row-container {
+    transform: translateY(0);
 
-                display: grid;
-                grid-template-columns: min-content minmax(50px, max-content) min-content;
-                gap: 10px;
-
-                text-align: center;
-
-                justify-content: center;
-
-                h4 {
-                    align-self: center;
-                    justify-self: center;
-                }
-            }
-
-            .carousel-indicators {
-                grid-row-start: 2;
-
-                align-self: center;
-                justify-self: center;
-
-                display: flex;
-                gap: 10px;
-              
-                justify-content: end;
-                flex-direction: row-reverse;
-                flex-wrap: wrap;
-              
-                &.gap {
-                  gap: 20px;
-                }
-
-
-                button {
-                    border-radius: 100%;
-                    width: 10px;
-                    height: 10px;
-                }
-                
-            }
-        }
-    
+    @media @desktop {
+      grid-column-start: 1;
+      grid-column-end: 3;
     }
 
+    .row-container {
+
+      display: grid;
+      grid-template-columns: min-content minmax(50px, max-content) min-content;
+      gap: 10px;
+
+      justify-content: center;
+
+      text-align: center;
+
+      h4 {
+        align-self: center;
+        justify-self: center;
+      }
+    }
+
+    .carousel-indicators {
+
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      grid-row-start: 2;
+      gap: 10px;
+
+      align-self: center;
+
+      justify-content: end;
+      justify-self: center;
+
+      &.gap {
+        gap: 20px;
+      }
+
+      button {
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+      }
+
+    }
+  }
+
+}

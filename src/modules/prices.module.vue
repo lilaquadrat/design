@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant, view]" class="module prices-module">
+  <section :class="[variant, view]" class="lila-prices-module lila-module">
 
     <textblock-partial v-bind="textblock"></textblock-partial>
 
@@ -79,7 +79,7 @@ export default class PricesModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.prices-module {
+.lila-prices-module {
   .module;
 
   display: grid;
@@ -88,11 +88,11 @@ export default class PricesModule extends ExtComponent {
 
   .headlines;
 
-  .textblock,
+  .lila-textblock,
   .prices-container {
+    width: 100%;
 
     max-width: @moduleWidth_S;
-    width: 100%;
 
     @media @desktop {
       .modulePadding();
@@ -102,11 +102,11 @@ export default class PricesModule extends ExtComponent {
 
   .prices-container {
     display: grid;
-    max-width:  @moduleWidth_M;
     gap: 80px;
+    max-width: @moduleWidth_M;
 
     @media @tablet,
-    @desktop {
+      @desktop {
       grid-template-columns: 1fr 1fr 1fr;
       gap: 40px;
     }
@@ -118,11 +118,12 @@ export default class PricesModule extends ExtComponent {
     .single-price {
 
       display: grid;
-      gap: 20px;
 
       grid-template-rows: minmax(60px, max-content) minmax(300px, 1fr) max-content;
+      gap: 20px;
 
       header {
+
         h1 {
           font-size: @headline_S;
         }
@@ -131,9 +132,9 @@ export default class PricesModule extends ExtComponent {
       .content {
         display: grid;
         gap: 20px;
+        align-content: start;
 
         align-items: start;
-        align-content: start;
 
         .price-container {
 
@@ -144,21 +145,21 @@ export default class PricesModule extends ExtComponent {
           grid-template-columns: max-content max-content;
           gap: 10px;
 
+          align-items: end;
+
+          border-top: solid 2px @grey;
+          border-bottom: solid 2px @grey;
+
           .price {
-            font-size: 3em;
-            line-height: .9em;
 
             color: @textColor;
+            font-size: 3em;
+            line-height: .9em;
           }
 
           .interval {
             .multi(padding-top, 1);
           }
-
-          align-items: end;
-
-          border-top: solid 2px @grey;
-          border-bottom: solid 2px @grey;
 
         }
 
@@ -169,17 +170,18 @@ export default class PricesModule extends ExtComponent {
         grid-row-start: 1;
 
         @media @tablet,
-        @desktop {
+          @desktop {
           grid-row-start: auto;
         }
 
         .price-container {
-          .price {
-            color: @color1;
-          }
 
           border-top: solid 2px @color1;
           border-bottom: solid 2px @color1;
+
+          .price {
+            color: @color1;
+          }
         }
 
       }
@@ -189,12 +191,13 @@ export default class PricesModule extends ExtComponent {
       }
 
       footer {
+
         a {
 
           display: block;
-          text-align: center;
 
           line-height: 35px;
+          text-align: center;
 
           &+a {
             .multi(margin-top, 2);

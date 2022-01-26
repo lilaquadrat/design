@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant, {gap: gap}]" class="link-group">
+  <section :class="[variant, {gap: gap}]" class="lila-link-group">
     <slot></slot>
   </section>
 </template>
@@ -16,7 +16,7 @@ export default class LinkGroupPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.link-group {
+.lila-link-group {
 
   display: flex;
   flex-wrap: wrap;

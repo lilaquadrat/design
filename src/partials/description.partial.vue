@@ -1,5 +1,5 @@
 <template>
-  <section class="description-partial" :class="[type, { padding: padding, margin: margin, background: background }]">
+  <section class="lila-description-partial" :class="[type, { padding: padding, margin: margin, background: background }]">
     <h4 v-if="label">{{ label | translate }}</h4>
     <p><slot></slot></p>
   </section>
@@ -25,7 +25,7 @@ export default class DescriptionPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.description-partial {
+.lila-description-partial {
   .font-bold;
   color: @color1;
   font-size: @fontTextSmaller;

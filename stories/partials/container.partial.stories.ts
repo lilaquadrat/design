@@ -291,6 +291,7 @@ export const content = Template.bind({});
 
 content.args = {
   settings: { mode: 'content' },
+  inline: true,
   top: [],
   bottom: [],
   content: [

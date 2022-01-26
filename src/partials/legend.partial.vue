@@ -1,5 +1,5 @@
 <template>
-  <section class="legend">
+  <section class="lila-legend">
     <p v-for="(single, index) in text" :key="`legend-${index}`">
       {{ single }}
     </p>
@@ -18,7 +18,7 @@ export default class LegendPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.legend {
+.lila-legend {
 
   display: flex;
   flex-direction: row-reverse;

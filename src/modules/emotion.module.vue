@@ -1,5 +1,5 @@
 <template>
-    <section :class="[view, fontVariant, variant, {hasImage: background}]" class="module emotion-module fullscreen">
+    <section :class="[view, fontVariant, variant, {hasImage: background}]" class="lila-module emotion-module fullscreen">
 
         <picture-partial class="background" v-if="background" v-bind="background" />
         <video-partial class="background" v-if="video" v-bind="video" />
@@ -134,26 +134,26 @@ export default class EmotionModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.emotion-module {
+.lila-module.emotion-module {
   .module;
 
-  height: 100vh;
+  position: relative;
+
+  display: grid;
+  overflow: hidden;
   width: 100%;
+
+  height: 100vh;
 
   .modulePadding('full');
 
-  position: relative;
-  overflow: hidden;
-
-  display: grid;
-
   video,
   figure.background::v-deep {
-
-    z-index: 0;
     position: absolute;
     top: 0;
     left: 0;
+
+    z-index: 0;
     width: 100%;
     height: 100%;
 
@@ -162,13 +162,13 @@ export default class EmotionModule extends ExtComponent {
     }
 
     img {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      object-fit: cover;
       position: absolute;
       top: 0;
       left: 0;
+      object-fit: cover;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
     }
 
   }
@@ -191,20 +191,21 @@ export default class EmotionModule extends ExtComponent {
 
   .scrollButton {
 
-    justify-self: center;
-    display: grid;
-    color: @white;
-
     position: absolute;
+    right: 0;
     bottom: 50px;
     left: 0;
-    right: 0;
+    display: grid;
+
+    justify-self: center;
 
     margin: auto;
+    color: @white;
   }
 
   a, .more {
     line-height: @buttonLineHeight;
+
     &.callToAction {
       border: none;
     }
@@ -215,7 +216,7 @@ export default class EmotionModule extends ExtComponent {
     font-size: @fontText;
   }
 
-  .textblock {
+  .lila-textblock {
     max-width: @moduleWidth_S;
   }
 
@@ -229,6 +230,7 @@ export default class EmotionModule extends ExtComponent {
     }
 
     h1 {
+
       &:after {
         background-color: @white;
       }
@@ -259,18 +261,19 @@ export default class EmotionModule extends ExtComponent {
   }
 
   .position-container {
-
-    max-width: @desktopWidthExt;
     position: relative;
+
+    display: grid;
+    gap: 20px;
     align-self: end;
     justify-self: center;
 
     width: 100%;
 
-    display: grid;
-    gap: 20px;
+    max-width: @desktopWidthExt;
 
     picture {
+
       img {
         max-height: 30vh;
       }
@@ -287,10 +290,10 @@ export default class EmotionModule extends ExtComponent {
       picture {
 
         display: grid;
-        justify-content: center;
-        text-align: center;
 
         grid-row-start: 3;
+        justify-content: center;
+        text-align: center;
       }
 
     }
@@ -305,20 +308,21 @@ export default class EmotionModule extends ExtComponent {
     .position-container {
 
       position: relative;
-      left: auto;
       bottom: auto;
-
-      max-width: @desktopWidthExt;
+      left: auto;
       width: 100%;
 
-      h1, h2, h3, p {
-        max-width: 70%;
-      }
+      max-width: @desktopWidthExt;
 
       @media @desktop {
+
         h1, h2, h3, p {
           max-width: 60%;
         }
+      }
+
+      h1, h2, h3, p {
+        max-width: 70%;
       }
 
     }
@@ -330,12 +334,15 @@ export default class EmotionModule extends ExtComponent {
 
     .position-container {
 
+      .multi(padding, 8);
+
       position: absolute;
       display: grid;
+      gap: 40px;
       align-self: center;
       justify-self: center;
 
-      .textblock {
+      .lila-textblock {
 
         justify-self: center;
 
@@ -356,9 +363,6 @@ export default class EmotionModule extends ExtComponent {
 
       }
 
-      .multi(padding, 8);
-      gap: 40px;
-
       ul {
         justify-content: center;
       }
@@ -371,7 +375,7 @@ export default class EmotionModule extends ExtComponent {
         position: relative;
         .multi(padding, 0);
 
-        .textblock {
+        .lila-textblock {
 
           grid-template-columns: 1fr;
 
@@ -391,12 +395,12 @@ export default class EmotionModule extends ExtComponent {
 
   &.textBackground {
 
-    .textblock {
+    .lila-textblock {
+
+      width: auto;
 
       background-color: rgba(255, 255, 255, .8);
       .multi(padding, 4);
-
-      width: auto;
 
     }
 
@@ -405,9 +409,9 @@ export default class EmotionModule extends ExtComponent {
   ul {
 
     display: flex;
+    flex-wrap: wrap;
     gap: 10px 20px;
     justify-content: start;
-    flex-wrap: wrap;
 
   }
 }

@@ -157,7 +157,7 @@ export default class EditorChildScreen extends ExtComponent {
       const index = contentPosition.findIndex((single) => single.uuid === active.uuid);
       const module = document.querySelector(
         // eslint-disable-next-line max-len
-        `${containerSelector} .module:nth-child(${index + 1}), ${containerSelector} .partial-container:nth-child(${index + 1})`,
+        `${containerSelector} .lila-module:nth-child(${index + 1}), ${containerSelector} .partial-container:nth-child(${index + 1})`,
       );
 
       if (!module) return;

@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant, view]" class="module picture-module">
+  <section :class="[variant, view]" class="lila-picture-module lila-module">
     <textblock-partial v-bind="$props" />
     <highlight-partial v-bind="$props"></highlight-partial>
   </section>

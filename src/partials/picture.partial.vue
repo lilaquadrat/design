@@ -6,6 +6,8 @@
       { noLoadAnimation: noLoadAnimation },
       { fit },
     ]"
+
+    class="lila-figure"
   >
     <picture>
       <template v-if="loadImage">
@@ -163,7 +165,7 @@ export default class PicturePartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-a.logo > figure {
+.lila-link.logo > .lila-figure {
 
   picture {
     mix-blend-mode: normal;
@@ -175,7 +177,7 @@ a.logo > figure {
 
 }
 
-figure {
+.lila-figure {
   position: relative;
   display: grid;
 

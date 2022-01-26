@@ -1,5 +1,5 @@
 <template>
-  <section :class="[view, variant]" class="module facts-module">
+  <section :class="[view, variant]" class="lila-facts-module lila-module">
     <textblock-partial class="intro-textblock" v-bind="textblock" />
 
     <section class="complete-container">
@@ -19,7 +19,7 @@
       </div>
 
       <div v-if="!isVariant1" class="facts-container">
-        <fact-partial v-for="(element, index) in elements" :key="`fact-index-${index}`" v-bind="element"/>
+        <fact-partial v-for="(element, index) in elements" :variant="variant" :key="`fact-index-${index}`" v-bind="element"/>
       </div>
 
       <slot></slot>
@@ -66,13 +66,20 @@ export default class FactsModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.module.facts-module {
+.lila-facts-module {
   .module;
   .modulePadding();
 
+  gap: 40px;
+
   max-width: @moduleWidth_S;
 
-  gap: 40px;
+  @media @desktop {
+
+    figure {
+      display: grid;
+    }
+  }
 
   figure {
     display: none;
@@ -83,12 +90,6 @@ export default class FactsModule extends ExtComponent {
     grid-row-gap: 40px;
   }
 
-  @media @desktop {
-    figure {
-      display: grid;
-    }
-  }
-
   .complete-container {
     display: grid;
     gap: 40px 0;
@@ -97,6 +98,7 @@ export default class FactsModule extends ExtComponent {
   &.variant1 {
 
     @media @desktop {
+
       .complete-container {
         display: grid;
         grid-template-columns: min-content 1fr;
@@ -109,34 +111,37 @@ export default class FactsModule extends ExtComponent {
       align-content: start;
 
       li {
-        line-height: 20px;
 
         display: grid;
         grid-template-columns: 20px auto;
 
         align-content: start;
+        line-height: 20px;
 
         .icon {
-          height: 20px;
           align-self: start;
+          height: 20px;
         }
       }
 
       li {
-        button {
+
+        .lila-button::v-deep {
           .font-bold;
-
-          cursor: pointer;
-
-          text-transform: uppercase;
+          height: 30px;
           color: @textColor;
+          line-height: 30px;
 
           text-align: left;
+
+          text-transform: uppercase;
+
+          cursor: pointer;
 
           .trans(opacity);
 
           &:hover {
-            opacity: 0.5;
+            opacity: .5;
           }
 
           &.active {
@@ -150,21 +155,22 @@ export default class FactsModule extends ExtComponent {
   &.variant2 {
     max-width: @moduleWidth_M;
 
-    .textblock {
-      max-width: @moduleWidth_S;
+    @media @desktop {
+
+      .facts-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    .lila-textblock {
       justify-self: center;
+      max-width: @moduleWidth_S;
     }
 
     .facts-container {
       display: grid;
       justify-content: center;
-    }
-
-    @media @desktop {
-      .facts-container {
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-      }
     }
   }
 }

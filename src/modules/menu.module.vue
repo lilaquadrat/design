@@ -1,5 +1,5 @@
 <template>
-  <nav :class="[view, variant, { open: open }]" class="menu menu-module">
+  <nav :class="[view, variant, { open: open }]" class="lila-menu-module lila-module">
     <section class="placeholder"></section>
 
     <section class="overflow-container">
@@ -198,7 +198,7 @@ export default class MenuModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.menu {
+.lila-menu-module {
   .index(8);
 
   position: relative;

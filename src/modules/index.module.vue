@@ -1,5 +1,5 @@
 <template>
-<section :class="[view]" class="module index-module">
+<section :class="[view]" class="lila-index-module lila-module">
   <list-partial v-bind="index"></list-partial>
   <slot></slot>
   <legend-partial v-bind="legend"></legend-partial>
@@ -31,7 +31,7 @@ export default class IndexModule extends ExtComponent {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.index-module {
+.lila-index-module {
   .module;
 
   display: grid;
