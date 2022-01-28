@@ -381,7 +381,7 @@ export default class MenuModule extends ExtComponent {
 
   }
 
-  a::v-deep, button::v-deep {
+  a::v-deep, button {
     .font-head;
 
     .multi(padding, 0, 8);
@@ -421,6 +421,17 @@ export default class MenuModule extends ExtComponent {
       @media @wide {
         background-color: transparent;
       }
+    }
+
+    &.lila-link {
+
+      &.hasIcon {
+
+        .lila-icon-partial {
+          display: grid;
+        }
+      }
+
     }
 
     svg {

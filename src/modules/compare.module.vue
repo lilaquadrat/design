@@ -18,19 +18,17 @@
         <tr :class="{head: lineIndex === 0, group: line.length === 1}" :style="amountStyle"
         v-for="(line, lineIndex) in modifiedElements" :key="`elements-${lineIndex}`">
 
-          <td :class="{structure: singleIndex === 0}" :colspan="elementsLength(line.length === 1)"
-          v-for="(single, singleIndex) in line"
-          :key="`line-${singleIndex}`">
+          <td :class="{structure: singleIndex === 0}" :colspan="elementsLength(line.length === 1)" v-for="(single, singleIndex) in line" :key="`line-${singleIndex}`">
 
             <template v-if="single.headline || single.description">
-              <h3 v-if="single.headline">{{single.headline}}</h3>
+              <h3 :title="single.headline" v-if="single.headline">{{single.headline}}</h3>
               <p v-if="single.description">{{single.description}}</p>
               <h4 class="index">{{singleIndex}}*</h4>
             </template>
             <template v-else>
               <icons-partial type="checked" size="small" v-if="single === 'yes'" class="icon checkbox-checked_color1">yes</icons-partial>
               <icons-partial type="close" size="small" v-else-if="single === 'no'" class="icon cancel_color1">no</icons-partial>
-              <template v-else>{{single}}</template>
+              <template v-else><abbr :title="single">{{single}}</abbr></template>
             </template>
 
           </td>
@@ -231,13 +229,15 @@ export {
 
         td {
 
-          .multi(padding, 4, 0);
+          .multi(padding, 4, 1);
 
           border-bottom: solid 1px @grey;
           border-top: solid 1px @grey;
 
           width: calc(75% / var(--amount));
           text-align: center;
+          text-overflow: ellipsis;
+          overflow: hidden;
 
           .icon {
             display: inline;

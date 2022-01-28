@@ -136,7 +136,6 @@ export default class VideoPartial extends ExtComponent {
 
         if (typeof element.load !== 'function') return;
         element.load();
-        console.log(element);
 
         if (this.attributes?.includes('play')) {
 

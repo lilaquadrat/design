@@ -6,8 +6,7 @@
 
     <section class="elements-container">
 
-      <component v-for="(element, index) in elements"
-      :key="`picturegroup-element-${index}`" class="element" :is="componentType(element.link)" v-bind="element.link">
+      <component v-for="(element, index) in elements" :key="`picturegroup-element-${index}`" class="element" :is="componentType(element.link)" v-bind="element.link">
         <picture-partial v-if="element.picture" :fit="fitVariant" v-bind="element.picture" />
         <textblock-partial :variant="[brightText]" v-if="element.textblock" v-bind="element.textblock"></textblock-partial>
         <list-partial :variant="['noStyle']" v-bind="element.list"></list-partial>

@@ -24,9 +24,9 @@
         <h3>{{ social.title }}</h3>
 
         <div class="icon-container">
-          <a v-for="(element, index) in social.elements" :key="`social-elements-${index}`" :href="element.link.link">
+          <link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`" :link="element.link.link">
             <picture-partial v-bind="element.picture" />
-          </a>
+          </link-partial>
         </div>
       </section>
     </section>
@@ -66,6 +66,7 @@ export default class FooterModule extends ExtComponent {
   display: grid;
   grid-template-rows: min-content min-content min-content;
   gap: 40px;
+  width: 100%;
   max-width: @desktopWidthExt;
   margin: auto;
 
@@ -120,7 +121,7 @@ export default class FooterModule extends ExtComponent {
 
       gap: 10px;
 
-      a {
+      .lila-link::v-deep {
 
         display: grid;
 

@@ -1,5 +1,5 @@
 <template functional>
-  <section class="content-module">
+  <section class="lila-content-module">
 
     <article class="top container" :inline="props.inline" v-if="!!props.data.top.length">
       <component v-for="(single, i) in props.data.top" :class="single.classes" :is="single.type" :key="`module-${single.type}-${i}`" v-bind="single" />
@@ -28,7 +28,7 @@ export default class ContentModule extends FunctionalComponent<ContentData> {}
 <style lang="less" scoped>
 @import (reference) '@{projectPath}/source/less/shared.less';
 
-.content-module {
+.lila-content-module {
   position: relative;
   overflow-y: hidden;
 
@@ -45,6 +45,13 @@ export default class ContentModule extends FunctionalComponent<ContentData> {}
 
     &.top, &.inline {
       .multi(margin-bottom, 0);
+
+      .lila-module {
+
+        &:first-child {
+          .multi(margin-top, 0);
+        }
+      }
     }
 
     .lila-module {
@@ -54,16 +61,6 @@ export default class ContentModule extends FunctionalComponent<ContentData> {}
         .multi(margin-top, 16);
 
         &.fullscreen {
-          .multi(margin-top, 0);
-        }
-      }
-    }
-
-    &.inline {
-
-      .lila-module {
-
-        &:first-child {
           .multi(margin-top, 0);
         }
       }

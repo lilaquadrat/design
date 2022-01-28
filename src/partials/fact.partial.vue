@@ -34,7 +34,7 @@ export default class FactPartial extends ExtPartial {
 
     &.hasPicture {
       grid-template-columns: 15% 1fr;
-      grid-column-gap: 20px;
+      grid-column-gap: 40px;
     }
 
     .lila-figure::v-deep {
@@ -42,9 +42,20 @@ export default class FactPartial extends ExtPartial {
     }
   }
 
-  img::v-deep {
-    max-width: 80px;
-    max-height: 80px;
+  .lila-figure {
+    display: none;
+
+    @media @desktop {
+      display: grid;
+    }
+  }
+
+  .lila-figure::v-deep {
+
+    img {
+      max-width: 80px;
+      max-height: 80px;
+    }
   }
 
   &.variant2 {

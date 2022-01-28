@@ -152,7 +152,7 @@ export default class EditorChildScreen extends ExtComponent {
 
     vue.nextTick().then(() => {
 
-      const containerSelector = active.position === 'content' ? '.content-module .container:nth-child(2)' : `.content-module .container.${active.position}`;
+      const containerSelector = active.position === 'content' ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${active.position}`;
       const contentPosition = active.position === 'content' ? this.content : this[active.position];
       const index = contentPosition.findIndex((single) => single.uuid === active.uuid);
       const module = document.querySelector(

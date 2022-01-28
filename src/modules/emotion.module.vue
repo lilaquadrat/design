@@ -22,9 +22,9 @@
 
         </div>
 
-        <button @click="scrollToNext" v-if="scrollNotice" class="scrollButton">
+        <button-partial @click="scrollToNext" v-if="scrollNotice" class="scrollButton">
             <icons-partial colorScheme="white" size="large" type="mouse"></icons-partial>
-        </button>
+        </button-partial>
 
     </section>
 

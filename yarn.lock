@@ -1551,10 +1551,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@lilaquadrat/cli@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@lilaquadrat/cli/-/cli-0.9.1.tgz#61ba432b110303d77bfaa0bc73af4e3e8ea6fd2e"
-  integrity sha512-fr6olrchEN5IwIzIFq8KBUoi3c+yUtZ0/Gj+wbc1+1CS9gFeQdoFTXUSVWF8dEVwa64AhliTmQg9vTNFhyE35A==
+"@lilaquadrat/cli@^0.9.2":
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/@lilaquadrat/cli/-/cli-0.9.2.tgz#39c9a216275ecdacaa34bd90a2e19ea45e759acb"
+  integrity sha512-FrklYOnRVej2S751US1L6vsQa2ife48r3QcrH/otwP5kQOlATiu7ceyMinG/16UEWq/WL3ECjWvIWwd8HTgKoA==
   dependencies:
     archiver "^5.0.0"
     axios "^0.24.0"
