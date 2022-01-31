@@ -23,8 +23,8 @@
     "bundle": "webpack --config webpack.bundle.js --progress",
     "bundle-preview": "webpack --config webpack.dev-bundle.js --progress",
     "cli": "node node_modules/@lilaquadrat/cli/lib/src/index.js",
-    "storybook": "start-storybook -s ./src/source/storybook -p 6006",
-    "build-storybook": "build-storybook -s ./src/source/storybook"
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
@@ -61,7 +61,6 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
-    "dayjs": "^1.10.7",
     "eslint": "^8.6.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
@@ -115,7 +114,8 @@
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.3",
     "vue-youtube-embed": "^2.2.2",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "dayjs": "^1.10.7"
   },
   "repository": {
     "type": "git",

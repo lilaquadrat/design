@@ -3,9 +3,8 @@ const path = require('path');
 
 module.exports = {
   "stories": [
-    "./../stories/partials/container.partial.stories.@(js|jsx|ts|tsx)",
-    "./../stories/partials/*.partial.stories.@(js|jsx|ts|tsx)",
-    "./../stories/modules/*.module.stories.@(js|jsx|ts|tsx)",
+    "./../../../../stories/partials/*.partial.stories.@(js|jsx|ts|tsx)",
+    "./../../../../stories/modules/*.module.stories.@(js|jsx|ts|tsx)",
   ],
   "addons": [
     "@storybook/addon-links",
@@ -15,7 +14,6 @@ module.exports = {
   core: {
     builder: "webpack5",
   },
-  staticDirs: ['../src/source/storybook'],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.

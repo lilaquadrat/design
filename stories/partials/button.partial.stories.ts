@@ -1,5 +1,5 @@
 export default {
-  title: 'Forms/Button',
+  title: 'Basics/Button',
   argTypes: {
     colorScheme: { control: { type: 'select', options: ['colorScheme1', 'colorScheme2', 'transparent'] } },
     doublecheck: { control: { type: 'boolean' } },
