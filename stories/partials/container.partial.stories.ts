@@ -182,7 +182,9 @@ presentation.args = {
         title: 'Social',
         elements: [
           {
-            link: 'https://fb.com',
+            link: {
+              link: 'https://fb.com',
+            },
             picture: {
               source: [],
               alt: 'IMAGE ALT',
@@ -190,7 +192,9 @@ presentation.args = {
             },
           },
           {
-            link: 'https://twitter.com',
+            link: {
+              link: 'https://twitter.com',
+            },
             picture: {
               source: [],
               alt: 'IMAGE ALT',
@@ -283,6 +287,7 @@ presentation.args = {
           ],
         },
       ],
+
     },
   ],
 };
@@ -391,7 +396,9 @@ content.args = {
         title: 'Social',
         elements: [
           {
-            link: 'https://fb.com',
+            link: {
+              link: 'https://fb.com',
+            },
             picture: {
               source: [],
               alt: 'IMAGE ALT',
@@ -399,7 +406,9 @@ content.args = {
             },
           },
           {
-            link: 'https://twitter.com',
+            link: {
+              link: 'https://twitter.com',
+            },
             picture: {
               source: [],
               alt: 'IMAGE ALT',
@@ -492,6 +501,7 @@ content.args = {
           ],
         },
       ],
+
     },
   ],
 };

@@ -15,7 +15,7 @@ yarn-error.log
 settings/
 storybook-static/
 projects/*
-!projects/lilaquadrat/
+!projects/lilaquadrat/base
 .history
 tools
 *.pem

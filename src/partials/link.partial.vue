@@ -39,6 +39,8 @@ export default class LinkPartial extends ExtPartial {
 
   analyse(link: string): void {
 
+    if (typeof link !== 'string') return;
+
     this.external = !!link?.match(/^http/i);
 
   }

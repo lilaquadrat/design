@@ -1551,10 +1551,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@lilaquadrat/cli@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@lilaquadrat/cli/-/cli-0.9.2.tgz#39c9a216275ecdacaa34bd90a2e19ea45e759acb"
-  integrity sha512-FrklYOnRVej2S751US1L6vsQa2ife48r3QcrH/otwP5kQOlATiu7ceyMinG/16UEWq/WL3ECjWvIWwd8HTgKoA==
+"@lilaquadrat/cli@^0.9.3":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@lilaquadrat/cli/-/cli-0.9.3.tgz#098809267dc17001c9186dcb55f3272a07f0fd80"
+  integrity sha512-jqd2XjP8q8OSiB7xJXRrhEiENZXoXt3SFJgKvmap/bvEXJZmMaqpv0aX9HUQJQiqkb6Dk6VEEW3yDC28LqiaNw==
   dependencies:
     archiver "^5.0.0"
     axios "^0.24.0"
@@ -1563,6 +1563,7 @@
     commander "^8.3.0"
     filesize "^8.0.6"
     form-data "^4.0.0"
+    fs-extra "^10.0.0"
     handlebars "^4.7.6"
     inquirer "^8.2.0"
     open "^8.4.0"
@@ -8022,6 +8023,15 @@ fs-extra@^0.30.0:
     klaw "^1.0.0"
     path-is-absolute "^1.0.0"
     rimraf "^2.2.8"
+
+fs-extra@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
+  integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
 
 fs-extra@^7.0.1:
   version "7.0.1"
