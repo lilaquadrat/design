@@ -267,10 +267,8 @@ The architecture of STUDIO Design follows the idea of having a default design an
 
 With the following command, you create a new project under a company and extend the current default design.
 
-//TODO extend cli for creating a new project
-
 ```bash
-yarn cli create design
+yarn cli create
 ```
 
 #### change the default
