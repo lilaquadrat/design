@@ -1,6 +1,6 @@
 {
   "name": "@lilaquadrat/design",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "description": "design and content renderer for lilaquadrat STUDIO",
   "license": "CC-BY-NC-4.0",
   "homepage": "https://lilaquadrat.de",
@@ -11,7 +11,7 @@
     "src/mixins/**/*",
     "src/libs/**/*",
     "src/source/**/*",
-    "projects/lilaquadrat/**/*"
+    "base/lilaquadrat/**/*"
   ],
   "main": "main.ts",
   "scripts": {
