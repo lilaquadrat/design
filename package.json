@@ -1,6 +1,6 @@
 {
   "name": "@lilaquadrat/design",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "description": "design and content renderer for lilaquadrat STUDIO",
   "license": "CC-BY-NC-4.0",
   "homepage": "https://lilaquadrat.de",
@@ -107,6 +107,7 @@
   },
   "dependencies": {
     "@lilaquadrat/studio": "^2.2.0",
+    "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",
     "vue": "^2.6.14",
@@ -114,8 +115,7 @@
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.3",
     "vue-youtube-embed": "^2.2.2",
-    "vuex": "^3.6.2",
-    "dayjs": "^1.10.7"
+    "vuex": "^3.6.2"
   },
   "repository": {
     "type": "git",
