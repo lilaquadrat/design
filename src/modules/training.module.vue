@@ -1,27 +1,27 @@
 <template>
   <section :class="[view, variant]" class="lila-training-module lila-module fullscreen">
     <section v-if="textblock" class="module generic-module">
-      <textblock-partial v-bind="textblock" />
+      <lila-textblock-partial v-bind="textblock" />
     </section>
 
     <article class="main-grid-container">
       <section :class="{ open: headIndexOpen }" class="current-content-container" ref="currentContentContainer" v-if="currentContent">
         <section class="content-head">
           <div class="grid-container">
-            <button-partial class="base transparent titleButton" @click="toggleIndex">{{ currentContent.settings.title }}</button-partial>
+            <lila-button-partial class="base transparent titleButton" @click="toggleIndex">{{ currentContent.settings.title }}</lila-button-partial>
             <div class="current-indicator">{{ currentIndex + 1 }} von {{ contentCount }}</div>
           </div>
 
           <div :class="{ open: headIndexOpen }" class="headIndex">
             <ul>
               <li v-for="(teaser, index) in indexTeaser" :key="`teaser-head-index-${index}`">
-                <button-partial :class="{ active: index === currentIndex }" class="base transparent titleButton" @click="setIndex(index)">{{ teaser.settings.title }}</button-partial>
+                <lila-button-partial :class="{ active: index === currentIndex }" class="base transparent titleButton" @click="setIndex(index)">{{ teaser.settings.title }}</lila-button-partial>
               </li>
             </ul>
           </div>
         </section>
 
-        <content-module ref="currentContent" class="currentContent" :key="currentContent.id" :data="currentContent"></content-module>
+        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :data="currentContent"></lila-content-module>
       </section>
       <section class="current-content-container" v-if="!currentContent">
         <section class="content-module"></section>

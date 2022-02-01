@@ -1,7 +1,7 @@
 <template>
 <section class="lila-compare-module lila-module">
 
-  <textblock-partial v-bind="textblock" />
+  <lila-textblock-partial v-bind="textblock" />
 
   <section v-if="modifiedElements" class="compare-container">
 
@@ -26,8 +26,8 @@
               <h4 class="index">{{singleIndex}}*</h4>
             </template>
             <template v-else>
-              <icons-partial type="checked" size="small" v-if="single === 'yes'" class="icon checkbox-checked_color1">yes</icons-partial>
-              <icons-partial type="close" size="small" v-else-if="single === 'no'" class="icon cancel_color1">no</icons-partial>
+              <lila-icons-partial type="checked" size="small" v-if="single === 'yes'" class="icon checkbox-checked_color1">yes</lila-icons-partial>
+              <lila-icons-partial type="close" size="small" v-else-if="single === 'no'" class="icon cancel_color1">no</lila-icons-partial>
               <template v-else><abbr :title="single">{{single}}</abbr></template>
             </template>
 

@@ -21,7 +21,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<div>Some text with a <link-partial v-bind="$props">Links</link-partial> in it.</div>',
+  template: '<div>Some text with a <lila-link-partial v-bind="$props">Links</lila-link-partial> in it.</div>',
 });
 
 export const basic = Template.bind({});

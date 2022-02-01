@@ -1,13 +1,13 @@
 import vue from 'vue';
+
 export default class loadComponents {
 
-  static lazy(requireModules: __WebpackModuleApi.RequireContext, folder: string) {
+  static lazy(requireModules: __WebpackModuleApi.RequireContext, folder: string, namespace?: string) {
 
     requireModules.keys().forEach((filename: string) => {
 
       const matches = filename.match(/([a-z-]+)\.(module|partial).(vue|ts)$/i);
-      const componentName = `${matches[1]}-${matches[2]}`;
-
+      const componentName = namespace ? `${namespace}-${matches[1]}-${matches[2]}` : `${matches[1]}-${matches[2]}`;
       /**
          * check if file is inside of his own folder
         */
@@ -36,12 +36,12 @@ export default class loadComponents {
 
   }
 
-  static sync(requireModules: __WebpackModuleApi.RequireContext, folder: string) {
+  static sync(requireModules: __WebpackModuleApi.RequireContext, folder: string, namespace?: string) {
 
     requireModules.keys().forEach((filename: string) => {
 
       const matches = filename.match(/([a-z-]+)\.(module|partial).(vue|ts)$/i);
-      const componentName = `${matches[1]}-${matches[2]}`;
+      const componentName = namespace ? `${namespace}-${matches[1]}-${matches[2]}` : `${matches[1]}-${matches[2]}`;
 
       if (folder === 'modules') {
 

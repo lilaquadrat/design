@@ -15,7 +15,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<menu-module v-bind="$props" />',
+  template: '<lila-menu-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});

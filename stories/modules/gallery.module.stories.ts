@@ -15,10 +15,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<gallery-module v-bind="$props" />',
+  template: '<lila-gallery-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     // eslint-disable-next-line max-len
@@ -52,6 +53,7 @@ basic.args = {
 };
 
 export const multiPictures = Template.bind({});
+
 multiPictures.args = {
   textblock: {
     // eslint-disable-next-line max-len
@@ -109,6 +111,7 @@ multiPictures.args = {
 };
 
 export const noDescription = Template.bind({});
+
 noDescription.args = {
   textblock: {
     // eslint-disable-next-line max-len
@@ -134,6 +137,7 @@ noDescription.args = {
 };
 
 export const elementIndicator = Template.bind({});
+
 elementIndicator.args = {
   textblock: {
     // eslint-disable-next-line max-len

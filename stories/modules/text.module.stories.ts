@@ -22,7 +22,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<text-module v-bind="$props"></text-module>',
+  template: '<lila-text-module v-bind="$props"></lila-text-module>',
 });
 
 export const basic = Template.bind({});

@@ -5,10 +5,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<compare-module v-bind="$props" />',
+  template: '<lila-compare-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   structure: [
     {

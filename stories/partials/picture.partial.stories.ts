@@ -6,7 +6,7 @@ export default {
 
 const Template = (args: unknown, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<picture-partial v-bind="$props" />',
+  template: '<lila-picture-partial v-bind="$props" />',
 });
 
 export const basic = Template.bind({});

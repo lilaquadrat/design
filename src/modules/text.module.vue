@@ -1,10 +1,10 @@
 <template>
   <section :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
 
-    <textblock-partial v-bind="$props" :variant="textblockVariant" />
+    <lila-textblock-partial v-bind="$props" :variant="textblockVariant" />
 
-    <list-partial v-bind="list" mode="list" :variant="listVariant('list')"></list-partial>
-    <list-partial v-bind="links" mode="links" :variant="listVariant('links')"></list-partial>
+    <lila-list-partial v-bind="list" mode="list" :variant="listVariant('list')"></lila-list-partial>
+    <lila-list-partial v-bind="links" mode="links" :variant="listVariant('links')"></lila-list-partial>
 
     <slot></slot>
 

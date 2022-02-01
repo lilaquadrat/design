@@ -1,9 +1,9 @@
 <template>
 <section class="lila-fact-partial" :class="[variant, {hasPicture: picture}]">
 
-    <picture-partial v-if="picture" v-bind="picture" />
+    <lila-picture-partial v-if="picture" v-bind="picture" />
 
-    <textblock-partial v-bind="textblock" />
+    <lila-textblock-partial v-bind="textblock" />
 
     <slot></slot>
 

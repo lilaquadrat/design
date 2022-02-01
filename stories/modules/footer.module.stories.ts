@@ -7,7 +7,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<footer-module v-bind="$props" />',
+  template: '<lila-footer-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});

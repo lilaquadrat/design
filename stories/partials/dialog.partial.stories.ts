@@ -8,7 +8,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<dialog-partial v-bind="$props">{{$props.text}}</dialog-partial>',
+  template: '<lila-dialog-partial v-bind="$props">{{$props.text}}</lila-dialog-partial>',
 });
 
 export const basic = Template.bind({});

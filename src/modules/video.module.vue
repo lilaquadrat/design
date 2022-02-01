@@ -4,13 +4,13 @@
 
     <section class="video-container">
 
-      <video-partial :trigger="clickEvent" :js="js" v-bind="video" @playing="toggle" @ended="ended" />
+      <lila-video-partial :trigger="clickEvent" :js="js" v-bind="video" @playing="toggle" @ended="ended" />
 
       <section class="position-container" :class="{visible: !playing}">
-        <textblock-partial v-if="textblock" v-bind="textblock" :variant="variant" />
+        <lila-textblock-partial v-if="textblock" v-bind="textblock" :variant="variant" />
       </section>
 
-      <picture-partial class="posterExt" v-if="hasPoster" :class="{visible: !playing}" v-bind="poster" />
+      <lila-picture-partial class="posterExt" v-if="hasPoster" :class="{visible: !playing}" v-bind="poster" />
 
     </section>
 

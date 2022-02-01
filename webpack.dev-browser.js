@@ -17,7 +17,7 @@ module.exports = (env) => merge(config, {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    app: `./projects/${env.company}/${env.project}/app.ts`
+    app: `./${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}/app.ts`
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -95,7 +95,7 @@ module.exports = (env) => merge(config, {
               lessOptions: {
                 relativeUrls: false,
                 modifyVars: {
-                  projectPath: `/projects/${env.company}/${env.project}`
+                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
                 },
               }
             },

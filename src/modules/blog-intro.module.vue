@@ -4,21 +4,21 @@
   <header>
     <template v-if="!linkExists">
       <time v-if="date">{{date}}</time>
-      <textblock-partial class="top" v-bind="textTop" />
+      <lila-textblock-partial class="top" v-bind="textTop" />
     </template>
 
-    <link-partial v-if="linkExists" v-bind="link">
+    <lila-link-partial v-if="linkExists" v-bind="link">
       <time v-if="date">{{date}}</time>
-      <textblock-partial class="top" v-bind="textTop" />
-    </link-partial>
+      <lila-textblock-partial class="top" v-bind="textTop" />
+    </lila-link-partial>
   </header>
 
-  <link-partial v-bind="link" v-if="linkExists">
-    <picture-partial v-if="picture" v-bind="picture" />
-  </link-partial>
-  <picture-partial v-else-if="picture" v-bind="picture" />
+  <lila-link-partial v-bind="link" v-if="linkExists">
+    <lila-picture-partial v-if="picture" v-bind="picture" />
+  </lila-link-partial>
+  <lila-picture-partial v-else-if="picture" v-bind="picture" />
 
-  <textblock-partial class="bottom" v-bind="textBottom" />
+  <lila-textblock-partial class="bottom" v-bind="textBottom" />
 
   <address v-if="author">Von {{author}}</address>
 

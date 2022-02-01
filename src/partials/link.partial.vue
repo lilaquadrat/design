@@ -8,7 +8,7 @@
     :href="link"
     @click="event"
     >
-    <icons-partial v-if="icon" :type="icon" size="small" />
+    <lila-icons-partial v-if="icon" :type="icon" size="small" />
     {{ text }}
     <slot v-if="!text"></slot>
   </component>

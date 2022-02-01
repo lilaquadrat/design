@@ -1,25 +1,25 @@
 <template>
   <section :class="[view, variant]" class="lila-facts-module lila-module">
-    <textblock-partial class="intro-textblock" v-bind="textblock" />
+    <lila-textblock-partial class="intro-textblock" v-bind="textblock" />
 
     <section class="complete-container">
       <section v-if="isVariant1" class="list-links">
         <ul>
           <li v-for="(element, index) in elements" :key="`elements-${index}`">
-            <icons-partial size="small" type="arrow-right"></icons-partial>
-            <button-partial noPadding :class="{ active: index === active }"  @click="setActive(index)">
+            <lila-icons-partial size="small" type="arrow-right"></lila-icons-partial>
+            <lila-button-partial noPadding :class="{ active: index === active }"  @click="setActive(index)">
               {{ element.textblock.subline }}
-            </button-partial>
+            </lila-button-partial>
           </li>
         </ul>
       </section>
 
       <div v-if="isVariant1" class="facts-container">
-        <fact-partial v-bind="elements[active]" />
+        <lila-fact-partial v-bind="elements[active]" />
       </div>
 
       <div v-if="!isVariant1" class="facts-container">
-        <fact-partial v-for="(element, index) in elements" :variant="variant" :key="`fact-index-${index}`" v-bind="element"/>
+        <lila-fact-partial v-for="(element, index) in elements" :variant="variant" :key="`fact-index-${index}`" v-bind="element"/>
       </div>
 
       <slot></slot>

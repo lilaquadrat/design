@@ -6,7 +6,7 @@
       <section class="links-container">
         <section class="base-container">
           <a class="logo" href="/">
-            <picture-partial v-if="picture" v-bind="picture" />
+            <lila-picture-partial v-if="picture" v-bind="picture" />
             <template v-if="name">{{ name }}</template>
           </a>
         </section>
@@ -23,18 +23,18 @@
         <transition mode="out-in" name="links">
           <section class="links" v-if="!isLeft">
             <template v-for="(element, index) in elementsArray">
-              <link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element"></link-partial>
+              <lila-link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element" />
 
               <section :key="`group-${index}`" v-if="element.links" class="link-group main">
                 <button :class="{hasIcon: element.icon}" @click="toggleElement(element)">
-                  <icons-partial v-if="element.icon" :type="element.icon" size="small" />
+                  <lila-icons-partial v-if="element.icon" :type="element.icon" size="small" />
                   {{ element.text }}
                 </button>
 
                 <transition mode="out-in" name="menu">
                   <ul class="link-list" v-if="element.links && element.active">
                     <li :key="`sublinks-${index}`" v-for="(single, index) in element.links">
-                      <link-partial v-if="single.text" v-bind="single"></link-partial>
+                      <lila-link-partial v-if="single.text" v-bind="single"></lila-link-partial>
                     </li>
                   </ul>
                 </transition>
@@ -48,15 +48,15 @@
       <section class="link-group-container" v-if="isLeft">
         <section class="links">
           <template v-for="(element, index) in elementsArray">
-            <link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element"></link-partial>
+            <lila-link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element" />
             <section :key="`group-${index}`" v-if="element.links" class="link-group main">
               <button :class="{hasIcon: element.icon}" @click="toggleElement(element)">
-                <icons-partial v-if="element.icon" colorScheme="white" :type="element.icon" size="small" /> {{ element.text }}
+                <lila-icons-partial v-if="element.icon" colorScheme="white" :type="element.icon" size="small" /> {{ element.text }}
               </button>
               <transition mode="out-in" name="menu">
                 <ul class="link-list" v-if="element.links && element.active">
                   <li :key="`sublinks-${index}`" v-for="(single, index) in element.links">
-                    <link-partial v-if="single.text" v-bind="single"></link-partial>
+                    <lila-link-partial v-if="single.text" v-bind="single"></lila-link-partial>
                   </li>
                 </ul>
               </transition>

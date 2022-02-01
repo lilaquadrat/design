@@ -5,15 +5,15 @@
         <template v-for="(element, elementIndex) in elements">
           <div class="element" :key="`gallery-element-${elementIndex}`" :style="cssWidth" :class="{hasImage: element.picture || element.pictures}" @click="set($event, element)" @keyup="set($event, element)">
             <div class="picture-container" v-if="element && element.picture">
-              <picture-partial :key="`gallery-placeholder-${elementIndex}`" class="placeholder" v-bind="element.picture" />
-              <picture-partial :key="`gallery-picture-${elementIndex}`" @loaded="pictureLoaded" class="active picture" v-bind="element.picture" />
+              <lila-picture-partial :key="`gallery-placeholder-${elementIndex}`" class="placeholder" v-bind="element.picture" />
+              <lila-picture-partial :key="`gallery-picture-${elementIndex}`" @loaded="pictureLoaded" class="active picture" v-bind="element.picture" />
             </div>
 
             <template v-if="element.pictures">
               <template v-for="(picture, index) in element.pictures">
                 <div v-if="(imageIndex === index && currentOptionIndex === elementIndex) || (currentOptionIndex !== elementIndex && index === 0)" :key="`singlePicture-${index}`" class="picture-container">
-                  <picture-partial :key="`gallery-placeholder-${index}`" class="placeholder" v-bind="element.pictures[0]"/>
-                  <picture-partial :key="`gallery-picture-${index}`" observerroot="$refs.scrollContainer" class="picture active" noLoadAnimation @loaded="pictureLoaded" v-bind="picture"/>
+                  <lila-picture-partial :key="`gallery-placeholder-${index}`" class="placeholder" v-bind="element.pictures[0]"/>
+                  <lila-picture-partial :key="`gallery-picture-${index}`" observerroot="$refs.scrollContainer" class="picture active" noLoadAnimation @loaded="pictureLoaded" v-bind="picture"/>
                 </div>
               </template>
             </template>
@@ -22,7 +22,7 @@
               <span class="indicator" v-for="(picture, index) in element.pictures" :class="{ active: imageIndex === index }" :key="`picture-indicator-${index}`"></span>
             </div>
 
-            <textblock-partial v-if="element.textblock && !variant2" v-bind="element.textblock" class="picture-description"> </textblock-partial>
+            <lila-textblock-partial v-if="element.textblock && !variant2" v-bind="element.textblock" class="picture-description"> </lila-textblock-partial>
           </div>
         </template>
       </div>
@@ -35,30 +35,30 @@
     </div>
 
     <div v-if="!variant2 && firstLoad" :style="controlsTop" class="gallery-controls">
-      <button-partial icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
-        <icons-partial colorScheme="white" type="arrow-left" />
-      </button-partial>
+      <lila-button-partial icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
+        <lila-icons-partial colorScheme="white" type="arrow-left" />
+      </lila-button-partial>
 
-      <button-partial icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
-        <icons-partial colorScheme="white" type="arrow-right" />
-      </button-partial>
+      <lila-button-partial icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
+        <lila-icons-partial colorScheme="white" type="arrow-right" />
+      </lila-button-partial>
     </div>
 
     <div v-if="variant2" class="container gallery-controls">
       <div class="row-container">
-        <button-partial class="one-left control" icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
-          <icons-partial colorScheme="colorScheme1" size="small" type="arrow-left" />
-        </button-partial>
+        <lila-button-partial class="one-left control" icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
+          <lila-icons-partial colorScheme="colorScheme1" size="small" type="arrow-left" />
+        </lila-button-partial>
 
         <h4>{{ currentHeadline }}</h4>
 
-        <button-partial class="one-right control" icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
-          <icons-partial colorScheme="colorScheme1" size="small" type="arrow-right" />
-        </button-partial>
+        <lila-button-partial class="one-right control" icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
+          <lila-icons-partial colorScheme="colorScheme1" size="small" type="arrow-right" />
+        </lila-button-partial>
       </div>
 
       <div class="carousel-indicators carousel-indicators-numbers">
-        <button-partial class="indicator" icon v-for="(element, index) in elements" :key="`indicator-${index}`" :class="{ active: currentOptionIndex === index }" @click="indicatorchange(index)" />
+        <lila-button-partial class="indicator" icon v-for="(element, index) in elements" :key="`indicator-${index}`" :class="{ active: currentOptionIndex === index }" @click="indicatorchange(index)" />
       </div>
     </div>
   </section>

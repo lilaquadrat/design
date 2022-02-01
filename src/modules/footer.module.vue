@@ -7,7 +7,7 @@
 
           <ul class="icon-container">
             <li v-for="(element, index) in element.elements" :key="`sitemap-element-links-${index}`">
-              <link-partial v-bind="element"></link-partial>
+              <lila-link-partial v-bind="element"></lila-link-partial>
             </li>
           </ul>
         </section>
@@ -17,16 +17,16 @@
     <section class="contact-social-container">
       <section v-if="contact" class="contact">
         <h3>{{ contact.title }}</h3>
-        <h3><link-partial v-bind="contact.link" /></h3>
+        <h3><lila-link-partial v-bind="contact.link" /></h3>
       </section>
 
       <section v-if="social" class="social">
         <h3>{{ social.title }}</h3>
 
         <div class="icon-container">
-          <link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`" :link="element.link.link">
-            <picture-partial v-bind="element.picture" />
-          </link-partial>
+          <lila-link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`" :link="element.link.link">
+            <lila-picture-partial v-bind="element.picture" />
+          </lila-link-partial>
         </div>
       </section>
     </section>

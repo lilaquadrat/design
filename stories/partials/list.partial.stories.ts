@@ -17,7 +17,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<list-partial v-bind="$props">Links</list-partial>',
+  template: '<lila-list-partial v-bind="$props">Links</lila-list-partial>',
 });
 
 export const TextOnly = Template.bind({});

@@ -11,7 +11,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   // eslint-disable-next-line no-template-curly-in-string
-  template: '<content-module :data="$props"></content-module>',
+  template: '<lila-content-module :data="$props"></lila-content-module>',
 });
 
 export const presentation = Template.bind({});

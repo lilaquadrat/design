@@ -1,9 +1,9 @@
 <template>
 <section :class="[variant, view]" class="lila-picture-module lila-module">
-  <picture-partial v-bind="picture" />
+  <lila-picture-partial v-bind="picture" />
 
   <div v-if="showText" class="position-container">
-    <textblock-partial v-bind="textblock" />
+    <lila-textblock-partial v-bind="textblock" />
   </div>
 
 </section>

@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 export default {
   title: 'Modules/BlogIntro',
@@ -7,10 +7,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<blog-intro-module v-bind="$props" />',
+  template: '<lila-blog-intro-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     headline: 'Some nice Headline',
@@ -28,6 +29,7 @@ basic.args = {
 };
 
 export const link = Template.bind({});
+
 link.args = {
   ...basic.args,
   link: {

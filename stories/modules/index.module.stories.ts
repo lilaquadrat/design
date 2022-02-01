@@ -14,10 +14,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<index-module v-bind="$props" />',
+  template: '<lila-index-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   index: {
     value: [
@@ -43,6 +44,7 @@ basic.args = {
 };
 
 export const withLegend = Template.bind({});
+
 withLegend.args = {
   index: {
     value: [

@@ -14,7 +14,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<training-module v-bind="$props"></training-module>',
+  template: '<lila-training-module v-bind="$props"></lila-training-module>',
 });
 
 export const basic = Template.bind({});

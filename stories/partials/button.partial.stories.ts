@@ -9,7 +9,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<button-partial v-bind="$props">{{$props.text}}</button-partial>',
+  template: '<lila-button-partial v-bind="$props">{{$props.text}}</lila-button-partial>',
 });
 
 export const basic = Template.bind({});

@@ -12,10 +12,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<prices-module v-bind="$props"></prices-module>',
+  template: '<lila-prices-module v-bind="$props"></lila-prices-module>',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   content: {},
   variant: [],

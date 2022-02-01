@@ -1,7 +1,7 @@
 <template>
   <section :class="[variant, view]" class="lila-prices-module lila-module">
 
-    <textblock-partial v-bind="textblock"></textblock-partial>
+    <lila-textblock-partial v-bind="textblock"></lila-textblock-partial>
 
     <div class="prices-container">
 
@@ -36,10 +36,10 @@
 
         <footer>
 
-          <link-partial class="button base"
+          <lila-link-partial class="button base"
           :class="{colorScheme1: highlight(element), colorScheme2: !highlight(element)}"
-          v-if="element.callToAction" v-bind="element.callToAction"></link-partial>
-          <link-partial v-if="element.more" v-bind="element.more"></link-partial>
+          v-if="element.callToAction" v-bind="element.callToAction"></lila-link-partial>
+          <lila-link-partial v-if="element.more" v-bind="element.more"></lila-link-partial>
 
         </footer>
 

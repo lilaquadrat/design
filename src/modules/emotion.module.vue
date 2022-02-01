@@ -1,19 +1,19 @@
 <template>
     <section :class="[view, fontVariant, variant, {hasImage: background}]" class="lila-module emotion-module fullscreen">
 
-        <picture-partial class="background" v-if="background" v-bind="background" />
-        <video-partial class="background" v-if="video" v-bind="video" />
+        <lila-picture-partial class="background" v-if="background" v-bind="background" />
+        <lila-video-partial class="background" v-if="video" v-bind="video" />
 
         <div class="position-container">
 
-            <picture-partial class="picture" v-if="picture" v-bind="picture" />
-            <textblock-partial v-if="textblock" v-bind="textblock" :variant="variant" />
+            <lila-picture-partial class="picture" v-if="picture" v-bind="picture" />
+            <lila-textblock-partial v-if="textblock" v-bind="textblock" :variant="variant" />
 
             <ul v-if="filteredLinks" class="list-links">
                 <li v-for="(single, index) in filteredLinks" :key="`emotion-link-${index}`">
 
-                    <button-partial class="more" @click="scrollToNext" v-if="single.link === '#more'">{{single.text}}</button-partial>
-                    <link-partial v-if="single.link !== '#more'" v-bind="single"></link-partial>
+                    <lila-button-partial class="more" @click="scrollToNext" v-if="single.link === '#more'">{{single.text}}</lila-button-partial>
+                    <lila-link-partial v-if="single.link !== '#more'" v-bind="single"></lila-link-partial>
 
                 </li>
             </ul>
@@ -22,9 +22,9 @@
 
         </div>
 
-        <button-partial @click="scrollToNext" v-if="scrollNotice" class="scrollButton">
-            <icons-partial colorScheme="white" size="large" type="mouse"></icons-partial>
-        </button-partial>
+        <lila-button-partial @click="scrollToNext" v-if="scrollNotice" class="scrollButton">
+            <lila-icons-partial colorScheme="white" size="large" type="mouse"></lila-icons-partial>
+        </lila-button-partial>
 
     </section>
 

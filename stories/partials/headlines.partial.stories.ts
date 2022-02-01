@@ -4,7 +4,7 @@ export default {
 
 const TemplateH1 = (args: unknown, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<textblock-partial v-bind="$props" />',
+  template: '<lila-textblock-partial v-bind="$props" />',
 });
 
 export const h1 = TemplateH1.bind({});

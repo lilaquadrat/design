@@ -6,10 +6,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<facts-module v-bind="$props" />',
+  template: '<lila-facts-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     headline: 'Some nice Headline',
@@ -59,6 +60,7 @@ basic.args = {
 };
 
 export const variant = Template.bind({});
+
 variant.args = {
   textblock: {
     headline: 'Some nice Headline',
@@ -93,7 +95,9 @@ variant.args = {
   ],
   variant: ['variant1'],
 };
+
 export const variant2 = Template.bind({});
+
 variant2.args = {
   textblock: {
     headline: 'Some nice Headline',

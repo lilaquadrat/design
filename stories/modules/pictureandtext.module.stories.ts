@@ -15,10 +15,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<pictureandtext-module v-bind="$props" />',
+  template: '<lila-pictureandtext-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     headline: 'Some nice Picture and Text',
@@ -34,6 +35,7 @@ basic.args = {
 };
 
 export const pictureRatio = Template.bind({});
+
 pictureRatio.args = {
   textblock: {
     headline: 'Some nice Picture and Text',
@@ -56,6 +58,7 @@ pictureRatio.args = {
 };
 
 export const variant = Template.bind({});
+
 variant.args = {
   textblock: {
     headline: 'Some nice Picture and Text',
@@ -77,6 +80,7 @@ variant.args = {
 };
 
 export const variantFitImage = Template.bind({});
+
 variantFitImage.args = {
   textblock: {
     headline: 'Some nice Picture and Text',
@@ -98,6 +102,7 @@ variantFitImage.args = {
 };
 
 export const withList = Template.bind({});
+
 withList.args = {
   ...basic.args,
   list: {
@@ -113,6 +118,7 @@ withList.args = {
 };
 
 export const withLinks = Template.bind({});
+
 withLinks.args = {
   ...basic.args,
   links: {

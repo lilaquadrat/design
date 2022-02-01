@@ -2,15 +2,15 @@
 <section :class="[variant, view]" class="lila-picturegroup-module lila-module">
 
   <section class="content-container">
-    <textblock-partial :variant="[brightText]" v-if="textblock" v-bind="textblock" />
+    <lila-textblock-partial :variant="[brightText]" v-if="textblock" v-bind="textblock" />
 
     <section class="elements-container">
 
       <component v-for="(element, index) in elements" :key="`picturegroup-element-${index}`" class="element" :is="componentType(element.link)" v-bind="element.link">
-        <picture-partial v-if="element.picture" :fit="fitVariant" v-bind="element.picture" />
-        <textblock-partial :variant="[brightText]" v-if="element.textblock" v-bind="element.textblock"></textblock-partial>
-        <list-partial :variant="['noStyle']" v-bind="element.list"></list-partial>
-        <list-partial :variant="linkVariant" v-bind="element.links"></list-partial>
+        <lila-picture-partial v-if="element.picture" :fit="fitVariant" v-bind="element.picture" />
+        <lila-textblock-partial :variant="[brightText]" v-if="element.textblock" v-bind="element.textblock"></lila-textblock-partial>
+        <lila-list-partial :variant="['noStyle']" v-bind="element.list"></lila-list-partial>
+        <lila-list-partial :variant="linkVariant" v-bind="element.links"></lila-list-partial>
       </component>
 
     </section>

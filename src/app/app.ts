@@ -24,7 +24,7 @@ import { routes, editorRoutes } from '../routes';
 /**
  *  defines the css that will be used
  */
-import '../less/base_bootstrap.less';
+import './less/base.less';
 
 translation.select('de');
 
@@ -80,8 +80,8 @@ store.commit('setMedia', Resize.media);
 /**
  * let webpack preload modules and partials
 */
-loadComponents.lazy(require.context('../partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'lazy'), 'partials');
-loadComponents.lazy(require.context('../modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'lazy'), 'modules');
+loadComponents.lazy(require.context('../partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'lazy'), 'partials', 'lila');
+loadComponents.lazy(require.context('../modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'lazy'), 'modules', 'lila');
 
 log.info(`%c[DESIGN]%cRUNNING IN ${ENVIRONMENT} MODE`, 'background: #3f2d56; color: #CCC;', 'padding: 10px');
 

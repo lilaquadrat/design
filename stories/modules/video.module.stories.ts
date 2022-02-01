@@ -18,7 +18,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<video-module v-bind="$props"></video-module>',
+  template: '<lila-video-module v-bind="$props"></lila-video-module>',
 });
 
 export const basic = Template.bind({});

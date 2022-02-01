@@ -33,8 +33,8 @@ Vue.component(
 /**
  * let webpack preload modules and partials
 */
-loadComponents.lazy(require.context('/src/partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'lazy'), 'partials');
-loadComponents.lazy(require.context('/src/modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'lazy'), 'modules');
+loadComponents.lazy(require.context('/src/partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'lazy'), 'partials', 'lila');
+loadComponents.lazy(require.context('/src/modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'lazy'), 'modules', 'lila');
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

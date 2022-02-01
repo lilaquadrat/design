@@ -17,7 +17,7 @@ export default {
 
 const template = (args: unknown, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<video-partial v-bind="$props">{{$props.text}}</video-partial>',
+  template: '<lila-video-partial v-bind="$props">{{$props.text}}</lila-video-partial>',
 });
 
 export const basic = template.bind({});

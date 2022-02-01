@@ -18,10 +18,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<picture-module v-bind="$props" />',
+  template: '<lila-picture-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     // eslint-disable-next-line max-len
@@ -35,6 +36,7 @@ basic.args = {
 };
 
 export const variant = Template.bind({});
+
 variant.args = {
   textblock: {
     headline: 'some headline',

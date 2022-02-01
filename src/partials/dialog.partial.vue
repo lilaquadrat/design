@@ -7,14 +7,14 @@
       <p v-if="description">{{ description | translate }}</p>
     </section>
 
-    <button-group-partial v-if="type === 'check'" gap>
-      <button-partial @confirmed="confirm" :colorScheme="colorScheme">{{CONFIRM | translate}}</button-partial>
-      <button-partial @confirmed="cancel" colorScheme="transparent">{{CANCEL | translate}}</button-partial>
-    </button-group-partial>
+    <lila-button-group-partial v-if="type === 'check'" gap>
+      <lila-button-partial @confirmed="confirm" :colorScheme="colorScheme">{{CONFIRM | translate}}</lila-button-partial>
+      <lila-button-partial @confirmed="cancel" colorScheme="transparent">{{CANCEL | translate}}</lila-button-partial>
+    </lila-button-group-partial>
 
-    <button-group-partial v-if="type === 'confirm'" gap>
-      <button-partial @confirmed="confirm" colorScheme="transparent">{{ACKNOWLEDGE | translate}}</button-partial>
-    </button-group-partial>
+    <lila-button-group-partial v-if="type === 'confirm'" gap>
+      <lila-button-partial @confirmed="confirm" colorScheme="transparent">{{ACKNOWLEDGE | translate}}</lila-button-partial>
+    </lila-button-group-partial>
 
   </section>
 </template>

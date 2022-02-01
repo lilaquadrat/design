@@ -28,7 +28,6 @@ module.exports = {
 		"max-empty-lines": 1,
 		"indentation": 2,
 		"at-rule-empty-line-before": "always",
-		"at-rule-name-case": "lower",
 		"rule-empty-line-before": "always-multi-line",
 		"declaration-block-semicolon-newline-after": "always",
 		"declaration-block-semicolon-newline-before": "never-multi-line",

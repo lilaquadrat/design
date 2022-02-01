@@ -36,8 +36,8 @@ export default function createApp(): {app: Vue, router: VueRouter, store: Store<
   /**
    * let webpack preload modules and partials
   */
-  loadComponents.sync(require.context('../partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'sync'), 'partials');
-  loadComponents.sync(require.context('../modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'sync'), 'modules');
+  loadComponents.sync(require.context('../partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'sync'), 'partials', 'lila');
+  loadComponents.sync(require.context('../modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'sync'), 'modules', 'lila');
 
   Vue.prototype.$enviroment = 'browser';
 

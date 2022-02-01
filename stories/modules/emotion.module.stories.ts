@@ -22,10 +22,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<emotion-module v-bind="$props" />',
+  template: '<lila-emotion-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     headline: 'some headline',
@@ -88,6 +89,7 @@ basic.args = {
 };
 
 export const textCentered = Template.bind({});
+
 textCentered.args = {
   textblock: {
     headline: 'some headline',
@@ -114,6 +116,7 @@ textCentered.args = {
 };
 
 export const withPicture = Template.bind({});
+
 withPicture.args = {
   textblock: {
     headline: 'some headline',
@@ -146,6 +149,7 @@ withPicture.args = {
 };
 
 export const inlineContent = Template.bind({});
+
 inlineContent.args = {
   textblock: {
     headline: 'some headline',
@@ -172,6 +176,7 @@ inlineContent.args = {
 };
 
 export const textBackground = Template.bind({});
+
 textBackground.args = {
   textblock: {
     headline: 'some headline',
@@ -196,4 +201,5 @@ textBackground.args = {
 };
 
 export const empty = Template.bind({});
+
 empty.args = {};

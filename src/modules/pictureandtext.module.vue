@@ -1,15 +1,15 @@
 <template>
   <section :class="[view, { hasImage: picture }, variant]" class="lila-pictureandtext-module lila-module">
-    <picture-partial :fit="fitVariant" v-bind="picture" />
+    <lila-picture-partial :fit="fitVariant" v-bind="picture" />
 
     <section class="grid-container">
 
-      <textblock-partial v-bind="textblock" />
+      <lila-textblock-partial v-bind="textblock" />
 
-      <list-partial v-if="list" v-bind="list"></list-partial>
-      <list-partial v-if="links" v-bind="links"></list-partial>
+      <lila-list-partial v-if="list" v-bind="list"></lila-list-partial>
+      <lila-list-partial v-if="links" v-bind="links"></lila-list-partial>
 
-      <legend-partial v-if="legend" v-bind="legend"></legend-partial>
+      <lila-legend-partial v-if="legend" v-bind="legend"></lila-legend-partial>
 
     </section>
 

@@ -5,21 +5,21 @@
     <ul v-if="!actions || mode === 'list'">
       <li v-for="(single, index) in filteredValues" :key="`list-element-${index}`">
 
-        <icons-partial v-if="!isNumbered && !noStyle" size="small" type="arrow-right"></icons-partial>
+        <lila-icons-partial v-if="!isNumbered && !noStyle" size="small" type="arrow-right"></lila-icons-partial>
 
-        <link-partial v-if="typeof(single) === 'object'" v-bind="single" />
+        <lila-link-partial v-if="typeof(single) === 'object'" v-bind="single" />
         <template v-if="typeof(single) === 'string'">{{ single }}</template>
 
       </li>
     </ul>
 
-    <link-group-partial :variant="variant" v-if="actions">
+    <lila-link-group-partial :variant="variant" v-if="actions">
 
       <template v-for="(single, index) in filteredValues" >
-        <link-partial v-if="typeof(single) === 'object'" v-bind="single" :key="`list-actions-element-${index}`" />
+        <lila-link-partial v-if="typeof(single) === 'object'" v-bind="single" :key="`list-actions-element-${index}`" />
       </template>
 
-    </link-group-partial>
+    </lila-link-group-partial>
 
   </section>
 </template>

@@ -27,10 +27,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<picturegroup-module v-bind="$props" />',
+  template: '<lila-picturegroup-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
+
 basic.args = {
   textblock: {
     headline: 'Some nice Picturegroup',
@@ -64,6 +65,7 @@ basic.args = {
 };
 
 export const variant2 = Template.bind({});
+
 variant2.args = {
   ...basic.args,
   elements: [
@@ -80,6 +82,7 @@ variant2.args = {
 };
 
 export const variant3 = Template.bind({});
+
 variant3.args = {
   elements: [
     {
@@ -115,6 +118,7 @@ variant3.args = {
 };
 
 export const variant4 = Template.bind({});
+
 variant4.args = {
   elements: [
     {
@@ -178,6 +182,7 @@ variant4.args = {
 };
 
 export const variant4WithText = Template.bind({});
+
 variant4WithText.args = {
   elements: [
     {
@@ -276,6 +281,7 @@ variant4WithText.args = {
 };
 
 export const variant4WithTextBackground = Template.bind({});
+
 variant4WithTextBackground.args = {
   ...variant4WithText.args,
   textblock: {
@@ -286,6 +292,7 @@ variant4WithTextBackground.args = {
 };
 
 export const variant5 = Template.bind({});
+
 variant5.args = {
   elements: [
     {
@@ -328,6 +335,7 @@ variant5.args = {
 };
 
 export const fitImages = Template.bind({});
+
 fitImages.args = {
   elements: [
     {
@@ -370,6 +378,7 @@ fitImages.args = {
 };
 
 export const contact = Template.bind({});
+
 contact.args = {
   elements: [
     {
@@ -575,6 +584,7 @@ contact.args = {
 };
 
 export const product = Template.bind({});
+
 product.args = {
   elements: [
     {

@@ -1,8 +1,8 @@
 <template>
 <section :class="[view]" class="lila-index-module lila-module">
-  <list-partial v-bind="index"></list-partial>
+  <lila-list-partial v-bind="index"></lila-list-partial>
   <slot></slot>
-  <legend-partial v-bind="legend"></legend-partial>
+  <lila-legend-partial v-bind="legend"></lila-legend-partial>
 </section>
 
 </template>
