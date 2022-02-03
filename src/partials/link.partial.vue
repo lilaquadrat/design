@@ -4,8 +4,8 @@
     :class="[variant, classes, {hasIcon: icon}]"
     class="lila-link"
     :is="type"
-    :to="link"
-    :href="link"
+    :to="linkWithBase"
+    :href="linkWithBase"
     @click="event"
     >
     <lila-icons-partial v-if="icon" :type="icon" size="small" />
@@ -14,10 +14,15 @@
   </component>
 </template>
 <script lang="ts">
+import { Inject, InjectReactive } from 'vue-property-decorator';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
 export default class LinkPartial extends ExtPartial {
+
+  // @Inject('linkBase') private linkBase!: string;
+
+  @InjectReactive('linkBase') private linkBase!: string;
 
   @Prop(String) link: string;
 
@@ -30,6 +35,12 @@ export default class LinkPartial extends ExtPartial {
   @Prop(Array) classes: string[];
 
   external: boolean = false;
+
+  get linkWithBase() {
+
+    return this.linkBase ? `${this.linkBase}/${this.link}` : this.link;
+
+  }
 
   mounted(): void {
 

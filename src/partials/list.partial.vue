@@ -5,7 +5,7 @@
     <ul v-if="!actions || mode === 'list'">
       <li v-for="(single, index) in filteredValues" :key="`list-element-${index}`">
 
-        <lila-icons-partial v-if="!isNumbered && !noStyle" size="small" type="arrow-right"></lila-icons-partial>
+        <lila-icons-partial v-if="!isNumbered && !noStyle" size="small" type="arrow-right" />
 
         <lila-link-partial v-if="typeof(single) === 'object'" v-bind="single" />
         <template v-if="typeof(single) === 'string'">{{ single }}</template>

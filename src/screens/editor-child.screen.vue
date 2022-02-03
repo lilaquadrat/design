@@ -1,10 +1,10 @@
 <template>
   <article class="editor-screen screen">
 
-    <content-module :data="contentMerged"></content-module>
+    <lila-content-module :content="contentMerged"></lila-content-module>
 
     <transition mode="out-in" name="overlay">
-      <overlay-partial v-if="$store.state.overlay.active"></overlay-partial>
+      <lila-overlay-partial v-if="$store.state.overlay.active"></lila-overlay-partial>
     </transition>
 
   </article>

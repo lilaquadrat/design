@@ -21,7 +21,7 @@
           </div>
         </section>
 
-        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :data="currentContent"></lila-content-module>
+        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :content="currentContent"></lila-content-module>
       </section>
       <section class="current-content-container" v-if="!currentContent">
         <section class="content-module"></section>
@@ -64,7 +64,7 @@ export default class TrainingModule extends ExtComponent {
 
   created() {
 
-    if (!this.$store.state.data.childData) return;
+    // if (!this.$store.state.data.childData) return;
 
     const newData = {};
 
@@ -74,7 +74,7 @@ export default class TrainingModule extends ExtComponent {
 
       this.childData.index?.forEach((single) => {
 
-        newData[single] = this.$store.state.data.childData.data[single];
+        // newData[single] = this.$store.state.data.childData.data[single];
 
       });
 

@@ -1,29 +1,48 @@
-<template functional>
+<template>
   <section class="lila-content-module">
 
-    <article class="top container" :inline="props.inline" v-if="!!props.data.top.length">
-      <component v-for="(single, i) in props.data.top" :class="single.classes" :is="`lila-${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
+    <article class="top container" :inline="inline" v-if="!!content.top.length">
+      <component v-for="(single, i) in content.top" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
     </article>
 
-    <article class="container" :class="[props.data.settings.mode, {inline: props.inline}]" :inline="props.inline" v-if="!!props.data.content.length">
-      <component v-for="(single, i) in props.data.content" :class="single.classes" :is="`lila-${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
+    <article class="container" :class="[content.settings.mode, {inline: inline}]" :inline="inline" v-if="!!content.content.length">
+      <component v-for="(single, i) in content.content" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
     </article>
 
-    <article class="bottom container" :inline="props.inline" v-if="!!props.data.bottom.length">
-      <component v-for="(single, i) in props.data.bottom" :class="single.classes" :is="`lila-${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
+    <article class="bottom container" :inline="inline" v-if="!!content.bottom.length">
+      <component v-for="(single, i) in content.bottom" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
     </article>
 
   </section>
 </template>
 <script lang="ts">
 import Component from 'vue-class-component';
-import ContentData from '@interfaces/ContentData.interface';
-import FunctionalComponent from '../libs/lila-functional';
+import { ExtComponent, Prop } from '@libs/lila-component';
+import { Provide, ProvideReactive } from 'vue-property-decorator';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-@Component({ functional: true })
-export default class ContentModule extends FunctionalComponent<ContentData> {}
+@Component
+export default class ContentModule extends ExtComponent {
+
+  @ProvideReactive('linkBase') linkBase: string;
+
+  @Prop(Object) content;
+
+  @Prop(Boolean) inline: boolean;
+
+  @Prop(String) routeBase: string;
+
+  constructor() {
+
+    super();
+
+    this.linkBase = this.routeBase;
+
+  }
+
+
+}
 </script>
 <style lang="less" scoped>
 @import (reference) '@{projectPath}/source/less/shared.less';

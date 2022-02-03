@@ -56,7 +56,7 @@ yarn cli publish app
       - [Project scope](#project-scope)
       - [The partial scope](#the-partial-scope)
       - [The module scope](#the-module-scope)
-      - [The special "content-module" scope](#the-special-content-module-scope)
+      - [The special "lila-content-module" scope](#the-special-lila-content-module-scope)
   - [Customizing the design](#customizing-the-design)
     - [Change the default design or extend it](#change-the-default-design-or-extend-it)
       - [extending](#extending)
@@ -98,7 +98,7 @@ STUDIO Design has three major use-cases:
 
 ### Live preview in STUDIO Editor
 
-When you open the STUDIO Editor, the editor-child.screen.vue will be viewed in an iframe. The main site will send the updated content to editor-child.screen.vue. The invocation of the content-module will result in the rendered content.
+When you open the STUDIO Editor, the editor-child.screen.vue will be viewed in an iframe. The main site will send the updated content to editor-child.screen.vue. The invocation of the lila-content-module will result in the rendered content.
 
 ### Server Rendering on publish
 
@@ -238,7 +238,7 @@ At this point, the partial defines for example the padding and margin between si
 
 At the module level, we declare the padding/margin between the contained partials. It is possible to change the css ( "leaking into the css of a child") of a partial at this level, but we consider this bad practice. If the partial needs to look different in this context, it should get a variant and describe the design by itself.
 
-#### The special "content-module" scope
+#### The special "lila-content-module" scope
 
 The content module renders a list of modules and therefore decides the padding/margin between modules.
 This concept can be of course extended but for the user's and maintainer's sake, it should be as simple as possible.
@@ -480,12 +480,12 @@ what to change:
 ```LESS
 @modulePadding: 40px; //padding for all modules
 
-// gap between modules in context of content-module
+// gap between modules in context of lila-content-module
 @rowGapPresentation: 150px;
 @rowGapContent: 50px;
 ```
 
-See [1.4.4.4. The special "content-module" scope](#1444-the-special-content-module-scope) for details about the gap.
+See [1.4.4.4. The special "lila-content-module" scope](#1444-the-special-lila-content-module-scope) for details about the gap.
 
 ### how to: partials
 
