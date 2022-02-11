@@ -1569,10 +1569,10 @@
     open "^8.4.0"
     typescript "^4.5.4"
 
-"@lilaquadrat/studio@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@lilaquadrat/studio/-/studio-2.2.4.tgz#730cadedae804ca845657593490ab2f7072d4fba"
-  integrity sha512-UiLSTg+lXKedplE94NuSQloImEBKRCclrK47DrM/ITttuUpqyPBGg3iSdiMTl++g57wClf4gX+9B1jnvQqnNHw==
+"@lilaquadrat/studio@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@lilaquadrat/studio/-/studio-2.2.5.tgz#29836c49b088f02f43bdd1035ca6c3f355e626d2"
+  integrity sha512-F5Q3m3brSSe9Z1VmvIN8nFZhIuRMREfrbHTLPBJxd50Z3B0zrPt2LpFB6W9BGV8ZDJ5VjsHhv2v/zEACV0DpVA==
   dependencies:
     "@azure/storage-blob" "^12.2.0-preview.1"
     "@azure/storage-file-share" "^12.2.0-preview.1"

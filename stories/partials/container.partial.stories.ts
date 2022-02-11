@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 
 /* eslint-disable max-len */
 export default {
@@ -16,13 +17,11 @@ const Template = (args, { argTypes }) => ({
 
 export const presentation = Template.bind({});
 
-presentation.args = {
+presentation.args = prepareContent({
   settings: {
     mode: 'presentation',
   },
-  top: [],
-  bottom: [],
-  content: [
+  modules: [
     {
       type: 'emotion-module',
       textblock: {
@@ -290,16 +289,13 @@ presentation.args = {
 
     },
   ],
-};
+});
 
 export const content = Template.bind({});
 
-content.args = {
+content.args = prepareContent({
   settings: { mode: 'content' },
-  inline: true,
-  top: [],
-  bottom: [],
-  content: [
+  modules: [
     {
       type: 'blog-intro-module',
       textblock: {
@@ -504,15 +500,13 @@ content.args = {
 
     },
   ],
-};
+});
 
 export const training = Template.bind({});
 
-training.args = {
+training.args = prepareContent({
   settings: { mode: 'content' },
-  top: [],
-  bottom: [],
-  content: [
+  modules: [
     {
       type: 'training-module',
       childData: {
@@ -657,4 +651,4 @@ training.args = {
       variant: [],
     },
   ],
-};
+});

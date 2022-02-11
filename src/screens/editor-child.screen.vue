@@ -1,37 +1,33 @@
 <template>
   <article class="editor-screen screen">
 
-    <lila-content-module :content="contentMerged"></lila-content-module>
-
-    <transition mode="out-in" name="overlay">
-      <lila-overlay-partial v-if="$store.state.overlay.active"></lila-overlay-partial>
-    </transition>
+    <lila-content-module :content="content"></lila-content-module>
 
   </article>
 
 </template>
 <script lang="ts">
 import { ExtComponent, Component, vue } from '@libs/lila-component';
-import { Editor, ModuleGeneric } from '@lilaquadrat/studio/lib/interfaces';
+import { Editor, EditorActiveModule, StudioIframeMessage } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
-import log from 'loglevel';
+import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
 
 @Component
 export default class EditorChildScreen extends ExtComponent {
 
-  modules: {
-    [key: string]: any;
-  } = {};
-
-  editor: ModuleGeneric[] = [];
+  content: ContentPrepared = {
+    settings: {}, top: [], content: [], bottom: [],
+  };
 
   siteSettings: Editor['settings'] = {};
-
-  created: boolean = false;
 
   live: boolean = false;
 
   parentUrl: string;
+
+  contentCache: Editor['modules'] = [];
+
+  settingsCache: Editor['settings'] = {};
 
   constructor() {
 
@@ -51,19 +47,27 @@ export default class EditorChildScreen extends ExtComponent {
 
     if (this.live) return;
 
-    const messageHandler = (message: any) => {
+    const messageHandler = (message: StudioIframeMessage<Editor['modules']|Editor['settings']|EditorActiveModule>) => {
 
-      console.log(message.data.type);
+      if (message.data.type === 'studio-content') {
 
-      if (message.data.type === 'studio-content') this.editor = message.data.data || [];
+        this.contentCache = message.data.data as Editor['modules'];
+        this.updateContent();
 
-      if (message.data.type === 'studio-editor-settings') this.siteSettings = message.data.data;
+      }
+
+      if (message.data.type === 'studio-editor-settings') {
+
+        this.settingsCache = message.data.data as Editor['settings'];
+        this.updateContent();
+
+      }
 
       if (message.data.type === 'studio-settings') this.$store.commit('setSettings', message.data.data);
 
       if (message.data.type === 'studio-active') {
 
-        this.active = message.data.data;
+        this.active = message.data.data as EditorActiveModule;
 
         if (this.active.uuid) {
 
@@ -91,67 +95,35 @@ export default class EditorChildScreen extends ExtComponent {
 
   }
 
-  get active(): {uuid?: string, position?: string} {
+  get active(): EditorActiveModule {
 
     return this.$store.state.editor.active;
 
   }
 
-  set active(active: {uuid?: string, position?: string}) {
+  set active(active: EditorActiveModule) {
 
     this.$store.commit('setEditorActive', active);
 
   }
 
-  get content() {
+  updateContent() {
 
-    return this.editor.filter((single) => !single.position || single.position === 'content');
+    this.content = prepareContent({ modules: this.contentCache, ...this.settingsCache });
 
-  }
-
-  get top() {
-
-    return this.editor.filter((single) => single.position === 'top');
-
-  }
-
-  get bottom() {
-
-    return this.editor.filter((single) => single.position === 'bottom');
-
-  }
-
-  get contentMerged() {
-
-    return prepareContent({ modules: this.editor, settings: this.siteSettings });
-
-  }
-
-  get tags() {
-
-    return this.siteSettings.tags;
-
-  }
-
-  get mode() {
-
-    return this.siteSettings?.settings?.mode;
 
   }
 
   /**
    * scroll to the module in the content-container with the given index
-   *
-   * @param {number} index
-   * @memberof EditorEditScreen
    */
   // eslint-disable-next-line class-methods-use-this
-  scrollToModule(active: {uuid?: string, position?: string}): void {
+  scrollToModule(active: EditorActiveModule): void {
 
     vue.nextTick().then(() => {
 
       const containerSelector = active.position === 'content' ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${active.position}`;
-      const contentPosition = active.position === 'content' ? this.content : this[active.position];
+      const contentPosition: Editor['modules'] = active.position === 'content' ? this.content.content : this.content[active.position];
       const index = contentPosition.findIndex((single) => single.uuid === active.uuid);
       const module = document.querySelector(
         // eslint-disable-next-line max-len

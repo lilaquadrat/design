@@ -62,17 +62,6 @@ export default class ContentModule extends ExtComponent {
     max-width: 100%;
     .multi(margin-bottom, 4);
 
-    &.top, &.inline {
-      .multi(margin-bottom, 0);
-
-      .lila-module {
-
-        &:first-child {
-          .multi(margin-top, 0);
-        }
-      }
-    }
-
     .lila-module {
 
       &:first-child {
@@ -80,6 +69,17 @@ export default class ContentModule extends ExtComponent {
         .multi(margin-top, 16);
 
         &.fullscreen {
+          .multi(margin-top, 0);
+        }
+      }
+    }
+
+    &.top, &.inline {
+      .multi(margin-bottom, 0);
+
+      .lila-module {
+
+        &:first-child {
           .multi(margin-top, 0);
         }
       }
