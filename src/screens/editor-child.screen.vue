@@ -13,6 +13,7 @@
 <script lang="ts">
 import { ExtComponent, Component, vue } from '@libs/lila-component';
 import { Editor, ModuleGeneric } from '@lilaquadrat/studio/lib/interfaces';
+import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import log from 'loglevel';
 
 @Component
@@ -51,6 +52,8 @@ export default class EditorChildScreen extends ExtComponent {
     if (this.live) return;
 
     const messageHandler = (message: any) => {
+
+      console.log(message.data.type);
 
       if (message.data.type === 'studio-content') this.editor = message.data.data || [];
 
@@ -120,12 +123,7 @@ export default class EditorChildScreen extends ExtComponent {
 
   get contentMerged() {
 
-    return {
-      settings: this.siteSettings.settings || {},
-      top: this.editor.filter((single) => single.position === 'top'),
-      content: this.editor.filter((single) => !single.position || single.position === 'content'),
-      bottom: this.editor.filter((single) => single.position === 'bottom'),
-    };
+    return prepareContent({ modules: this.editor, settings: this.siteSettings });
 
   }
 
