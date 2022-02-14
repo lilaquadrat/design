@@ -55,7 +55,7 @@ module.exports = (env, argv) => merge(config, {
             options: {
               lessOptions: {
                 relativeUrls: false,
-              }
+              },
             },
           },
         ],
@@ -63,7 +63,7 @@ module.exports = (env, argv) => merge(config, {
       {
         test: /\.less$/,
         exclude: [
-          path.resolve('/src/source/less/base_bootstrap.less')
+          path.resolve(`./projects/${env.company}/${env.project}/source/less/base.less`),
         ],
         use: [
           {

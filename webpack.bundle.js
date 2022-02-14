@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const nodeExternals = require('webpack-node-externals')
 const baseConfig = require('./webpack.config.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path');
 
 module.exports = (env, argv) => merge(baseConfig, {
   // Point entry to your app's server entry file
@@ -44,7 +45,9 @@ module.exports = (env, argv) => merge(baseConfig, {
       'dayjs',
       'dayjs/locale/de',
       'dayjs/plugin/relativeTime',
-      '@lilaquadrat/studio/frontend/main'
+      'highlight.js/lib/core',
+      '@lilaquadrat/studio/lib/frontend',
+      'highlight.js/lib/languages/javascript'
     ]
   }),
 
@@ -68,8 +71,34 @@ module.exports = (env, argv) => merge(baseConfig, {
     rules: [
       {
         test: /\.less$/,
+        resourceQuery: /main/,
         use: [
           'vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: false,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                relativeUrls: false,
+              }
+            },
+          },
+        ],
+      },
+      {
+        test: /\.less$/,
+        exclude: [
+          path.resolve(`./projects/${env.company}/${env.project}/source/less/base.less`),
+        ],
+        use: [
+          {
+            loader: 'vue-style-loader',
+          },
           {
             loader: 'css-loader',
             options: {

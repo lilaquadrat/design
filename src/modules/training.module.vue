@@ -44,8 +44,8 @@
 import Textblock from '@interfaces/textblock.interface';
 import ChildData from '@interfaces/ChildData.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
-import { filterMergeModules } from '@lilaquadrat/studio/lib/src/frontend/main';
 import { Editor } from '@lilaquadrat/studio/lib/interfaces';
+import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 
 @Component
 export default class TrainingModule extends ExtComponent {
@@ -129,13 +129,15 @@ export default class TrainingModule extends ExtComponent {
 
     if (!currentContent) return null;
 
-    return {
-      id: currentContent.id,
-      settings: currentContent.settings,
-      top: filterMergeModules(currentContent.modules, 'top'),
-      content: filterMergeModules(currentContent.modules, 'content'),
-      bottom: filterMergeModules(currentContent.modules, 'bottom'),
-    };
+    // return {
+    //   id: currentContent.id,
+    //   settings: currentContent.settings,
+    //   top: filterMergeModules(currentContent.modules, 'top'),
+    //   content: filterMergeModules(currentContent.modules, 'content'),
+    //   bottom: filterMergeModules(currentContent.modules, 'bottom'),
+    // };
+
+    return prepareContent(currentContent);
 
   }
 
