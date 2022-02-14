@@ -1,9 +1,6 @@
 <template>
-  <section :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
-    <blockquote cite="www.google.de">{{ quote }}</blockquote>
-    <figcaption>Herzog Wern, <cite>Brave new World</cite></figcaption>
-    {{ link }}
-    {{ citation }}
+  <section :class="[variant, view]" class="lila-module lila-quote-module">
+    <lila-quote-partial v-bind="$props"></lila-quote-partial>
   </section>
 </template>
 
@@ -14,18 +11,32 @@ import { ExtComponent, Component, Prop } from '@libs/lila-component';
 @Component
 export default class QuoteModule extends ExtComponent {
 
-  @Prop(String) quote: string;
+  @Prop(Array) quote: string[];
 
   @Prop(Object) link: Link;
 
   @Prop(String) citation: string;
 
+  @Prop(Array) quotePosition: string[];
 
-  get isNotice() {
-
-    return this.variant.includes('notice');
-
-  }
+  @Prop(Array) authPosition: string[];
 
 }
 </script>
+
+<style lang="less" scoped>
+@import (reference) "@{projectPath}/source/less/shared.less";
+
+.lila-quote-module {
+  .module;
+
+  display: grid;
+  gap: 40px;
+
+  max-width: @moduleWidth_M;
+
+  &.small {
+    max-width: @moduleWidth_S;
+  }
+}
+</style>
