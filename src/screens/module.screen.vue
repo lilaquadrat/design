@@ -13,7 +13,7 @@
 import {
   ExtComponent, Component, Watch,
 } from '@libs/lila-component';
-import { filterMergeModules } from '@lilaquadrat/studio/lib/src/frontend/main';
+import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 
 @Component
 export default class ModuleScreen extends ExtComponent {
@@ -46,32 +46,34 @@ export default class ModuleScreen extends ExtComponent {
 
   }
 
-  get content() {
+  // get content() {
 
-    return filterMergeModules(this.$store.state.data.modules, 'content', this.$store.state.layout?.modules, 'layout');
+  //   return filterMergeModules(this.$store.state.data.modules, 'content', this.$store.state.layout?.modules, 'layout');
 
-  }
+  // }
 
-  get contentTop() {
+  // get contentTop() {
 
-    return filterMergeModules(this.$store.state.data.modules, 'top', this.$store.state.layout?.modules, 'layout');
+  //   return filterMergeModules(this.$store.state.data.modules, 'top', this.$store.state.layout?.modules, 'layout');
 
-  }
+  // }
 
-  get contentBottom() {
+  // get contentBottom() {
 
-    return filterMergeModules(this.$store.state.data.modules, 'bottom', this.$store.state.layout?.modules, 'layout');
+  //   return filterMergeModules(this.$store.state.data.modules, 'bottom', this.$store.state.layout?.modules, 'layout');
 
-  }
+  // }
 
   get contentMerged() {
 
-    return {
-      settings: this.$store.state.data.settings,
-      top: filterMergeModules(this.$store.state.data.modules, 'top', this.$store.state.layout?.modules, 'layout'),
-      content: filterMergeModules(this.$store.state.data.modules, 'content', this.$store.state.layout?.modules, 'layout'),
-      bottom: filterMergeModules(this.$store.state.data.modules, 'bottom', this.$store.state.layout?.modules, 'layout'),
-    };
+    // return {
+    //   settings: this.$store.state.data.settings,
+    //   top: filterMergeModules(this.$store.state.data.modules, 'top', this.$store.state.layout?.modules, 'layout'),
+    //   content: filterMergeModules(this.$store.state.data.modules, 'content', this.$store.state.layout?.modules, 'layout'),
+    //   bottom: filterMergeModules(this.$store.state.data.modules, 'bottom', this.$store.state.layout?.modules, 'layout'),
+    // };
+
+    return prepareContent(this.$store.state.data);
 
   }
 

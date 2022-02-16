@@ -18,7 +18,8 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
-import { Provide, ProvideReactive } from 'vue-property-decorator';
+import { ProvideReactive } from 'vue-property-decorator';
+import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -27,7 +28,7 @@ export default class ContentModule extends ExtComponent {
 
   @ProvideReactive('linkBase') linkBase: string;
 
-  @Prop(Object) content;
+  @Prop(Object) content: ContentPrepared;
 
   @Prop(Boolean) inline: boolean;
 
