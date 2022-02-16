@@ -17,10 +17,6 @@ export default class QuoteModule extends ExtComponent {
 
   @Prop(String) citation: string;
 
-  @Prop(Array) quotePosition: string[];
-
-  @Prop(Array) authPosition: string[];
-
 }
 </script>
 
