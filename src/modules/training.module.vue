@@ -21,7 +21,7 @@
           </div>
         </section>
 
-        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :content="currentContent"></lila-content-module>
+        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.settings.id" :content="currentContent" />
       </section>
       <section class="current-content-container" v-if="!currentContent">
         <section class="content-module"></section>
@@ -64,17 +64,15 @@ export default class TrainingModule extends ExtComponent {
 
   created() {
 
-    // if (!this.$store.state.data.childData) return;
+    if (!this.$store.state.data.childData) return;
 
     const newData = {};
-
-    console.log(this.childData, this.$store.state);
 
     if (this.childData) {
 
       this.childData.index?.forEach((single) => {
 
-        // newData[single] = this.$store.state.data.childData.data[single];
+        newData[single] = this.$store.state.data?.childData?.data[single];
 
       });
 
@@ -124,6 +122,8 @@ export default class TrainingModule extends ExtComponent {
   get currentContent() {
 
     if (!this.childData.data) return null;
+
+    console.log(this.childData.data, this.childData.index, this.currentIndex);
 
     const currentContent = this.childData.data[this.childData.index[this.currentIndex]] ?? null;
 
@@ -320,7 +320,7 @@ export default class TrainingModule extends ExtComponent {
         grid-column-start: 2;
       }
 
-      .content-module {
+      .lila-content-module::v-deep {
         position: relative;
         display: grid;
 
