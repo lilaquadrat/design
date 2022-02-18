@@ -11,7 +11,7 @@ import { ExtComponent, Component, Prop } from '@libs/lila-component';
 @Component
 export default class QuoteModule extends ExtComponent {
 
-  @Prop(Array) quote: string[];
+  @Prop(String) quote: string;
 
   @Prop(Object) link: Link;
 

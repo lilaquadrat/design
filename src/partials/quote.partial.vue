@@ -1,11 +1,7 @@
 <template>
   <figure class="lila-quote">
     <blockquote :class="[variant, textSize]" v-if="notEmpty">
-        <p v-for="(singleText, index) in quote" :key="`quote-${index}`">
-          <template v-if="index==0">"</template>
-          {{ singleText }}
-          <template v-if="index==quote.length-1">"</template>
-        </p>
+      {{ quote }}
     </blockquote>
     <figcaption :class="variant">
       <span v-if="citation || linkExists">{{ citation }}</span><span v-if="citation && linkExists">,</span>
@@ -27,7 +23,7 @@ import {
 @Component
 export default class quotePartial extends ExtPartial {
 
-  @Prop(Array) quote: string[];
+  @Prop(String) quote: string;
 
   @Prop(Object) link: Link;
 
@@ -50,34 +46,21 @@ export default class quotePartial extends ExtPartial {
 
   setTextSize(): void {
 
-    const textLength = this.getTextLength();
+    console.log(this.quote.length);
 
-    if (textLength) {
+    if (this.quote.length) {
 
-      if (textLength <= 10) this.textSize = 'headline_XL';
+      if (this.quote.length <= 10) this.textSize = 'headline_XL';
 
-      else if (textLength <= 20) this.textSize = 'headline_L';
+      else if (this.quote.length <= 20) this.textSize = 'headline_L';
 
-      else if (textLength <= 75) this.textSize = 'headline_M';
+      else if (this.quote.length <= 75) this.textSize = 'headline_M';
 
-      else if (textLength <= 150) this.textSize = 'headline_S';
+      else if (this.quote.length <= 150) this.textSize = 'headline_S';
 
       else this.textSize = 'headline_XS';
 
     }
-
-  }
-
-  getTextLength(): number {
-
-    let textLen = 0;
-
-    this.quote.forEach((line) => {
-
-      textLen += line.length;
-
-    });
-    return textLen;
 
   }
 
@@ -104,10 +87,8 @@ export default class quotePartial extends ExtPartial {
   gap: 15px;
 
   blockquote {
-    p {
       .font-head;
       color: @color1;
-    }
 
     &.headline_XL {
       font-size: @headline_XL;
