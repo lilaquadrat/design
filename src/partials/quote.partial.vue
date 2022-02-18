@@ -1,7 +1,7 @@
 <template>
   <figure class="lila-quote">
     <blockquote :class="[variant, textSize]" v-if="notEmpty">
-      {{ quote }}
+      "{{ quote }}"
     </blockquote>
     <figcaption :class="variant">
       <span v-if="citation || linkExists">{{ citation }}</span><span v-if="citation && linkExists">,</span>

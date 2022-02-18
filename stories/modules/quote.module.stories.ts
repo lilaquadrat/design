@@ -26,14 +26,12 @@ export const basic = Template.bind({});
 
 basic.args = {
 
-  quote: [
-    'Test',
-  ],
+  quote: 'Be yourself; everyone else is already taken',
   link: {
     text: 'text',
-    link: '/somelint',
+    link: '/somelink',
   },
-  citation: 'Max Mustermann',
+  citation: 'Oscar Wilde',
 
 };
 
