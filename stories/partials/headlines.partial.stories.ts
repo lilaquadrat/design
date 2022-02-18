@@ -15,7 +15,7 @@ h1.args = {
 
 const TemplateH2 = (args: unknown, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<textblock-partial v-bind="$props" />',
+  template: '<lila-textblock-partial v-bind="$props" />',
 });
 
 export const h2 = TemplateH2.bind({});
@@ -26,7 +26,7 @@ h2.args = {
 
 const TemplateH3 = (args: unknown, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<textblock-partial v-bind="$props" />',
+  template: '<lila-textblock-partial v-bind="$props" />',
 });
 
 export const h3 = TemplateH3.bind({});
