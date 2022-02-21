@@ -1,11 +1,7 @@
 <template>
   <section class="lila-highlight" :class="[variant]" v-if="notEmpty">
     <pre :key="keyhelper">
-      <code>
-        <template v-for="(singleText) in codeSanitized">
-          {{ singleText }}
-        </template>
-      </code>
+      <code>{{ code }}</code>
     </pre>
   </section>
 </template>
@@ -31,7 +27,7 @@ export default class highlightPartial extends ExtPartial {
 
   @Prop(Array) text: string[];
 
-  @Prop(Array) code: string[];
+  @Prop(String) code: string;
 
   @Prop(String) headline: string;
 
@@ -40,12 +36,6 @@ export default class highlightPartial extends ExtPartial {
   get notEmpty(): boolean {
 
     return !!this.code;
-
-  }
-
-  get codeSanitized() {
-
-    return this.code;
 
   }
 

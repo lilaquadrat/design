@@ -15,7 +15,7 @@ export default class QuellcodeModule extends ExtComponent {
 
   @Prop(Array) text: string[];
 
-  @Prop(Array) code: string[];
+  @Prop(String) code: string;
 
   @Prop(String) headline: string;
 
