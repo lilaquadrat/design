@@ -6,6 +6,8 @@ export default {
         type: 'multi-select',
         options: [
           'offsetTop',
+          'indexVariant',
+          'indexIndicator',
         ],
       },
     },
@@ -14,7 +16,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-training-module v-bind="$props"></lila-training-module>',
+  template: '<lila-training-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});

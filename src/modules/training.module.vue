@@ -21,7 +21,7 @@
           </div>
         </section>
 
-        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.settings.id" :content="currentContent" />
+        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :content="currentContent" />
       </section>
       <section class="current-content-container" v-if="!currentContent">
         <section class="content-module"></section>
@@ -42,9 +42,8 @@
 </template>
 <script lang="ts">
 import Textblock from '@interfaces/textblock.interface';
-import ChildData from '@interfaces/ChildData.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
-import { Editor } from '@lilaquadrat/studio/lib/interfaces';
+import { ChildData, Editor } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 
 @Component
@@ -62,26 +61,6 @@ export default class TrainingModule extends ExtComponent {
 
   headIndexOpen: boolean = false;
 
-  created() {
-
-    if (!this.$store.state.data.childData) return;
-
-    const newData = {};
-
-    if (this.childData) {
-
-      this.childData.index?.forEach((single) => {
-
-        newData[single] = this.$store.state.data?.childData?.data[single];
-
-      });
-
-      this.childData.data = newData;
-
-    }
-
-  }
-
   mounted(): void {
 
     this.checkInview();
@@ -90,7 +69,7 @@ export default class TrainingModule extends ExtComponent {
 
   get indexTeaser() {
 
-    if (!this.childData.data) return [];
+    if (!this.childData?.data) return [];
 
     const mapped = this.childData?.index.map((index) => {
 
@@ -121,21 +100,11 @@ export default class TrainingModule extends ExtComponent {
 
   get currentContent() {
 
-    if (!this.childData.data) return null;
-
-    console.log(this.childData.data, this.childData.index, this.currentIndex);
+    if (!this.childData?.data) return null;
 
     const currentContent = this.childData.data[this.childData.index[this.currentIndex]] ?? null;
 
     if (!currentContent) return null;
-
-    // return {
-    //   id: currentContent.id,
-    //   settings: currentContent.settings,
-    //   top: filterMergeModules(currentContent.modules, 'top'),
-    //   content: filterMergeModules(currentContent.modules, 'content'),
-    //   bottom: filterMergeModules(currentContent.modules, 'bottom'),
-    // };
 
     return prepareContent(currentContent);
 
@@ -174,23 +143,6 @@ export default class TrainingModule extends ExtComponent {
 
   @media @desktop {
     .modulePadding();
-  }
-
-  &.offsetTop {
-
-    .main-grid-container {
-
-      .current-content-container {
-
-        .content-head {
-          top: 40px;
-        }
-      }
-
-      .index-container {
-        top: 80px;
-      }
-    }
   }
 
   .main-grid-container {
@@ -234,7 +186,6 @@ export default class TrainingModule extends ExtComponent {
 
       .index-element {
         display: grid;
-        grid-template-columns: max-content 1fr;
         gap: 15px;
         align-content: start;
 
@@ -245,17 +196,7 @@ export default class TrainingModule extends ExtComponent {
         .multi(padding, 4);
 
         .index-indicator {
-          .font-head;
-
-          justify-self: start;
-          height: @headlineLineHeight_XS;
-
-          padding-top: 4px;
-
-          color: @grey;
-          font-size: @headline_XS;
-
-          .trans(color);
+          display: none;
         }
 
         button {
@@ -399,5 +340,192 @@ export default class TrainingModule extends ExtComponent {
       }
     }
   }
+
+  &.offsetTop {
+
+    .main-grid-container {
+
+      .current-content-container {
+
+        .content-head {
+          top: 40px;
+        }
+      }
+
+      .index-container {
+        top: 80px;
+      }
+    }
+
+    &.indexVariant {
+
+      .main-grid-container {
+
+        .index-container {
+          top: 60px;
+        }
+      }
+    }
+  }
+
+  &.indexVariant {
+
+    .main-grid-container {
+
+      @media @desktop {
+        grid-template-columns: 230px 1fr;
+      }
+
+      .index-container {
+        top: 20px;
+        gap: 10px;
+        .multi(padding, 4, 0);
+
+        .index-element {
+          gap: 10px;
+          background-color: transparent;
+          .multi(padding, 0, 4);
+
+          button {
+
+            h2 {
+              .font-normal;
+              height: @headlineLineHeight_XS;
+              color: @textColor;
+              font-size: @headline_XS;
+              line-height: @headlineLineHeight_XS;
+              text-transform: initial;
+            }
+
+            p {
+              display: none;
+            }
+          }
+
+          .index-indicator {
+            .font-bold;
+            display: none;
+
+            justify-self: start;
+            height: @headlineLineHeight_XS;
+
+            color: @textColor;
+            font-size: @headline_XS;
+          }
+
+          &.active {
+
+            button {
+
+              h2 {
+                color: @color1;
+              }
+            }
+
+          }
+
+        }
+      }
+
+    }
+
+    &.indexIndicator {
+
+      .main-grid-container {
+
+        @media @desktop {
+
+          .index-container {
+
+            .index-element {
+
+              grid-template-columns: max-content 1fr;
+
+              .index-indicator {
+                .font-normal;
+                display: grid;
+
+                justify-self: start;
+                height: @headlineLineHeight_XS;
+                margin-top: -1.5px;
+
+                color: @textColor;
+                font-size: @headline_XS;
+              }
+
+              button {
+
+                h2 {
+                  .font-normal;
+                  height: @headlineLineHeight_XS;
+                  font-size: @headline_XS;
+                  line-height: @headlineLineHeight_XS;
+                  text-transform: initial;
+                }
+
+              }
+
+              &.active {
+
+                button {
+
+                  h2 {
+                    color: @color1;
+                  }
+                }
+
+                .index-indicator {
+                  color: @color1;
+                }
+
+              }
+
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  &.indexIndicator {
+
+    @media @desktop {
+
+      .index-container {
+
+        .index-element {
+
+          .index-indicator {
+            .font-head;
+            display: grid;
+
+            justify-self: start;
+            height: @headlineLineHeight_XS;
+
+            margin-top: -1px;
+
+            color: @grey;
+            font-size: @headline_XS;
+
+            .trans(color);
+          }
+        }
+
+      }
+
+    }
+
+    .index-container {
+
+      .index-element {
+
+        grid-template-columns: max-content 1fr;
+      }
+
+    }
+
+  }
+
 }
 </style>

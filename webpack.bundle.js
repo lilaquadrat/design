@@ -93,7 +93,7 @@ module.exports = (env, argv) => merge(baseConfig, {
       {
         test: /\.less$/,
         exclude: [
-          path.resolve(`./projects/${env.company}/${env.project}/source/less/base.less`),
+          path.resolve(`./${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}/source/less/base.less`),
         ],
         use: [
           {
@@ -111,7 +111,7 @@ module.exports = (env, argv) => merge(baseConfig, {
               lessOptions: {
                 relativeUrls: false,
                 modifyVars: {
-                  projectPath: `/projects/${env.company}/${env.project}`
+                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
                 },
               }
             },

@@ -20,6 +20,7 @@ import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
 import { ProvideReactive } from 'vue-property-decorator';
 import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
+import { ChildData } from '@lilaquadrat/studio/lib/interfaces';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -28,7 +29,11 @@ export default class ContentModule extends ExtComponent {
 
   @ProvideReactive('linkBase') linkBase: string;
 
+  @ProvideReactive('contentChildData') contentChildData?: ChildData;
+
   @Prop(Object) content: ContentPrepared;
+
+  @Prop(Object) childData: ChildData;
 
   @Prop(Boolean) inline: boolean;
 

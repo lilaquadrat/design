@@ -13,7 +13,7 @@ const DIR = __dirname;
 module.exports = (env, argv) => merge(config, {
   mode: 'production',
   entry: {
-    app: `./projects/${env.company}/${env.project}/app.ts`
+    app: `./${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}/app.ts`
   },
   output: {
     path: `${DIR}/dist`,
@@ -81,7 +81,7 @@ module.exports = (env, argv) => merge(config, {
               lessOptions: {
                 relativeUrls: false,
                 modifyVars: {
-                  projectPath: `/projects/${env.company}/${env.project}`
+                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
                 },
               }
             },
