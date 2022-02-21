@@ -21,7 +21,7 @@
           </div>
         </section>
 
-        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.settings.id" :content="currentContent" />
+        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :content="currentContent" />
       </section>
       <section class="current-content-container" v-if="!currentContent">
         <section class="content-module"></section>
@@ -42,9 +42,8 @@
 </template>
 <script lang="ts">
 import Textblock from '@interfaces/textblock.interface';
-import ChildData from '@interfaces/ChildData.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
-import { Editor } from '@lilaquadrat/studio/lib/interfaces';
+import { ChildData, Editor } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 
 @Component
@@ -62,26 +61,6 @@ export default class TrainingModule extends ExtComponent {
 
   headIndexOpen: boolean = false;
 
-  created() {
-
-    if (!this.$store.state.data.childData) return;
-
-    const newData = {};
-
-    if (this.childData) {
-
-      this.childData.index?.forEach((single) => {
-
-        newData[single] = this.$store.state.data?.childData?.data[single];
-
-      });
-
-      this.childData.data = newData;
-
-    }
-
-  }
-
   mounted(): void {
 
     this.checkInview();
@@ -90,7 +69,7 @@ export default class TrainingModule extends ExtComponent {
 
   get indexTeaser() {
 
-    if (!this.childData.data) return [];
+    if (!this.childData?.data) return [];
 
     const mapped = this.childData?.index.map((index) => {
 
@@ -121,21 +100,13 @@ export default class TrainingModule extends ExtComponent {
 
   get currentContent() {
 
-    if (!this.childData.data) return null;
+    if (!this.childData?.data) return null;
 
-    console.log(this.childData.data, this.childData.index, this.currentIndex);
+    // console.log(this.childData.data, this.childData.index, this.currentIndex);
 
     const currentContent = this.childData.data[this.childData.index[this.currentIndex]] ?? null;
 
     if (!currentContent) return null;
-
-    // return {
-    //   id: currentContent.id,
-    //   settings: currentContent.settings,
-    //   top: filterMergeModules(currentContent.modules, 'top'),
-    //   content: filterMergeModules(currentContent.modules, 'content'),
-    //   bottom: filterMergeModules(currentContent.modules, 'bottom'),
-    // };
 
     return prepareContent(currentContent);
 
@@ -174,23 +145,6 @@ export default class TrainingModule extends ExtComponent {
 
   @media @desktop {
     .modulePadding();
-  }
-
-  &.offsetTop {
-
-    .main-grid-container {
-
-      .current-content-container {
-
-        .content-head {
-          top: 40px;
-        }
-      }
-
-      .index-container {
-        top: 80px;
-      }
-    }
   }
 
   .main-grid-container {
@@ -399,5 +353,42 @@ export default class TrainingModule extends ExtComponent {
       }
     }
   }
+
+  &.offsetTop {
+
+    .main-grid-container {
+
+      .current-content-container {
+
+        .content-head {
+          top: 40px;
+        }
+      }
+
+      .index-container {
+        top: 80px;
+      }
+    }
+  }
+
+  &.indexVariant {
+
+    .main-grid-container {
+
+      .index-container {
+        top: 80px;
+
+        .index-element {
+          background-color: transparent;
+
+          .index-indicator {
+            display: none;
+          }
+        }
+      }
+
+    }
+  }
+
 }
 </style>
