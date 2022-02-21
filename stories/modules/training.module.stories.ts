@@ -7,6 +7,7 @@ export default {
         options: [
           'offsetTop',
           'indexVariant',
+          'indexIndicator',
         ],
       },
     },

@@ -102,8 +102,6 @@ export default class TrainingModule extends ExtComponent {
 
     if (!this.childData?.data) return null;
 
-    // console.log(this.childData.data, this.childData.index, this.currentIndex);
-
     const currentContent = this.childData.data[this.childData.index[this.currentIndex]] ?? null;
 
     if (!currentContent) return null;
@@ -188,7 +186,6 @@ export default class TrainingModule extends ExtComponent {
 
       .index-element {
         display: grid;
-        grid-template-columns: max-content 1fr;
         gap: 15px;
         align-content: start;
 
@@ -199,17 +196,7 @@ export default class TrainingModule extends ExtComponent {
         .multi(padding, 4);
 
         .index-indicator {
-          .font-head;
-
-          justify-self: start;
-          height: @headlineLineHeight_XS;
-
-          padding-top: 4px;
-
-          color: @grey;
-          font-size: @headline_XS;
-
-          .trans(color);
+          display: none;
         }
 
         button {
@@ -369,25 +356,175 @@ export default class TrainingModule extends ExtComponent {
         top: 80px;
       }
     }
+
+    &.indexVariant {
+
+      .main-grid-container {
+
+        .index-container {
+          top: 60px;
+        }
+      }
+    }
   }
 
   &.indexVariant {
 
     .main-grid-container {
 
+      @media @desktop {
+        grid-template-columns: 230px 1fr;
+      }
+
       .index-container {
-        top: 80px;
+        top: 20px;
+        gap: 10px;
+        .multi(padding, 4, 0);
 
         .index-element {
+          gap: 10px;
           background-color: transparent;
+          .multi(padding, 0, 4);
+
+          button {
+
+            h2 {
+              .font-normal;
+              height: @headlineLineHeight_XS;
+              color: @textColor;
+              font-size: @headline_XS;
+              line-height: @headlineLineHeight_XS;
+              text-transform: initial;
+            }
+
+            p {
+              display: none;
+            }
+          }
 
           .index-indicator {
+            .font-bold;
             display: none;
+
+            justify-self: start;
+            height: @headlineLineHeight_XS;
+
+            color: @textColor;
+            font-size: @headline_XS;
           }
+
+          &.active {
+
+            button {
+
+              h2 {
+                color: @color1;
+              }
+            }
+
+          }
+
         }
       }
 
     }
+
+    &.indexIndicator {
+
+      .main-grid-container {
+
+        @media @desktop {
+
+          .index-container {
+
+            .index-element {
+
+              grid-template-columns: max-content 1fr;
+
+              .index-indicator {
+                .font-normal;
+                display: grid;
+
+                justify-self: start;
+                height: @headlineLineHeight_XS;
+                margin-top: -1.5px;
+
+                color: @textColor;
+                font-size: @headline_XS;
+              }
+
+              button {
+
+                h2 {
+                  .font-normal;
+                  height: @headlineLineHeight_XS;
+                  font-size: @headline_XS;
+                  line-height: @headlineLineHeight_XS;
+                  text-transform: initial;
+                }
+
+              }
+
+              &.active {
+
+                button {
+
+                  h2 {
+                    color: @color1;
+                  }
+                }
+
+                .index-indicator {
+                  color: @color1;
+                }
+
+              }
+
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  &.indexIndicator {
+
+    @media @desktop {
+
+      .index-container {
+
+        .index-element {
+
+          .index-indicator {
+            .font-head;
+            display: grid;
+
+            justify-self: start;
+            height: @headlineLineHeight_XS;
+
+            margin-top: -1px;
+
+            color: @grey;
+            font-size: @headline_XS;
+
+            .trans(color);
+          }
+        }
+
+      }
+
+    }
+
+    .index-container {
+
+      .index-element {
+
+        grid-template-columns: max-content 1fr;
+      }
+
+    }
+
   }
 
 }

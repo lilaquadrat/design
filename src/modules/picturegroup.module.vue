@@ -42,10 +42,10 @@ export default class PicturegroupModule extends ExtComponent {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  componentType(link: Link): 'link-partial' | 'section' {
+  componentType(link: Link): 'lila-link-partial' | 'section' {
 
     return link?.link?.length
-      ? 'link-partial'
+      ? 'lila-link-partial'
       : 'section';
 
   }
