@@ -378,11 +378,11 @@ export default class TrainingModule extends ExtComponent {
 
       .index-container {
         top: 20px;
-        gap: 10px;
+        gap: 15px;
         .multi(padding, 4, 0);
 
         .index-element {
-          gap: 10px;
+          gap: 15px;
           background-color: transparent;
           .multi(padding, 0, 4);
 
@@ -390,7 +390,7 @@ export default class TrainingModule extends ExtComponent {
 
             h2 {
               .font-normal;
-              height: @headlineLineHeight_XS;
+              height: initial;
               color: @textColor;
               font-size: @headline_XS;
               line-height: @headlineLineHeight_XS;
@@ -457,7 +457,7 @@ export default class TrainingModule extends ExtComponent {
 
                 h2 {
                   .font-normal;
-                  height: @headlineLineHeight_XS;
+                  height: initial;
                   font-size: @headline_XS;
                   line-height: @headlineLineHeight_XS;
                   text-transform: initial;
