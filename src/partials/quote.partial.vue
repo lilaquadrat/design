@@ -46,8 +46,6 @@ export default class quotePartial extends ExtPartial {
 
   setTextSize(): void {
 
-    console.log(this.quote.length);
-
     if (this.quote.length) {
 
       if (this.quote.length <= 10) this.textSize = 'headline_XL';

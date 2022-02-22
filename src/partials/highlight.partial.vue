@@ -64,7 +64,11 @@ export default class highlightPartial extends ExtPartial {
     hljs.registerLanguage('scss', scss);
     hljs.registerLanguage('yaml', yaml);
 
-    hljs.highlightElement(this.$el.querySelector('pre code'));
+    if (this.notEmpty) {
+
+      hljs.highlightElement(this.$el.querySelector('pre code'));
+
+    }
 
   }
 
@@ -79,6 +83,7 @@ export default class highlightPartial extends ExtPartial {
     display: block;
     overflow-x: auto;
     padding: 1em;
+    max-width: 570px;
   }
   // highlight.js standard css code (github.css)
   .hljs {
