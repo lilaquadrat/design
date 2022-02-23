@@ -27,6 +27,9 @@ export default class QuellcodeModule extends ExtComponent {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-quellcode-module {
+  .module;
+  .modulePadding('none');
+
   display: grid;
   gap: 40px;
   justify-items: center;
