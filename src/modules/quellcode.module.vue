@@ -3,7 +3,7 @@
     :class="[variant, view]"
     class="lila-module lila-quellcode-module"
   >
-    <lila-textblock-partial v-bind="$props" :variant="textblockVariant" />
+    <lila-textblock-partial v-bind="$props" />
     <lila-highlight-partial v-bind="$props" />
   </section>
 </template>
@@ -23,12 +23,6 @@ export default class QuellcodeModule extends ExtComponent {
 
   @Prop(String) intro: string;
 
-  get textblockVariant() {
-
-    return this.variant.includes('notice') ? ['bright'] : [];
-
-  }
-
 }
 </script>
 
@@ -41,32 +35,22 @@ export default class QuellcodeModule extends ExtComponent {
   display: grid;
   gap: 40px;
 
-  max-width: @moduleWidth_S;
+  justify-items: center;
+  padding: 0;
 
-  &.center {
-    text-align: center;
-  }
 
-  &.notice {
-    .modulePadding("none");
-    max-width: 100%;
-    justify-content: center;
+  max-width: @moduleWidth_M;
 
-    .lila-textblock {
-      .modulePadding("full");
-
-      max-width: @moduleWidth_S;
-      color: @white;
-
-      h1,
-      h2,
-      h3,
-      p {
-        color: @white;
-      }
+  .lila-textblock
+  {
+    max-width: @moduleWidth_S;
+    padding: 0 40px;
+    &.center {
+      text-align: center;
     }
 
-    background-color: @color1;
   }
+
+
 }
 </style>

@@ -83,7 +83,7 @@ export default class highlightPartial extends ExtPartial {
     display: block;
     overflow-x: auto;
     padding: 1em;
-    max-width: 570px;
+    width: @moduleWidth_M;
   }
   // highlight.js standard css code (github.css)
   .hljs {
