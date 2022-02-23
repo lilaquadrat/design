@@ -31,23 +31,21 @@ export default class QuellcodeModule extends ExtComponent {
 
 .lila-quellcode-module {
   .module;
+  .modulePadding();
+  .headlines;
 
   display: grid;
+  justify-items: center;
   gap: 40px;
 
-  justify-items: center;
-  padding: 0;
-
-
-  max-width: @moduleWidth_M;
 
   .lila-textblock
   {
-    max-width: @moduleWidth_S;
-    padding: 0 40px;
-    &.center {
-      text-align: center;
-    }
+    max-width: @desktopWidth;
+
+    // &.center {
+    //   text-align: center;
+    // }
 
   }
 

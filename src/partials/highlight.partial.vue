@@ -1,8 +1,11 @@
 <template>
   <section class="lila-highlight" :class="[variant]" v-if="notEmpty">
+    <div class="pre-container">
     <pre :key="keyhelper">
       <code>{{ code }}</code>
     </pre>
+    </div>
+
   </section>
 </template>
 <script lang="ts">
@@ -79,16 +82,29 @@ export default class highlightPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-highlight {
+
+  max-width: @desktopWidthExt;
+
+  .pre-container{
+    overflow-x: auto;
+    max-width: 100%;
+    display: grid;
+  }
+
   pre code.hljs {
     display: block;
-    overflow-x: auto;
-    padding: 1em;
-    width: @moduleWidth_M;
+    .multi(padding, 1);
+    @media @tablet {
+      width: @moduleWidth_S;
+    }
+    @media @desktop {
+      width: @moduleWidth_M;
+    }
   }
   // highlight.js standard css code (github.css)
   .hljs {
     color: #24292e;
-    background: #fff;
+    background: rgb(255, 255, 255);
   }
   .hljs-doctag,
   .hljs-keyword,
