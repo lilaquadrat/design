@@ -1,8 +1,5 @@
 <template>
-  <section
-    :class="[variant, view]"
-    class="lila-module lila-quellcode-module"
-  >
+  <section :class="[variant, view]" class="lila-module lila-quellcode-module"  >
     <lila-textblock-partial v-bind="$props" />
     <lila-highlight-partial v-bind="$props" />
   </section>
@@ -30,25 +27,16 @@ export default class QuellcodeModule extends ExtComponent {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-quellcode-module {
-  .module;
-  .modulePadding();
-  .headlines;
-
   display: grid;
-  justify-items: center;
   gap: 40px;
+  justify-items: center;
+  max-width: @desktopWidthExt;
 
-
-  .lila-textblock
-  {
+  .lila-textblock {
+    .modulePadding();
     max-width: @desktopWidth;
 
-    // &.center {
-    //   text-align: center;
-    // }
-
   }
-
 
 }
 </style>

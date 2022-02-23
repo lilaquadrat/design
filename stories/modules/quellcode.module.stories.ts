@@ -25,13 +25,12 @@ export const basic = Template.bind({});
 
 basic.args = {
 
-  code: ['<!DOCTYPE html>',
-    '<title>Title</title>',
-    '<body>',
-    '<p checked class="title" id="title">Title</p>',
-    '<!-- here goes the rest of the page -->',
-    '</body>',
-  ],
+  code: `<!DOCTYPE html>
+<title>Title</title>
+<body>
+    <p checked class="title" id="title">Title</p>
+  <!-- here goes the rest of the page -->
+</body>`,
   headline: 'HTML',
   subline: 'This is HTML',
   intro: 'HTML Quellcode',

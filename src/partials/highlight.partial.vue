@@ -1,11 +1,8 @@
 <template>
   <section class="lila-highlight" :class="[variant]" v-if="notEmpty">
-    <div class="pre-container">
-    <pre :key="keyhelper">
-      <code>{{ code }}</code>
-    </pre>
-    </div>
-
+      <pre :key="keyhelper">
+        <code>{{ code }}</code>
+      </pre>
   </section>
 </template>
 <script lang="ts">
@@ -82,30 +79,27 @@ export default class highlightPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-highlight {
+  overflow: hidden;
+  width: 100%;
 
-  max-width: @desktopWidthExt;
+  pre {
+    white-space: nowrap;
 
-  .pre-container{
-    overflow-x: auto;
-    max-width: 100%;
-    display: grid;
-  }
+    code.hljs {
+      display: block;
+      overflow-y: auto;
+      width: 100%;
+      white-space: pre;
 
-  pre code.hljs {
-    display: block;
-    .multi(padding, 1);
-    @media @tablet {
-      width: @moduleWidth_S;
-    }
-    @media @desktop {
-      width: @moduleWidth_M;
+      .multi(padding, 8);
     }
   }
-  // highlight.js standard css code (github.css)
+
   .hljs {
-    color: #24292e;
     background: rgb(255, 255, 255);
+    color: #24292e;
   }
+
   .hljs-doctag,
   .hljs-keyword,
   .hljs-meta .hljs-keyword,
@@ -115,12 +109,14 @@ export default class highlightPartial extends ExtPartial {
   .hljs-variable.language_ {
     color: #d73a49;
   }
+
   .hljs-title,
   .hljs-title.class_,
   .hljs-title.class_.inherited__,
   .hljs-title.function_ {
     color: #6f42c1;
   }
+
   .hljs-attr,
   .hljs-attribute,
   .hljs-literal,
@@ -133,59 +129,73 @@ export default class highlightPartial extends ExtPartial {
   .hljs-variable {
     color: #005cc5;
   }
+
   .hljs-meta .hljs-string,
   .hljs-regexp,
   .hljs-string {
     color: #032f62;
   }
+
   .hljs-built_in,
   .hljs-symbol {
     color: #e36209;
   }
+
   .hljs-code,
   .hljs-comment,
   .hljs-formula {
     color: #6a737d;
   }
+
   .hljs-name,
   .hljs-quote,
   .hljs-selector-pseudo,
   .hljs-selector-tag {
     color: #22863a;
   }
+
   .hljs-subst {
     color: #24292e;
   }
+
   .hljs-section {
     color: #005cc5;
     font-weight: 700;
   }
+
   .hljs-bullet {
     color: #735c0f;
   }
+
   .hljs-emphasis {
     color: #24292e;
     font-style: italic;
   }
+
   .hljs-strong {
     color: #24292e;
     font-weight: 700;
   }
+
   .hljs-addition {
-    color: #22863a;
     background-color: #f0fff4;
+    color: #22863a;
   }
+
   .hljs-deletion {
-    color: #b31d28;
     background-color: #ffeef0;
+    color: #b31d28;
   }
 
   // highlight.js standard css code (github-dark.css)
+
   &.darkmode {
+
     .hljs {
-      color: #c9d1d9;
       background: #0d1117;
+      color: #c9d1d9;
     }
+
     .hljs-doctag,
     .hljs-keyword,
     .hljs-meta .hljs-keyword,
@@ -195,12 +205,14 @@ export default class highlightPartial extends ExtPartial {
     .hljs-variable.language_ {
       color: #ff7b72;
     }
+
     .hljs-title,
     .hljs-title.class_,
     .hljs-title.class_.inherited__,
     .hljs-title.function_ {
       color: #d2a8ff;
     }
+
     .hljs-attr,
     .hljs-attribute,
     .hljs-literal,
@@ -213,51 +225,62 @@ export default class highlightPartial extends ExtPartial {
     .hljs-variable {
       color: #79c0ff;
     }
+
     .hljs-meta .hljs-string,
     .hljs-regexp,
     .hljs-string {
       color: #a5d6ff;
     }
+
     .hljs-built_in,
     .hljs-symbol {
       color: #ffa657;
     }
+
     .hljs-code,
     .hljs-comment,
     .hljs-formula {
       color: #8b949e;
     }
+
     .hljs-name,
     .hljs-quote,
     .hljs-selector-pseudo,
     .hljs-selector-tag {
       color: #7ee787;
     }
+
     .hljs-subst {
       color: #c9d1d9;
     }
+
     .hljs-section {
       color: #1f6feb;
       font-weight: 700;
     }
+
     .hljs-bullet {
       color: #f2cc60;
     }
+
     .hljs-emphasis {
       color: #c9d1d9;
       font-style: italic;
     }
+
     .hljs-strong {
       color: #c9d1d9;
       font-weight: 700;
     }
+
     .hljs-addition {
-      color: #aff5b4;
       background-color: #033a16;
+      color: #aff5b4;
     }
+
     .hljs-deletion {
-      color: #ffdcd7;
       background-color: #67060c;
+      color: #ffdcd7;
     }
   }
 }
