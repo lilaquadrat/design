@@ -38,6 +38,9 @@ export default class QuellcodeModule extends ExtComponent {
   .lila-textblock {
     .modulePadding();
     max-width: @desktopWidth;
+    &.center {
+      text-align: center;
+    }
 
   }
 

@@ -1,8 +1,15 @@
 <template>
   <section class="lila-highlight" :class="[variant]" v-if="notEmpty">
       <pre :key="keyhelper">
+        <div class="codeContainer">
+          <lila-button-partial class="copyCode" @confirmed="copy()">
+            Copy
+          </lila-button-partial>
         <code>{{ code }}</code>
+        </div>
       </pre>
+      <input v-show="copyElement" readonly class="copy-element" ref='inputCopyElem' :value="code" />
+
   </section>
 </template>
 <script lang="ts">
@@ -32,6 +39,8 @@ export default class highlightPartial extends ExtPartial {
   @Prop(String) headline: string;
 
   keyhelper: string = Date.now().toString();
+
+  copyElement: boolean = false;
 
   get notEmpty(): boolean {
 
@@ -72,6 +81,25 @@ export default class highlightPartial extends ExtPartial {
 
   }
 
+  copy() {
+
+    this.copyElement = true;
+
+    this.$nextTick()
+      .then(() => {
+
+        const element = this.$refs.inputCopyElem as HTMLInputElement;
+
+        element.select();
+
+        document.execCommand('copy');
+
+        this.copyElement = false;
+
+      });
+
+  }
+
 }
 </script>
 
@@ -82,16 +110,41 @@ export default class highlightPartial extends ExtPartial {
   overflow: hidden;
   width: 100%;
 
+    .copy-element {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+  &.darkmode .copyCode {
+
+    color: white;
+
+  }
+
   pre {
     white-space: nowrap;
+
+    .codeContainer{
+
+      position: relative;
+
+      .copyCode{
+
+        position: absolute;
+        right: 0;
+        top: 15px;
+
+      }
+
+    }
 
     code.hljs {
       display: block;
       overflow-y: auto;
-      width: 100%;
       white-space: pre;
 
-      .multi(padding, 8);
+      .multi(padding, 12, 8, 8, 8);
     }
   }
 
