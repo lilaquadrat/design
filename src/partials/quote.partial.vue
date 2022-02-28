@@ -3,7 +3,7 @@
     <blockquote :class="[variant, textSize]" v-if="notEmpty">
       "{{ quote }}"
     </blockquote>
-    <figcaption :class="variant">
+    <figcaption ref='checkPartialSize' :class="variant">
       <span v-if="citation || linkExists">{{ citation }}</span><span v-if="citation && linkExists">,</span>
         <cite v-if="link.text">
           <lila-link-partial v-bind="link"></lila-link-partial>
@@ -38,6 +38,13 @@ export default class quotePartial extends ExtPartial {
 
   }
 
+  @Watch('variant')
+  function(): void {
+
+    this.setTextSize();
+
+  }
+
   get notEmpty(): boolean {
 
     return !!this.quote;
@@ -46,19 +53,43 @@ export default class quotePartial extends ExtPartial {
 
   setTextSize(): void {
 
-    if (this.quote.length) {
 
-      if (this.quote.length <= 10) this.textSize = 'headline_XL';
+    this.$nextTick().then(() => {
 
-      else if (this.quote.length <= 20) this.textSize = 'headline_L';
+      const element = this.$refs.checkPartialSize as HTMLInputElement;
 
-      else if (this.quote.length <= 75) this.textSize = 'headline_M';
+      // Small Sized Partial
+      if (this.quote.length && element.classList.contains('small')) {
 
-      else if (this.quote.length <= 150) this.textSize = 'headline_S';
+        if (this.quote.length <= 20) this.textSize = 'headline_XL';
 
-      else this.textSize = 'headline_XS';
+        else if (this.quote.length <= 65) this.textSize = 'headline_L';
 
-    }
+        else if (this.quote.length <= 125) this.textSize = 'headline_M';
+
+        else if (this.quote.length <= 170) this.textSize = 'headline_S';
+
+        else this.textSize = 'headline_XS';
+
+      }
+
+      // Normal Sized Partial
+      else if (this.quote.length) {
+
+
+        if (this.quote.length <= 45) this.textSize = 'headline_XL';
+
+        else if (this.quote.length <= 100) this.textSize = 'headline_L';
+
+        else if (this.quote.length <= 150) this.textSize = 'headline_M';
+
+        else if (this.quote.length <= 390) this.textSize = 'headline_S';
+
+        else this.textSize = 'headline_XS';
+
+      }
+
+    });
 
   }
 
@@ -85,32 +116,37 @@ export default class quotePartial extends ExtPartial {
   gap: 15px;
 
   blockquote {
-      .font-head;
-      color: @color1;
+    .font-head;
+    color: @color1;
 
     &.headline_XL {
       font-size: @headline_XL;
       line-height: @headlineLineHeight_XL;
+
+      @media @smartphone {
+        font-size: @headline_L;
+        line-height: @headlineLineHeight_XL;
+      }
     }
 
     &.headline_L {
       font-size: @headline_L;
-      line-height: @headlineLineHeight_L;
+      line-height: @headlineLineHeight_XL;
     }
 
     &.headline_M {
       font-size: @headline_M;
-      line-height: @headlineLineHeight_M;
+      line-height: @headlineLineHeight_L;
     }
 
     &.headline_S {
       font-size: @headline_S;
-      line-height: @headlineLineHeight_S;
+      line-height: @headlineLineHeight_M;
     }
 
     &.headline_XS {
       font-size: @headline_XS;
-      line-height: @headlineLineHeight_XS;
+      line-height: @headlineLineHeight_S;
     }
 
     &.quoteRight{

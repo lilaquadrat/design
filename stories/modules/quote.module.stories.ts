@@ -64,9 +64,9 @@ longQuoteCenter.args = {
 
 };
 
-export const longQuoteCenterSmall = Template.bind({});
+export const longQuoteRightSmall = Template.bind({});
 
-longQuoteCenterSmall.args = {
+longQuoteRightSmall.args = {
 
   ...longQuoteCenter.args,
   variant: ['authRight', 'quoteRight', 'small'],

@@ -2,7 +2,7 @@
   <section class="lila-highlight" :class="[variant]" v-if="notEmpty">
       <pre :key="keyhelper">
         <div class="codeContainer">
-          <lila-button-partial class="copyCode" @confirmed="copy()">
+          <lila-button-partial class="copyCode transparent" @confirmed="copy()">
             Copy
           </lila-button-partial>
         <code>{{ code }}</code>
@@ -132,8 +132,8 @@ export default class highlightPartial extends ExtPartial {
       .copyCode{
 
         position: absolute;
-        right: 0;
-        top: 15px;
+        right: 15px;
+        top: 5px;
 
       }
 
