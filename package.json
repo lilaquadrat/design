@@ -23,7 +23,7 @@
     "bundle": "webpack --config webpack.bundle.js --progress",
     "bundle-preview": "webpack --config webpack.dev-bundle.js --progress",
     "cli": "node node_modules/@lilaquadrat/cli/lib/src/index.js",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 --no-open",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
@@ -42,9 +42,9 @@
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
-    "@storybook/builder-webpack5": "^6.4.9",
-    "@storybook/manager-webpack5": "^6.4.9",
-    "@storybook/vue": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/vue": "^6.5.9",
     "@types/vue": "^2.0.0",
     "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.16.3",
@@ -107,7 +107,7 @@
     "webpack-watch-files-plugin": "^1.2.0"
   },
   "dependencies": {
-    "@lilaquadrat/studio": "^2.3.0",
+    "@lilaquadrat/studio": "^2.4.6",
     "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",

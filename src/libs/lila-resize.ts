@@ -1,14 +1,10 @@
-let isNode: boolean;
-
-typeof window === 'undefined'
-  ? isNode = true
-  : isNode = false;
+const isNode = typeof window === 'undefined';
 
 class Resize {
 
   timeout: any;
 
-  debounceTime: number = 50;
+  debounceTime: number = 250;
 
   resizedEvent: Event;
 
@@ -30,6 +26,8 @@ class Resize {
 
     window.addEventListener('resize', () => {
 
+      console.log('trigger rr');
+
       this.debounce();
 
     });
@@ -47,12 +45,14 @@ class Resize {
     this.getMediaQuery();
     this._realHeight = window.innerHeight;
     window.dispatchEvent(this.resizedEvent);
+    console.log('trigger REAL');
 
   }
 
   getMediaQuery(): void {
 
     const element = document.getElementById('mediadetection');
+
     if (!element) return;
 
     for (const child of element.children) {
@@ -90,5 +90,7 @@ class Resize {
   }
 
 }
+
 const resize = new Resize();
+
 export default resize;

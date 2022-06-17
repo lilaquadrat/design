@@ -18,5 +18,5 @@ export default interface PicturegroupElement {
 
     links?: LinkListWithTitle;
 
-  };
+  }
 

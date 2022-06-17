@@ -143,6 +143,13 @@ export default class VideoPartial extends ExtComponent {
 
         }
 
+        if (this.attributes?.includes('muted')) {
+
+          element.volume = 0;
+          element.muted = true;
+
+        }
+
       });
 
   }

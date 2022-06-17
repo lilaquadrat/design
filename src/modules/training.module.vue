@@ -313,12 +313,13 @@ export default class TrainingModule extends ExtComponent {
           box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .13);
 
           opacity: 0;
-          pointer-events: 0;
+          pointer-events: none;
           transition: opacity @aTime @aType, transform @aTime @aType;
           transform: translateY(-5px);
 
           &.open {
             opacity: 1;
+            pointer-events: all;
             transform: translateY(0);
           }
 
