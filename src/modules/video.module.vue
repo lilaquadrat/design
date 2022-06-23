@@ -1,10 +1,10 @@
 <template>
   <section @click="trigger" @keypress="trigger"
-  :class="[variant, view, {started: started, controls: controls}]" class="lila-video-module lila-module">
+  :class="[variant, view, {started, controls}]" class="lila-video-module lila-module">
 
     <section class="video-container">
 
-      <lila-video-partial :trigger="clickEvent" :js="js" v-bind="video" @playing="toggle" @ended="ended" />
+      <lila-video-partial :trigger="clickEvent" v-bind="video" @playing="toggle" @ended="ended" />
 
       <section class="position-container" :class="{visible: !playing}">
         <lila-textblock-partial v-if="textblock" v-bind="textblock" :variant="variant" />
@@ -139,7 +139,7 @@ export default class VideoModule extends ExtComponent {
       width: 100%;
       height: 100vh;
 
-      video {
+      video, iframe {
         position: absolute;
         top: 0;
         left: 0;

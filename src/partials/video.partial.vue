@@ -1,17 +1,22 @@
 <template>
-    <video class="lila-video-partial" @click="toggle" @keyup="toggle" v-attributes="attributes" :poster="poster" :class="[state, { loading: loading }]" :key="src" v-if="src">
+<section @click="toggle" @keyup="toggle" class="lila-video-partial">
+    <video ref="videoElement" v-attributes="attributes" :poster="poster" :class="[state, { loading: loading }]" :key="src" v-if="src && !youtubeId">
       <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
       <track kind="captions" />
       <source v-if="src" :data-src="src" />
     </video>
+    <youtube class="iframe" v-if="youtubeId" @playing="playing" @paused="paused" @ended="ended" @ready="ready" v-bind="youtubeSettings"></youtube>
+</section>
 </template>
 <script lang="ts">
 import { VideoSource } from '@interfaces/video.interface';
 import {
   ExtComponent, Component, Prop, Watch,
 } from '@libs/lila-component';
+import VueYouTubeEmbed, { getIdFromURL } from 'vue-youtube-embed';
+import Vue from 'vue';
 
-// Vue.use(VueYouTubeEmbed);
+Vue.use(VueYouTubeEmbed);
 
 @Component
 export default class VideoPartial extends ExtComponent {
@@ -34,7 +39,9 @@ export default class VideoPartial extends ExtComponent {
 
   state: string = 'loading';
 
-  playing: boolean = null;
+  isPlaying: boolean = null;
+
+  youtubeObject;
 
   @Watch('src')
   watchVideo() {
@@ -61,26 +68,31 @@ export default class VideoPartial extends ExtComponent {
 
     this.start();
 
-    this.DOM.onElement('playing', this.realElement, () => {
+    if (this.realElement) {
 
-      this.playing = true;
-      this.$emit('playing', true);
+      this.DOM.onElement('playing', this.realElement, () => {
 
-    });
+        this.isPlaying = true;
+        this.$emit('playing', true);
 
-    this.DOM.onElement('pause', this.realElement, () => {
+      });
 
-      this.playing = false;
-      this.$emit('playing', false);
+      this.DOM.onElement('pause', this.realElement, () => {
 
-    });
+        this.isPlaying = false;
+        this.$emit('playing', false);
 
-    this.DOM.onElement('ended', this.realElement, () => {
+      });
 
-      this.playing = false;
-      this.$emit('ended', true);
+      this.DOM.onElement('ended', this.realElement, () => {
 
-    });
+        this.isPlaying = false;
+        this.$emit('ended', true);
+
+      });
+
+    }
+
 
   }
 
@@ -88,21 +100,39 @@ export default class VideoPartial extends ExtComponent {
 
     if (this.preview) return false;
 
-    const element: HTMLMediaElement = this.$el as HTMLMediaElement;
+    if (this.videoType === 'basic') {
 
-    if (this.playing) {
+      if (!this.realElement) return false;
 
-      element.pause();
+      if (this.isPlaying) {
 
-    } else {
+        this.realElement.pause();
 
-      if (this.attributes?.includes('unmuted')) {
+      } else {
 
-        element.muted = false;
+        if (this.attributes?.includes('unmuted')) {
+
+          this.realElement.muted = false;
+
+        }
+
+        this.realElement.play();
 
       }
 
-      element.play();
+    }
+
+    if (this.videoType === 'youtube') {
+
+      if (this.isPlaying) {
+
+        this.youtubeObject.pause();
+
+      } else {
+
+        this.youtubeObject.playVideo();
+
+      }
 
     }
 
@@ -111,6 +141,8 @@ export default class VideoPartial extends ExtComponent {
   }
 
   start() {
+
+    if (this.videoType === 'youtube') return;
 
     this.$nextTick()
       .then(() => {
@@ -132,21 +164,20 @@ export default class VideoPartial extends ExtComponent {
       })
       .then(() => {
 
-        const element: HTMLMediaElement = this.$el as HTMLMediaElement;
 
-        if (typeof element.load !== 'function') return;
-        element.load();
+        if (typeof this.realElement?.load !== 'function') return;
+        this.realElement?.load();
 
         if (this.attributes?.includes('play')) {
 
-          element.play();
+          this.realElement.play();
 
         }
 
         if (this.attributes?.includes('muted')) {
 
-          element.volume = 0;
-          element.muted = true;
+          this.realElement.volume = 0;
+          this.realElement.muted = true;
 
         }
 
@@ -162,13 +193,41 @@ export default class VideoPartial extends ExtComponent {
 
   get realElement() {
 
-    return this.$el;
+    return this.$refs.videoElement as HTMLMediaElement;
 
   }
 
   get videoType() {
 
     return this.src?.match('^https://(www.)?youtube.com') ? 'youtube' : 'basic';
+
+  }
+
+  get youtubeId() {
+
+    if (this.videoType !== 'youtube') return false;
+
+    return getIdFromURL(this.src);
+
+  }
+
+  get youtubeSettings() {
+
+    if (this.videoType !== 'youtube') return false;
+
+    return {
+      'video-id': this.youtubeId,
+      'player-width': '100%',
+      'player-height': '100%',
+      'player-vars': {
+        autoplay: this.attributes.includes('autoplay') ? 1 : 0,
+        controls: this.attributes.includes('controls') ? 1 : 0,
+        loop: this.attributes.includes('loop') ? 1 : 0,
+        modestbranding: 1,
+        rel: 0,
+      },
+      host: 'https://www.youtube-nocookie.com',
+    };
 
   }
 
@@ -181,7 +240,7 @@ export default class VideoPartial extends ExtComponent {
 
       return this.js
         ? videoId
-        : `https://www.youtube-nocookie.com/embed/${videoId}?modestbranding=1`;
+        : `https://www.youtube-nocookie.com/embed/${videoId}`;
 
     }
 
@@ -189,9 +248,36 @@ export default class VideoPartial extends ExtComponent {
 
   }
 
+  ready(event) {
+
+    this.youtubeObject = event.target;
+
+  }
+
+  playing() {
+
+    this.isPlaying = true;
+    this.$emit('playing', true);
+
+  }
+
+  paused() {
+
+    this.isPlaying = false;
+    this.$emit('playing', false);
+
+  }
+
+  ended() {
+
+    this.isPlaying = false;
+    this.$emit('ended', false);
+
+  }
+
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-video-partial {
@@ -200,6 +286,31 @@ export default class VideoPartial extends ExtComponent {
 
   &:hover {
     cursor: pointer;
+  }
+
+  video {
+    display: grid;
+    max-width: 100%;
+  }
+
+  .iframe {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    padding: 56.25% 0 0 0;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 }
 </style>
