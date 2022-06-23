@@ -26,20 +26,29 @@ basic.args = {
   multiOpen: false,
   elements: [
     {
-      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+
+      },
     },
     {
-      title: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
   ],
 };
@@ -50,20 +59,29 @@ multiOpen.args = {
   multiOpen: true,
   elements: [
     {
-      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+
+      },
     },
     {
-      title: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
   ],
 };
@@ -75,20 +93,29 @@ openOnStart.args = {
   openOnStart: 'first',
   elements: [
     {
-      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+
+      },
     },
     {
-      title: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
   ],
 };
@@ -101,20 +128,29 @@ disabledControls.args = {
   disableControls: true,
   elements: [
     {
-      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
     {
-      title: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
-      text: 'Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'bibendum ut tristique et egestas quis. egestas quis. Nisi est sit amet facilisis magna. egestas quis. Nisi est sit amet facilisis magna. Nisi est sit amet facilisis magna?',
+        text: ['Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, elit, Lorem ipsum dolor sit amet, sed do eiusmod  Lorem ipsum dolor sit amet,tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+
+      },
     },
     {
-      title: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Arcu felis?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+      },
     },
   ],
 };

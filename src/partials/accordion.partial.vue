@@ -128,7 +128,7 @@ export default class AccordionPartial extends ExtPartial {
 
       const headline = single.textblock?.headline;
 
-      delete single.textblock.headline;
+      delete single.textblock?.headline;
 
       if (!headline) return;
 
