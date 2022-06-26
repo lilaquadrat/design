@@ -51,6 +51,7 @@ abstract class ExtComponent extends vue {
 
   }
 
+  // eslint-disable-next-line class-methods-use-this
   attachScrollCheck(elements: NodeListOf<Element> | Element[]) {
 
     elements.forEach((element) => {

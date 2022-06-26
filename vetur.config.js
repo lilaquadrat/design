@@ -15,7 +15,8 @@ module.exports = {
           {name: 'lila-accordion-partial', path: './src/partials/accordion.partial.vue'},
           {name: 'lila-picture-partial', path: './src/partials/picture.partial.vue'},
           {name: 'lila-textblock-partial', path: './src/partials/textblock.partial.vue'},
-        ]
+        ],
+        tsconfig: "./tsconfig.json"
       }
     ]
   }

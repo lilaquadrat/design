@@ -14,8 +14,9 @@ export default interface MainStoreState extends GenericState {
     },
     content: any,
     fullscreen: boolean,
+    availableModules: any[],
     editor: {
         content?: any,
         active?: string | number | false,
     },
-};
+}

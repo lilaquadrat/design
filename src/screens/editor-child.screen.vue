@@ -11,6 +11,7 @@ import { ExtComponent, Component, vue } from '@libs/lila-component';
 import { Editor, EditorActiveModule, StudioIframeMessage } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
+import Components from '@libs/Components';
 
 @Component
 export default class EditorChildScreen extends ExtComponent {
@@ -91,6 +92,7 @@ export default class EditorChildScreen extends ExtComponent {
       false,
     );
 
+    window.parent.postMessage({ type: 'studio-design-modules', data: this.$store.state.availableModules }, '*');
     window.parent.postMessage('studio-design-ready', '*');
 
   }
@@ -124,7 +126,10 @@ export default class EditorChildScreen extends ExtComponent {
 
       const containerSelector = active.position === 'content' ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${active.position}`;
       const contentPosition: Editor['modules'] = active.position === 'content' ? this.content.content : this.content[active.position];
-      const index = contentPosition.findIndex((single) => single.uuid === active.uuid);
+      const index = contentPosition?.findIndex((single) => single.uuid === active.uuid);
+
+      if (!index) return;
+
       const module = document.querySelector(
         // eslint-disable-next-line max-len
         `${containerSelector} .lila-module:nth-child(${index + 1}), ${containerSelector} .partial-container:nth-child(${index + 1})`,
