@@ -11,7 +11,6 @@ import { ExtComponent, Component, vue } from '@libs/lila-component';
 import { Editor, EditorActiveModule, StudioIframeMessage } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
-import Components from '@libs/Components';
 
 @Component
 export default class EditorChildScreen extends ExtComponent {
@@ -70,6 +69,8 @@ export default class EditorChildScreen extends ExtComponent {
 
         this.active = message.data.data as EditorActiveModule;
 
+        console.log(this.active);
+
         if (this.active.uuid) {
 
           this.scrollToModule(this.active);
@@ -124,11 +125,12 @@ export default class EditorChildScreen extends ExtComponent {
 
     vue.nextTick().then(() => {
 
-      const containerSelector = active.position === 'content' ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${active.position}`;
-      const contentPosition: Editor['modules'] = active.position === 'content' ? this.content.content : this.content[active.position];
+      const baseModule = this.contentCache.find((single) => single.uuid === this.active.uuid);
+      const containerSelector = baseModule.position === 'content' || !baseModule.position ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${baseModule.position}`;
+      const contentPosition: Editor['modules'] = baseModule.position === 'content' || !baseModule.position ? this.content.content : this.content[baseModule.position];
       const index = contentPosition?.findIndex((single) => single.uuid === active.uuid);
 
-      if (!index) return;
+      if (!index && index !== 0) return;
 
       const module = document.querySelector(
         // eslint-disable-next-line max-len

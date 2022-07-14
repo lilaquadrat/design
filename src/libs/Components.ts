@@ -16,8 +16,6 @@ class Components {
 
   static single(component: any, type: 'module' | 'partial', namespace?: string) {
 
-    console.debug('single', component, type, namespace, Components.getName(component.name, type, namespace));
-
     Vue.component(
       Components.getName(component.name, type, namespace),
       component.component,

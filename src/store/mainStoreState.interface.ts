@@ -1,4 +1,5 @@
 import GenericState from '@interfaces/GenericState.interface';
+import { DesignModule } from '@lilaquadrat/studio/lib/interfaces';
 
 export default interface MainStoreState extends GenericState {
     data: any,
@@ -14,9 +15,9 @@ export default interface MainStoreState extends GenericState {
     },
     content: any,
     fullscreen: boolean,
-    availableModules: any[],
+    availableModules: DesignModule[],
     editor: {
         content?: any,
-        active?: string | number | false,
+        active?: string,
     },
 }

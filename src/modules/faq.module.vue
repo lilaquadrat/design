@@ -32,6 +32,11 @@ export default class FaqModule extends ExtComponent {
   display: grid;
   gap: 40px;
 
+  max-width: @moduleWidth_S;
+
+  &.medium {
+    max-width: @moduleWidth_M;
+  }
 
 }
 

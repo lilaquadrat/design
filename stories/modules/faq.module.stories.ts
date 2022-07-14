@@ -5,9 +5,7 @@ export default {
       control: {
         type: 'multi-select',
         options: [
-          'center',
-          'actions',
-          'notice',
+          'medium',
         ],
       },
     },
