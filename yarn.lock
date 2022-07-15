@@ -1711,10 +1711,10 @@
     open "^8.4.0"
     typescript "^4.5.4"
 
-"@lilaquadrat/studio@^2.4.6":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@lilaquadrat/studio/-/studio-2.4.6.tgz#f3407675ee62bfc51a8ae5a937e28cd3f21fe58c"
-  integrity sha512-og2Js0I2J2zCtKv4Nw0yKr8jAvybbpigfdp2kK182PLRnj2QUVxuglwUrA78uqvx79ighwwMREu8oVcXkVRECg==
+"@lilaquadrat/studio@^2.4.9":
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/@lilaquadrat/studio/-/studio-2.4.9.tgz#a670bde2745cc037ab05aaf5a7d5a16a7cc13d1a"
+  integrity sha512-hExP4ta7tjmWm25uBW8zIcC2pw/undApX1vJc23mJ+6xqpzbOsgbtS4pDZ0Vq6jRxNxzw3NldPD1ZyHaAj4biA==
   dependencies:
     "@azure/arm-dns" "^5.0.0"
     "@azure/identity" "^2.0.4"

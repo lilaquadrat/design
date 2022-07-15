@@ -1,5 +1,5 @@
 <template>
-<section :class="[variant, view]" class="lila-picturegroup-module lila-module">
+<section :id="id" :class="[variant, view]" class="lila-picturegroup-module lila-module">
 
   <section class="content-container">
     <lila-textblock-partial :variant="[brightText]" v-if="textblock" v-bind="textblock" />

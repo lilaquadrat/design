@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
+  <section :id="id" :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
     <blockquote cite="www.google.de">{{ quote }}</blockquote>
     <figcaption>Herzog Wern, <cite>Brave new World</cite></figcaption>
     {{ link }}

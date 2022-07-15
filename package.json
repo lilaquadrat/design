@@ -108,7 +108,7 @@
     "webpack-watch-files-plugin": "^1.2.0"
   },
   "dependencies": {
-    "@lilaquadrat/studio": "^2.4.6",
+    "@lilaquadrat/studio": "^2.4.9",
     "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",

@@ -1,5 +1,5 @@
 <template>
-    <section :class="[view, fontVariant, variant, {hasImage: background}]" class="lila-module emotion-module fullscreen">
+    <section :id="id" :class="[view, fontVariant, variant, {hasImage: background}]" class="lila-module emotion-module fullscreen">
 
         <lila-picture-partial class="background" v-if="background" v-bind="background" />
         <lila-video-partial class="background" v-if="video" v-bind="video" />

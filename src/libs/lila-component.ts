@@ -3,6 +3,7 @@ import Component from 'vue-class-component';
 import { Prop, Watch } from 'vue-property-decorator';
 import inview from 'src/libs/lila-inview';
 import Dom from 'src/libs/lila-dom';
+import { AdditionalContentInformation, ModuleIndexOptions } from '@lilaquadrat/studio/lib/interfaces';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -22,6 +23,12 @@ abstract class ExtComponent extends vue {
   public triggerScroll: boolean = true;
 
   @Prop({ type: Array, default: () => [] }) variant: string[];
+
+  @Prop({ type: Object, default: {} }) index: ModuleIndexOptions;
+
+  @Prop(String) position: 'top' | 'content' | 'bottom';
+
+  @Prop(Object) additional: AdditionalContentInformation;
 
   constructor() {
 
@@ -62,18 +69,14 @@ abstract class ExtComponent extends vue {
 
   }
 
-  // /**
-  //  * check if the global variable window exists
-  //  * if so,  we are in a browser, if not we are in nodejs
-  //  *
-  //  * @readonly
-  //  * @memberof ExtComponent
-  //  */
-  // get isNode() {
+  get id() {
 
-  //   return typeof window === 'undefined';
+    console.log(this.index);
 
-  // }
+    if (this.index?.anchor) return this.index.anchor;
+    return false;
+
+  }
 
 }
 

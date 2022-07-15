@@ -1,5 +1,5 @@
 <template>
-  <section :class="[variant, view]" class="lila-prices-module lila-module">
+  <section :id="id" :class="[variant, view]" class="lila-prices-module lila-module">
 
     <lila-textblock-partial v-bind="textblock"></lila-textblock-partial>
 

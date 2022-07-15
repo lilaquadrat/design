@@ -1,5 +1,5 @@
 <template>
-<section :class="[variant, view]" class="lila-picture-module lila-module">
+<section :id="id" :class="[variant, view]" class="lila-picture-module lila-module">
   <lila-picture-partial v-bind="picture" />
 
   <div v-if="showText" class="position-container">

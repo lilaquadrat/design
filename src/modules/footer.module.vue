@@ -1,5 +1,5 @@
 <template>
-  <footer :class="[view, fontVariant, variant]" class="lila-footer-module lila-module">
+  <footer :id="id" :class="[view, fontVariant, variant]" class="lila-footer-module lila-module">
     <section class="footer-container">
       <template v-if="sitemap">
         <section v-for="(element, index) in sitemap" :key="`sitemap-elements-${index}`" class="content">

@@ -1,5 +1,5 @@
 <template>
-  <section @click="trigger" @keypress="trigger"
+  <section :id="id" @click="trigger" @keypress="trigger"
   :class="[variant, view, {started, controls}]" class="lila-video-module lila-module">
 
     <section class="video-container">

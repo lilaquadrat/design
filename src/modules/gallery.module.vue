@@ -1,5 +1,5 @@
 <template>
-  <section class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription }]">
+  <section :id="id" class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription }]">
     <section class="elements">
       <div :style="cssElementsLength" ref='scrollContainer' :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
         <template v-for="(element, elementIndex) in elements">

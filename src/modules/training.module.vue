@@ -1,5 +1,5 @@
 <template>
-  <section :class="[view, variant]" class="lila-training-module lila-module fullscreen">
+  <section :id="id" :class="[view, variant]" class="lila-training-module lila-module fullscreen">
     <section v-if="textblock" class="module generic-module">
       <lila-textblock-partial v-bind="textblock" />
     </section>

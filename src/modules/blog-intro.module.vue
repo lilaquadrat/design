@@ -1,5 +1,5 @@
 <template>
-<article :class="[view,{hasImage: picture}]" class="lila-blog-intro-module lila-module">
+<article :id="id" :class="[view,{hasImage: picture}]" class="lila-blog-intro-module lila-module">
 
   <header>
     <template v-if="!linkExists">
