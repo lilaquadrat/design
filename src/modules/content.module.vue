@@ -55,7 +55,6 @@ export default class ContentModule extends ExtComponent {
 
 .lila-content-module {
   position: relative;
-  overflow-y: hidden;
 
   max-width: 100%;
 

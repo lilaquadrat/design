@@ -112,14 +112,31 @@ export default
     name: 'index',
     variants: [
       {
-        key: 'variant',
-        name: 'Erste Variante',
-        description: 'Some description for this module',
+        key: 'auto',
+        name: 'Automatischer Modus',
+        description: 'Der Index wird automatisch anhand der Module aufgebaut',
       },
       {
-        key: '50%',
-        name: 'Zweite Variante',
-        description: 'Some description for this module',
+        key: 'numbered',
+        name: 'Numberische Indikatoren',
+        description: 'Es werden fortlaufendes Zahlen anstatt Icons angezeigt',
+      },
+      {
+        key: 'medium',
+        name: 'Größe: Medium',
+        description: 'Die maximale Breite des Modules wird erhöht',
+      },
+      {
+        key: 'backgroundColor1',
+        name: 'Hauptfarbe als Hintergrund',
+      },
+      {
+        key: 'backgroundColor3',
+        name: 'Sekunddarfarbe als Hintergrund',
+      },
+      {
+        key: 'backgroundGrey',
+        name: 'Grauer Hintergrund',
       },
     ],
     component: () => import(/* webpackChunkName: "design-index-module" */'../../../src/modules/index.module.vue'),
@@ -150,16 +167,14 @@ export default
     variants: [
       {
         key: 'middle',
-        name: 'Text und Bild in der Mitte',
-        description: 'Der Text und das Bild werden genau mittig angezeigt',
+        name: 'Module wird in mittlerer Grösse dargestellt',
       },
       {
         key: 'small',
-        name: 'Text und Bild verkleinert in der Mitte',
-        description: 'Der Text und das Bild werden genau mittig und verkleinert angezeigt',
+        name: 'Module wird kleiner dargestellt',
       },
       {
-        key: 'text overlay right',
+        key: 'variant1',
         name: 'Text im Bild rechts',
         description: 'Der Text wird statt unter dem Bild rechts im Bild angezeigt',
       },
@@ -209,22 +224,22 @@ export default
         name: '3 Bilder nebeneinander',
       },
       {
-        key: 'variant2',
+        key: 'variant4',
         name: '4 Bilder in einer Reihe',
       },
       {
-        key: 'variant3',
+        key: 'variant2',
         name: '1 großes und 3 kleine Bilder',
         description: 'das erste Bild ist groß oben angezeigt und die 3 folgenden kleinen Bilder darunter',
       },
       {
-        key: 'variant4',
+        key: 'variant5',
         name: '1 großes und 4 kleine Bilder',
         description: 'das erste Bild ist groß oben angezeigt und die 4 folgenden kleinen Bilder darunter',
       },
       {
-        key: 'variant5',
-        name: '1 großes und 4 kleine Bilder vertikal',
+        key: 'variant3',
+        name: '1 großes und 3 kleine Bilder vertikal',
         description: 'das erste Bild ist groß links angezeigt und die 3 folgenden kleinen Bilder rechts daneben',
       },
       {
@@ -250,6 +265,11 @@ export default
       {
         key: 'centerText',
         name: 'Text vor den Bildern wird zenrtiert',
+      },
+      {
+        key: 'fit',
+        name: 'Bildergrößen werden vereinheitlicht',
+        description: 'verschieden grosse Bilder werden in eine einheitliche Grosse umgewandelt',
       },
     ],
     component: () => import(/* webpackChunkName: "design-picturegroup-module" */'../../../src/modules/picturegroup.module.vue'),
