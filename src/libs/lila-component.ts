@@ -24,7 +24,7 @@ abstract class ExtComponent extends vue {
 
   @Prop({ type: Array, default: () => [] }) variant: string[];
 
-  @Prop({ type: Object, default: {} }) index: ModuleIndexOptions;
+  @Prop({ type: Object, default: () => {} }) index: ModuleIndexOptions;
 
   @Prop(String) position: 'top' | 'content' | 'bottom';
 
