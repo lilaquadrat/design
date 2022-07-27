@@ -151,13 +151,13 @@ export default
     variants: [
       {
         key: 'left',
-        name: 'das Menü öffnet sich auf der linken Seite',
+        name: 'Menü öffnet sich links',
         description: 'alle Menüpunkte werden nun auf der linken Seite angezeigt',
       },
       {
-        key: 'color',
+        key: 'colorScheme1',
         name: 'Hintergrundfarbe',
-        description: 'Das Menu bekommt die Hauptfarbe als Hintergrund',
+        description: 'Wenn des Menu links angezeigt wird, bekommt es die Hauptfarbe als Hintergrund',
       },
     ],
     component: () => import(/* webpackChunkName: "design-menu-module" */'../../../src/modules/menu.module.vue'),
