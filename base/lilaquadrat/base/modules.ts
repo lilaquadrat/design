@@ -60,13 +60,18 @@ export default
     variants: [
       {
         key: 'variant1',
-        name: 'alternatives Design',
-        description: 'Some description for this module',
+        name: 'Ein Fakt mit Auswahlliste',
+        description: 'Es wird nur ein Fakt angezeigt, eine Auswahlliste wird links dargestellt',
       },
       {
         key: 'variant2',
-        name: 'zweites alternatives Design',
-        description: 'Some description for this module',
+        name: 'Fakten nebeneinander in mehreren Reihen',
+        description: 'Zwei Fakten nebeneinander pro Reihe',
+      },
+      {
+        key: 'threeRow',
+        name: 'Drei Bilder in einer Reihe',
+        description: 'Drei Bilder anstatt zwei pro Reihe angezeigt.',
       },
       {
         key: 'Fit images',
@@ -298,18 +303,17 @@ export default
     variants: [
       {
         key: 'offsetTop',
-        name: 'Erste Variante',
-        description: 'der Index wird etwas nach unten verschoben',
+        name: 'Index Abstand nach oben',
+        description: 'Index wird nach unten verschoben',
       },
       {
         key: 'indexVariant',
-        name: 'Zweite Variante',
-        description: 'im Index wird nur der Titel ohne Beschreibung angezeigt',
+        name: 'Index Liste von Texten',
+        description: 'Simple Darstellung der Indexelemente',
       },
       {
         key: 'indexIndicator',
-        name: 'Dritte Variante',
-        description: 'im Index werden die Titel nummeriert',
+        name: 'Nummerierter Index',
       },
     ],
     component: () => import(/* webpackChunkName: "design-training-module" */'../../../src/modules/training.module.vue'),
@@ -324,10 +328,6 @@ export default
       {
         key: 'dark',
         name: 'dunkler Text im Video',
-      },
-      {
-        key: 'middle',
-        name: 'das Video wird in mittlerer Größe angezeigt',
       },
       {
         key: 'small',
