@@ -36,6 +36,9 @@
 
 .modulePadding() {
   padding: 0 @modulePadding;
+  @media @tablet, @desktop {
+    padding: 0 @modulePaddingExt;
+  }
 }
 
 .modulePadding(@type) when (@type = 'none') {
@@ -44,6 +47,9 @@
 
 .modulePadding(@type) when (@type = 'full') {
   padding: @modulePadding;
+  @media @tablet, @desktop {
+    padding: 0 @modulePaddingExt;
+  }
 }
 
 .clearfix {

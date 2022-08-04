@@ -26,8 +26,6 @@ class Resize {
 
     window.addEventListener('resize', () => {
 
-      console.log('trigger rr');
-
       this.debounce();
 
     });

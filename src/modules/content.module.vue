@@ -29,6 +29,8 @@ export default class ContentModule extends ExtComponent {
 
   @ProvideReactive('linkBase') linkBase: string;
 
+  @ProvideReactive('linkMode') linkMode: string;
+
   @ProvideReactive('contentChildData') contentChildData?: ChildData;
 
   @Prop(Object) content: ContentPrepared;
@@ -39,14 +41,16 @@ export default class ContentModule extends ExtComponent {
 
   @Prop(String) routeBase: string;
 
+  @Prop(Boolean) linkEvents: boolean;
+
   constructor() {
 
     super();
 
     this.linkBase = this.routeBase;
+    this.linkMode = this.linkEvents ? 'event' : 'link';
 
   }
-
 
 }
 </script>
