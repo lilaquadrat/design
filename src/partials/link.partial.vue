@@ -62,17 +62,16 @@ export default class LinkPartial extends ExtPartial {
 
       $event.preventDefault();
 
-      if(this.linkMode === 'event') {
+      if (this.linkMode === 'event') {
 
-        this.$root.$emit('integratedLink', {link: this.link});
+        this.$root.$emit('integratedLink', { link: this.link, text: this.text });
 
       } else {
 
-        this.$emit(this.link.slice(1));
-        this.$root.$emit(this.link.slice(1));
+        this.$emit(this.link.slice(1), this.text);
+        this.$root.$emit(this.link.slice(1), this.text);
 
       }
-
 
 
     }
