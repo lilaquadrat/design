@@ -199,7 +199,3 @@ textBackground.args = {
   },
   variant: ['textBackground', 'variant1', 'content-inline'],
 };
-
-export const empty = Template.bind({});
-
-empty.args = {};

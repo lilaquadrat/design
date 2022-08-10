@@ -102,6 +102,19 @@ presentation.args = prepareContent({
       variant: ['variant1'],
     },
     {
+      type: 'picture-module',
+      textblock: {
+        headline: 'JEDES ANLIEGEN VERDIENT GEHÖR.',
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      },
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'women2.jpg',
+      },
+      variant: ['textPictureVertical'],
+    },
+    {
       type: 'faq-module',
       textblock: {
         headline: 'JEDES ANLIEGEN VERDIENT GEHÖR.',

@@ -184,9 +184,24 @@ export default
         description: 'Der Text wird statt unter dem Bild rechts im Bild angezeigt',
       },
       {
+        key: 'textPictureVertical',
+        name: 'Text bevor Bild',
+        description: 'Der Text wird zentriert vor dem Bild angezeigt',
+      },
+      {
+        key: 'pictureTextVertical',
+        name: 'Bild bevor Text',
+        description: 'Der Text wird zentriert nach dem Bild angezeigt',
+      },
+      {
         key: 'fullscreen',
         name: 'fullscreen',
-        description: 'Das Bild wird an die gesamte Bildschirmgröße angepasst',
+        description: 'Das Bild wird so breit wie der aktuelle Container es zulässt.',
+      },
+      {
+        key: 'fullscreenOverlayEnabled',
+        name: 'Bild in Fullscreen als Overlay ermöglichen',
+        description: 'Es wird ein Button angezeigt um das Bild in einem Overlay in Fullscreen anzuzeigen.',
       },
     ],
     component: () => import(/* webpackChunkName: "design-picture-module" */'../../../src/modules/picture.module.vue'),

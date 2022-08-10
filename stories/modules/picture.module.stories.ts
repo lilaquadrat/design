@@ -7,7 +7,8 @@ export default {
         options: [
           'small',
           'middle',
-          'noText',
+          'textPictureVertical',
+          'pictureTextVertical',
           'fullscreen',
           'variant1',
         ],
@@ -48,4 +49,19 @@ variant.args = {
     src: 'women1.jpg',
   },
   variant: ['variant1'],
+};
+
+export const textVertical = Template.bind({});
+
+textVertical.args = {
+  textblock: {
+    headline: 'some headline',
+    text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+  },
+  picture: {
+    source: [],
+    alt: 'IMAGE ALT',
+    src: 'women1.jpg',
+  },
+  variant: ['textPictureVertical'],
 };

@@ -49,13 +49,6 @@ export default class textblockPartial extends ExtPartial {
 
   .headlines;
 
-  &.bright {
-
-    h1, h2, h3, h4, h5, p {
-      color: @white;
-    }
-  }
-
   p {
     .font-normal;
     color: @textColor;
@@ -64,6 +57,13 @@ export default class textblockPartial extends ExtPartial {
 
   h2 + h3 {
     .multi(margin-top, 2);
+  }
+
+  &.bright {
+
+    h1, h2, h3, h4, h5, p {
+      color: @white;
+    }
   }
 
   &:empty {

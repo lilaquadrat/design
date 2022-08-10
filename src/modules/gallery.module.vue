@@ -1,5 +1,5 @@
 <template>
-  <section :id="id" class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription }]">
+  <section :id="id" class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription, fullscreenOverlay, fullscreenOverlayEnabled }]">
     <section class="elements">
       <div :style="cssElementsLength" ref='scrollContainer' :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
         <template v-for="(element, elementIndex) in elements">
@@ -29,6 +29,9 @@
     </section>
 
     <div v-if="!variant2" class="indexIndicator">
+      <lila-button-partial class="toggleFullscreen" v-if="fullscreenOverlayEnabled" colorScheme="transparent" :icon="true" @click="toggleFullscreenOverlay">
+        <lila-icons-partial colorScheme="colorScheme1" :type="fullscreenOverlay ? 'zoom-out' : 'zoom-in'" />
+      </lila-button-partial>
       <span class="currentIndex">{{ (currentOptionIndex + 1) | leadingZero(2) }}</span>
       <span class="seperator"></span>
       <span class="allIndex">{{ elements.length | leadingZero(2) }}</span>
@@ -101,6 +104,8 @@ export default class galleryModule extends ExtComponent {
 
   firstLoad: boolean = false;
 
+  fullscreenOverlay: boolean = false;
+
   @Watch('currentOptionIndex')
   indexChange(): void {
 
@@ -156,6 +161,25 @@ export default class galleryModule extends ExtComponent {
 
   }
 
+    get fullscreenOverlayEnabled() {
+
+    // return this.variant.includes('fullscreenOverlayEnabled');
+    return true;
+
+  }
+
+  toggleFullscreenOverlay() {
+
+    this.fullscreenOverlay = !this.fullscreenOverlay;
+    this.$root.$emit('fullscreen', this.fullscreenOverlay);
+    this.$nextTick()
+    .then(() => {
+      this.setControlsTop();
+    })
+
+  }
+
+
   pictureLoaded(): void {
 
     this.firstLoad = true;
@@ -165,10 +189,18 @@ export default class galleryModule extends ExtComponent {
 
   setControlsTop(): void {
 
-    const elements = this.$el?.querySelectorAll('.scroll-container .element');
-    const single = elements.item(this.currentOptionIndex).querySelector('.picture-container');
+    if(this.fullscreenOverlay) {
 
-    this.controlsOffset = single?.scrollHeight;
+      this.controlsOffset = window.innerHeight;
+
+    } else {
+
+      const elements = this.$el?.querySelectorAll('.scroll-container .element');
+      const single = elements.item(this.currentOptionIndex).querySelector('.picture-container');
+  
+      this.controlsOffset = single?.scrollHeight;
+    }
+
 
   }
 
@@ -469,5 +501,97 @@ export default class galleryModule extends ExtComponent {
       }
     }
   }
+
+  &.fullscreenOverlayEnabled {  
+
+    .indexIndicator {
+      grid-template-columns: 40px 25px 3px 25px;
+      grid-template-rows: 20px;
+
+      .toggleFullscreen {
+        margin-top: -6.5px;
+      }
+      span {
+        display: grid;
+      }
+    }
+        grid-template-columns: auto 175px;
+
+  }
+
+      &.fullscreenOverlay.fullscreenOverlayEnabled {
+
+    // .multi(padding, 8);
+
+    .index(9);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    overflow: hidden;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+
+    background-color: @white;
+    justify-content: center;
+    align-content: center;
+
+    &:first-child {
+      margin: 0;
+    }
+
+    .placeholder {
+      display: none;
+    }
+
+    .elements {
+      .element {
+        height: 100%;
+        grid-template-rows: 1fr 90px;
+
+        .picture-container {
+          overflow: hidden;
+
+          .lila-figure::v-deep {
+            max-height: 100%;
+            overflow: visible;
+            min-height: auto;
+            grid-template-rows: 100%;
+            &.picture {
+              position: relative;
+              img {
+                position: relative;
+                top: unset;
+                left: unset;
+                transform: none;
+                min-height: auto;
+                min-width: auto;
+                align-self: center;
+                justify-self: center;
+                max-height: 100%;
+                max-width: 100%;
+              }
+            }
+          }
+        }
+
+
+
+      }
+    }
+
+    &.hasElementDescription {
+      grid-template-rows: 1fr 90px;
+    }
+
+    .scroll-container {
+      height: 100vh;
+    }
+
+    }
 }
 </style>

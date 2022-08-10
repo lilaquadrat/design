@@ -123,7 +123,7 @@ export default class EmotionModule extends ExtComponent {
     let filteredLinks = this.links?.filter((link) => !!link.text);
 
     if (!Array.isArray(filteredLinks)) filteredLinks = null;
-    if (!filteredLinks.length) filteredLinks = null;
+    if (!filteredLinks?.length) filteredLinks = null;
 
     return filteredLinks;
 

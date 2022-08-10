@@ -20,7 +20,7 @@ const Template = (args, { argTypes }) => ({
 export const basic = Template.bind({});
 
 basic.args = {
-  index: {
+  links: {
     value: [
       {
         text: 'Link with some longer text',
@@ -40,38 +40,5 @@ basic.args = {
       },
     ],
     title: 'Some nice Index',
-  },
-};
-
-export const withLegend = Template.bind({});
-
-withLegend.args = {
-  index: {
-    value: [
-      {
-        text: 'Link with some longer text',
-        link: 'https://testlink',
-      },
-      {
-        text: 'Normal link',
-        link: 'https://testlink',
-      },
-      {
-        text: 'Link 3',
-        link: 'https://testlink',
-      },
-      {
-        text: 'Link 4',
-        link: 'https://testlink',
-      },
-    ],
-    title: 'Some nice Index',
-  },
-  legend: {
-    text: [
-      'some legend #1',
-      'some legend #2',
-      'some legend #3',
-    ],
   },
 };
