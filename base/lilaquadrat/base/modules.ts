@@ -1,5 +1,4 @@
-export default
-[
+module.exports = [
   {
     name: 'blog-intro',
     variants: [],
@@ -109,6 +108,11 @@ export default
         key: 'fullscreen',
         name: 'fullscreen',
         description: 'Das Bild wird an die gesamte Bildschirmgröße angepasst',
+      },
+      {
+        key: 'disableOverlay',
+        name: 'Overlay deaktivieren',
+        description: 'Deaktiviert die Möglichkeit, die Gallery im Overlay anzuzeigen.',
       },
     ],
     component: () => import(/* webpackChunkName: "design-gallery-module" */'../../../src/modules/gallery.module.vue'),

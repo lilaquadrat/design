@@ -1,20 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Emotion',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'scrollNotice',
-          'bright',
-          'dark',
-          'variant1',
-          'picture-switch',
-          'content-inline',
-          'textBackground',
-          'height50',
-          'height80',
-        ],
+        options: getVariants('emotion'),
       },
     },
   },

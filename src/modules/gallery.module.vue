@@ -161,10 +161,9 @@ export default class galleryModule extends ExtComponent {
 
   }
 
-    get fullscreenOverlayEnabled() {
+  get fullscreenOverlayEnabled() {
 
-    // return this.variant.includes('fullscreenOverlayEnabled');
-    return true;
+    return !this.variant.includes('disableOverlay');
 
   }
 
@@ -173,9 +172,11 @@ export default class galleryModule extends ExtComponent {
     this.fullscreenOverlay = !this.fullscreenOverlay;
     this.$root.$emit('fullscreen', this.fullscreenOverlay);
     this.$nextTick()
-    .then(() => {
-      this.setControlsTop();
-    })
+      .then(() => {
+
+        this.setControlsTop();
+
+      });
 
   }
 
@@ -189,7 +190,7 @@ export default class galleryModule extends ExtComponent {
 
   setControlsTop(): void {
 
-    if(this.fullscreenOverlay) {
+    if (this.fullscreenOverlay) {
 
       this.controlsOffset = window.innerHeight;
 
@@ -197,8 +198,9 @@ export default class galleryModule extends ExtComponent {
 
       const elements = this.$el?.querySelectorAll('.scroll-container .element');
       const single = elements.item(this.currentOptionIndex).querySelector('.picture-container');
-  
+
       this.controlsOffset = single?.scrollHeight;
+
     }
 
 
@@ -502,24 +504,25 @@ export default class galleryModule extends ExtComponent {
     }
   }
 
-  &.fullscreenOverlayEnabled {  
+  &.fullscreenOverlayEnabled {
+    grid-template-columns: auto 175px;
 
     .indexIndicator {
-      grid-template-columns: 40px 25px 3px 25px;
       grid-template-rows: 20px;
+      grid-template-columns: 40px 25px 3px 25px;
 
       .toggleFullscreen {
         margin-top: -6.5px;
       }
+
       span {
         display: grid;
       }
     }
-        grid-template-columns: auto 175px;
 
   }
 
-      &.fullscreenOverlay.fullscreenOverlayEnabled {
+  &.fullscreenOverlay.fullscreenOverlayEnabled {
 
     // .multi(padding, 8);
 
@@ -530,6 +533,8 @@ export default class galleryModule extends ExtComponent {
     left: 0;
 
     display: grid;
+    align-content: center;
+    justify-content: center;
     overflow: hidden;
     width: 100vw;
     max-width: 100vw;
@@ -537,8 +542,6 @@ export default class galleryModule extends ExtComponent {
     max-height: 100vh;
 
     background-color: @white;
-    justify-content: center;
-    align-content: center;
 
     &:first-child {
       margin: 0;
@@ -549,37 +552,38 @@ export default class galleryModule extends ExtComponent {
     }
 
     .elements {
+
       .element {
-        height: 100%;
         grid-template-rows: 1fr 90px;
+        height: 100%;
 
         .picture-container {
           overflow: hidden;
 
           .lila-figure::v-deep {
-            max-height: 100%;
+            grid-template-rows: 100%;
             overflow: visible;
             min-height: auto;
-            grid-template-rows: 100%;
+            max-height: 100%;
+
             &.picture {
               position: relative;
+
               img {
                 position: relative;
                 top: unset;
                 left: unset;
-                transform: none;
-                min-height: auto;
-                min-width: auto;
                 align-self: center;
                 justify-self: center;
-                max-height: 100%;
+                min-width: auto;
                 max-width: 100%;
+                min-height: auto;
+                max-height: 100%;
+                transform: none;
               }
             }
           }
         }
-
-
 
       }
     }
@@ -592,6 +596,6 @@ export default class galleryModule extends ExtComponent {
       height: 100vh;
     }
 
-    }
+  }
 }
 </style>

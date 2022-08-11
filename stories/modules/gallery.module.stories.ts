@@ -1,13 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Gallery',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'fullscreen',
-          'variant2',
-        ],
+        options: getVariants('gallery'),
       },
     },
   },

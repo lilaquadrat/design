@@ -1,7 +1,16 @@
+import getVariants from '@mixins/getVariants';
+
 /* eslint-disable max-len */
 export default {
   title: 'Modules/Facts',
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: {
+        type: 'multi-select',
+        options: getVariants('facts'),
+      },
+    },
+  },
 };
 
 const Template = (args, { argTypes }) => ({
