@@ -8,6 +8,7 @@
 
       <component v-for="(element, index) in elements" :key="`picturegroup-element-${index}`" class="element" :is="componentType(element.link)" v-bind="element.link">
         <lila-picture-partial v-if="element.picture" :fit="fitVariant" v-bind="element.picture" />
+        <lila-textblock-partial :variant="[brightText]" v-if="element.textblock" v-bind="element.textblock" />
         <lila-list-partial :variant="['noStyle']" v-bind="element.list"></lila-list-partial>
         <lila-list-partial :variant="linkVariant" v-bind="element.links"></lila-list-partial>
       </component>

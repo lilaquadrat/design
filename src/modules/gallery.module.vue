@@ -3,7 +3,7 @@
     <section class="elements">
       <div :style="cssElementsLength" ref='scrollContainer' :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
         <template v-for="(element, elementIndex) in elements">
-          <div class="element" :key="`gallery-element-${elementIndex}`" :style="cssWidth" :class="{hasImage: element.picture || element.pictures}" @click="set($event, element)" @keyup="set($event, element)">
+          <div class="element" :key="`gallery-element-${elementIndex}`" :style="cssWidth" :class="{hasImage: element.picture || element.pictures, hasDescription: element.textblock}" @click="set($event, element)" @keyup="set($event, element)">
             <div class="picture-container" v-if="element && element.picture">
               <lila-picture-partial :key="`gallery-placeholder-${elementIndex}`" class="placeholder" v-bind="element.picture" />
               <lila-picture-partial :key="`gallery-picture-${elementIndex}`" @loaded="pictureLoaded" class="active picture" v-bind="element.picture" />
@@ -190,18 +190,18 @@ export default class galleryModule extends ExtComponent {
 
   setControlsTop(): void {
 
-    if (this.fullscreenOverlay) {
+    // if (this.fullscreenOverlay) {
 
-      this.controlsOffset = window.innerHeight;
+    //   this.controlsOffset = window.innerHeight;
 
-    } else {
+    // } else {
 
-      const elements = this.$el?.querySelectorAll('.scroll-container .element');
-      const single = elements.item(this.currentOptionIndex).querySelector('.picture-container');
+    const elements = this.$el?.querySelectorAll('.scroll-container .element');
+    const single = elements.item(this.currentOptionIndex).querySelector('.picture-container');
 
-      this.controlsOffset = single?.scrollHeight;
+    this.controlsOffset = single?.scrollHeight;
 
-    }
+    // }
 
 
   }
@@ -505,11 +505,15 @@ export default class galleryModule extends ExtComponent {
   }
 
   &.fullscreenOverlayEnabled {
-    grid-template-columns: auto 175px;
+    grid-template-columns: auto 185px;
 
     .indexIndicator {
       grid-template-rows: 20px;
-      grid-template-columns: 40px 25px 3px 25px;
+      grid-template-columns: 35px 25px 3px 25px;
+
+      .currentIndex {
+        justify-self: end;
+      }
 
       .toggleFullscreen {
         margin-top: -6.5px;
@@ -523,8 +527,6 @@ export default class galleryModule extends ExtComponent {
   }
 
   &.fullscreenOverlay.fullscreenOverlayEnabled {
-
-    // .multi(padding, 8);
 
     .index(9);
 
@@ -554,8 +556,13 @@ export default class galleryModule extends ExtComponent {
     .elements {
 
       .element {
-        grid-template-rows: 1fr 90px;
+        grid-template-rows: 1fr;
+
         height: 100%;
+
+        &.hasDescription {
+          grid-template-rows: 1fr 90px;
+        }
 
         .picture-container {
           overflow: hidden;
@@ -588,12 +595,14 @@ export default class galleryModule extends ExtComponent {
       }
     }
 
-    &.hasElementDescription {
-      grid-template-rows: 1fr 90px;
-    }
+    grid-template-rows: calc(100% - 90px) 90px;
 
     .scroll-container {
-      height: 100vh;
+      height: calc(100% - 40px);
+
+      @media @desktop {
+        height: 100%;
+      }
     }
 
   }
