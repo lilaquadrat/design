@@ -2,13 +2,12 @@
   <section class="lila-highlight" :class="[variant]" v-if="notEmpty">
       <pre :key="keyhelper">
         <div class="codeContainer">
-          <lila-button-partial class="copyCode transparent" @confirmed="copy()">
+          <lila-button-partial class="copyCode transparent" @confirmed="copyCode()">
             Copy
           </lila-button-partial>
         <code>{{ code }}</code>
         </div>
       </pre>
-      <input v-show="copyElement" readonly class="copy-element" ref='inputCopyElem' :value="code" />
 
   </section>
 </template>
@@ -81,22 +80,9 @@ export default class highlightPartial extends ExtPartial {
 
   }
 
-  copy() {
+  copyCode() {
 
-    this.copyElement = true;
-
-    this.$nextTick()
-      .then(() => {
-
-        const element = this.$refs.inputCopyElem as HTMLInputElement;
-
-        element.select();
-
-        document.execCommand('copy');
-
-        this.copyElement = false;
-
-      });
+    navigator.clipboard.writeText(this.code);
 
   }
 
