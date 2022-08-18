@@ -1,5 +1,5 @@
 <template>
-  <nav :class="[view, variant, { open: open }]" class="lila-menu-module lila-module">
+  <nav :id="id" :class="[view, variant, { open: open }]" class="lila-menu-module lila-module">
     <section class="placeholder"></section>
 
     <section class="overflow-container">

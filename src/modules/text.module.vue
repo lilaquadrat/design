@@ -1,6 +1,5 @@
 <template>
-  <section :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
-
+  <section :id="id" :class="[variant, view, {fullscreen: isNotice}]" class="lila-text-module lila-module">
     <lila-textblock-partial v-bind="$props" :variant="textblockVariant" />
 
     <lila-list-partial v-bind="list" mode="list" :variant="listVariant('list')"></lila-list-partial>

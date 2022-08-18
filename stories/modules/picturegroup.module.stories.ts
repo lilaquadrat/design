@@ -1,25 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Picturegroup',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'variant1',
-          'variant2',
-          'variant3',
-          'variant4',
-          'variant5',
-          'small',
-          'noText',
-          'fullscreen',
-          'contact',
-          'color1',
-          'color3',
-          'product',
-          'fit',
-          'centerText',
-        ],
+        options: getVariants('picturegroup'),
       },
     },
   },

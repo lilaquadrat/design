@@ -1,7 +1,15 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Footer',
   argTypes: {
     content: { control: { type: 'object' } },
+    variant: {
+      control: {
+        type: 'multi-select',
+        options: getVariants('footer'),
+      },
+    },
   },
 };
 

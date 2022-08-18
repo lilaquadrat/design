@@ -1,6 +1,6 @@
 {
   "name": "@lilaquadrat/design",
-  "version": "1.0.0-beta.16",
+  "version": "1.0.0-beta.20",
   "description": "design and content renderer for lilaquadrat STUDIO",
   "license": "CC-BY-NC-4.0",
   "homepage": "https://lilaquadrat.de",
@@ -108,7 +108,7 @@
     "webpack-watch-files-plugin": "^1.2.0"
   },
   "dependencies": {
-    "@lilaquadrat/studio": "^2.4.6",
+    "@lilaquadrat/studio": "^2.4.9",
     "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",

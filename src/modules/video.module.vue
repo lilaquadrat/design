@@ -1,5 +1,5 @@
 <template>
-  <section @click="trigger" @keypress="trigger"
+  <section :id="id" @click="trigger" @keypress="trigger"
   :class="[variant, view, {started, controls}]" class="lila-video-module lila-module">
 
     <section class="video-container">
@@ -84,7 +84,7 @@ export default class VideoModule extends ExtComponent {
 
 .lila-video-module {
   .module;
-  max-width: @desktopWidthExt;
+  max-width: @moduleWidth_M;
   margin: auto;
 
   .modulePadding('none');
@@ -117,10 +117,6 @@ export default class VideoModule extends ExtComponent {
       .modulePadding('full');
     }
 
-  }
-
-  &.middle {
-    max-width: @moduleWidth_M;
   }
 
   &.fullscreen {

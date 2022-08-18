@@ -1,5 +1,5 @@
 <template>
-    <section :class="[view, fontVariant, variant, {hasImage: background}]" class="lila-module emotion-module fullscreen">
+    <section :id="id" :class="[view, fontVariant, variant, {hasImage: background}]" class="lila-module emotion-module fullscreen">
 
         <lila-picture-partial class="background" v-if="background" v-bind="background" />
         <lila-video-partial class="background" v-if="video" v-bind="video" />
@@ -123,6 +123,7 @@ export default class EmotionModule extends ExtComponent {
     let filteredLinks = this.links?.filter((link) => !!link.text);
 
     if (!Array.isArray(filteredLinks)) filteredLinks = null;
+    if (!filteredLinks?.length) filteredLinks = null;
 
     return filteredLinks;
 
@@ -287,7 +288,7 @@ export default class EmotionModule extends ExtComponent {
 
       display: grid;
 
-      picture {
+      .lila-figure {
 
         display: grid;
 

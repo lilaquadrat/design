@@ -1,15 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Video',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'small',
-          'middle',
-          'fullscreen',
-          'bright',
-        ],
+        options: getVariants('video'),
       },
     },
     js: { control: { type: 'boolean' } },

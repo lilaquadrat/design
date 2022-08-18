@@ -69,6 +69,8 @@ export default class EditorChildScreen extends ExtComponent {
 
         this.active = message.data.data as EditorActiveModule;
 
+        console.log(this.active);
+
         if (this.active.uuid) {
 
           this.scrollToModule(this.active);
@@ -91,6 +93,7 @@ export default class EditorChildScreen extends ExtComponent {
       false,
     );
 
+    window.parent.postMessage({ type: 'studio-design-modules', data: this.$store.state.availableModules }, '*');
     window.parent.postMessage('studio-design-ready', '*');
 
   }
@@ -122,9 +125,13 @@ export default class EditorChildScreen extends ExtComponent {
 
     vue.nextTick().then(() => {
 
-      const containerSelector = active.position === 'content' ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${active.position}`;
-      const contentPosition: Editor['modules'] = active.position === 'content' ? this.content.content : this.content[active.position];
-      const index = contentPosition.findIndex((single) => single.uuid === active.uuid);
+      const baseModule = this.contentCache.find((single) => single.uuid === this.active.uuid);
+      const containerSelector = baseModule.position === 'content' || !baseModule.position ? '.lila-content-module .container:not(.top, .bottom)' : `.lila-content-module .container.${baseModule.position}`;
+      const contentPosition: Editor['modules'] = baseModule.position === 'content' || !baseModule.position ? this.content.content : this.content[baseModule.position];
+      const index = contentPosition?.findIndex((single) => single.uuid === active.uuid);
+
+      if (!index && index !== 0) return;
+
       const module = document.querySelector(
         // eslint-disable-next-line max-len
         `${containerSelector} .lila-module:nth-child(${index + 1}), ${containerSelector} .partial-container:nth-child(${index + 1})`,

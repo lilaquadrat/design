@@ -1,8 +1,16 @@
+import getVariants from '@mixins/getVariants';
 import dayjs from 'dayjs';
 
 export default {
   title: 'Modules/BlogIntro',
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: {
+        type: 'multi-select',
+        options: getVariants('blog-intro'),
+      },
+    },
+  },
 };
 
 const Template = (args, { argTypes }) => ({

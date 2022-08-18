@@ -1,6 +1,15 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Compare',
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: {
+        type: 'multi-select',
+        options: getVariants('compare'),
+      },
+    },
+  },
 };
 
 const Template = (args, { argTypes }) => ({

@@ -1,5 +1,5 @@
+const modules = require('../base/lilaquadrat/base/modules.ts');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const path = require('path');
 
 module.exports = {
   "stories": [
@@ -16,6 +16,10 @@ module.exports = {
   core: {
     builder: "webpack5",
   },
+  env: (config) => ({
+    ...config,
+    MODULES: modules,
+  }),
   staticDirs: ['../src/source/storybook'],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'

@@ -20,7 +20,6 @@ module.exports = {
     modules: [
       'node_modules',
       path.resolve(DIR, 'node_modules'),
-      'grunt',
     ],
   },
   plugins: [

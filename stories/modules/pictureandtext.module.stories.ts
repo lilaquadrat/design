@@ -1,13 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/PictureAndText',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'variant1',
-          'fit',
-        ],
+        options: getVariants('pictureandtext'),
       },
     },
   },

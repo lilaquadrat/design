@@ -1,5 +1,5 @@
 <template>
-<section :class="[variant, view]" class="lila-faq-module lila-module">
+<section :id="id" :class="[variant, view]" class="lila-faq-module lila-module">
 
     <lila-textblock-partial v-if="textblock" v-bind="textblock" />
     <lila-accordion-partial v-if="accordion" v-bind="accordion" />
@@ -32,6 +32,11 @@ export default class FaqModule extends ExtComponent {
   display: grid;
   gap: 40px;
 
+  max-width: @moduleWidth_S;
+
+  &.medium {
+    max-width: @moduleWidth_M;
+  }
 
 }
 
