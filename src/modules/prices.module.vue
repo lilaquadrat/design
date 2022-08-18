@@ -36,10 +36,9 @@
 
         <footer>
 
-          <lila-link-partial class="button base"
-          :class="{colorScheme1: highlight(element), colorScheme2: !highlight(element)}"
-          v-if="element.callToAction" v-bind="element.callToAction"></lila-link-partial>
-          <lila-link-partial v-if="element.more" v-bind="element.more"></lila-link-partial>
+          <lila-link-partial class="button base callToAction" :class="{colorScheme1: highlight(element), colorScheme2: !highlight(element)}"
+          v-if="element.callToAction" v-bind="element.callToAction" />
+          <lila-link-partial v-if="element.more" v-bind="element.more" />
 
         </footer>
 

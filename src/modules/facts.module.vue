@@ -173,5 +173,17 @@ export default class FactsModule extends ExtComponent {
       justify-content: center;
     }
   }
+
+  &.threeRow {
+
+    @media @desktop {
+
+      .facts-container {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 40px;
+      }
+    }
+  }
+
 }
 </style>

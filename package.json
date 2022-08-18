@@ -1,6 +1,6 @@
 {
   "name": "@lilaquadrat/design",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.16",
   "description": "design and content renderer for lilaquadrat STUDIO",
   "license": "CC-BY-NC-4.0",
   "homepage": "https://lilaquadrat.de",
@@ -23,7 +23,7 @@
     "bundle": "webpack --config webpack.bundle.js --progress",
     "bundle-preview": "webpack --config webpack.dev-bundle.js --progress",
     "cli": "node node_modules/@lilaquadrat/cli/lib/src/index.js",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 --no-open",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
@@ -39,12 +39,12 @@
     "@babel/template": "^7.16.7",
     "@ianwalter/exclude-assets-plugin": "^1.0.0",
     "@lilaquadrat/cli": "^0.9.4",
-    "@storybook/addon-actions": "^6.4.9",
-    "@storybook/addon-essentials": "^6.4.9",
-    "@storybook/addon-links": "^6.4.9",
-    "@storybook/builder-webpack5": "^6.4.9",
-    "@storybook/manager-webpack5": "^6.4.9",
-    "@storybook/vue": "^6.4.9",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/vue": "^6.5.9",
     "@types/vue": "^2.0.0",
     "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.16.3",
@@ -56,6 +56,8 @@
     "@vue/compiler-sfc": "^3.2.26",
     "@vue/eslint-config-airbnb": "^6.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
+    "@vue/runtime-dom": "^3.2.31",
+    "@whitespace/storybook-addon-html": "^5.0.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^27.4.5",
     "babel-loader": "^8.2.3",
@@ -106,7 +108,7 @@
     "webpack-watch-files-plugin": "^1.2.0"
   },
   "dependencies": {
-    "@lilaquadrat/studio": "^2.2.5",
+    "@lilaquadrat/studio": "^2.4.6",
     "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",

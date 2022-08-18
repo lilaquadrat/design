@@ -14,13 +14,11 @@
   </component>
 </template>
 <script lang="ts">
-import { Inject, InjectReactive } from 'vue-property-decorator';
+import { InjectReactive } from 'vue-property-decorator';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
 export default class LinkPartial extends ExtPartial {
-
-  // @Inject('linkBase') private linkBase!: string;
 
   @InjectReactive('linkBase') private linkBase!: string;
 
