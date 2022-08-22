@@ -290,14 +290,44 @@ module.exports = [
     component: () => import(/* webpackChunkName: "design-prices-module" */'../../../src/modules/prices.module.vue'),
   },
   {
-    name: 'quellcode',
-    variants: [],
-    component: () => import(/* webpackChunkName: "design-quellcode-module" */'../../../src/modules/quellcode.module.vue'),
+    name: 'quote',
+    variants: [
+      {
+        key: 'authRight',
+        name: 'Author wird rechts angezeigt',
+      },
+      {
+        key: 'authCenter',
+        name: 'Author wird zentriert angezeigt',
+      },
+      {
+        key: 'quoteRight',
+        name: 'Zitat wird rechts angezeigt',
+      },
+      {
+        key: 'quoteCenter',
+        name: 'Zitat wird zentriert angezeigt',
+      },
+      {
+        key: 'small',
+        name: 'Zitat und Author werden mittig und kleiner angezeigt',
+      },
+    ],
+    component: () => import(/* webpackChunkName: "design-video-module" */'../../../src/modules/quote.module.vue'),
   },
   {
-    name: 'quote',
-    variants: [],
-    component: () => import(/* webpackChunkName: "design-quote-module" */'../../../src/modules/quote.module.vue'),
+    name: 'quellcode',
+    variants: [
+      {
+        key: 'center',
+        name: 'Text vor Code wird zentriert',
+      },
+      {
+        key: 'darkmode',
+        name: 'Code Hintergrund wird schwarz',
+      },
+    ],
+    component: () => import(/* webpackChunkName: "design-video-module" */'../../../src/modules/quellcode.module.vue'),
   },
   {
     name: 'text',
