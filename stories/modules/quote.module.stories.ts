@@ -1,3 +1,5 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
 
   title: 'Modules/Quote',
@@ -5,13 +7,7 @@ export default {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'authRight',
-          'authCenter',
-          'quoteRight',
-          'quoteCenter',
-          'small',
-        ],
+        options: getVariants('quote'),
       },
     },
   },
@@ -19,7 +15,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-quote-module v-bind="$props"></lila-quote-module>',
+  template: '<lila-quote-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});

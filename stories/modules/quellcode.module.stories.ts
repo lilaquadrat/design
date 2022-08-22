@@ -1,3 +1,5 @@
+import getVariants from '../../src/mixins/getVariants';
+
 export default {
 
   title: 'Modules/Quellcode',
@@ -5,10 +7,7 @@ export default {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'center',
-          'darkmode',
-        ],
+        options: getVariants('quellcode'),
       },
     },
   },
@@ -16,7 +15,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-quellcode-module v-bind="$props"></lila-quellcode-module>',
+  template: '<lila-quellcode-module v-bind="$props" />',
 });
 
 export const basic = Template.bind({});
