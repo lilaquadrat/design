@@ -4,7 +4,7 @@
       loadImage,
       { notLoaded: !loading },
       { noLoadAnimation: noLoadAnimation },
-      { fit },
+      { fit, center },
     ]"
 
     class="lila-figure"
@@ -50,6 +50,8 @@ export default class PicturePartial extends ExtPartial {
   @Prop(Boolean) noLoadAnimation: boolean;
 
   @Prop(Boolean) fit: boolean;
+
+  @Prop(Boolean) center: boolean;
 
   loading: boolean = false;
 
@@ -182,6 +184,7 @@ export default class PicturePartial extends ExtPartial {
   display: grid;
 
   &.notLoaded {
+
     picture {
       opacity: 0;
       transform: translateY(5px);
@@ -189,6 +192,7 @@ export default class PicturePartial extends ExtPartial {
   }
 
   &.noLoadAnimation {
+
     picture {
       opacity: 1;
       transform: translateY(0);
@@ -198,10 +202,10 @@ export default class PicturePartial extends ExtPartial {
   &.fit {
 
     img {
-        width: 100%;
-        height: 100%;
 
-        object-fit: cover;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
 
     .element {
@@ -210,9 +214,17 @@ export default class PicturePartial extends ExtPartial {
 
   }
 
+  &.center {
+
+    img {
+      justify-self: center;
+    }
+
+  }
+
   picture {
-    transition: opacity 0.5s ease, transform 0.5s ease;
     display: grid;
+    transition: opacity .5s ease, transform .5s ease;
 
     img {
       max-width: 100%;
@@ -221,13 +233,13 @@ export default class PicturePartial extends ExtPartial {
   }
 
   figcaption {
-    font-size: @fontTextSmaller;
     position: absolute;
-
-    justify-self: end;
     align-self: end;
 
+    justify-self: end;
+
     color: @white;
+    font-size: @fontTextSmaller;
     text-shadow: 1px 1px 1px @black;
 
     .multi(padding, 1);

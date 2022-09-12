@@ -51,6 +51,14 @@ module.exports = [
         name: 'Modulgröße an Text angepasst',
         description: 'Modulhöhe ist abhängig von den Inhalten',
       },
+      {
+        key: 'bright',
+        name: 'Heller Text',
+      },
+      {
+        key: 'dark',
+        name: 'Dunkler Text',
+      },
     ],
     component: () => import(/* webpackChunkName: "design-emotion-module" */'../../../src/modules/emotion.module.vue'),
   },
@@ -266,7 +274,7 @@ module.exports = [
       },
       {
         key: 'contact',
-        name: 'Variante um Kontake darzustellen',
+        name: 'Variante um Kontakte darzustellen',
       },
       {
         key: 'product',
