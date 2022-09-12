@@ -26,7 +26,9 @@ import ssr from 'src/mixins/ssr';
 import './source/less/base.less';
 import { editorRoutes, routes } from 'src/routes';
 import Components from '@libs/Components';
-import modules from './modules';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const modules = require('./modules');
 
 translation.select('de');
 

@@ -7,7 +7,7 @@
     <section class="elements-container">
 
       <component v-for="(element, index) in elements" :key="`picturegroup-element-${index}`" class="element" :is="componentType(element.link)" v-bind="element.link">
-        <lila-picture-partial v-if="element.picture" :fit="fitVariant" v-bind="element.picture" />
+        <lila-picture-partial v-if="element.picture" center :fit="fitVariant" v-bind="element.picture" />
         <lila-textblock-partial :variant="[brightText]" v-if="element.textblock" v-bind="element.textblock" />
         <lila-list-partial :variant="['noStyle']" v-bind="element.list"></lila-list-partial>
         <lila-list-partial :variant="linkVariant" v-bind="element.links"></lila-list-partial>
@@ -227,6 +227,7 @@ export default class PicturegroupModule extends ExtComponent {
 
       .element {
         grid-template-rows: auto;
+        grid-template-columns: 1fr;
       }
 
       .elements-container {
@@ -364,8 +365,6 @@ export default class PicturegroupModule extends ExtComponent {
       .element {
 
         display: grid;
-        // align-content: start;
-        // justify-content: center;
 
         @media @tablet,
           @desktop {
@@ -382,10 +381,6 @@ export default class PicturegroupModule extends ExtComponent {
             grid-column-end: 2;
 
             picture {
-
-              // display: flex;
-              // flex: 1;
-
               img {
                 object-fit: cover;
               }

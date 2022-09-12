@@ -148,6 +148,10 @@ export default class EmotionModule extends ExtComponent {
 
   .modulePadding('full');
 
+  @media @tablet, @desktop {
+    padding: 40px @modulePaddingExt;
+  }
+
   video,
   figure.background::v-deep {
     position: absolute;
