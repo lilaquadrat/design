@@ -50,7 +50,7 @@ abstract class ExtComponent extends vue {
   //  */
   checkInview() {
 
-    window.addEventListener('scrolled', () => {
+    window?.addEventListener('scrolled', () => {
 
       inview.check(this);
 
@@ -70,8 +70,6 @@ abstract class ExtComponent extends vue {
   }
 
   get id() {
-
-    console.log(this.index);
 
     if (this.index?.anchor) return this.index.anchor;
     return false;

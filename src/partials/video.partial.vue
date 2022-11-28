@@ -1,6 +1,9 @@
 <template>
-<section @click="toggle" @keyup="toggle" class="lila-video-partial">
-    <video ref="videoElement" v-attributes="attributes" :poster="poster" :class="[state, { loading: loading }]" :key="src" v-if="src && !youtubeId">
+<section @click="toggle" @keyup="toggle" class="lila-video-partial" :class="{noPreload: preload === 'none'}">
+    <section v-if="preload === 'none' && !loadVideo" class="preload-placeholder">
+      LOAD VIDEO
+    </section>
+    <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
       <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
       <track kind="captions" />
       <source v-if="src" :data-src="src" />
@@ -21,6 +24,10 @@ Vue.use(VueYouTubeEmbed);
 @Component
 export default class VideoPartial extends ExtComponent {
 
+  $refs: {
+    videoElement: HTMLVideoElement;
+  };
+
   @Prop(Boolean) trigger;
 
   @Prop(String) poster: string;
@@ -35,11 +42,15 @@ export default class VideoPartial extends ExtComponent {
 
   @Prop(Boolean) preview: boolean;
 
+  @Prop({ type: String, default: 'auto' }) preload: 'auto' | 'metadata' | 'none';
+
   loading: boolean = true;
 
   state: string = 'loading';
 
   isPlaying: boolean = null;
+
+  loadVideo: boolean = null;
 
   youtubeObject;
 
@@ -64,9 +75,22 @@ export default class VideoPartial extends ExtComponent {
 
   }
 
+  @Watch('realElement', { deep: true })
+  watchElement() {
+
+    console.log('refs changed');
+
+  }
+
   mounted() {
 
     this.start();
+    this.bind();
+
+
+  }
+
+  bind() {
 
     if (this.realElement) {
 
@@ -93,30 +117,42 @@ export default class VideoPartial extends ExtComponent {
 
     }
 
-
   }
 
   toggle() {
+
+    if (this.preload === 'none' && !this.loadVideo) {
+
+      this.loadVideo = true;
+      this.$nextTick(() => {
+
+        this.bind();
+        this.start();
+
+      });
+      return false;
+
+    }
 
     if (this.preview) return false;
 
     if (this.videoType === 'basic') {
 
-      if (!this.realElement) return false;
+      if (!this.$refs?.videoElement) return false;
 
       if (this.isPlaying) {
 
-        this.realElement.pause();
+        this.$refs?.videoElement.pause();
 
       } else {
 
         if (this.attributes?.includes('unmuted')) {
 
-          this.realElement.muted = false;
+          this.$refs.videoElement.muted = false;
 
         }
 
-        this.realElement.play();
+        this.$refs?.videoElement.play();
 
       }
 
@@ -144,10 +180,12 @@ export default class VideoPartial extends ExtComponent {
 
     if (this.videoType === 'youtube') return;
 
+    console.log(this.$refs?.videoElement, this.$refs, this.src);
+
     this.$nextTick()
       .then(() => {
 
-        if (!this.realElement || !this.src) return this.$nextTick();
+        if (!this.$refs?.videoElement || !this.src) return this.$nextTick();
 
         const current = this.$el.querySelector('source[src]');
         const allSource = this.$el.querySelectorAll('source');
@@ -165,19 +203,19 @@ export default class VideoPartial extends ExtComponent {
       .then(() => {
 
 
-        if (typeof this.realElement?.load !== 'function') return;
-        this.realElement?.load();
+        if (typeof this.$refs?.videoElement?.load !== 'function') return;
+        this.$refs?.videoElement?.load();
 
         if (this.attributes?.includes('play')) {
 
-          this.realElement.play();
+          this.$refs?.videoElement.play();
 
         }
 
         if (this.attributes?.includes('muted')) {
 
-          this.realElement.volume = 0;
-          this.realElement.muted = true;
+          this.$refs.videoElement.volume = 0;
+          this.$refs.videoElement.muted = true;
 
         }
 
@@ -288,9 +326,18 @@ export default class VideoPartial extends ExtComponent {
     cursor: pointer;
   }
 
-  video {
+  video, .preload-placeholder {
     display: grid;
     max-width: 100%;
+  }
+
+  .preload-placeholder {
+    align-content: center;
+    justify-content: center;
+    min-height: 100px;
+    background-color: @grey1;
+    color: @color1;
+    .font-head;
   }
 
   .iframe {

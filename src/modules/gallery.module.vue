@@ -296,8 +296,6 @@ export default class galleryModule extends ExtComponent {
     if (this.nextImageBlocked) return;
     if (!this.elements[this.currentOptionIndex]?.pictures) return;
 
-    console.log(this.currentOptionIndex, this.elements);
-
     this.imageIndex += 1;
 
     if (this.imageIndex > this.elements[this.currentOptionIndex].pictures.length - 1) {

@@ -127,18 +127,6 @@ module.exports = (env) => merge(config, {
           loader: 'html-loader',
         },
       },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-            },
-          },
-        ],
-      },
     ],
   },
 });

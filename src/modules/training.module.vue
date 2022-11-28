@@ -85,7 +85,6 @@ export default class TrainingModule extends ExtComponent {
 
     const element = this.$refs.mainGridContainer;
 
-    console.log(element.clientWidth);
     this.forceMobileIndex = element.clientWidth < 700;
 
   }
@@ -122,8 +121,6 @@ export default class TrainingModule extends ExtComponent {
   }
 
   get currentContent() {
-
-    console.log(this.childData, this.currentIndex);
 
     if (!this.childData?.data) return null;
 

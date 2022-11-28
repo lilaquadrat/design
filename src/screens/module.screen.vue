@@ -1,10 +1,10 @@
 <template>
     <article class="module-screen screen">
 
-    <lila-content-module :content="contentMerged"></lila-content-module>
+    <lila-content-module :content="contentMerged" />
 
     <transition mode="out-in" name="overlay">
-        <lila-overlay-partial v-if="$store.state.overlay.active"></lila-overlay-partial>
+        <lila-overlay-partial v-if="$store.state.overlay.active" />
     </transition>
 
 </article>
@@ -14,6 +14,9 @@ import {
   ExtComponent, Component, Watch,
 } from '@libs/lila-component';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
+import MainStoreState from '@store/mainStoreState.interface';
+import { Route } from 'vue-router';
+import { Store } from 'vuex';
 
 @Component
 export default class ModuleScreen extends ExtComponent {
@@ -33,45 +36,7 @@ export default class ModuleScreen extends ExtComponent {
 
   }
 
-  get modules() {
-
-    if (this.$store.state.data.status === 404) {
-
-      this.$router.push({ name: 'notfound' });
-      return {};
-
-    }
-
-    return this.$store.state.data.modules;
-
-  }
-
-  // get content() {
-
-  //   return filterMergeModules(this.$store.state.data.modules, 'content', this.$store.state.layout?.modules, 'layout');
-
-  // }
-
-  // get contentTop() {
-
-  //   return filterMergeModules(this.$store.state.data.modules, 'top', this.$store.state.layout?.modules, 'layout');
-
-  // }
-
-  // get contentBottom() {
-
-  //   return filterMergeModules(this.$store.state.data.modules, 'bottom', this.$store.state.layout?.modules, 'layout');
-
-  // }
-
   get contentMerged() {
-
-    // return {
-    //   settings: this.$store.state.data.settings,
-    //   top: filterMergeModules(this.$store.state.data.modules, 'top', this.$store.state.layout?.modules, 'layout'),
-    //   content: filterMergeModules(this.$store.state.data.modules, 'content', this.$store.state.layout?.modules, 'layout'),
-    //   bottom: filterMergeModules(this.$store.state.data.modules, 'bottom', this.$store.state.layout?.modules, 'layout'),
-    // };
 
     return prepareContent(this.$store.state.data);
 
@@ -91,41 +56,33 @@ export default class ModuleScreen extends ExtComponent {
 
   changeContent() {
 
-    if (!this.isNode) {
+    if (typeof window !== 'undefined') {
 
       if (!this.$store.state.inited) {
 
         this.asyncData(this.$route.params, this.$store)
-          .then(() => {
-          // this.data = this.$store.state.data;
-          });
+          .then(() => true);
 
-      } else {
-        // this.data = this.$store.state.data;
       }
-
-      // this.DOM.title = this.$store.state.data.title;
-
-    } else {
-
-      // console.log(this.$store.state.data);
-
-      // if (this.$store.state.data) this.data = this.$store.state.data;
-      // this.link = this.$route.params.link;
 
     }
 
+
   }
 
-  asyncData(params: any, store?: any): Promise<any> {
+  asyncData(params: Route['params'], store?: Store<MainStoreState>): Promise<unknown> {
 
-    let realParams: {[key: string]: string} = {};
+    if (this.link === params.link) return Promise.resolve();
+
+    let realParams: Route['params'] = {};
 
     realParams = !params.link
       ? { link: 'home' }
       : params;
 
-    return store.dispatch('getContent', realParams, store);
+    this.link = realParams.link;
+
+    return store.dispatch('getContent', realParams);
 
   }
 

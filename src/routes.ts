@@ -8,7 +8,6 @@ const editorRoutes = [
     component: EditorChildScreen,
   },
 ];
-
 const routes = [
   {
     name: 'modules',
@@ -16,7 +15,6 @@ const routes = [
     component: ModuleScreen,
   },
 ];
-
 const previewRoutes = [];
 
 export {

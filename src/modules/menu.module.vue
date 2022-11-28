@@ -434,9 +434,9 @@ export default class MenuModule extends ExtComponent {
 
     }
 
-    svg {
-      fill: @color1;
-    }
+    // svg {
+    //   fill: @color1;
+    // }
 
     &.hasIcon {
 
@@ -792,9 +792,9 @@ export default class MenuModule extends ExtComponent {
             opacity: 1;
           }
 
-          svg {
-            fill: @white;
-          }
+          // svg {
+          //   fill: @white;
+          // }
         }
 
       }

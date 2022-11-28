@@ -94,7 +94,7 @@ export default class IconsPartial extends ExtPartial {
     }
   }
 
- &.big {
+  &.big {
     width: 30px;
     height: 30px;
 

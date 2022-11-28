@@ -1,7 +1,7 @@
 <template>
   <article class="editor-screen screen">
 
-    <lila-content-module :content="content"></lila-content-module>
+    <lila-content-module :content="content" />
 
   </article>
 
@@ -68,8 +68,6 @@ export default class EditorChildScreen extends ExtComponent {
       if (message.data.type === 'studio-active') {
 
         this.active = message.data.data as EditorActiveModule;
-
-        console.log(this.active);
 
         if (this.active.uuid) {
 

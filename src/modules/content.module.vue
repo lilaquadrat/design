@@ -6,7 +6,9 @@
     </article>
 
     <article class="container" :class="[content.settings.mode, {inline: inline}]" :inline="inline" v-if="!!content.content.length">
-      <component v-for="(single, i) in content.content" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="content" />
+      <template v-for="(single, i) in content.content">
+        <component  :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="content" />
+      </template>
     </article>
 
     <article class="bottom container" :inline="inline" v-if="!!content.bottom.length">
