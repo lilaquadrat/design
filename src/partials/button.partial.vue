@@ -184,7 +184,13 @@ export default class buttonPartial extends ExtPartial {
   }
 
   &.icon {
+    width: 35px;
+    height: 35px;
     padding: 0;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
   }
 
   &.noPadding {

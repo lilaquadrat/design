@@ -1,5 +1,5 @@
 <template>
-  <section :class="[view, { hasImage: picture }, variant]" class="lila-pictureandtext-module lila-module">
+  <section :id="id" :class="[view, { hasImage: picture }, variant]" class="lila-pictureandtext-module lila-module">
     <lila-picture-partial :fit="fitVariant" v-bind="picture" />
 
     <section class="grid-container">
@@ -54,14 +54,7 @@ export default class PictureAndTextModule extends ExtComponent {
 
 .lila-pictureandtext-module {
   .module;
-
   .modulePadding('none');
-
-  // @media @wide {
-
-  //   .modulePadding('none');
-
-  // }
 
   display: grid;
   gap: 40px;
@@ -79,9 +72,9 @@ export default class PictureAndTextModule extends ExtComponent {
     display: grid;
     grid-template-columns: minmax(min-content, 40%) 1fr;
 
-    // &.focusImage {
-    //   grid-template-columns: 40% 56%;
-    // }
+    &.focusImage {
+      grid-template-columns: minmax(min-content, 60%) 1fr;
+    }
   }
 
   .grid-container {
@@ -113,9 +106,9 @@ export default class PictureAndTextModule extends ExtComponent {
     @media @desktop {
       grid-template-columns: 1fr minmax(min-content, 40%);
 
-      // &.focusImage {
-      //   grid-template-columns: 56% 40%;
-      // }
+      &.focusImage {
+        grid-template-columns: 1fr minmax(min-content, 60%);
+      }
 
       .textblock {
         grid-row: 1;

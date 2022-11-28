@@ -85,10 +85,10 @@ export default class listPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-list-links {
-  counter-reset: listItem;
   display: grid;
 
   gap: 10px;
+  counter-reset: listItem;
 
   h4 {
     .multi(margin-left, 4);
@@ -100,8 +100,6 @@ export default class listPartial extends ExtPartial {
 
     li {
 
-      line-height: 20px;
-
       display: grid;
       grid-template-columns: 20px auto;
 
@@ -109,9 +107,11 @@ export default class listPartial extends ExtPartial {
 
       font-size: @fontText;
 
+      line-height: 20px;
+
       .icon {
-        height: 20px;
         align-self: start;
+        height: 20px;
       }
 
     }
@@ -142,8 +142,8 @@ export default class listPartial extends ExtPartial {
 
         &:before {
           content: counter(listItem);
-          counter-increment: listItem;
           color: @grey;
+          counter-increment: listItem;
         }
 
       }
@@ -155,10 +155,24 @@ export default class listPartial extends ExtPartial {
   &.actions {
 
     a {
-      line-height: @buttonLineHeight;
       height: @buttonHeight;
+      line-height: @buttonLineHeight;
     }
 
+  }
+
+  &.white {
+
+    a, h4 {
+      color: @white;
+    }
+
+    a {
+
+      &:hover {
+        color: @color2;
+      }
+    }
   }
 
 }

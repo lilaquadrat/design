@@ -1,16 +1,12 @@
+import getVariants from '../../src/mixins/getVariants';
+
 export default {
   title: 'Modules/Picture',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'small',
-          'middle',
-          'noText',
-          'fullscreen',
-          'variant1',
-        ],
+        options: getVariants('picture'),
       },
     },
   },
@@ -22,6 +18,7 @@ const Template = (args, { argTypes }) => ({
 });
 
 export const basic = Template.bind({});
+
 
 basic.args = {
   textblock: {
@@ -48,4 +45,34 @@ variant.args = {
     src: 'women1.jpg',
   },
   variant: ['variant1'],
+};
+
+export const textVertical = Template.bind({});
+
+textVertical.args = {
+  textblock: {
+    headline: 'some headline',
+    text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+  },
+  picture: {
+    source: [],
+    alt: 'IMAGE ALT',
+    src: 'women1.jpg',
+  },
+  variant: ['textPictureVertical'],
+};
+
+export const fullscreenOverlay = Template.bind({});
+
+fullscreenOverlay.args = {
+  textblock: {
+    headline: 'some headline',
+    text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
+  },
+  picture: {
+    source: [],
+    alt: 'IMAGE ALT',
+    src: 'women1.jpg',
+  },
+  variant: ['fullscreenOverlayEnabled'],
 };

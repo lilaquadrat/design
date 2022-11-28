@@ -1,25 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Picturegroup',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'variant1',
-          'variant2',
-          'variant3',
-          'variant4',
-          'variant5',
-          'small',
-          'noText',
-          'fullscreen',
-          'contact',
-          'color1',
-          'color3',
-          'product',
-          'fit',
-          'centerText',
-        ],
+        options: getVariants('picturegroup'),
       },
     },
   },
@@ -103,7 +90,7 @@ variant3.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: '320.png',
+        src: 'modulespez.png',
       },
     },
     {
@@ -153,7 +140,7 @@ variant4.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: '320.png',
+        src: 'modulespez.png',
       },
     },
     {
@@ -167,7 +154,7 @@ variant4.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: '320.png',
+        src: 'partner.png',
       },
     },
     {
@@ -215,7 +202,7 @@ variant4WithText.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: '320.png',
+        src: 'modulespez.png',
       },
       textblock: {
         intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
@@ -320,7 +307,7 @@ variant5.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: '320.png',
+        src: 'modulespez.png',
       },
     },
     {

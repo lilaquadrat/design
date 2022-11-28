@@ -1,5 +1,5 @@
 <template>
-  <nav :class="[view, variant, { open: open }]" class="lila-menu-module lila-module">
+  <nav :id="id" :class="[view, variant, { open: open }]" class="lila-menu-module lila-module">
     <section class="placeholder"></section>
 
     <section class="overflow-container">
@@ -434,9 +434,9 @@ export default class MenuModule extends ExtComponent {
 
     }
 
-    svg {
-      fill: @color1;
-    }
+    // svg {
+    //   fill: @color1;
+    // }
 
     &.hasIcon {
 
@@ -792,9 +792,9 @@ export default class MenuModule extends ExtComponent {
             opacity: 1;
           }
 
-          svg {
-            fill: @white;
-          }
+          // svg {
+          //   fill: @white;
+          // }
         }
 
       }

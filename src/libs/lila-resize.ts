@@ -26,8 +26,6 @@ class Resize {
 
     window.addEventListener('resize', () => {
 
-      console.log('trigger rr');
-
       this.debounce();
 
     });
@@ -45,7 +43,6 @@ class Resize {
     this.getMediaQuery();
     this._realHeight = window.innerHeight;
     window.dispatchEvent(this.resizedEvent);
-    console.log('trigger REAL');
 
   }
 

@@ -25,6 +25,10 @@ import ssr from 'src/mixins/ssr';
  */
 import './source/less/base.less';
 import { editorRoutes, routes } from 'src/routes';
+import Components from '@libs/Components';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const modules = require('./modules');
 
 translation.select('de');
 
@@ -80,8 +84,12 @@ store.commit('setMedia', Resize.media);
 /**
  * let webpack preload modules and partials
 */
+Components.add(modules, 'module', 'lila');
+
+store.commit('setAvailableModules', Components.getAvailableModules(modules));
+
 loadComponents.lazy(require.context('../../../src/partials', true, /[a-z]\w+\.partial\.(ts|vue)$/, 'lazy'), 'partials', 'lila');
-loadComponents.lazy(require.context('../../../src/modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'lazy'), 'modules', 'lila');
+// loadComponents.lazy(require.context('../../../src/modules', true, /[a-z]\w+\.module\.(ts|vue)$/, 'lazy'), 'modules', 'lila');
 
 log.info(`%c[DESIGN]%cRUNNING IN ${ENVIRONMENT} MODE`, 'background: #3f2d56; color: #CCC;', 'padding: 10px');
 

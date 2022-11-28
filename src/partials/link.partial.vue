@@ -22,6 +22,8 @@ export default class LinkPartial extends ExtPartial {
 
   @InjectReactive('linkBase') private linkBase!: string;
 
+  @InjectReactive('linkMode') private linkMode?: string;
+
   @Prop(String) link: string;
 
   @Prop(String) text: string;
@@ -56,12 +58,21 @@ export default class LinkPartial extends ExtPartial {
 
   event($event) {
 
-    if (this.attributes?.includes('event')) {
+    if (this.attributes?.includes('event') || this.linkMode === 'event') {
 
       $event.preventDefault();
 
-      this.$emit(this.link.slice(1));
-      this.$root.$emit(this.link.slice(1));
+      if (this.linkMode === 'event') {
+
+        this.$root.$emit('integratedLink', { link: this.link, text: this.text });
+
+      } else {
+
+        this.$emit(this.link.slice(1), this.text);
+        this.$root.$emit(this.link.slice(1), this.text);
+
+      }
+
 
     }
 
@@ -83,7 +94,7 @@ export default class LinkPartial extends ExtPartial {
 
   get type(): 'router-link' | 'a' {
 
-    return !this.external && !this.static && !this.isEvent
+    return !this.external && !this.static && !this.isEvent && this.linkMode !== 'event'
       ? 'router-link'
       : 'a';
 

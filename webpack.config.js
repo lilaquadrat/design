@@ -20,7 +20,6 @@ module.exports = {
     modules: [
       'node_modules',
       path.resolve(DIR, 'node_modules'),
-      'grunt',
     ],
   },
   plugins: [
@@ -30,18 +29,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        type: 'asset',
-      },
-      {
-        test: /\.(jp(e)?g|png|gif|svg)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            name: 'img/[name].[ext]',
-          },
-        },
+        test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
+        type: 'asset/resource'
       },
     ],
   },

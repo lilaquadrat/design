@@ -1,9 +1,9 @@
 <template>
-  <section class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription }]">
+  <section :id="id" class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription, fullscreenOverlay, fullscreenOverlayEnabled }]">
     <section class="elements">
       <div :style="cssElementsLength" ref='scrollContainer' :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
         <template v-for="(element, elementIndex) in elements">
-          <div class="element" :key="`gallery-element-${elementIndex}`" :style="cssWidth" :class="{hasImage: element.picture || element.pictures}" @click="set($event, element)" @keyup="set($event, element)">
+          <div class="element" :key="`gallery-element-${elementIndex}`" :style="cssWidth" :class="{hasImage: element.picture || element.pictures, hasDescription: element.textblock}" @click="set($event, element)" @keyup="set($event, element)">
             <div class="picture-container" v-if="element && element.picture">
               <lila-picture-partial :key="`gallery-placeholder-${elementIndex}`" class="placeholder" v-bind="element.picture" />
               <lila-picture-partial :key="`gallery-picture-${elementIndex}`" @loaded="pictureLoaded" class="active picture" v-bind="element.picture" />
@@ -29,6 +29,9 @@
     </section>
 
     <div v-if="!variant2" class="indexIndicator">
+      <lila-button-partial class="toggleFullscreen" v-if="fullscreenOverlayEnabled" colorScheme="transparent" :icon="true" @click="toggleFullscreenOverlay">
+        <lila-icons-partial colorScheme="colorScheme1" :type="fullscreenOverlay ? 'zoom-out' : 'zoom-in'" />
+      </lila-button-partial>
       <span class="currentIndex">{{ (currentOptionIndex + 1) | leadingZero(2) }}</span>
       <span class="seperator"></span>
       <span class="allIndex">{{ elements.length | leadingZero(2) }}</span>
@@ -101,6 +104,8 @@ export default class galleryModule extends ExtComponent {
 
   firstLoad: boolean = false;
 
+  fullscreenOverlay: boolean = false;
+
   @Watch('currentOptionIndex')
   indexChange(): void {
 
@@ -156,6 +161,26 @@ export default class galleryModule extends ExtComponent {
 
   }
 
+  get fullscreenOverlayEnabled() {
+
+    return !this.variant.includes('disableOverlay');
+
+  }
+
+  toggleFullscreenOverlay() {
+
+    this.fullscreenOverlay = !this.fullscreenOverlay;
+    this.$root.$emit('fullscreen', this.fullscreenOverlay);
+    this.$nextTick()
+      .then(() => {
+
+        this.setControlsTop();
+
+      });
+
+  }
+
+
   pictureLoaded(): void {
 
     this.firstLoad = true;
@@ -165,10 +190,19 @@ export default class galleryModule extends ExtComponent {
 
   setControlsTop(): void {
 
+    // if (this.fullscreenOverlay) {
+
+    //   this.controlsOffset = window.innerHeight;
+
+    // } else {
+
     const elements = this.$el?.querySelectorAll('.scroll-container .element');
     const single = elements.item(this.currentOptionIndex).querySelector('.picture-container');
 
     this.controlsOffset = single?.scrollHeight;
+
+    // }
+
 
   }
 
@@ -261,8 +295,6 @@ export default class galleryModule extends ExtComponent {
 
     if (this.nextImageBlocked) return;
     if (!this.elements[this.currentOptionIndex]?.pictures) return;
-
-    console.log(this.currentOptionIndex, this.elements);
 
     this.imageIndex += 1;
 
@@ -468,6 +500,109 @@ export default class galleryModule extends ExtComponent {
         background-color: @white;
       }
     }
+  }
+
+  &.fullscreenOverlayEnabled {
+    grid-template-columns: auto 185px;
+
+    .indexIndicator {
+      grid-template-rows: 20px;
+      grid-template-columns: 35px 25px 3px 25px;
+
+      .currentIndex {
+        justify-self: end;
+      }
+
+      .toggleFullscreen {
+        margin-top: -6.5px;
+      }
+
+      span {
+        display: grid;
+      }
+    }
+
+  }
+
+  &.fullscreenOverlay.fullscreenOverlayEnabled {
+
+    .index(9);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+
+    background-color: @white;
+
+    &:first-child {
+      margin: 0;
+    }
+
+    .placeholder {
+      display: none;
+    }
+
+    .elements {
+
+      .element {
+        grid-template-rows: 1fr;
+
+        height: 100%;
+
+        &.hasDescription {
+          grid-template-rows: 1fr 90px;
+        }
+
+        .picture-container {
+          overflow: hidden;
+
+          .lila-figure::v-deep {
+            grid-template-rows: 100%;
+            overflow: visible;
+            min-height: auto;
+            max-height: 100%;
+
+            &.picture {
+              position: relative;
+
+              img {
+                position: relative;
+                top: unset;
+                left: unset;
+                align-self: center;
+                justify-self: center;
+                min-width: auto;
+                max-width: 100%;
+                min-height: auto;
+                max-height: 100%;
+                transform: none;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    grid-template-rows: calc(100% - 90px) 90px;
+
+    .scroll-container {
+      height: calc(100% - 40px);
+
+      @media @desktop {
+        height: 100%;
+      }
+    }
+
   }
 }
 </style>

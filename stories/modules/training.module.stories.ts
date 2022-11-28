@@ -1,14 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Training',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'offsetTop',
-          'indexVariant',
-          'indexIndicator',
-        ],
+        options: getVariants('training'),
       },
     },
   },

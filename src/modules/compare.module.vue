@@ -1,5 +1,5 @@
 <template>
-<section class="lila-compare-module lila-module">
+<section :id="id" class="lila-compare-module lila-module">
 
   <lila-textblock-partial v-bind="textblock" />
 

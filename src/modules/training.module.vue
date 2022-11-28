@@ -1,10 +1,10 @@
 <template>
-  <section :class="[view, variant]" class="lila-training-module lila-module fullscreen">
+  <section :id="id" :class="[view, variant, {mobileIndex: forceMobileIndex}]" class="lila-training-module lila-module fullscreen">
     <section v-if="textblock" class="module generic-module">
       <lila-textblock-partial v-bind="textblock" />
     </section>
 
-    <article class="main-grid-container">
+    <article ref="mainGridContainer" class="main-grid-container">
       <section :class="{ open: headIndexOpen }" class="current-content-container" ref="currentContentContainer" v-if="currentContent">
         <section class="content-head">
           <div class="grid-container">
@@ -20,8 +20,7 @@
             </ul>
           </div>
         </section>
-
-        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :content="currentContent" />
+        <lila-content-module ref="currentContent" class="currentContent" :key="currentContent.id" :routeBase="linkBase" :linkEvents="linkMode === 'event' ? true : false" :content="currentContent" />
       </section>
       <section class="current-content-container" v-if="!currentContent">
         <section class="content-module"></section>
@@ -45,25 +44,48 @@ import Textblock from '@interfaces/textblock.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
 import { ChildData, Editor } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
+import { InjectReactive } from 'vue-property-decorator';
 
 @Component
 export default class TrainingModule extends ExtComponent {
-
-  $refs: {
-    currentContent: HTMLElement;
-  };
 
   @Prop(Object) textblock: Textblock;
 
   @Prop(Object) childData: ChildData;
 
+  @InjectReactive('linkBase') private linkBase!: string;
+
+  @InjectReactive('linkMode') private linkMode?: string;
+
+  $refs: {
+    currentContent: HTMLElement;
+    mainGridContainer: HTMLElement;
+  };
+
   currentIndex: number = 0;
 
   headIndexOpen: boolean = false;
 
+  forceMobileIndex: boolean = false;
+
   mounted(): void {
 
     this.checkInview();
+    this.checkRealWidth();
+
+    window.addEventListener('resized', () => {
+
+      this.checkRealWidth();
+
+    });
+
+  }
+
+  checkRealWidth() {
+
+    const element = this.$refs.mainGridContainer;
+
+    this.forceMobileIndex = element.clientWidth < 700;
 
   }
 
@@ -154,7 +176,7 @@ export default class TrainingModule extends ExtComponent {
 
     @media @desktop {
       grid-template-rows: 1fr;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 1fr 3fr;
 
       align-items: start;
       justify-items: start;
@@ -164,8 +186,6 @@ export default class TrainingModule extends ExtComponent {
 
     .index-container {
       .modulePadding();
-
-      display: grid;
 
       display: none;
       grid-template-columns: 1fr;
@@ -298,8 +318,10 @@ export default class TrainingModule extends ExtComponent {
         }
 
         .titleButton {
+          justify-content: start;
           width: 100%;
           text-align: left;
+          white-space: normal;
 
           .font-bold;
 
@@ -340,6 +362,30 @@ export default class TrainingModule extends ExtComponent {
         }
       }
     }
+  }
+
+  &.mobileIndex {
+
+    .modulePadding('none');
+
+    .main-grid-container {
+
+      grid-template-columns: 1fr;
+
+      .index-container {
+        display: none;
+      }
+
+      .current-content-container {
+        grid-column-start: 1;
+        .content-head {
+
+          display: grid;
+
+        }
+      }
+    }
+
   }
 
   &.offsetTop {

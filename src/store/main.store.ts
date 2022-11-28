@@ -20,6 +20,7 @@ const state: MainStoreState = {
   },
   content: [],
   fullscreen: false,
+  availableModules: [],
   editor: {
     content: null,
     active: false,
@@ -91,6 +92,12 @@ function storeFactory(): Store<MainStoreState> {
       setContent(mainstate, content: any) {
 
         mainstate.content = content;
+
+      },
+
+      setAvailableModules(mainstate, availableModules: any[]) {
+
+        mainstate.availableModules = availableModules;
 
       },
 

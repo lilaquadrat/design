@@ -69,6 +69,16 @@ presentation.args = prepareContent({
       },
     },
     {
+      type: 'quote-module',
+      quote: 'TRANSPARENT',
+      link: {
+        text: 'lilaquadrat.de',
+        link: 'https://lilaquadrat.de',
+      },
+      citation: 'lilaquadrat',
+      variant: ['authCenter', 'quoteCenter', 'small'],
+    },
+    {
       type: 'facts-module',
       textblock: {
         headline: 'Some nice Headline',
@@ -100,6 +110,19 @@ presentation.args = prepareContent({
         },
       ],
       variant: ['variant1'],
+    },
+    {
+      type: 'picture-module',
+      textblock: {
+        headline: 'JEDES ANLIEGEN VERDIENT GEHÖR.',
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+      },
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'women2.jpg',
+      },
+      variant: ['textPictureVertical'],
     },
     {
       type: 'faq-module',
@@ -148,6 +171,16 @@ presentation.args = prepareContent({
           },
         ],
       },
+    },
+    {
+      type: 'quellcode-module',
+      code: '<!DOCTYPE html>\n<title>Title</title>\n<body>\n    <p checked class="title" id="title">Title</p>\n    <!-- here goes the rest of the page -->\n</body>',
+      headline: 'HTML',
+      subline: 'This is HTML',
+      intro: 'HTML Quellcode',
+      text: ['Dies ist das Quellcode Modul.',
+        'Hier wird der Quellcode automatisch erkannt und eingefärbt.'],
+      variant: ['darkmode', 'center'],
     },
     {
       type: 'picture-module',

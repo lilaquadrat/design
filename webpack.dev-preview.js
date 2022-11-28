@@ -10,11 +10,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const DIR = __dirname;
 
-module.exports = (env) => merge(config, {
+module.exports = (env, argv) => merge(config, {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    app: `./projects/${env.company}/${env.project}/app.ts`
+    app: `./${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}/app.ts`
   },
   output: {
     path: `${DIR}/dist`,
@@ -23,14 +23,14 @@ module.exports = (env) => merge(config, {
   plugins: [
     // new BundleAnalyzerPlugin(),
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({cleanStaleWebpackAssets: true}),
     new webpack.DefinePlugin({
       'process.env.LOGLEVEL': JSON.stringify(process.env.LOGLEVEL),
       'process.env.company': JSON.stringify(env.company),
       'process.env.project': JSON.stringify(env.project)
     }),
     new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /main\.css$/g,
+      assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),
       cssProcessorPluginOptions: {
         preset: ['default', { discardComments: { removeAll: true } }],
@@ -56,7 +56,7 @@ module.exports = (env) => merge(config, {
             options: {
               lessOptions: {
                 relativeUrls: false,
-              }
+              },
             },
           },
         ],
@@ -64,7 +64,7 @@ module.exports = (env) => merge(config, {
       {
         test: /\.less$/,
         exclude: [
-          path.resolve('./source/less/base_bootstrap.less')
+          path.resolve(`./projects/${env.company}/${env.project}/source/less/base.less`),
         ],
         use: [
           {
@@ -82,14 +82,14 @@ module.exports = (env) => merge(config, {
               lessOptions: {
                 relativeUrls: false,
                 modifyVars: {
-                  projectPath: `../projects/${env.company}/${env.project}`
+                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
                 },
               }
             },
           },
         ],
       },
-			{
+      {
         test: /\.ts$/,
 				use: [
 					{
@@ -113,6 +113,18 @@ module.exports = (env) => merge(config, {
         use: {
           loader: 'html-loader',
         },
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: false,
+            },
+          },
+        ],
       },
     ],
   },

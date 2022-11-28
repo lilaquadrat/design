@@ -1,74 +1,105 @@
 &.variant2 {
 
-    .indexIndicator {
-        display: none;
-    }
+  .indexIndicator {
+    display: none;
+  }
 
 }
 
 &.hasElementDescription {
 
-    .indexIndicator {
+  .indexIndicator {
 
-        @media @desktop {
-            background-color: @white;
-            position: absolute;
-            grid-row-start: 2;
-            .multi(padding, 4, 7);
-        }
+    .multi(padding, 0, 8);
 
-        .multi(padding, 0, 8);
+    grid-row-start: 3;
 
-        grid-row-start: 3;
+    @media @desktop {
+      position: absolute;
+      grid-row-start: 2;
+      background-color: @white;
+      .multi(padding, 4, 7);
     }
+  }
 
+}
+
+&.hasElementDescription {
+
+  .indexIndicator {
+
+    .multi(padding, 0, 8);
+
+    grid-row-start: 3;
+
+    @media @desktop {
+      position: absolute;
+      grid-row-start: 2;
+      background-color: @white;
+      .multi(padding, 4, 7);
+    }
+  }
+
+}
+
+&.fullscreenOverlay.fullscreenOverlayEnabled {
+
+  .indexIndicator {
+
+    .multi(padding, 4, 8);
+
+//     // position: absolute;
+//     grid-row-start: 2;
+//     grid-column-start: 2;
+//     // background-color: @white;
+//     .multi(padding, 4, 7);
+  }
 }
 
 .indexIndicator {
 
-    .font-normal;
+  .font-normal;
 
-    position: absolute;
+  .multi(padding, 0, 8);
 
-    align-self: end;
-    justify-self: end;
+  position: absolute;
 
-    justify-content: end;
+  display: grid;
+  grid-template-rows: min-content;
 
-    width: 100%;
+  grid-template-columns: min-content auto min-content;
+  grid-row-start: 2;
 
-    grid-column-start: 1;
-    grid-row-start: 2;
+  grid-column-start: 1;
 
-    .multi(padding, 0, 8);
+  gap: 10px;
 
-    @media @desktop {
+  align-self: end;
 
-        height: 100%;
-        grid-column-start: 2;
-        // grid-row-start: 2;
+  justify-content: end;
+  justify-self: end;
 
-        // .multi(padding, 0, 7);
+  width: 100%;
 
+  @media @desktop {
+    grid-column-start: 2;
+
+    height: 100%;
+    // grid-row-start: 2;
+
+    // .multi(padding, 0, 7);
+
+  }
+
+  span {
+    display: inline-block;
+    font-size: @fontText;
+
+    &.seperator {
+      width: 2px;
+      height: 100%;
+      background-color: @grey;
     }
-
-    display: grid;
-
-    grid-template-columns: min-content auto min-content;
-    grid-template-rows: min-content;
-
-    gap: 10px;
-
-
-    span {
-        font-size: @fontText;
-        display: inline-block;
-
-        &.seperator {
-            width: 2px;
-            background-color: @grey;
-            height: 100%;
-        }
-    }
+  }
 
 }

@@ -2,15 +2,17 @@
   <section class="lila-content-module">
 
     <article class="top container" :inline="inline" v-if="!!content.top.length">
-      <component v-for="(single, i) in content.top" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
+      <component v-for="(single, i) in content.top" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="top" />
     </article>
 
     <article class="container" :class="[content.settings.mode, {inline: inline}]" :inline="inline" v-if="!!content.content.length">
-      <component v-for="(single, i) in content.content" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
+      <template v-for="(single, i) in content.content">
+        <component  :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="content" />
+      </template>
     </article>
 
     <article class="bottom container" :inline="inline" v-if="!!content.bottom.length">
-      <component v-for="(single, i) in content.bottom" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" />
+      <component v-for="(single, i) in content.bottom" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="bottom" />
     </article>
 
   </section>
@@ -29,6 +31,8 @@ export default class ContentModule extends ExtComponent {
 
   @ProvideReactive('linkBase') linkBase: string;
 
+  @ProvideReactive('linkMode') linkMode: string;
+
   @ProvideReactive('contentChildData') contentChildData?: ChildData;
 
   @Prop(Object) content: ContentPrepared;
@@ -39,14 +43,16 @@ export default class ContentModule extends ExtComponent {
 
   @Prop(String) routeBase: string;
 
+  @Prop(Boolean) linkEvents: boolean;
+
   constructor() {
 
     super();
 
     this.linkBase = this.routeBase;
+    this.linkMode = this.linkEvents ? 'event' : 'link';
 
   }
-
 
 }
 </script>
@@ -55,7 +61,6 @@ export default class ContentModule extends ExtComponent {
 
 .lila-content-module {
   position: relative;
-  overflow-y: hidden;
 
   max-width: 100%;
 

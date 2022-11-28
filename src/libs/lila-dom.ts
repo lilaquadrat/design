@@ -1,10 +1,7 @@
+import MainStoreState from '@store/mainStoreState.interface';
 import { Store } from 'vuex';
 
-let isNode: boolean;
-
-typeof window === 'undefined'
-  ? isNode = true
-  : isNode = false;
+const isNode = typeof window === 'undefined';
 
 export default class Dom {
 
@@ -12,7 +9,7 @@ export default class Dom {
 
   store: Store<any>;
 
-  constructor(store: Store<any>) {
+  constructor(store: Store<MainStoreState>) {
 
     this.bindings = [];
     this.store = store;
@@ -24,7 +21,7 @@ export default class Dom {
     const splitEvents = events.split(' ');
     const selectedElement = this.getElement(selector);
 
-    splitEvents.map((event) => {
+    splitEvents.forEach((event) => {
 
       this.bindings.push({ event, element: selectedElement, func });
       selectedElement.addEventListener(event, func);
@@ -37,7 +34,7 @@ export default class Dom {
 
     const splitEvents = events.split(' ');
 
-    splitEvents.map((event) => {
+    splitEvents.forEach((event) => {
 
       this.bindings.push({ event, element, func });
       element.addEventListener(event, func);
@@ -52,7 +49,7 @@ export default class Dom {
     const selectedElement = this.getElement(selector);
     let item;
 
-    splitEvents.map((event) => {
+    splitEvents.forEach((event) => {
 
       item = this.bindings.find((e) => event === e.event && e.element === selectedElement);
 
@@ -66,7 +63,7 @@ export default class Dom {
 
   destroyBindings() {
 
-    this.bindings.map((e) => {
+    this.bindings.forEach((e) => {
 
       e.element.removeEventListener(e.event, e.func);
 
@@ -96,9 +93,9 @@ export default class Dom {
 
   set title(title: string) {
 
-    title
-      ? document.title = `${title} ${this.store.state.settings.title.short}`
-      : document.title = this.store.state.settings.title.full;
+    document.title = title
+      ? `${title} ${this.store.state.settings?.title?.short}`
+      : this.store.state.settings?.title?.full;
 
   }
 

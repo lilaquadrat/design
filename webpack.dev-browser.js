@@ -77,7 +77,7 @@ module.exports = (env) => merge(config, {
       {
         test: /\.less$/,
         exclude: [
-          path.resolve('./source/less/base_bootstrap.less')
+          path.resolve(`./projects/${env.company}/${env.project}/source/less/base.less`),
         ],
         use: [
           {
@@ -126,18 +126,6 @@ module.exports = (env) => merge(config, {
         use: {
           loader: 'html-loader',
         },
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-            },
-          },
-        ],
       },
     ],
   },

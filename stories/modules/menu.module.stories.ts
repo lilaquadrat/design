@@ -1,13 +1,12 @@
+import getVariants from '@mixins/getVariants';
+
 export default {
   title: 'Modules/Menu',
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'left',
-          'colorScheme1',
-        ],
+        options: getVariants('menu'),
       },
     },
   },
