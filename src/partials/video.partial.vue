@@ -34,7 +34,7 @@ export default class VideoPartial extends ExtComponent {
 
   @Prop(String) src: string;
 
-  @Prop(Array) attributes: string[];
+  @Prop(Array) attributes?: string[];
 
   @Prop(Array) source: VideoSource[];
 
@@ -258,9 +258,9 @@ export default class VideoPartial extends ExtComponent {
       'player-width': '100%',
       'player-height': '100%',
       'player-vars': {
-        autoplay: this.attributes.includes('autoplay') ? 1 : 0,
-        controls: this.attributes.includes('controls') ? 1 : 0,
-        loop: this.attributes.includes('loop') ? 1 : 0,
+        autoplay: this.attributes?.includes('autoplay') ? 1 : 0,
+        controls: this.attributes?.includes('controls') ? 1 : 0,
+        loop: this.attributes?.includes('loop') ? 1 : 0,
         modestbranding: 1,
         rel: 0,
       },
