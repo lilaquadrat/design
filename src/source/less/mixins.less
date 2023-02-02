@@ -90,11 +90,11 @@
 
 .offsetMenu {
 
-  @media only screen and (min-width: 520px) {
+  @media only screen, print and (min-width: 520px) {
     padding-left: 60px;
   }
 
-  @media only screen and (min-width: 800px) {
+  @media only screen, print and (min-width: 800px) {
     padding-left: 250px;
   }
 }
@@ -106,10 +106,36 @@
 .module {
   display: grid;
   justify-self: center;
+  break-inside: avoid;
 
   width: 100%;
 
   .modulePadding();
+
+  &.pdf-single-page {
+
+    @media print {
+      page-break-before: always;
+      page-break-after: always;
+    }
+
+  }
+
+  &.pdf-new-page-after {
+
+    @media print {
+      page-break-after: always;
+    }
+
+  }
+
+  &.pdf-new-page-before {
+
+    @media print {
+      page-break-before: always;
+    }
+
+  }
 
 }
 

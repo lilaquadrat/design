@@ -61,6 +61,10 @@ export default class PictureAndTextModule extends ExtComponent {
 
   max-width: @moduleWidth_S;
 
+  @media print {
+    margin: 20mm 0;
+  }
+
   @media @desktop {
 
     .modulePadding();

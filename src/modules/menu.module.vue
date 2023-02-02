@@ -222,7 +222,7 @@ export default class MenuModule extends ExtComponent {
   .container-menu {
     width: 100%;
 
-    @media only screen and (min-width: 520px) {
+    @media only screen and (min-width: 520px), print and (min-width: 520px) {
       width: 250px;
 
       transform: translateX(0);

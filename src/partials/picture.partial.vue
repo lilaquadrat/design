@@ -66,11 +66,17 @@ export default class PicturePartial extends ExtPartial {
 
   }
 
+  get settings() {
+
+    return JSON.stringify(this.$store?.state?.settings);
+
+  }
+
   constructor() {
 
     super();
 
-    if (this.$store?.state?.data?.settings?.html?.preloadImages) {
+    if (this.$store?.state?.settings?.preloadImages) {
 
       this.loading = true;
       this.loadImage = true;

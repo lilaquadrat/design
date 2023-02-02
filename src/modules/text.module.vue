@@ -88,6 +88,10 @@ export default class TextModule extends ExtComponent {
 
   max-width: @moduleWidth_S;
 
+  @media print {
+    margin: 20mm 0;
+  }
+
   &.center {
     text-align: center;
   }

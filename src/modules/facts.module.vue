@@ -70,6 +70,10 @@ export default class FactsModule extends ExtComponent {
   .module;
   .modulePadding();
 
+  @media print {
+    margin: 20mm 0;
+  }
+
   gap: 40px;
 
   max-width: @moduleWidth_S;
