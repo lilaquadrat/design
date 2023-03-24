@@ -19,19 +19,24 @@
 
   <meta name="msapplication-TileColor" content="#3f2d56">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="https://{{cdn}}/{{settings.company}}/{{settings.project}}/editor/{{css}}">
+  <!-- <link rel="stylesheet" href="https://{{cdn}}/{{css}}"> -->
+  {{{ renderResourceHints() }}}
+  {{{ renderStyles() }}}
 
 </head>
 
 <body>
   <!--vue-ssr-outlet-->
+
+  {{{ renderState() }}}
+  {{{ renderScripts() }}}
   <section id="mediadetection" class="mediadetection">
     <div class="mobile"></div>
     <div class="tablet"></div>
     <div class="desktop"></div>
     <div class="wide"></div>
   </section>
-  <script src="https://{{cdn}}/{{settings.company}}/{{settings.project}}/editor/{{app}}"></script>
+  <script src="https://{{cdn}}/{{app}}"></script>
 </body>
 
 </html>

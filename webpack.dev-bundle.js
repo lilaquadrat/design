@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const nodeExternals = require('webpack-node-externals')
 const baseConfig = require('./webpack.config.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path');
 
 module.exports = (env, argv) => merge(baseConfig, {
   // Point entry to your app's server entry file
@@ -78,7 +79,9 @@ module.exports = (env, argv) => merge(baseConfig, {
       {
         test: /\.less$/,
         use: [
-          'vue-style-loader',
+          {
+            loader: 'vue-style-loader',
+          },
           {
             loader: 'css-loader',
             options: {
@@ -88,11 +91,10 @@ module.exports = (env, argv) => merge(baseConfig, {
           {
             loader: 'less-loader',
             options: {
-              sourceMap: true,
               lessOptions: {
                 relativeUrls: false,
                 modifyVars: {
-                  projectPath: `/projects/${env.company}/${env.project}`
+                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
                 },
               }
             },
@@ -101,23 +103,23 @@ module.exports = (env, argv) => merge(baseConfig, {
       },
       {
         test: /\.ts$/,
-				use: [
-					{
-						loader: 'babel-loader'
-					},
-					{
-						loader: 'ts-loader',
-						options: {
-							transpileOnly: true,
-							experimentalWatchApi: true,
-						},
-					}
-				],
-			},
-			{
-				test: /\.vue$/,
-				loader: 'vue-loader'
-			},
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true,
+            },
+          }
+        ],
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
     ],
   },
 });

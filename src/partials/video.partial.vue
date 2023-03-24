@@ -3,7 +3,7 @@
     <section v-if="preload === 'none' && !loadVideo" class="preload-placeholder">
       LOAD VIDEO
     </section>
-    <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
+    <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId && renderTarget !== 'pdf'" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
       <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
       <track kind="captions" />
       <source v-if="src" :data-src="src" />

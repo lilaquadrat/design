@@ -13,6 +13,7 @@
         "experimentalDecorators": true,
         "strictFunctionTypes": false,
         "strictNullChecks": false,
+        "ignoreDeprecations": "5.0",
         "baseUrl": "./",
         "paths": {
             "@screens/*": ["src/screens/*"],

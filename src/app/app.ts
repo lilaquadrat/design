@@ -24,7 +24,7 @@ import { routes, editorRoutes } from '../routes';
 /**
  *  defines the css that will be used
  */
-import './less/base.less';
+import '../../base/lilaquadrat/base/source/less/base.less';
 
 translation.select('de');
 

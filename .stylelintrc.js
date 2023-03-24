@@ -12,12 +12,6 @@ module.exports = {
 			"customSyntax": "postcss-html"
 		}
 	],
-	"overrides": [
-		{
-			"files": ["*.less", "**/*.less"],
-			"customSyntax": "postcss-less"
-		}
-	],
 	"rules": {
 		"color-no-invalid-hex": true,
 		"unit-case": "lower",

@@ -23,8 +23,9 @@ const state: MainStoreState = {
   availableModules: [],
   editor: {
     content: null,
-    active: false,
+    active: '',
   },
+  renderTarget: 'web',
 };
 
 function storeFactory(): Store<MainStoreState> {
@@ -43,6 +44,12 @@ function storeFactory(): Store<MainStoreState> {
       setData(mainstate, data) {
 
         mainstate.data = data;
+
+      },
+
+      renderTarget(mainstate, target: MainStoreState['renderTarget']) {
+
+        mainstate.renderTarget = target;
 
       },
 
