@@ -9,7 +9,7 @@ import { AdditionalContentInformation, ModuleIndexOptions } from '@lilaquadrat/s
 // @ts-ignore
 @Component({
   inheritAttrs: false,
-})
+  })
 abstract class ExtComponent extends vue {
 
   public state: string = '';
@@ -73,6 +73,12 @@ abstract class ExtComponent extends vue {
 
     if (this.index?.anchor) return this.index.anchor;
     return false;
+
+  }
+
+  get renderTarget() {
+
+    return this.$store.state.renderTarget;
 
   }
 

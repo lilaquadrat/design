@@ -33,7 +33,6 @@ module.exports = {
     'no-param-reassign': ['error', { props: false }],
     'import/no-cycle': 0,
     curly: [2, 'multi-line'],
-    'multiline-ternary': ['error', 'always-multiline'],
     'prefer-destructuring': 0,
     'padded-blocks': [
       'error',

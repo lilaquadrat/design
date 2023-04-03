@@ -14,11 +14,22 @@
         </ul>
       </section>
 
-      <div v-if="isVariant1" class="facts-container">
+      <section v-if="isVariant3" class="list-links">
+        <ul>
+          <li v-for="(element, index) in elements" :key="`elements-${index}`">
+            <lila-icons-partial size="small" type="arrow-right"></lila-icons-partial>
+            <h2 :class="{ active: index === active }" @keypress="setActive(index)"  @click="setActive(index)">
+              {{ element.textblock.subline }}
+            </h2>
+          </li>
+        </ul>
+      </section>
+
+      <div v-if="isVariant1 || isVariant3" class="facts-container">
         <lila-fact-partial v-bind="elements[active]" />
       </div>
 
-      <div v-if="!isVariant1" class="facts-container">
+      <div v-if="!isVariant1 && !isVariant3" class="facts-container">
         <lila-fact-partial v-for="(element, index) in elements" :variant="variant" :key="`fact-index-${index}`" v-bind="element"/>
       </div>
 
@@ -49,6 +60,12 @@ export default class FactsModule extends ExtComponent {
 
   }
 
+  get isVariant3() {
+
+    return this.variant?.includes('variant3');
+
+  }
+
   mounted() {
 
     this.checkInview();
@@ -73,6 +90,10 @@ export default class FactsModule extends ExtComponent {
   gap: 40px;
 
   max-width: @moduleWidth_S;
+
+  @media print {
+    margin: 20mm 0;
+  }
 
   @media @desktop {
 
@@ -122,9 +143,6 @@ export default class FactsModule extends ExtComponent {
           align-self: start;
           height: 20px;
         }
-      }
-
-      li {
 
         .lila-button::v-deep {
           .font-bold;
@@ -171,6 +189,62 @@ export default class FactsModule extends ExtComponent {
     .facts-container {
       display: grid;
       justify-content: center;
+    }
+  }
+
+  &.variant3 {
+    max-width: @moduleWidth_M;
+    .headlines;
+
+    .complete-container {
+      gap: 60px;
+
+      @media @desktop {
+        grid-template-columns: 1fr 2fr;
+        gap: 80px;
+      }
+
+      h2 {
+        color: @grey;
+        font-size: @headline_S;
+        line-height: @headlineLineHeight_S;
+        cursor: pointer;
+        .trans(color);
+
+        &:hover {
+          color: @color1;
+        }
+
+        &.active {
+          color: @color1;
+        }
+      }
+
+      ul {
+        display: grid;
+        gap: 10px;
+
+        li {
+          display: grid;
+          grid-template-columns: min-content 1fr;
+          gap: 10px;
+
+          .lila-icons-partial {
+            align-self: start;
+            .multi(margin-top, 1);
+          }
+        }
+      }
+
+      .lila-fact-partial::v-deep {
+
+        grid-template-rows: min-content;
+
+        h2 {
+          display: none;
+        }
+      }
+
     }
   }
 

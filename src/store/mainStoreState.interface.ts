@@ -20,4 +20,5 @@ export default interface MainStoreState extends GenericState {
         content?: any,
         active?: string,
     },
+    renderTarget?: 'pdf' | 'web'
 }

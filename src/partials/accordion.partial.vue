@@ -1,15 +1,15 @@
 <template>
-  <section class="lila-accordion" :class="{noControls: disableControls}">
+  <section class="lila-accordion" :class="{noControls: disableControls || renderTarget === 'pdf'}">
     <slot></slot>
 
     <section v-for="(single, index) in useElements" :ref="`accordion${index}`" class="single-accordion" :class="{visible: single.visible}" :key="`accordion-${index}`">
 
-      <component class="headline" :is="disableControls ? 'h3' : 'button'" @click="toggle(single, index)">
+      <component class="headline" :is="disableControls || renderTarget === 'pdf' ? 'h3' : 'button'" @click="toggle(single, index)">
         <span>{{single.headline}}</span>
-        <lila-icons-partial v-if="!disableControls" :animate="true" :rotate="single.visible ? 90 : 0" type="arrow-right"/>
+        <lila-icons-partial v-if="!disableControls && renderTarget !== 'pdf'" :animate="true" :rotate="single.visible ? 90 : 0" type="arrow-right"/>
       </component>
 
-      <section :style="`height: ${single.visible ? single.height : 0}px`" class="accordion-content-container">
+      <section :style="`height: ${single.visible ? single.height : '0px'}`" class="accordion-content-container">
         <section class="accordion-content">
           <lila-textblock-partial v-if="single.textblock" v-bind="single.textblock" />
           <lila-list-partial v-bind="single.list" mode="list" :variant="listVariant('list')"></lila-list-partial>
@@ -47,12 +47,18 @@ export default class AccordionPartial extends ExtPartial {
 
   @Prop(Array) elements: AccordionElement[];
 
-  useElements: (AccordionElement & {visible: boolean, height: number, headline: string})[] = [];
+  useElements: (AccordionElement & {visible: boolean, height: string, headline: string})[] = [];
 
   @Watch('elements')
   elementsWatcher(pre: AccordionElement[], post: AccordionElement[]) {
 
     this.setElements(this.elements, pre.length !== post.length);
+
+  }
+
+  created() {
+
+    this.setElements(this.elements, true);
 
   }
 
@@ -103,7 +109,7 @@ export default class AccordionPartial extends ExtPartial {
     const refElement = this.$refs[`accordion${index}`][0] as HTMLElement;
     const placeholder = refElement.querySelector('.accordion-content-placeholder');
 
-    this.useElements[index].height = placeholder?.clientHeight;
+    this.useElements[index].height = `${placeholder?.clientHeight}px`;
 
     element.visible = newVisible;
 
@@ -122,9 +128,11 @@ export default class AccordionPartial extends ExtPartial {
 
 
         if (this.openOnStart === 'first' && index === 0) visible = true;
-        if (this.openOnStart === 'all' && this.multiOpen) visible = true;
+        if ((this.openOnStart === 'all' && this.multiOpen)) visible = true;
 
       }
+
+      if (this.renderTarget === 'pdf') visible = true;
 
       const headline = single.textblock?.headline;
 
@@ -136,7 +144,7 @@ export default class AccordionPartial extends ExtPartial {
         ...single,
         headline,
         visible,
-        height: 0,
+        height: this.renderTarget === 'pdf' ? 'auto' : '0px',
       });
 
 
@@ -222,8 +230,6 @@ export default class AccordionPartial extends ExtPartial {
     .accordion-content-container {
       overflow: hidden;
       .trans(height);
-
-
     }
 
     .accordion-content-placeholder {

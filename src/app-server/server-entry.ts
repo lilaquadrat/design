@@ -1,6 +1,8 @@
+import { RenderContext } from '@lilaquadrat/studio/lib/interfaces';
+import MainStoreState from '@store/mainStoreState.interface';
 import createApp from './app-server';
 
-export default (context) => new Promise((resolve, reject) => {
+export default (context: RenderContext & {rendered: () => void, state: MainStoreState}) => new Promise((resolve, reject) => {
 
   const { app, router, store } = createApp();
 
@@ -17,6 +19,7 @@ export default (context) => new Promise((resolve, reject) => {
   store.commit('setTranslation', context.translation);
   store.commit('setMedia', 'mobile');
   store.commit('setFullscreen', true);
+  store.commit('renderTarget', context.renderTarget || 'web');
   store.commit('init');
 
   router.onReady(
@@ -26,7 +29,7 @@ export default (context) => new Promise((resolve, reject) => {
 
       if (!matchedComponents.length) {
 
-        return reject(new Error('not found, 404'));
+        return reject(new Error('ROUTE_NOT_FOUND'));
 
       }
 

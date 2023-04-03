@@ -3,7 +3,7 @@
     <section v-if="preload === 'none' && !loadVideo" class="preload-placeholder">
       LOAD VIDEO
     </section>
-    <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
+    <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId && renderTarget !== 'pdf'" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
       <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
       <track kind="captions" />
       <source v-if="src" :data-src="src" />
@@ -34,7 +34,7 @@ export default class VideoPartial extends ExtComponent {
 
   @Prop(String) src: string;
 
-  @Prop(Array) attributes: string[];
+  @Prop(Array) attributes?: string[];
 
   @Prop(Array) source: VideoSource[];
 
@@ -258,9 +258,9 @@ export default class VideoPartial extends ExtComponent {
       'player-width': '100%',
       'player-height': '100%',
       'player-vars': {
-        autoplay: this.attributes.includes('autoplay') ? 1 : 0,
-        controls: this.attributes.includes('controls') ? 1 : 0,
-        loop: this.attributes.includes('loop') ? 1 : 0,
+        autoplay: this.attributes?.includes('autoplay') ? 1 : 0,
+        controls: this.attributes?.includes('controls') ? 1 : 0,
+        loop: this.attributes?.includes('loop') ? 1 : 0,
         modestbranding: 1,
         rel: 0,
       },

@@ -155,3 +155,52 @@ variant2.args = {
   ],
   variant: ['variant2'],
 };
+
+export const variant3 = Template.bind({});
+
+variant3.args = {
+  textblock: {
+    headline: 'Some nice Headline',
+    subline: 'Some nice subline',
+    // eslint-disable-next-line max-len
+    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+  },
+  elements: [
+    {
+      textblock: {
+        headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?',
+        subline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor?',
+        // eslint-disable-next-line max-len
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+      },
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+      variant: ['fit'],
+    },
+    {
+      textblock: {
+        headline: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis?',
+        subline: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis?',
+        text: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        ],
+      },
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+    },
+    {
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        subline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+      },
+    },
+  ],
+  variant: ['variant3'],
+};

@@ -5,7 +5,7 @@
     </blockquote>
     <figcaption ref='checkPartialSize' :class="variant">
       <span v-if="citation || linkExists">{{ citation }}</span><span v-if="citation && linkExists">,</span>
-        <cite v-if="link.text">
+        <cite v-if="linkExists">
           <lila-link-partial v-bind="link"></lila-link-partial>
         </cite>
 
@@ -25,7 +25,7 @@ export default class quotePartial extends ExtPartial {
 
   @Prop(String) quote: string;
 
-  @Prop(Object) link: Link;
+  @Prop(Object) link?: Link;
 
   @Prop(String) citation: string;
 
@@ -101,7 +101,7 @@ export default class quotePartial extends ExtPartial {
 
   get linkExists() {
 
-    return this.link.text && this.link.link;
+    return this.link?.text && this.link?.link;
 
   }
 
