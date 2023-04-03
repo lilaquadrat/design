@@ -147,6 +147,11 @@ module.exports = [
         description: 'Zwei Fakten nebeneinander pro Reihe',
       },
       {
+        key: 'variant3',
+        name: 'Grosse Auswahlliste',
+        description: 'Ganze Sätze in der Auswahlliste mit ',
+      },
+      {
         key: 'threeRow',
         name: 'Drei Bilder in einer Reihe',
         description: 'Drei Bilder anstatt zwei pro Reihe angezeigt.',

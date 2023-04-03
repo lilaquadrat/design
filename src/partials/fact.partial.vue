@@ -1,7 +1,7 @@
 <template>
-<section class="lila-fact-partial" :class="[variant, {hasPicture: picture}]">
+<section class="lila-fact-partial" :class="[variant, {hasPicture}]">
 
-    <lila-picture-partial v-if="picture" v-bind="picture" />
+    <lila-picture-partial v-if="hasPicture" v-bind="picture" />
 
     <lila-textblock-partial v-bind="textblock" />
 
@@ -20,6 +20,12 @@ export default class FactPartial extends ExtPartial {
   @Prop(Object) textblock: Textblock;
 
   @Prop(Object) picture: Picture;
+
+  get hasPicture() {
+
+    return !!this.picture?.src?.length;
+
+  }
 
 }
 
