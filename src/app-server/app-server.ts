@@ -16,11 +16,6 @@ import { Store } from 'vuex';
 import MainStoreState from '@store/mainStoreState.interface';
 import { routes } from '../routes';
 
-/**
- *  defines the css that will be used
- */
-import '../../base/lilaquadrat/base/source/less/base.less';
-
 translation.select('de');
 
 Vue.use(VueRouter);
