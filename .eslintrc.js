@@ -88,9 +88,10 @@ module.exports = {
         "prev": ["const", "let", "var"],
         "next": ["const", "let", "var"]
       },
-      { "blankLine": "any", "prev": ["export", "import"], "next": ["export", "import"] }
+      { "blankLine": "any", "prev": ["export", "import"], "next": ["export", "import"] },
     ],
-    quotes: ["error", "single"]
+    quotes: ["error", "single"],
+    "vuejs-accessibility/label-has-for" : 0
   },
   overrides: [
     {

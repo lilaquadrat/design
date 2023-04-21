@@ -859,4 +859,37 @@ module.exports = [
     ],
     component: () => import(/* webpackChunkName: "design-quellcode-module" */'../../../src/modules/quellcode.module.vue'),
   },
+  {
+    name: 'cookies',
+    variants: [
+      {
+        key: 'overlay',
+        name: 'Wird als Dialog Overlay angezeigt.',
+      },
+      {
+        key: 'pdf-single-page',
+        name: 'Eigene Seite',
+        description: 'Ist Innerhalb der PDF eine eigene Seite ohne andere Module',
+        group: 'pdf',
+      },
+      {
+        key: 'pdf-new-page-after',
+        name: 'Neue Seite nach diesem Module',
+        description: 'Innerhalb der PDF eine eigene Seite ohne andere Module',
+        group: 'pdf',
+      },
+      {
+        key: 'pdf-new-page-before',
+        name: 'Neue Seite vor diesem Module',
+        description: 'Innerhalb der PDF eine eigene Seite ohne andere Module',
+        group: 'pdf',
+      },
+      {
+        key: 'pdf-invisible',
+        name: 'Wird nicht in PDF angezeigt',
+        group: 'pdf',
+      },
+    ],
+    component: () => import(/* webpackChunkName: "design-cookies-module" */'../../../src/modules/cookies.module.vue'),
+  },
 ];

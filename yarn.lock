@@ -2729,6 +2729,7 @@ __metadata:
     loglevel: ^1.8.0
     mini-css-extract-plugin: ^2.4.5
     optimize-css-assets-webpack-plugin: ^6.0.1
+    portal-vue: ^2
     postcss-html: ^1.3.0
     postcss-less: ^6.0.0
     react-is: ^17.0.2
@@ -17199,6 +17200,15 @@ __metadata:
   dependencies:
     "@babel/runtime": ^7.17.8
   checksum: 97fb927dc55cd34aeb11b31ae2a3332463f114351c86e8aa6580d7755864a0120164fdc3770e6160c8b1775052f0eda14db9a6e34402cd4b08ab2d658a593725
+  languageName: node
+  linkType: hard
+
+"portal-vue@npm:^2":
+  version: 2.1.7
+  resolution: "portal-vue@npm:2.1.7"
+  peerDependencies:
+    vue: ^2.5.18
+  checksum: 1615c38469e11e2a2c01501fbb1cd52b07a6fa2252f90a39be67b6332d3cd215f05cabb1f7d9fbdc28c67124adf299abe36f645619dbe6ff57f6f7e1b9aba0c5
   languageName: node
   linkType: hard
 

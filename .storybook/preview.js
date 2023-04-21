@@ -2,6 +2,7 @@ import '/base/lilaquadrat/base/source/less/base.less';
 
 import Vue from 'vue';
 import Vuex from 'vuex';
+import PortalVue from 'portal-vue';
 import store from '@store/main.store';
 import loadComponents from '@mixins/loadComponents';
 
@@ -23,6 +24,7 @@ window.addEventListener('media', () => {
 store.commit('setMedia', Resize.media);
 
 Vue.use(Vuex);
+Vue.use(PortalVue);
 Vue.prototype.$store = store;
 
 Vue.component(

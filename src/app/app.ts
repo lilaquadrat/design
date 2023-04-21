@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import PortalVue from 'portal-vue';
 
 import Resize from 'src/libs/lila-resize';
 import loadComponents from 'src/mixins/loadComponents';
@@ -50,6 +51,7 @@ ENVIRONMENT === 'editor'
   : log.setLevel('warn');
 
 Vue.use(VueRouter);
+Vue.use(PortalVue);
 
 /** APP Object for vuejs initialization */
 const appObject: any = {

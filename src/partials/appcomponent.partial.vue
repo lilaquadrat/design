@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <transition mode="out-in" name="content">
-      <router-view :key="`module-${$route.params.link}`"></router-view>
-    </transition>
+    <router-view :key="`module-${$route.params.link}`" />
+    <portal-target name="overlay" multiple />
   </div>
 </template>
 <script lang="ts">
