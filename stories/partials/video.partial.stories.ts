@@ -1,16 +1,19 @@
 export default {
   title: 'Basics/Video',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     attributes: {
       control: {
         type: 'multi-select',
-        options: [
-          'autoplay',
-          'unmuted',
-          'loop',
-          'controls',
-        ],
       },
+      options: [
+        'autoplay',
+        'unmuted',
+        'loop',
+        'controls',
+      ],
     },
   },
 };

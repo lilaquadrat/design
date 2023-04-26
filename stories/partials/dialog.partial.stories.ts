@@ -1,8 +1,11 @@
 export default {
   title: 'Basics/Dialog',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
-    variant: { control: { type: 'multi-select', options: ['error', 'success', 'color1', 'color3'] } },
-    type: { control: { type: 'select', options: ['check', 'confirm'] } },
+    variant: { control: { type: 'multi-select' }, options: ['error', 'success', 'color1', 'color3'] },
+    type: { control: { type: 'select' }, options: ['check', 'confirm'] },
   },
 };
 

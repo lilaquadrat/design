@@ -1,5 +1,8 @@
 export default {
   title: 'Basics/Headlines',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 const TemplateH1 = (args: unknown, { argTypes }) => ({

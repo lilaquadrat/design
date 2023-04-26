@@ -2,12 +2,18 @@ import getVariants from '@mixins/getVariants';
 
 export default {
   title: 'Modules/Gallery',
+  parameters: {
+    layout: 'centered',
+  },
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('gallery'),
       },
+      options: getVariants('gallery'),
     },
   },
 };

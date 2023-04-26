@@ -1,5 +1,8 @@
 export default {
   title: 'Basics/Text',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 const template = (args: unknown, { argTypes }) => ({

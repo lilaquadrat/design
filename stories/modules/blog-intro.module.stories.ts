@@ -3,12 +3,15 @@ import dayjs from 'dayjs';
 
 export default {
   title: 'Modules/BlogIntro',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('blog-intro'),
       },
+      options: getVariants('blog-intro'),
     },
   },
 };

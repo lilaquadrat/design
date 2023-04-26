@@ -3,12 +3,15 @@ import getVariants from '../../src/mixins/getVariants';
 export default {
 
   title: 'Modules/Quellcode',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('quellcode'),
       },
+      options: getVariants('quellcode'),
     },
   },
 };

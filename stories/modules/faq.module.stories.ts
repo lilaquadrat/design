@@ -2,12 +2,15 @@ import getVariants from '@mixins/getVariants';
 
 export default {
   title: 'Modules/Faq',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('faq'),
       },
+      options: getVariants('faq'),
     },
   },
 };

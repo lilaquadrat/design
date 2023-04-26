@@ -1,5 +1,8 @@
 export default {
   title: 'Basics/Textblock',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     text: { controls: { type: 'array' } },
   },

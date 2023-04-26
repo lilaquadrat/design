@@ -7,9 +7,7 @@ module.exports = {
     "./../../../../stories/modules/*.module.stories.@(js|jsx|ts|tsx)",
   ],
   "addons": [
-    "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-actions"
   ],
   core: {
     builder: "webpack5",
@@ -76,5 +74,9 @@ module.exports = {
 
     // Return the altered config
     return config;
+  },
+  framework: {
+    name: "@storybook/vue-webpack5",
+    options: {}
   },
 }

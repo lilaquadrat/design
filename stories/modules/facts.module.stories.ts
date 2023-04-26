@@ -3,12 +3,15 @@ import getVariants from '@mixins/getVariants';
 /* eslint-disable max-len */
 export default {
   title: 'Modules/Facts',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('facts'),
       },
+      options: getVariants('facts'),
     },
   },
 };

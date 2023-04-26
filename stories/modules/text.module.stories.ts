@@ -2,12 +2,15 @@ import getVariants from '@mixins/getVariants';
 
 export default {
   title: 'Modules/Text',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('text'),
       },
+      options: getVariants('text'),
     },
     links: {
       control: { type: 'object' },

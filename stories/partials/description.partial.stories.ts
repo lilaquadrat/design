@@ -1,7 +1,10 @@
 export default {
   title: 'Basics/Description',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
-    type: { control: { type: 'select', options: ['notice', 'success', 'error'] } },
+    type: { control: { type: 'select' }, options: ['notice', 'success', 'error'] },
   },
 };
 

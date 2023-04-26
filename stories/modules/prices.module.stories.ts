@@ -2,12 +2,15 @@ import getVariants from '@mixins/getVariants';
 
 export default {
   title: 'Modules/Prices',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('prices'),
       },
+      options: getVariants('prices'),
     },
     links: {
       control: { type: 'object' },

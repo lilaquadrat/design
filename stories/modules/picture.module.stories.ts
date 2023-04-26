@@ -2,12 +2,15 @@ import getVariants from '../../src/mixins/getVariants';
 
 export default {
   title: 'Modules/Picture',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('picture'),
       },
+      options: getVariants('picture'),
     },
   },
 };

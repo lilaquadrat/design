@@ -2,12 +2,15 @@ import getVariants from '@mixins/getVariants';
 
 export default {
   title: 'Modules/Index',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('index'),
       },
+      options: getVariants('index'),
     },
   },
 };

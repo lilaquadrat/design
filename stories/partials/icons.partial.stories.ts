@@ -1,9 +1,12 @@
 export default {
   title: 'Basics/Icons',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
-    type: { control: { type: 'select', options: ['arrow-left', 'arrow-right', 'mouse'] } },
-    colorScheme: { control: { type: 'select', options: ['colorScheme1', 'colorScheme2', 'white'] } },
-    size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
+    type: { control: { type: 'select' }, options: ['arrow-left', 'arrow-right', 'mouse'] },
+    colorScheme: { control: { type: 'select' }, options: ['colorScheme1', 'colorScheme2', 'white'] },
+    size: { control: { type: 'select' }, options: ['small', 'medium', 'large'] },
   },
 };
 

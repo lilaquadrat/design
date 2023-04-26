@@ -60,7 +60,7 @@ export default class FooterModule extends ExtComponent {
 
 .lila-footer-module {
 
-  .multi(padding, 4, 8);
+  .module;
   .multi(margin-top, 50);
 
   display: grid;

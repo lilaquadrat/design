@@ -1,15 +1,18 @@
 export default {
   title: 'Basics/Links',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'colorScheme2',
-          'callToAction',
-          'white',
-        ],
       },
+      options: [
+        'colorScheme2',
+        'callToAction',
+        'white',
+      ],
     },
     icon: {
       control: {

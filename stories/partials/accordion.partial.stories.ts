@@ -1,16 +1,19 @@
 export default {
   title: 'Basics/Accordion',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     multiOpen: { control: { type: 'boolean' } },
     disableControls: { control: { type: 'boolean' } },
     openOnStart: {
       control: {
         type: 'select',
-        options: [
-          'first',
-          'all',
-        ],
       },
+      options: [
+        'first',
+        'all',
+      ],
     },
   },
 };

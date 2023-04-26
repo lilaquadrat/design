@@ -6,8 +6,8 @@ export default {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('emotion'),
       },
+      options: getVariants('emotion'),
     },
   },
 };

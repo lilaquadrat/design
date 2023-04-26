@@ -3,12 +3,15 @@ import getVariants from '@mixins/getVariants';
 export default {
 
   title: 'Modules/Quote',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: getVariants('quote'),
       },
+      options: getVariants('quote'),
     },
   },
 };

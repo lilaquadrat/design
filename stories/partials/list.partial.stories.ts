@@ -1,15 +1,18 @@
 export default {
   title: 'Basics/List',
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {
     variant: {
       control: {
         type: 'multi-select',
-        options: [
-          'numbered',
-          'noStyle',
-          'actions',
-        ],
       },
+      options: [
+        'numbered',
+        'noStyle',
+        'actions',
+      ],
     },
     title: { control: { type: 'text' } },
   },

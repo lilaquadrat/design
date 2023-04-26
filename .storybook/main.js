@@ -1,27 +1,22 @@
 const modules = require('../base/lilaquadrat/base/modules.ts');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
 module.exports = {
   "stories": [
     "./../stories/partials/container.partial.stories.@(js|jsx|ts|tsx)",
-    "./../stories/partials/*.partial.stories.@(js|jsx|ts|tsx)",
-    "./../stories/modules/*.module.stories.@(js|jsx|ts|tsx)",
+    "./../stories/partials/*.partial.stories.@(js|jsx|ts|tsx)", 
+    "./../stories/modules/*.module.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-actions",
-    '@whitespace/storybook-addon-html',
+    "@storybook/addon-essentials", 
   ],
-  core: {
-    builder: "webpack5",
-  },
-  env: (config) => ({
+  env: config => ({
     ...config,
-    MODULES: modules,
+    MODULES: modules
   }),
   staticDirs: ['../src/source/storybook'],
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config, {
+    configType
+  }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
@@ -29,59 +24,54 @@ module.exports = {
     // Make whatever fine-grained changes you need
     config.module.rules.push({
       test: /\.less$/,
-      use: [
-        {
-          loader: 'style-loader',
-        },
-        {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-            modules: false
-          },
-        },
-        {
-          loader: 'less-loader',
-          options: {
-            sourceMap: true,
-            lessOptions: {
-              relativeUrls: false,
-              modifyVars: {
-                projectPath: '/base/lilaquadrat/base'
-              },
+      use: [{
+        loader: 'style-loader'
+      }, {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: false
+        }
+      }, {
+        loader: 'less-loader',
+        options: {
+          sourceMap: true,
+          lessOptions: {
+            relativeUrls: false,
+            modifyVars: {
+              projectPath: '/base/lilaquadrat/base'
             }
-          },
-        },
-      ],
+          }
+        }
+      }]
     });
-
     config.module.rules.push({
-        test: /\.ts$/,
-				use: [
-					{
-						loader: 'babel-loader'
-					},
-					{
-						loader: 'ts-loader',
-						options: {
-							transpileOnly: true,
-							experimentalWatchApi: true,
-						},
-					}
-				],
-			});
-
+      test: /\.ts$/,
+      use: [{
+        loader: 'babel-loader'
+      }, {
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          experimentalWatchApi: true
+        }
+      }]
+    });
     config.module.rules.push({
-          test: /\.(html)$/,
-          use: {
-            loader: 'html-loader',
-            options: {
-              attrs: [':data-src'],
-            },
-          },
-        });
+      test: /\.(html)$/,
+      use: {
+        loader: 'html-loader',
+        options: {
+          attrs: [':data-src']
+        }
+      }
+    });
 
     // Return the altered config
     return config;
   },
-}
+  framework: {
+    name: "@storybook/vue-webpack5",
+    options: {}
+  },
+};

@@ -1,6 +1,7 @@
 export default {
   title: 'Basics/Picture',
-  argTypes: {
+  parameters: {
+    layout: 'centered',
   },
 };
 

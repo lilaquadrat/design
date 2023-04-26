@@ -5,7 +5,7 @@ import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 export default {
   title: 'Container',
   argTypes: {
-    mode: { control: { type: 'select', options: ['presentation', 'content'] } },
+    mode: { control: { type: 'select' }, options: ['presentation', 'content'] },
   },
 };
 
