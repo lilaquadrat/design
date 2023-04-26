@@ -1,9 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const DIR = __dirname;
 
@@ -23,8 +20,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
-    new MiniCssExtractPlugin({ filename: '[name].[hash].css' }),
+    new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
   ],
   module: {
     rules: [

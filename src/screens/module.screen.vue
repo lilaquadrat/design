@@ -2,10 +2,7 @@
     <article class="module-screen screen">
 
     <lila-content-module :content="contentMerged" />
-
-    <transition mode="out-in" name="overlay">
-        <lila-overlay-partial v-if="$store.state.overlay.active" />
-    </transition>
+    <portal-target name="util" multiple />
 
 </article>
 </template>
@@ -57,6 +54,8 @@ export default class ModuleScreen extends ExtComponent {
   changeContent() {
 
     if (typeof window !== 'undefined') {
+
+      console.log('INIT', this.$store.state.inited);
 
       if (!this.$store.state.inited) {
 

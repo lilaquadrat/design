@@ -31,9 +31,9 @@ export default class IndexModule extends ExtComponent {
     if (this.variant.includes('auto')) {
 
       return {
-        title: this.links.title,
+        title: this.links?.title,
         value: this.additional.index.map((single) => ({
-          text: single.title,
+          text: single?.title,
           link: `#${single.anchor}`,
           attributes: ['static'],
         })),

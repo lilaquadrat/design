@@ -2,21 +2,23 @@
   <article class="editor-screen screen">
 
     <lila-content-module :content="content" />
+    <portal-target name="util" multiple />
 
   </article>
 
 </template>
 <script lang="ts">
 import { ExtComponent, Component, vue } from '@libs/lila-component';
-import { Editor, EditorActiveModule, StudioIframeMessage } from '@lilaquadrat/studio/lib/interfaces';
+import {
+  Editor, EditorActiveModule, StudioIframeMessage, ContentWithPositions,
+} from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
-import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
 
 @Component
 export default class EditorChildScreen extends ExtComponent {
 
-  content: ContentPrepared = {
-    settings: {}, top: [], content: [], bottom: [],
+  content: ContentWithPositions = {
+    settings: {}, top: [], content: [], bottom: [], additional: {},
   };
 
   siteSettings: Editor['settings'] = {};
@@ -77,6 +79,12 @@ export default class EditorChildScreen extends ExtComponent {
 
       }
 
+      if (message.data.type === 'studio-cookie-reset') {
+
+        this.resetCookies();
+
+      }
+
     };
 
     window.removeEventListener(
@@ -111,6 +119,20 @@ export default class EditorChildScreen extends ExtComponent {
   updateContent() {
 
     this.content = prepareContent({ modules: this.contentCache, ...this.settingsCache });
+
+  }
+
+  resetCookies() {
+
+    const cookies = document.cookie.split(';').filter((single) => single);
+
+    cookies.forEach((single) => {
+
+      const name = single.split('=');
+
+      document.cookie = `${name[0].trim()}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None;`;
+
+    });
 
 
   }

@@ -7,124 +7,127 @@ const { VueLoaderPlugin } = require('vue-loader');
 const webpack = require('webpack');
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const getEnv = require('./getEnv.js');
 
 const DIR = __dirname;
 
-module.exports = (env, argv) => merge(config, {
-  mode: 'production',
-  entry: {
-    app: `./${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}/app.ts`
-  },
-  output: {
-    path: `${DIR}/dist`,
-    filename: '[name].[contenthash].js',
-  },
-  plugins: [
-    // new BundleAnalyzerPlugin(),
-    new VueLoaderPlugin(),
-    new CleanWebpackPlugin({cleanStaleWebpackAssets: true}),
-    new webpack.DefinePlugin({
-      'process.env.LOGLEVEL': JSON.stringify(process.env.LOGLEVEL),
-      'process.env.company': JSON.stringify(env.company),
-      'process.env.project': JSON.stringify(env.project)
-    }),
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorPluginOptions: {
-        preset: ['default', { discardComments: { removeAll: true } }],
-      },
-      canPrint: true,
-    }),
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        resourceQuery: /main/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                relativeUrls: false,
+module.exports = (env, argv) => {
+
+  const useEnv = getEnv(env);
+
+  return merge(config, {
+    mode: 'production',
+    entry: {
+      app: `./${useEnv.path}/${useEnv.company}/${useEnv.project}/app.ts`
+    },
+    output: {
+      path: `${DIR}/dist`,
+      filename: '[name].[contenthash].js',
+    },
+    plugins: [
+      // new BundleAnalyzerPlugin(),
+      new VueLoaderPlugin(),
+      new CleanWebpackPlugin({cleanStaleWebpackAssets: true}),
+      new webpack.DefinePlugin({
+        'process.env.LOGLEVEL': JSON.stringify(process.env.LOGLEVEL),
+        'process.env.company': JSON.stringify(useEnv.company),
+        'process.env.project': JSON.stringify(useEnv.project)
+      }),
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'),
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        },
+        canPrint: true,
+      }),
+      new HtmlWebpackPlugin({ template: `./${useEnv.path}/${useEnv.company}/${useEnv.project}/index.html` }),
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.less$/,
+          resourceQuery: /main/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
               },
             },
-          },
-        ],
-      },
-      {
-        test: /\.less$/,
-        exclude: [
-          path.resolve(`./projects/${env.company}/${env.project}/source/less/base.less`),
-        ],
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                relativeUrls: false,
-                modifyVars: {
-                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
+            {
+              loader: 'less-loader',
+              options: {
+                lessOptions: {
+                  relativeUrls: false,
                 },
-              }
+              },
             },
-          },
-        ],
-      },
-      {
-        test: /\.ts$/,
-				use: [
-					{
-						loader: 'babel-loader'
-					},
-					{
-						loader: 'ts-loader',
-						options: {
-							transpileOnly: true,
-							experimentalWatchApi: true,
-						},
-					}
-				],
-			},
-			{
-				test: /\.vue$/,
-				loader: 'vue-loader'
-			},
-      {
-        test: /\.(html)$/,
-        use: {
-          loader: 'html-loader',
+          ],
         },
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
+        {
+          test: /\.less$/,
+          exclude: [
+            path.resolve(`./projects/${useEnv.company}/${useEnv.project}/source/less/base.less`),
+          ],
+          use: [
+            {
+              loader: 'style-loader',
             },
-          },
-        ],
-      },
-    ],
-  },
-});
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
+              },
+            },
+            {
+              loader: 'less-loader',
+              options: {
+                lessOptions: {
+                  relativeUrls: false,
+                  modifyVars: {
+                    projectPath: `/${useEnv.path}/${useEnv.company}/${useEnv.project}`
+                  },
+                }
+              },
+            },
+          ],
+        },
+        {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: 'babel-loader'
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true,
+                experimentalWatchApi: true,
+              },
+            }
+          ],
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
+        {
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  });
+
+}

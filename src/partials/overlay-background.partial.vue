@@ -1,6 +1,6 @@
 <template>
   <portal to="util">
-    <section class="lila-overlay-background" ref="background" :class="[backgroundMode]" @click="checkClose">
+    <section class="lila-overlay-background" ref="background" :class="[backgroundMode]" @keydown="checkClose" @click="checkClose">
       <slot></slot>
     </section>
   </portal>
@@ -34,7 +34,7 @@ export default class overlayBackgroundPartial extends Vue {
 
     this.$nextTick(() => {
 
-      this.$store.dispatch('fullscreen', true);
+      if (this.$store) this.$store.dispatch('fullscreen', true);
       this.$emit('mounted');
 
     });
@@ -43,8 +43,7 @@ export default class overlayBackgroundPartial extends Vue {
 
   destroyed() {
 
-    console.log('unmount');
-    this.$store.dispatch('fullscreen', false);
+    if (this.$store) this.$store.dispatch('fullscreen', false);
 
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <section :id="id" :class="{'lila-module': !isOverlay}" class="lila-cookies-module">
+  <section :id="id" v-if="visible && isOverlay || !isOverlay" :class="{'lila-module': !isOverlay, isOverlay}" class="lila-cookies-module">
 
     <portal v-if="visible && isOverlay" to="util">
       <lila-overlay-background-partial  background="mobile">
@@ -14,7 +14,11 @@
     </portal>
 
     <template v-if="!isOverlay">
+
       <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+      <lila-list-partial v-bind="list" mode="list" />
+      <lila-list-partial v-bind="links" mode="links" />
+
       <section class="checkbox-container">
         <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
         <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
@@ -28,6 +32,7 @@
   </section>
 </template>
 <script lang="ts">
+import Link from '@interfaces/link.interface';
 import Textblock from '@interfaces/textblock.interface';
 import {
   ExtComponent, Component, Prop,
@@ -39,9 +44,13 @@ export default class CookiesModule extends ExtComponent {
 
   @Prop(Object) textblock: Textblock;
 
+  @Prop(Object) links: Link[];
+
+  @Prop(Object) list: string[];
+
   technical = true;
 
-  visible = true;
+  visible = false;
 
   cookies = {
     analytics: false,
@@ -57,7 +66,7 @@ export default class CookiesModule extends ExtComponent {
 
     const useWindow: any = window;
 
-    return useWindow.gtag;
+    return useWindow.gtag || function gtag() { return true; };
 
   }
 
@@ -76,6 +85,8 @@ export default class CookiesModule extends ExtComponent {
       this.updateSelection();
 
     }
+
+    console.log(this.$store);
 
   }
 
@@ -209,20 +220,24 @@ export default class CookiesModule extends ExtComponent {
 
 }
 
-.lila-cookies-module.lila-module {
+.lila-cookies-module {
 
-  .module;
+  &.lila-module {
 
-  display: grid;
-  gap: 40px;
+    .module;
 
-  max-width: @moduleWidth_S;
+    display: grid;
+    gap: 40px;
 
-  .lila-label-parent-container::v-deep {
+    max-width: @moduleWidth_S;
 
-    .label-container {
-      display: none;
+    .lila-label-parent-container::v-deep {
+
+      .label-container {
+        display: none;
+      }
     }
+
   }
 
 }

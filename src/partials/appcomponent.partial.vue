@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view :key="`module-${$route.params.link}`" />
-    <portal-target name="overlay" multiple />
   </div>
 </template>
 <script lang="ts">

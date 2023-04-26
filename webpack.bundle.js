@@ -7,146 +7,154 @@ const nodeExternals = require('webpack-node-externals')
 const baseConfig = require('./webpack.config.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path');
+const getEnv = require('./getEnv.js');
 
-module.exports = (env, argv) => merge(baseConfig, {
-  // Point entry to your app's server entry file
-  entry: './src/app-server/server-entry.ts',
-  mode: 'production',
+module.exports = (env, argv) => {
 
-  // This allows webpack to handle dynamic imports in a Node-appropriate
-  // fashion, and also tells `vue-loader` to emit server-oriented code when
-  // compiling Vue components.
-  target: 'node',
+  const useEnv = getEnv(env);
 
-  // For bundle renderer source map support
-  devtool: false,
+  console.log(`./${useEnv.path}/${useEnv.company}/${useEnv.project}/source/less/base.less`);
 
-  // This tells the server bundle to use Node-style exports
-  output: {
-    libraryTarget: 'commonjs2',
-    path: `${__dirname}/dist-bundle`,
-  },
-
-  // https://webpack.js.org/configuration/externals/#function
-  // https://github.com/liady/webpack-node-externals
-  // Externalize app dependencies. This makes the server build much faster
-  // // and generates a smaller bundle file.
-  externals: nodeExternals({
-    // do not externalize dependencies that need to be processed by webpack.
-    // you can add more file types here e.g. raw *.vue files
-    // you should also whitelist deps that modifies `global` (e.g. polyfills)
-    whitelist: /\.css$/,
-    allowlist: [
-      'vue',
-      'vuex',
-      'vue-router',
-      'vue-class-component',
-      'vue-youtube-embed',
-      'vue-property-decorator',
-      'dayjs',
-      'dayjs/locale/de',
-      'dayjs/plugin/relativeTime',
-      'highlight.js/lib/core',
-      '@lilaquadrat/studio/lib/frontend',
-      'highlight.js/lib/languages/javascript',
-      'highlight.js/lib/languages/typescript',
-      'highlight.js/lib/languages/css',
-      'highlight.js/lib/languages/less',
-      'highlight.js/lib/languages/xml',
-      'highlight.js/lib/languages/bash',
-      'highlight.js/lib/languages/markdown',
-      'highlight.js/lib/languages/json',
-      'highlight.js/lib/languages/scss',
-      'highlight.js/lib/languages/yaml',
-    ]
-  }),
-
-  // This is the plugin that turns the entire output of the server build
-  // into a single JSON file. The default file name will be
-  // `vue-ssr-server-bundle.json`
-  plugins: [
-    new VueLoaderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
+  return merge(baseConfig, {
+    // Point entry to your app's server entry file
+    entry: './src/app-server/server-entry.ts',
+    mode: 'production',
+  
+    // This allows webpack to handle dynamic imports in a Node-appropriate
+    // fashion, and also tells `vue-loader` to emit server-oriented code when
+    // compiling Vue components.
+    target: 'node',
+  
+    // For bundle renderer source map support
+    devtool: false,
+  
+    // This tells the server bundle to use Node-style exports
+    output: {
+      libraryTarget: 'commonjs2',
+      path: `${__dirname}/dist-bundle`,
+    },
+  
+    // https://webpack.js.org/configuration/externals/#function
+    // https://github.com/liady/webpack-node-externals
+    // Externalize app dependencies. This makes the server build much faster
+    // // and generates a smaller bundle file.
+    externals: nodeExternals({
+      // do not externalize dependencies that need to be processed by webpack.
+      // you can add more file types here e.g. raw *.vue files
+      // you should also whitelist deps that modifies `global` (e.g. polyfills)
+      whitelist: /\.css$/,
+      allowlist: [
+        'vue',
+        'vuex',
+        'vue-router',
+        'vue-class-component',
+        'vue-youtube-embed',
+        'vue-property-decorator',
+        'dayjs',
+        'dayjs/locale/de',
+        'dayjs/plugin/relativeTime',
+        'highlight.js/lib/core',
+        '@lilaquadrat/studio/lib/frontend',
+        'highlight.js/lib/languages/javascript',
+        'highlight.js/lib/languages/typescript',
+        'highlight.js/lib/languages/css',
+        'highlight.js/lib/languages/less',
+        'highlight.js/lib/languages/xml',
+        'highlight.js/lib/languages/bash',
+        'highlight.js/lib/languages/markdown',
+        'highlight.js/lib/languages/json',
+        'highlight.js/lib/languages/scss',
+        'highlight.js/lib/languages/yaml',
+      ]
     }),
-    new CleanWebpackPlugin(),
-    new VueSSRServerPlugin({
-      filename: 'server.bundle.json',
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'style.css'
-    })
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        resourceQuery: /main/,
-        use: [
-          'vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                relativeUrls: false,
-              }
-            },
-          },
-        ],
-      },
-      {
-        test: /\.less$/,
-        exclude: [
-          path.resolve(`./${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}/source/less/base.less`),
-        ],
-        use: [
-          {
-            loader: 'vue-style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                relativeUrls: false,
-                modifyVars: {
-                  projectPath: `/${env.project === 'base' ? 'base' : 'projects'}/${env.company}/${env.project}`
-                },
-              }
-            },
-          },
-        ],
-      },
-      {
-        test: /\.ts$/,
-        use: [
-          {
-            loader: 'babel-loader'
-          },
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true,
-              experimentalWatchApi: true,
-            },
-          }
-        ],
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-      },
+  
+    // This is the plugin that turns the entire output of the server build
+    // into a single JSON file. The default file name will be
+    // `vue-ssr-server-bundle.json`
+    plugins: [
+      new VueLoaderPlugin(),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
+      new CleanWebpackPlugin(),
+      new MiniCssExtractPlugin({
+        filename: 'style.css'
+      }),
+      new VueSSRServerPlugin({
+        filename: 'server.bundle.json',
+      }),
     ],
-  },
-});
+    module: {
+      rules: [
+        {
+          test: /\.less$/,
+          resourceQuery: /main/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
+              },
+            },
+            {
+              loader: 'less-loader',
+              options: {
+                lessOptions: {
+                  relativeUrls: false,
+                }
+              },
+            },
+          ],
+        },
+        {
+          test: /\.less$/,
+          exclude: [
+            path.resolve(`./${useEnv.path}/${useEnv.company}/${useEnv.project}/source/less/base.less`),
+          ],
+          use: [
+            {
+              loader: 'vue-style-loader',
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
+              },
+            },
+            {
+              loader: 'less-loader',
+              options: {
+                lessOptions: {
+                  relativeUrls: false,
+                  modifyVars: {
+                    projectPath: `/${useEnv.path}/${useEnv.company}/${useEnv.project}`
+                  },
+                }
+              },
+            },
+          ],
+        },
+        {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: 'babel-loader'
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true,
+                experimentalWatchApi: true,
+              },
+            }
+          ],
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+      ],
+    },
+  });
+}
