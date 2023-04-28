@@ -2,17 +2,17 @@
   <section class="lila-content-module">
 
     <article class="top container" :inline="inline" v-if="!!content.top.length">
-      <component v-for="(single, i) in content.top" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="top" />
+      <component v-for="single in content.top" :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="top" />
     </article>
 
     <article class="container" :class="[content.settings.mode, {inline: inline}]" :inline="inline" v-if="!!content.content.length">
-      <template v-for="(single, i) in content.content">
-        <component  :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="content" />
+      <template v-for="single in content.content">
+        <component :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="content" />
       </template>
     </article>
 
     <article class="bottom container" :inline="inline" v-if="!!content.bottom.length">
-      <component v-for="(single, i) in content.bottom" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="bottom" />
+      <component v-for="single in content.bottom" :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="bottom" />
     </article>
 
   </section>

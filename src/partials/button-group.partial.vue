@@ -26,7 +26,7 @@ export default class ButtonGroupPartial extends ExtPartial {
   flex-wrap: wrap;
 
   &.gap {
-    gap: 20px;
+    gap: 10px 20px;
   }
 
 }

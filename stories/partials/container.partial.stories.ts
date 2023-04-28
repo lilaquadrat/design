@@ -256,6 +256,17 @@ presentation.args = prepareContent({
       ],
     },
     {
+      type: 'cookies-module',
+      textblock: {
+        intro: 'cookies',
+        text: [
+          'Egal, was auf der To-Do-Liste steht: Auf den Support ist Verlass. Ein persönlicher Ansprechpartner agiert bei jeder Anfrage nach definierten Regeln, hält sich an Absprachen und kümmert sich innerhalb fixierter Zeiten um eine Lösung.',
+          'Ein persönlicher Ansprechpartner agiert bei jeder Anfrage nach definierten Regeln, hält sich an Absprachen und kümmert sich innerhalb fixierter Zeiten um eine Lösung.',
+        ],
+      },
+      variant: ['overlay'],
+    },
+    {
       type: 'footer-module',
       legal: 'some legal information',
       social: {
@@ -579,6 +590,17 @@ content.args = prepareContent({
         },
       ],
 
+    },
+    {
+      type: 'cookies-module',
+      textblock: {
+        intro: 'cookies',
+        text: [
+          'Egal, was auf der To-Do-Liste steht: Auf den Support ist Verlass. Ein persönlicher Ansprechpartner agiert bei jeder Anfrage nach definierten Regeln, hält sich an Absprachen und kümmert sich innerhalb fixierter Zeiten um eine Lösung.',
+          'Ein persönlicher Ansprechpartner agiert bei jeder Anfrage nach definierten Regeln, hält sich an Absprachen und kümmert sich innerhalb fixierter Zeiten um eine Lösung.',
+        ],
+      },
+      variant: ['overlay', 'overlayRight'],
     },
   ],
 });

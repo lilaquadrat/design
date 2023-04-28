@@ -1,10 +1,7 @@
 <template>
     <article class="module-screen screen">
-
-    <lila-content-module :content="contentMerged" />
-    <portal-target name="util" multiple />
-
-</article>
+      <lila-content-module :content="contentMerged" />
+    </article>
 </template>
 <script lang="ts">
 import {

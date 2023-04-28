@@ -1,10 +1,12 @@
 <template>
   <section :class="[variant, {hasBackground: colorScheme === 'transparent'}]" class="lila-dialog-partial">
-    <slot></slot>
+    <section class="dialog-content-container">
+      <slot></slot>
 
-    <section class="message-container">
-      <h3 v-if="message">{{ message | translate }}</h3>
-      <p v-if="description">{{ description | translate }}</p>
+      <section class="message-container">
+        <h3 v-if="message">{{ message | translate }}</h3>
+        <p v-if="description">{{ description | translate }}</p>
+      </section>
     </section>
 
     <lila-button-group-partial v-if="type === 'check'" gap>
@@ -87,7 +89,9 @@ export default class DialogPartial extends ExtPartial {
 
   display: grid;
   gap: 20px 10px;
-  max-width: @moduleWidth_XS;
+  max-width: calc(100% - 40px);
+  max-height: calc(100vh - 40px);
+  grid-template-rows: minmax(100px, 1fr) min-content;
 
   border: solid 2px;
   border-color: @grey1;
@@ -95,6 +99,16 @@ export default class DialogPartial extends ExtPartial {
   background-color: @grey1;
 
   box-shadow: 0 0 5px @color1;
+
+  @media @tablet, @desktop {
+    max-width: @moduleWidth_XS;
+  }
+
+  .dialog-content-container {
+    display: grid;
+    gap: 20px 10px;
+    overflow-y: auto;
+  }
 
   &.hasBackground {
     .multi(padding, 4, 4, 2, 4);

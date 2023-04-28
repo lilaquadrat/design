@@ -2,7 +2,6 @@
   <article class="editor-screen screen">
 
     <lila-content-module :content="content" />
-    <portal-target name="util" multiple />
 
   </article>
 

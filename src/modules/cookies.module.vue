@@ -1,17 +1,24 @@
 <template>
-  <section :id="id" v-if="visible && isOverlay || !isOverlay" :class="{'lila-module': !isOverlay, isOverlay}" class="lila-cookies-module">
+  <section :id="id" v-if="visible && isOverlay || !isOverlay" :class="[{'lila-module': !isOverlay, isOverlay,}, overlayPosition]" class="lila-cookies-module">
 
-    <portal v-if="visible && isOverlay" to="util">
-      <lila-overlay-background-partial  background="mobile">
-        <lila-dialog-partial class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
-          <lila-textblock-partial v-if="textblock" v-bind="textblock" />
-          <section class="checkbox-container">
-              <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
-              <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
-          </section>
-        </lila-dialog-partial>
-      </lila-overlay-background-partial>
-    </portal>
+    <lila-overlay-background-partial v-if="visible && isOverlay && overlayPosition === 'overlayFull'" background="mobile">
+      <lila-dialog-partial class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
+        <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+        <section class="checkbox-container">
+            <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
+            <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
+        </section>
+      </lila-dialog-partial>
+    </lila-overlay-background-partial>
+
+      <lila-dialog-partial v-if="visible && isOverlay && overlayPosition === 'overlayRight'" class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
+        <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+        <section class="checkbox-container">
+            <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
+            <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
+        </section>
+      </lila-dialog-partial>
+    </lila-overlay-background-partial>
 
     <template v-if="!isOverlay">
 
@@ -58,7 +65,7 @@ export default class CookiesModule extends ExtComponent {
 
   translations = {
     confirm: 'Alle akzeptieren',
-    cancel: 'Auswahl bestatigen',
+    cancel: 'Auswahl bestätigen',
   };
 
 
@@ -73,6 +80,13 @@ export default class CookiesModule extends ExtComponent {
   get isOverlay() {
 
     return this.variant.includes('overlay');
+
+  }
+
+  get overlayPosition() {
+
+    if (this.variant.includes('overlayRight')) return 'overlayRight';
+    return 'overlayFull';
 
   }
 
@@ -100,6 +114,11 @@ export default class CookiesModule extends ExtComponent {
 
       this.visible = !cookies.find((single) => single.name === 'lila-cookies');
 
+      if (this.overlayPosition === 'overlayFull') {
+
+        this.$store.dispatch('fullscreen', this.visible);
+
+      }
 
     } else {
 
@@ -109,6 +128,7 @@ export default class CookiesModule extends ExtComponent {
 
 
   }
+
 
   updateSelection() {
 
@@ -221,6 +241,27 @@ export default class CookiesModule extends ExtComponent {
 }
 
 .lila-cookies-module {
+
+  &.isOverlay.overlayRight {
+
+    .lila-cookies-module-dialog {
+
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      bottom: 20px;
+      left: 20px;
+      display: grid;
+
+      @media @tablet, @desktop {
+        top: inherit;
+        right: 20px;
+        bottom: 20px;
+        left: inherit;
+      }
+
+    }
+  }
 
   &.lila-module {
 

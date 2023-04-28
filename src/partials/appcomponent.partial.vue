@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view :key="`module-${$route.params.link}`" />
+    <router-view />
   </div>
 </template>
 <script lang="ts">

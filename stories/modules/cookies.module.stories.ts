@@ -2,9 +2,6 @@ import getVariants from '@mixins/getVariants';
 
 export default {
   title: 'Modules/Cookies',
-  parameters: {
-    layout: 'centered',
-  },
   argTypes: {
     variant: {
       control: {
@@ -17,7 +14,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<section><portal-target name="util" multiple /><lila-cookies-module v-bind="$props"></lila-cookies-module></section>',
+  template: '<lila-cookies-module v-bind="$props" />',
 });
 
 export const module = Template.bind({});
@@ -30,12 +27,22 @@ module.args = {
   variant: [],
 };
 
-export const overlay = Template.bind({});
+export const overlayFull = Template.bind({});
 
-overlay.args = {
+overlayFull.args = {
   textblock: {
     intro: 'Cookie-Richtlinie',
     text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
   },
-  variant: ['overlay'],
+  variant: ['overlay', 'overlayFull'],
+};
+
+export const overlayRight = Template.bind({});
+
+overlayRight.args = {
+  textblock: {
+    intro: 'Cookie-Richtlinie',
+    text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
+  },
+  variant: ['overlay', 'overlayRight'],
 };

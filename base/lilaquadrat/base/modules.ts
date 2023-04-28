@@ -867,6 +867,10 @@ module.exports = [
         name: 'Wird als Dialog Overlay angezeigt.',
       },
       {
+        key: 'overlayRight',
+        name: 'Overlay wird rechts unten angezeigt',
+      },
+      {
         key: 'pdf-single-page',
         name: 'Eigene Seite',
         description: 'Ist Innerhalb der PDF eine eigene Seite ohne andere Module',
