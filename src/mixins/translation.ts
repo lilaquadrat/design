@@ -7,23 +7,23 @@ import vue from 'vue';
  */
 class Translation {
 
-    /**
+  /**
      *
      *
      * @type {{[key: string]: any}}
      * @memberof Translation
      */
-    translations: {[key: string]: any} = {};
+  translations: {[key: string]: any} = {};
 
-    /**
+  /**
      *
      *
      * @type {string}
      * @memberof Translation
      */
-    current: string = 'en';
+  current: string = 'en';
 
-    /**
+  /**
      *
      *
      * @param {string} value
@@ -32,92 +32,91 @@ class Translation {
      * @returns
      * @memberof Translation
      */
-    translate(value: string, key?:string, hint?: string) {
+  translate(value: string, key?:string, hint?: string) {
 
-      let translation: any;
-      let returnValue: string;
+    let returnValue: string;
+    const translation = key && this.exists(key)
+      ? this.translations[key]
+      : this.translations[this.current];
 
-      key && this.exists(key)
-        ? translation = this.translations[key]
-        : translation = this.translations[this.current];
+    if (!translation) return value;
 
-      if (!translation) return value;
+    if (hint) {
 
-      if (hint) {
+      if (translation[hint]) {
 
-        if (translation[hint]) {
-
-          translation[hint][value]
-            ? returnValue = translation[hint][value]
-            : returnValue = value;
-
-        } else {
-
-          returnValue = value;
-
-        }
+        returnValue = translation[hint][value]
+          ? translation[hint][value]
+          : value;
 
       } else {
 
-        translation[value]
-          ? returnValue = translation[value]
-          : returnValue = value;
+        returnValue = value;
 
       }
 
-      return returnValue;
+    } else {
+
+      returnValue = translation[value]
+        ? translation[value]
+        : value;
 
     }
 
-    isset(key: string) {
+    return returnValue;
 
-      const translation = this.translations[this.current];
+  }
 
-      if (!translation) return false;
+  isset(key: string) {
 
-      return !!translation[key];
+    const translation = this.translations[this.current];
 
-    }
+    if (!translation) return false;
 
-    /**
+    return !!translation[key];
+
+  }
+
+  /**
      *
      *
      * @param {{[key: string]: any}} translation
      * @param {string} key
      * @memberof Translation
      */
-    add(translation: {[key: string]: any}, key: string) {
+  add(translation: {[key: string]: any}, key: string) {
 
-      this.translations[key] = translation;
+    this.translations[key] = translation;
 
-    }
+  }
 
-    /**
+  /**
      *
      *
      * @param {string} key
      * @returns
      * @memberof Translation
      */
-    exists(key: string) {
+  exists(key: string) {
 
-      return !!this.translations[key];
+    return !!this.translations[key];
 
-    }
+  }
 
-    /**
+  /**
      *
      *
      * @param {string} key
      * @memberof Translation
      */
-    select(key: string) {
+  select(key: string) {
 
-      this.current = key;
+    this.current = key;
 
-    }
+  }
 
 }
+
 const translate = new Translation();
 
 vue.filter('translate', (value: string, hint?: string) => translate.translate(value, null, hint));

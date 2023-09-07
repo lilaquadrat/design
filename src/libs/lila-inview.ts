@@ -115,7 +115,6 @@ class Inview {
 
     const height = document.body.getBoundingClientRect().height * 2;
     const rect = element.getBoundingClientRect();
-
     const { top } = rect;
     const { bottom } = rect;
 
@@ -151,5 +150,7 @@ class Inview {
   }
 
 }
+
 const inview = new Inview();
+
 export default inview;

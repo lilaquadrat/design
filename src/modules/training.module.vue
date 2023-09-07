@@ -15,7 +15,7 @@
           <div :class="{ open: headIndexOpen }" class="headIndex">
             <ul>
               <li v-for="(teaser, index) in indexTeaser" :key="`teaser-head-index-${index}`">
-                <lila-button-partial :class="{ active: index === currentIndex }" class="base transparent titleButton" @click="setIndex(index)">{{ teaser.settings.title }}</lila-button-partial>
+                <lila-button-partial :class="{ active: index === currentIndex }" class="base transparent titleButton" @click="setIndex(index)">{{ teaser.settings.title || 'NO_TITLE' }}</lila-button-partial>
               </li>
             </ul>
           </div>
@@ -31,7 +31,7 @@
           <div class="index-indicator">{{ index + 1 }}.</div>
 
           <button @click="setIndex(index)">
-            <h2>{{ teaser.settings.title }}</h2>
+            <h2>{{ teaser.settings.title || 'NO_TITLE' }}</h2>
             <p>{{ teaser.settings.description }}</p>
           </button>
         </div>
@@ -42,7 +42,7 @@
 <script lang="ts">
 import Textblock from '@interfaces/textblock.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
-import { ChildData, Editor } from '@lilaquadrat/studio/lib/interfaces';
+import { ChildData, Editor, GenericData } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { InjectReactive } from 'vue-property-decorator';
 
@@ -52,6 +52,8 @@ export default class TrainingModule extends ExtComponent {
   @Prop(Object) textblock: Textblock;
 
   @Prop(Object) childData: ChildData;
+
+  @Prop(Object) genericData: GenericData;
 
   @InjectReactive('linkBase') private linkBase!: string;
 
@@ -91,11 +93,11 @@ export default class TrainingModule extends ExtComponent {
 
   get indexTeaser() {
 
-    if (!this.childData?.data) return [];
+    if (!this.useData?.data) return [];
 
-    const mapped = this.childData?.index.map((index) => {
+    const mapped = this.useData?.index.map((index) => {
 
-      const singleData: Partial<Editor> = this.childData?.data[index] ?? {};
+      const singleData: Partial<Editor> = this.useData?.data[index] ?? {};
 
       if (!singleData.settings) {
 
@@ -114,17 +116,45 @@ export default class TrainingModule extends ExtComponent {
 
   }
 
+  get useData() {
+
+    if (this.genericData) {
+
+      const dataObject = {};
+
+      this.genericData.editor.forEach((single) => {
+
+        console.log(this.genericData);
+        if (!this.genericData.data) return;
+
+        dataObject[single] = this.genericData.data[single];
+
+      });
+
+      return {
+        data: dataObject,
+        index: this.genericData.editor,
+      };
+
+    }
+
+    if (this.childData) return this.childData;
+
+    return {};
+
+  }
+
   get contentCount() {
 
-    return this.childData?.index.length;
+    return this.useData?.index.length;
 
   }
 
   get currentContent() {
 
-    if (!this.childData?.data) return null;
+    if (!this.useData?.data) return null;
 
-    const currentContent = this.childData.data[this.childData.index[this.currentIndex]] ?? null;
+    const currentContent = this.useData.data[this.useData.index[this.currentIndex]] ?? null;
 
     if (!currentContent) return null;
 

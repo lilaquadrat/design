@@ -1,9 +1,11 @@
 <template>
   <section :id="id" v-if="visible && isOverlay || !isOverlay" :class="[{'lila-module': !isOverlay, isOverlay,}, overlayPosition]" class="lila-cookies-module">
-
     <lila-overlay-background-partial v-if="visible && isOverlay && overlayPosition === 'overlayFull'" background="mobile">
       <lila-dialog-partial class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
         <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+        <lila-list-partial v-bind="list" mode="list" />
+        <lila-list-partial v-bind="links" mode="links" />
+
         <section class="checkbox-container">
             <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
             <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
@@ -11,14 +13,16 @@
       </lila-dialog-partial>
     </lila-overlay-background-partial>
 
-      <lila-dialog-partial v-if="visible && isOverlay && overlayPosition === 'overlayRight'" class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
-        <lila-textblock-partial v-if="textblock" v-bind="textblock" />
-        <section class="checkbox-container">
-            <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
-            <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
-        </section>
-      </lila-dialog-partial>
-    </lila-overlay-background-partial>
+    <lila-dialog-partial v-if="visible && isOverlay && overlayPosition === 'overlayRight'" class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
+      <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+      <lila-list-partial v-bind="list" mode="list" />
+      <lila-list-partial v-bind="links" mode="links" />
+
+      <section class="checkbox-container">
+          <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
+          <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
+      </section>
+    </lila-dialog-partial>
 
     <template v-if="!isOverlay">
 
@@ -92,6 +96,7 @@ export default class CookiesModule extends ExtComponent {
 
   mounted() {
 
+    this.enableAnalytics();
     this.calcVisibilty();
 
     if (!this.isOverlay) {
@@ -100,15 +105,12 @@ export default class CookiesModule extends ExtComponent {
 
     }
 
-    console.log(this.$store);
 
   }
 
   calcVisibilty() {
 
     const cookies = this.getCookies();
-
-    console.log(cookies, this.variant.includes('overlay'), cookies.find((single) => single.name === 'lila-cookies'));
 
     if (this.variant.includes('overlay')) {
 
@@ -157,6 +159,7 @@ export default class CookiesModule extends ExtComponent {
   consent(type: 'all' | 'selection') {
 
     const cookies = this.getCookies();
+    const url = new URL(document.URL);
 
     if (type === 'all') {
 
@@ -166,10 +169,7 @@ export default class CookiesModule extends ExtComponent {
 
     if (this.cookies.analytics) {
 
-      this.gtag('consent', 'update', {
-        ad_storage: 'granted',
-        analytics_storage: 'granted',
-      });
+      this.enableGA();
 
     } else {
 
@@ -182,7 +182,7 @@ export default class CookiesModule extends ExtComponent {
 
         if (single.name.match(/^_ga*/)) {
 
-          document.cookie = `${single.name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None;`;
+          document.cookie = `${single.name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=.${url.hostname}; SameSite=None; secure=true;`;
 
         }
 
@@ -194,10 +194,8 @@ export default class CookiesModule extends ExtComponent {
 
     cookieKeys.push('technical');
 
-    console.log(cookieKeys);
-
-    document.cookie = `lila-cookies=1; expires=${dayjs().add(2, 'years').toString()}; SameSite=None;`;
-    document.cookie = `lila-cookies-accepted=${cookieKeys.join(',')}; expires=${dayjs().add(2, 'years').toString()}; SameSite=None;`;
+    document.cookie = `lila-cookies=1; expires=${dayjs().add(2, 'years').toString()}; domain=.${url.hostname}; SameSite=None; secure=true;`;
+    document.cookie = `lila-cookies-accepted=${cookieKeys.join(',')}; expires=${dayjs().add(2, 'years').toString()}; domain=.${url.hostname}; SameSite=None; secure=true;`;
 
     this.calcVisibilty();
 
@@ -214,6 +212,33 @@ export default class CookiesModule extends ExtComponent {
       return { name: name[0].trim(), value: name[1] };
 
     });
+
+  }
+
+  enableGA() {
+
+    this.gtag('consent', 'update', {
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+    });
+
+  }
+
+  enableAnalytics() {
+
+    const cookies = this.getCookies();
+    const accepted = cookies.find((single) => single.name === 'lila-cookies-accepted');
+
+    if (accepted) {
+
+      if (accepted.value.includes('analytics')) {
+
+        this.enableGA();
+
+      }
+
+    }
+
 
   }
 
