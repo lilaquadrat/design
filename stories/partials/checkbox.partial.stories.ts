@@ -1,5 +1,5 @@
 export default {
-  title: 'Basics/Checkbox',
+  title: 'Forms/Checkbox',
   parameters: {
     layout: 'centered',
   },
@@ -13,9 +13,9 @@ const Template = (args, { argTypes }) => ({
   template: '<lila-checkbox-partial v-bind="$props">{{ $props.text }}</lila-checkbox-partial>',
 });
 
-export const Basic = Template.bind({});
+export const Form = Template.bind({});
 
-Basic.args = {
+Form.args = {
 
 };
 

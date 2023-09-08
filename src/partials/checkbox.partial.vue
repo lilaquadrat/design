@@ -18,18 +18,6 @@
   @import (reference) "@{projectPath}/source/less/shared.less";
   .lila-input{
       padding: 10px;
-      &.small {
-          width: 20vw - 3rem;
-          font-weight: 300;
-      }
-      &.medium {
-          width: 50vw - 3rem;
-          font-weight: 500;
-      }
-      &.large {
-          width: 100vw - 3rem;
-          font-weight: 900;
-      }
   }
 
 </style>

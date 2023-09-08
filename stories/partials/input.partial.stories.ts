@@ -1,10 +1,9 @@
 export default {
-  title: 'Basics/Input',
+  title: 'Forms/Input',
   parameters: {
     layout: 'centered',
   },
   argTypes: {
-    size: { control: { type: 'radio' }, options: ['small', 'medium', 'large'] },
     disabled: { control: { type: 'boolean' } },
   },
 
@@ -15,11 +14,10 @@ const Template = (args, { argTypes }) => ({
   template: '<lila-input-partial  v-bind="$props" />',
 });
 
-export const Basic = Template.bind({});
+export const Form = Template.bind({});
 
-Basic.args = {
+Form.args = {
   placeholder: 'Edit your text',
-  size: 'medium',
 };
 
 
