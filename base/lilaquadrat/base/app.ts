@@ -26,6 +26,7 @@ import ssr from 'src/mixins/ssr';
 import './source/less/base.less';
 import { editorRoutes, routes } from 'src/routes';
 import Components from '@libs/Components';
+import PortalVue from 'portal-vue';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const modules = require('./modules');
@@ -54,6 +55,7 @@ ENVIRONMENT === 'editor'
   : log.setLevel('warn');
 
 Vue.use(VueRouter);
+Vue.use(PortalVue);
 
 /** APP Object for vuejs initialization */
 const appObject: any = {

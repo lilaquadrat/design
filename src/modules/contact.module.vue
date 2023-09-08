@@ -6,7 +6,7 @@
     {{ list }}
     <form @submit="handleForm">
       <fieldset>
-        <legen>personal</legen>
+        <legend>personal</legend>
 
         <label>
           <input />
@@ -19,7 +19,7 @@
 
       </fieldset>
       <fieldset>
-        <legen>address</legen>
+        <legend>address</legend>
 
         <label>
           <input />
@@ -41,7 +41,7 @@
       </fieldset>
 
       <fieldset>
-        <legen>contact</legen>
+        <legend>contact</legend>
 
         <label>
           <input />
@@ -55,7 +55,7 @@
       </fieldset>
 
       <fieldset>
-        <legen>message</legen>
+        <legend>message</legend>
 
         <label>
           <textarea />
@@ -70,6 +70,7 @@
           <label :key="`agreement-${index}`">
             <input type="checkbox" :required="single.required" />
             {{ single.text }}
+            <lila-content-container-partial :type="'studio'" :category="['conditions-of-use']" latest overlay />
           </label>
         </template>
 
@@ -108,7 +109,7 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  handleForm(event: Event) {
+  handleForm(event: HTMLFormElement) {
 
     event.preventDefault();
 
