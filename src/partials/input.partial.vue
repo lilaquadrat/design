@@ -62,34 +62,9 @@ export default class InputPartial extends ExtPartial {
             opacity: 0.3;
             pointer-events: none;
         }
-<<<<<<< HEAD
    }
    input[disabled] {
     color: @grey;
-=======
-        &.small{
-            width: 20vw - 3rem;
-            font-weight: 300;
-        }
-
-        &.medium {
-            width: 50vw - 3rem;
-            font-weight: 500;
-        }
-
-        &.large {
-            width: 100vw - 3rem;
-            font-weight: 900;
-        }
-
-        &.error {
-          color: red;
-        }
-   }
-   input[disabled] {
-    color: @grey;
-
->>>>>>> origin/feedForms
    }
 }
 
