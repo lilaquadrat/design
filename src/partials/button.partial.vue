@@ -1,8 +1,5 @@
 <template>
-    <button class="lila-button base" :disabled="disabled"
-    :class="[colorScheme, {doublecheck: doublecheck, showCheck: showCheck, confirmed: confirmed, icon, noPadding}]"
-    @click="confirm"
-    >
+    <button class="lila-button base" :disabled="disabled" :type="type" :class="[colorScheme, {doublecheck: doublecheck, showCheck: showCheck, confirmed: confirmed, icon, noPadding}]" @click="confirm">
 
         <slot v-if="!showCheck && !confirmed"></slot>
         <span v-if="showCheck">Please confirm your action.</span>
@@ -25,6 +22,8 @@ export default class buttonPartial extends ExtPartial {
   @Prop(Boolean) noPadding: boolean;
 
   @Prop(String) colorScheme: string;
+
+  @Prop(String) type: string;
 
   showCheck: boolean = false;
 

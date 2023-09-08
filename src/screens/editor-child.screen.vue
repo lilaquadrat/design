@@ -1,10 +1,7 @@
 <template>
   <article class="editor-screen screen">
-
     <lila-content-module :content="content" />
-
   </article>
-
 </template>
 <script lang="ts">
 import { ExtComponent, Component, vue } from '@libs/lila-component';
@@ -48,7 +45,7 @@ export default class EditorChildScreen extends ExtComponent {
 
     if (this.live) return;
 
-    const messageHandler = (message: StudioIframeMessage<Editor['modules']|Editor['settings']|EditorActiveModule>) => {
+    const messageHandler = (message: StudioIframeMessage<Editor['modules'] | Editor['settings'] | EditorActiveModule>) => {
 
       if (message.data.type === 'studio-content') {
 

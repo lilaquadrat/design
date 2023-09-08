@@ -64,15 +64,15 @@
 
       </fieldset>
 
-      <fieldset>
+      <fieldset class="agreements">
 
-        <template v-for="(single, index) in list.agreements">
-          <label :key="`agreement-${index}`">
+        <section v-for="(single, index) in list.agreements" :key="`agreement-${index}`">
+          <label >
             <input type="checkbox" :required="single.required" />
             {{ single.text }}
-            <lila-content-container-partial :type="'studio'" :category="['conditions-of-use']" latest overlay />
           </label>
-        </template>
+          <lila-content-container-partial :type="'studio'" :predefined="single.predefined" :id="single.contentId" :category="['conditions-of-use']" visible latest overlay>Inhalte anzeigen</lila-content-container-partial>
+        </section>
 
       </fieldset>
 
@@ -132,6 +132,11 @@ export default class ContactModule extends ExtComponent {
 
   &.medium {
     max-width: @moduleWidth_M;
+  }
+
+  .agreements {
+    display: grid;
+    gap: 10px;
   }
 
 }

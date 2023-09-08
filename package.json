@@ -111,6 +111,7 @@
   },
   "dependencies": {
     "@lilaquadrat/studio": "^5.0.0",
+    "axios": "^1.5.0",
     "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",

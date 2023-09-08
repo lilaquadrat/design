@@ -1,45 +1,35 @@
-<script>
-export default {
-  functional: true,
-  render(h, { parent, slots, props }) {
+<script lang="ts">
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
-    const { default: defaultSlot = [], placeholder: placeholderSlot } = slots();
+@Component
+export default class ClientOnly extends Vue {
 
-    if (parent._isMounted) {
+  private isMounted: boolean = false;
 
-      return defaultSlot;
 
-    }
+  mounted() {
 
-    parent.$once('hook:mounted', () => {
+    this.isMounted = true;
+    this.$nextTick(() => {
 
-      parent.$forceUpdate();
+      this.$forceUpdate();
 
     });
 
-    if (props.placeholderTag && (props.placeholder || placeholderSlot)) {
+  }
 
-      return h(
-        props.placeholderTag,
-        {
-          class: ['client-only-placeholder'],
-        },
-        props.placeholder || placeholderSlot,
-      );
+  render(h) {
+
+    if (this.isMounted) {
+
+      return this.$slots.default;
 
     }
 
-    // Return a placeholder element for each child in the default slot
-    // Or if no children return a single placeholder
-    return defaultSlot.length > 0 ? defaultSlot.map(() => h(false)) : h(false);
+    return h(); // Return an empty vnode
 
-  },
-  props: {
-    placeholder: String,
-    placeholderTag: {
-      type: String,
-      default: 'div',
-    },
-  },
-};
+  }
+
+}
 </script>
