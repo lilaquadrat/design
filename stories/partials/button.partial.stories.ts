@@ -19,5 +19,5 @@ export const basic = Template.bind({});
 
 basic.args = {
   colorScheme: 'colorScheme1',
-  text: 'Button',
+  text: 'BUTTON',
 };
