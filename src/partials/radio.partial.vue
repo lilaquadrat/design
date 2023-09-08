@@ -1,5 +1,6 @@
 <template>
     <section class="lila-radio" tabindex="">
+<<<<<<< HEAD
             <span>
                 <label>
                 <input ref="input" type="radio" :disabled="disabled" :checked="value"
@@ -8,6 +9,27 @@
                 />
                </label>
             </span>
+=======
+        <fieldset >
+        <!-- <legend>
+            <span class="text">{{ name }}</span>
+        </legend> -->
+            <span>
+                <label>
+                <input ref="input" type="radio" :disabled="disabled" :checked="value" name="name"
+                v-on:change="changeHandler"
+                :class="[textType, { valid: valid }]"
+                />
+                {{ name }} </label>
+            </span>
+
+            <span>
+                <label>
+                <input ref="input" type="radio" :disabled="disabled" :checked="value" name="name"  v-on:change="changeHandler" />
+                {{ name }} </label>
+            </span>
+    </fieldset>
+>>>>>>> origin/feedForms
     </section>
 </template>
 
@@ -18,9 +40,20 @@ import { Component, ExtPartial, Prop } from '@libs/lila-partial';
 @Component
 export default class RadioPartial extends ExtPartial {
 
+<<<<<<< HEAD
 
   @Prop (String) radio: string;
 
+=======
+  @Prop (String) name: string;
+
+  @Prop (String) radio: string;
+
+  @Prop(String) error: string;
+
+  @Prop(Number) length: number;
+
+>>>>>>> origin/feedForms
   @Prop(Boolean) disabled: boolean;
 
   @Prop(Boolean) value: boolean;
@@ -43,6 +76,58 @@ export default class RadioPartial extends ExtPartial {
 
   };
 
+<<<<<<< HEAD
+=======
+  beforeUpdate(): void {
+
+    this.validate();
+
+  }
+
+  mounted(): void {
+
+    this.validate();
+
+  }
+
+  validate() {
+
+    // const target = $event.target as HTMLInputElement;
+    // const radioBtns = +(target.checked);
+    const checkedTarget = +(document.querySelector('input'));
+
+    if (checkedTarget < 0) { return this.error; }
+
+    console.log(checkedTarget);
+
+    return this.valid;
+
+    // eslint-disable-next-line no-plusplus
+    // for (let i = 0; i < radioBtns.length; i++) {
+
+    //   if (radioBtns[i]) {
+
+    //     // eslint-disable-next-line no-plusplus
+    //     checkedBtns++;
+
+    //   }
+
+    // }
+
+    // console.log(checkedBtns);
+
+    // if (!checkedBtns) {
+
+    //   return this.error;
+
+    // }
+
+    // return this.valid;
+
+  }
+
+
+>>>>>>> origin/feedForms
 }
 </script>
 <style lang="less" scoped>
@@ -62,7 +147,25 @@ export default class RadioPartial extends ExtPartial {
             pointer-events: none;
             opacity: 0.3;
     }
+<<<<<<< HEAD
   }
+=======
+      &.error {
+        input[type="radio"]:checked {
+        outline-color:red;
+        }
+      }
+
+   }
+
+   fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+>>>>>>> origin/feedForms
 
 }
 

@@ -1,31 +1,21 @@
 export default {
-<<<<<<< HEAD
-  title: 'Forms/Radio',
-=======
-  title: 'Basics/Radio',
->>>>>>> origin/feedForms
+  title: 'Basics/Checkbox',
   parameters: {
     layout: 'centered',
   },
   argTypes: {
     disabled: { control: { type: 'boolean' } },
-
   },
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-radio-partial v-bind="$props" />',
+  template: '<lila-checkbox-partial v-bind="$props">{{ $props.text }}</lila-checkbox-partial>',
 });
 
-<<<<<<< HEAD
-export const Form = Template.bind({});
-
-Form.args = {
-=======
 export const Basic = Template.bind({});
 
 Basic.args = {
->>>>>>> origin/feedForms
-  label: 'label',
+
 };
+

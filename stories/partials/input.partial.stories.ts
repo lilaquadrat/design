@@ -1,31 +1,25 @@
 export default {
-<<<<<<< HEAD
-  title: 'Forms/Radio',
-=======
-  title: 'Basics/Radio',
->>>>>>> origin/feedForms
+  title: 'Basics/Input',
   parameters: {
     layout: 'centered',
   },
   argTypes: {
+    size: { control: { type: 'radio' }, options: ['small', 'medium', 'large'] },
     disabled: { control: { type: 'boolean' } },
-
   },
+
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-radio-partial v-bind="$props" />',
+  template: '<lila-input-partial  v-bind="$props" />',
 });
 
-<<<<<<< HEAD
-export const Form = Template.bind({});
-
-Form.args = {
-=======
 export const Basic = Template.bind({});
 
 Basic.args = {
->>>>>>> origin/feedForms
-  label: 'label',
+  placeholder: 'Edit your text',
+  size: 'medium',
 };
+
+

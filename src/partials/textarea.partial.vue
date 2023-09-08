@@ -1,6 +1,14 @@
 <template>
+<<<<<<< HEAD
     <label class="lila-textarea" tabindex="">
        <textarea
+=======
+    <label class="lila-textarea" :class="{  }" tabindex="">
+       <textarea
+       name=""
+       id=""
+
+>>>>>>> origin/feedForms
        :disabled="disabled"
        @input="input($event.target.value)"
        @keyup="checkInput($event)"
@@ -17,7 +25,11 @@ export default class TextareaPartial extends ExtPartial {
 
   @Prop(String) value: string;
 
+<<<<<<< HEAD
 
+=======
+  @Prop(Number) debounce: number;
+>>>>>>> origin/feedForms
 
 
   checkInput($event: KeyboardEvent) {
@@ -28,6 +40,17 @@ export default class TextareaPartial extends ExtPartial {
 
   }
 
+<<<<<<< HEAD
+=======
+  input(value: string) {
+
+    if (this.debounce) return this.$emit('input', value);
+
+    return value;
+
+  }
+
+>>>>>>> origin/feedForms
 
 }
 </script>

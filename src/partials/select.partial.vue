@@ -1,11 +1,22 @@
 <template>
+<<<<<<< HEAD
         <label class="lila-select">
             <select name="name" class="select" :disabled="disabled">
+=======
+    <fieldset>
+        <label class="lila-select">
+            <select
+            name="name"
+            class="select"
+            :disabled="disabled"
+            >
+>>>>>>> origin/feedForms
                 <option value="1">Item1</option>
                 <option value="2">Item2</option>
                 <option value="3">Item3</option>
                 <option value="4">Item4</option>
             </select>
+<<<<<<< HEAD
             <span v-if="slotUsed" class="label">
                 <slot />
             </span>
@@ -15,6 +26,10 @@
                 <span class="required" v-if="disabled"> disabled </span>
             </div>
         </label>
+=======
+        </label>
+    </fieldset>
+>>>>>>> origin/feedForms
 </template>
 <script lang="ts">
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
@@ -25,6 +40,7 @@ export default class SelectPartial extends ExtPartial {
 
   @Prop(Boolean) disabled: boolean;
 
+<<<<<<< HEAD
   @Prop(Boolean) required: boolean;
 
 
@@ -34,6 +50,8 @@ export default class SelectPartial extends ExtPartial {
 
   }
 
+=======
+>>>>>>> origin/feedForms
 }
 </script>
 <style lang="less" scoped>
@@ -48,4 +66,15 @@ export default class SelectPartial extends ExtPartial {
         }
 
     }
+<<<<<<< HEAD
+=======
+
+    fieldset {
+      border: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+>>>>>>> origin/feedForms
 </style>
