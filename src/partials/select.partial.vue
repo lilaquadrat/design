@@ -48,15 +48,4 @@ export default class SelectPartial extends ExtPartial {
         }
 
     }
-<<<<<<< HEAD
-=======
-
-    fieldset {
-      border: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
->>>>>>> origin/feedForms
 </style>
