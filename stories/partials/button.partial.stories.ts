@@ -4,7 +4,7 @@ export default {
     layout: 'centered',
   },
   argTypes: {
-    colorScheme: { control: { type: 'select' }, options: ['colorScheme1', 'colorScheme2', 'transparent'] },
+    colorScheme: { control: { type: 'select' }, options: ['colorScheme1', 'colorScheme2', 'transparent', 'success'] },
     doublecheck: { control: { type: 'boolean' } },
     disabled: { control: { type: 'boolean' } },
   },

@@ -63,9 +63,7 @@ export default class InputPartial extends ExtPartial {
             pointer-events: none;
         }
    }
-   input[disabled] {
-    color: @grey;
-   }
+
 }
 
 </style>

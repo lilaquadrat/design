@@ -3,7 +3,7 @@
             <span>
                 <label>
                 <input ref="input" type="radio" :disabled="disabled" :checked="value"
-                v-on:change="changeHandler"
+                @change="changeHandler"
                 :class="[textType, { valid: valid }]"
                 />
                </label>
@@ -47,22 +47,16 @@ export default class RadioPartial extends ExtPartial {
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
-
-
 .lila-radio {
 
-   input {
 
-    display: flex;
-    flex-direction: column;
-    background: transparent;
     accent-color: @color1;
     &.disabled {
             background-color: @grey;
             pointer-events: none;
             opacity: 0.3;
     }
-  }
+
 
 }
 

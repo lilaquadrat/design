@@ -1,7 +1,8 @@
 <template>
     <section>
-        <label class="lila-label" :class="[font, multi]" :disabled="disabled">
-            {{ label }}
+        <label class="lila-label"
+        :class="[styleScheme, {disabled: disabled}]">
+            <slot />
         </label>
     </section>
 </template>
@@ -13,9 +14,7 @@ export default class LabelPartial extends ExtPartial {
 
   @Prop(String) label: string;
 
-  @Prop(String) font: string;
-
-  @Prop(String) multi: string;
+  @Prop([String]) styleScheme: string;
 
   @Prop(Boolean) disabled: boolean;
 
@@ -23,28 +22,37 @@ export default class LabelPartial extends ExtPartial {
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
-    .lila-label  {
+.lila-label  {
+    color: @success;
 
-    label {
+   .font-normal;
+   .multi(padding, 2, 0);
 
-    color: red;
+        &.float {
+            float: right;
+        }
 
-        .font-normal;
-
-    .multi(padding, 2, 0);
-
-    font-size     : @fontTextSmaller;
-
-    float         : left;
-
-    text-transform: uppercase;
-
-    color         : @textColor;
+        &.text-uppercase {
+            text-transform: uppercase;
+        }
 
 
-  }
-  label[disabled] {
-    color: @grey;
-   }
+        &.font-size {
+            font-size : @fontTextSmaller;
+        }
+
+        &.color {
+            color : @textColor;
+        }
+
+        &.font-weight {
+            .font-bold;
+        }
+
+        &.disabled {
+            color: @grey;
+            opacity: 0.3;
+            pointer-events: none;
+        }
 }
 </style>

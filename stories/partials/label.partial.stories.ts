@@ -4,7 +4,7 @@ export default {
     layout: 'centered',
   },
   argTypes: {
-    multi: { control: { type: 'radio' }, options: ['font-size', 'float', 'color', 'text-transform'] },
+    styleScheme: { control: { type: 'radio' }, options: ['font-size', 'color', 'text-uppercase', 'font-weight', 'multi'] },
     disabled: { control: { type: 'boolean' } },
   },
 
@@ -12,11 +12,11 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-label-partial  v-bind="$props" />',
+  template: '<lila-label-partial  v-bind="$props">{{$props.label}}</lila-label-partial>',
 });
 
-export const Basic = Template.bind({});
+export const basic = Template.bind({});
 
-Basic.args = {
+basic.args = {
   label: 'label',
 };
