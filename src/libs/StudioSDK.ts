@@ -356,6 +356,21 @@ export default class StudioSDK {
         },
       ),
 
+      predefinedLatest: (categories: string[]) => StudioSDK.handleCall<Editor>(
+        {
+          method: 'GET',
+          url: this.getUrl('api', ['public', 'content', 'lilaquadrat', 'studio', 'latest']),
+          headers: this.getHeaders(),
+          params: {
+            category: categories,
+          },
+        },
+        {
+          group: 'editor',
+          action: 'single',
+        },
+      ),
+
       getById: (id: string) => StudioSDK.handleCall<Editor>(
         {
           method: 'GET',

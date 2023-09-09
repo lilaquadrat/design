@@ -1,33 +1,30 @@
 <template>
-  <section class="content-container-full">
+  <section class="content-container-full" :class="{ overlay: overlay, inline: !overlay, full: full, visible: visible }">
 
-    <button class="preview-text" type="button" @click="open"> <slot /> </button>
-    1{{ id }}1
-    2{{ error }}2
-    3{{ predefined }}3
+    <button v-if="overlay" class="preview-text" type="button" @click="open"> <slot /> </button>
 
-    <portal to="overlay">
+    <component :is="overlay ? 'portal' : 'section'" to="overlay">
       <transition>
         <section class="content-container" ref="container" v-if="visible || !overlay" :class="{ overlay: overlay, visible: visible }">
 
-          <button class="closeOutside" type="button" @keyup="close" @click="close" />
+          <button v-if="overlay" class="closeOutside" type="button" @keyup="close" @click="close" />
 
-
-            <section v-if="!error" class="content-position-container">
-              <lila-content-head-partial v-if="(id || latest) && content" @close="close">{{ content.settings.title }}</lila-content-head-partial>
-              <lila-content-module v-if="(id || latest) && content" :content="content" :inline="overlay ? false : true" />
+          <section class="content-position-container">
+            <lila-content-head-partial @close="close" :hideButton="!overlay">
+              <template v-if="content  && !loading">{{ content.settings.title }}</template>
+              <template v-if="!content && !loading">CONTENT_NOT_FOUND</template>
+              <template v-if="loading">CONTENT_LOADING</template>
+            </lila-content-head-partial>
+            <section class="scroll-container">
+              <lila-indicator-partial v-if="loading">LOADING</lila-indicator-partial>
+              <lila-content-module v-if="!loading && (error || content)" :content="error ? errorContent : content" :inline="!overlay" />
             </section>
-
-            <section v-if="error" class="content-position-container">
-              <lila-content-head-partial @close="close">CONTENT_NOT_FOUND</lila-content-head-partial>
-              <!-- <lila-content-head-partial @close="close">{{ $translate('CONTENT_NOT_FOUND') }}</lila-content-head-partial> -->
-              <lila-content-module :content="errorContent" :inline="overlay ? false : true" />
-            </section>
+          </section>
 
         </section>
       </transition>
 
-    </portal>
+    </component>
   </section>
 </template>
 <script lang="ts">
@@ -57,11 +54,15 @@ export default class contentContainerPartial extends ExtPartial {
 
   @Prop(Boolean) predefined: boolean;
 
+  @Prop(Boolean) full: boolean;
+
   content: ContentPrepared = null;
 
   error: boolean = true;
 
   visible: boolean = false;
+
+  loading: boolean = false;
 
   errorContent = {
     settings: {},
@@ -92,9 +93,7 @@ export default class contentContainerPartial extends ExtPartial {
 
   mounted() {
 
-    console.log(this.getSlotTrigger);
-
-    if (this.id && !this.getSlotTrigger) {
+    if (this.id || this.latest) {
 
       this.getContent();
 
@@ -105,15 +104,10 @@ export default class contentContainerPartial extends ExtPartial {
   async getContent() {
 
     this.error = null;
+    this.content = null;
+    this.loading = true;
 
     let data: SDKResponse<Editor> = null;
-    const query: Record<string, string | string[] | boolean> = {};
-
-    if (this.id) query.id = this.id;
-    if (this.category) query.category = this.category;
-    if (this.latest) query.latest = true;
-    if (this.type) query.type = this.type;
-
     const sdk = new StudioSDK(
       'design',
       {
@@ -123,12 +117,18 @@ export default class contentContainerPartial extends ExtPartial {
       },
     );
 
+    console.log(this.predefined, this.latest, this.category);
+
 
     try {
 
-      if (this.predefined) {
+      if (this.predefined && !this.latest) {
 
         data = await sdk.public.content.predefined(this.id);
+
+      } else if (this.predefined && this.latest) {
+
+        data = await sdk.public.content.predefinedLatest(this.category);
 
       } else {
 
@@ -144,9 +144,8 @@ export default class contentContainerPartial extends ExtPartial {
     }
 
 
-    console.log(data);
-
-    this.content = prepareContent(data.data);
+    if (data) this.content = prepareContent(data.data);
+    this.loading = false;
 
 
   }
@@ -178,7 +177,9 @@ export default class contentContainerPartial extends ExtPartial {
 
 .content-container-full {
 
-  display: inline;
+  &.inline {
+    width: 100%;
+  }
 
   .preview-text {
     margin: 0;
@@ -192,8 +193,8 @@ export default class contentContainerPartial extends ExtPartial {
     font-family: inherit;
     line-height: inherit;
     text-align: inherit;
-    cursor: pointer;
     text-decoration: underline;
+    cursor: pointer;
 
   }
 
@@ -204,7 +205,7 @@ export default class contentContainerPartial extends ExtPartial {
   width: 100%;
 
   .closeOutside {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
 
@@ -223,28 +224,29 @@ export default class contentContainerPartial extends ExtPartial {
     cursor: pointer;
   }
 
-  &.overlay {
+  .content-position-container {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    min-height: 250px;
+    background-color: @white;
 
-    opacity: 1;
-    transition: opacity .2s @aType;
+    .scroll-container {
+      display: grid;
+      overflow-y: scroll;
+      max-height: 35vh;
 
-    &.v-leave-active,
-    &.v-enter-active {
-      opacity: 0;
-
-      &.overlay::v-deep {
-
-        .content-position-container {
-          transform: scale(.95);
-        }
+      .loading-indicator {
+        position: absolute;
+        display: grid;
+        align-self: center;
+        justify-self: center;
       }
-
     }
   }
 
   &.overlay::v-deep {
 
-    position: absolute;
+    position: fixed;
 
     top: 0;
     left: 0;
@@ -261,7 +263,7 @@ export default class contentContainerPartial extends ExtPartial {
     .content-position-container {
       .index(12);
       display: grid;
-      grid-template-rows: 35px calc(100vh - 35px);
+      grid-template-rows: 35px 1fr;
       overflow: hidden;
       width: 100%;
       height: 100%;
@@ -281,13 +283,30 @@ export default class contentContainerPartial extends ExtPartial {
         height: 80%;
       }
 
+      .scroll-container {
+        overflow-y: scroll;
+        max-height: 100%;
+      }
+
     }
 
-    .content-module {
-      overflow-y: scroll;
-      width: 100%;
-      height: 100%;
-      background-color: @white;
+  }
+
+  &.overlay {
+
+    opacity: 1;
+    transition: opacity .2s @aType;
+
+    &.v-leave-active,
+    &.v-enter-active {
+      opacity: 0;
+
+      &.overlay::v-deep {
+
+        .content-position-container {
+          transform: scale(.95);
+        }
+      }
 
     }
   }

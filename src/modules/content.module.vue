@@ -85,13 +85,24 @@ export default class ContentModule extends ExtComponent {
       }
     }
 
-    &.top, &.inline {
+    &.top {
       .multi(margin-bottom, 0);
 
       .lila-module {
 
         &:first-child {
           .multi(margin-top, 0);
+        }
+      }
+    }
+
+    &.inline {
+      .multi(margin-bottom, 8);
+
+      .lila-module {
+
+        &:first-child {
+          .multi(margin-top, 8);
         }
       }
     }

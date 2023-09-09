@@ -71,8 +71,11 @@
             <input type="checkbox" :required="single.required" />
             {{ single.text }}
           </label>
-          <lila-content-container-partial :type="'studio'" :predefined="single.predefined" :id="single.contentId" :category="['conditions-of-use']" visible latest overlay>Inhalte anzeigen</lila-content-container-partial>
+          <lila-content-container-partial :predefined="single.predefined" :id="single.contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
         </section>
+
+        <lila-content-container-partial predefined :category="['conditions-of-use']" latest overlay>CONDITION OF USE</lila-content-container-partial>
+        <lila-content-container-partial predefined :category="['conditions-of-use']" latest>CONDITION OF USE</lila-content-container-partial>
 
       </fieldset>
 
