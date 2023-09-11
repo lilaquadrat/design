@@ -15,9 +15,9 @@ const Template = (args, { argTypes }) => ({
   template: '<lila-icons-partial v-bind="$props">Links</lila-icons-partial>',
 });
 
-export const basic = Template.bind({});
+export const Basic = Template.bind({});
 
-basic.args = {
+Basic.args = {
   type: 'arrow-left',
   colorScheme: 'colorScheme1',
   size: 'medium',

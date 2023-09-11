@@ -5,9 +5,7 @@ export default {
   },
   argTypes: {
     variant: {
-      control: {
-        type: 'multi-select',
-      },
+      control: { type: 'multi-select' },
       options: [
         'colorScheme2',
         'callToAction',
