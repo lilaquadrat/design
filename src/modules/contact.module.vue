@@ -5,79 +5,82 @@
     <lila-textblock-partial v-bind="textblock" />
     {{ list }}
     <form @submit="handleForm">
-      <fieldset>
-        <legend>personal</legend>
+      <lila-fieldset-partial legend="personal">
 
         <label>
-          <input />
-          prename
+          <lila-input-partial>
+            prename
+          </lila-input-partial>
         </label>
         <label>
-          <input />
+          <lila-input-partial >
           lastname
+        </lila-input-partial>
         </label>
 
-      </fieldset>
-      <fieldset>
-        <legend>address</legend>
+      </lila-fieldset-partial>
+      <lila-fieldset-partial legend="address">
 
         <label>
-          <input />
+          <lila-input-partial>
           street & number
+        </lila-input-partial>
         </label>
         <label>
-          <input />
+          <lila-input-partial>
           zipocode
+        </lila-input-partial>
         </label>
         <label>
-          <input />
+          <lila-input-partial>
           city
+        </lila-input-partial>
         </label>
         <label>
-          <input />
+          <lila-input-partial>
           country
+        </lila-input-partial>
         </label>
 
-      </fieldset>
+      </lila-fieldset-partial>
 
-      <fieldset>
-        <legend>contact</legend>
+      <lila-fieldset-partial legend="contact">
 
         <label>
-          <input />
+          <lila-input-partial>
           email
+        </lila-input-partial>
         </label>
         <label>
-          <input />
+          <lila-input-partial>
           phone
+        </lila-input-partial>
         </label>
 
-      </fieldset>
+      </lila-fieldset-partial>
 
-      <fieldset>
-        <legend>message</legend>
+      <lila-fieldset-partial  legend="message">
 
         <label>
-          <textarea />
-          message
+          <lila-textarea-partial>
+            message
+          </lila-textarea-partial>
         </label>
 
-      </fieldset>
+      </lila-fieldset-partial>
 
-      <fieldset class="agreements">
+      <lila-fieldset-partial v-if="list" class="agreements">
 
         <section v-for="(single, index) in list.agreements" :key="`agreement-${index}`">
-          <label >
+          <label>
             <input type="checkbox" :required="single.required" />
             {{ single.text }}
           </label>
           <lila-content-container-partial :predefined="single.predefined" :id="single.contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
         </section>
 
-        <lila-content-container-partial predefined :category="['conditions-of-use']" latest overlay>CONDITION OF USE</lila-content-container-partial>
-        <lila-content-container-partial predefined :category="['conditions-of-use']" latest>CONDITION OF USE</lila-content-container-partial>
 
-      </fieldset>
+      </lila-fieldset-partial>
 
       <button type="submit">submit</button>
 
@@ -102,7 +105,7 @@ export default class ContactModule extends ExtComponent {
 
   get list() {
 
-    if (this.genericData.lists && this.genericData.data && Array.isArray(this.genericData.lists)) {
+    if (this.genericData?.lists && this.genericData?.data && Array.isArray(this.genericData?.lists)) {
 
       return this.genericData.data[this.genericData.lists[0]];
 

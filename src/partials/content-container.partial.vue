@@ -1,6 +1,5 @@
 <template>
   <section class="content-container-full" :class="{ overlay: overlay, inline: !overlay, full: full, visible: visible }">
-
     <button v-if="overlay" class="preview-text" type="button" @click="open"> <slot /> </button>
 
     <component :is="overlay ? 'portal' : 'section'" to="overlay">
@@ -11,13 +10,13 @@
 
           <section class="content-position-container">
             <lila-content-head-partial @close="close" :hideButton="!overlay">
-              <template v-if="content  && !loading">{{ content.settings.title }}</template>
-              <template v-if="!content && !loading">CONTENT_NOT_FOUND</template>
-              <template v-if="loading">CONTENT_LOADING</template>
+              <template v-if="content && loading > 100">{{ content.settings.title }}</template>
+              <template v-if="loading > 400">CONTENT_NOT_FOUND</template>
+              <template v-if="loading === 100">CONTENT_LOADING</template>
             </lila-content-head-partial>
             <section class="scroll-container">
-              <lila-indicator-partial v-if="loading">LOADING</lila-indicator-partial>
-              <lila-content-module v-if="!loading && (error || content)" :content="error ? errorContent : content" :inline="!overlay" />
+              <lila-indicator-partial v-if="loading === 100">LOADING</lila-indicator-partial>
+              <lila-content-module v-if="loading > 100 && (error || content)" :content="error ? errorContent : content" :inline="!overlay" />
             </section>
           </section>
 
@@ -62,7 +61,7 @@ export default class contentContainerPartial extends ExtPartial {
 
   visible: boolean = false;
 
-  loading: boolean = false;
+  loading: number = 0;
 
   errorContent = {
     settings: {},
@@ -105,7 +104,7 @@ export default class contentContainerPartial extends ExtPartial {
 
     this.error = null;
     this.content = null;
-    this.loading = true;
+    this.loading = 100;
 
     let data: SDKResponse<Editor> = null;
     const sdk = new StudioSDK(
@@ -140,12 +139,13 @@ export default class contentContainerPartial extends ExtPartial {
 
       this.content = null;
       this.error = true;
+      this.loading = 404;
 
     }
 
 
     if (data) this.content = prepareContent(data.data);
-    this.loading = false;
+    this.loading = 200;
 
 
   }
@@ -176,6 +176,7 @@ export default class contentContainerPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .content-container-full {
+  display: inline;
 
   &.inline {
     width: 100%;
