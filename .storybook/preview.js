@@ -45,3 +45,15 @@ export const parameters = {
 
 
 Attributes();
+
+export const decorators = [
+  (story) => ({
+    components: { story: story() },
+    template: `
+      <div>
+        <story />
+        <portal-target name="overlay" multiple />
+      </div>
+    `,
+  }),
+];

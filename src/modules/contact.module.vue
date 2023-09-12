@@ -1,7 +1,6 @@
 <template>
   <section class="lila-contact-module lila-module">
 
-    <h1>CONTACT MODULE</h1>
     <lila-textblock-partial v-bind="textblock" />
     {{ list }}
     <form @submit="handleForm">
@@ -82,7 +81,7 @@
 
       </lila-fieldset-partial>
 
-      <button type="submit">submit</button>
+      <lila-button-partial colorScheme="colorScheme1" type="submit">submit</lila-button-partial>
 
     </form>
 

@@ -10,7 +10,7 @@ export default {
       control: {
         type: 'multi-select',
       },
-      options: getVariants('cookies'),
+      options: getVariants('contact'),
     },
   },
 };
@@ -24,30 +24,55 @@ export const basic = Template.bind({});
 
 basic.args = {
   textblock: {
-    headline: 'Cookie-Richtlinie',
+    headline: 'Contact Module',
     text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
   },
-  list: {
-    value: [
-      'entry 1',
-      'entry 2',
-    ],
-    title: 'some nice list',
-  },
-  links: {
-    value: [
-      {
-        text: 'Link with some longer text',
-        link: 'https://testlink',
-        attributes: [],
-      },
-      {
-        text: 'Normal link',
-        link: 'https://testlink',
-        attributes: [],
-      },
-    ],
-    title: 'Follow up links',
-  },
   variant: [],
+  genericData: {
+    data: {
+      1: {
+        _id: '64e8a1d3d96549a0378c9d2a',
+        name: 'Liste 12',
+        description: 'fasfdd',
+        payment: 'free',
+        state: 'open',
+        mode: 'contact',
+        categories: [
+          {
+            name: 'base',
+            available: true,
+            price: {
+              tax: 19,
+            },
+          },
+        ],
+        agreements: [
+          {
+            contentId: 'contact-dsgvo',
+            predefined: true,
+            text: 'Ich stimme zu, dass meine persönlichen Daten gemäß der Datenschutz-Grundverordnung (DSGVO) verarbeitet werden dürfen. Ich habe die Datenschutzrichtlinie gelesen und verstanden.',
+            required: true,
+          },
+          {
+            text: 'sdfasdf',
+            contentId: '61e2de3585f79bcb5e58c518',
+            required: true,
+          },
+          {
+            text: 'bdfhg',
+            contentId: '6213769a11814099b0ecc292',
+          },
+        ],
+        company: 'lilaquadrat',
+        project: 'homepage',
+        history: {
+          version: 4,
+          created: '2023-08-25T12:42:59.228Z',
+          source: 'lists-app',
+          updated: '2023-08-25T16:24:16.289Z',
+        },
+      },
+    },
+    lists: [1],
+  },
 };
