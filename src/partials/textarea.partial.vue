@@ -1,6 +1,7 @@
 <template>
-  <label class="lila-textarea" tabindex="">
-    <textarea :disabled="disabled" @keyup="checkInput($event)"></textarea>
+  <label class="lila-textarea" tabindex="" rows="20" cols="20">
+    <textarea :disabled="disabled" @keyup="checkInput($event)" :placeholder="placeholder"></textarea>
+
     <span v-if="slotUsed" class="label">
       <slot />
     </span>
@@ -20,6 +21,8 @@ export default class TextareaPartial extends ExtPartial {
   @Prop(Boolean) disabled:boolean;
 
   @Prop(String) value: string;
+
+  @Prop(String) placeholder: string;
 
   @Prop(Boolean) required: boolean;
 
@@ -43,6 +46,22 @@ export default class TextareaPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
  .lila-textarea {
+  textarea {
+    min-width: 200px;
+    padding: 10px;
+    border: 0.5px @grey solid;
+    outline: none;
+    background: transparent;
+    resize:none;
+
+    &:hover {
+      border: 2px @grey solid;
+    }
+    &:focus {
+      border: 2px @color3 solid;
+      background: white;
+    }
+  }
   &.disabled {
             background-color: @grey;
             pointer-events: none;

@@ -56,8 +56,9 @@ export default class InputPartial extends ExtPartial {
     padding: 10px;
 
     input {
-      accent-color: @color1;
+     accent-color: @color3;
+     width: 1.5em;
+     height: 1.5em;
     }
   }
-
 </style>

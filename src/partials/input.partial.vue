@@ -1,5 +1,5 @@
 <template>
-   <label class="lila-input"  >
+   <label class="lila-input">
     <input
       ref="input"
       type="text"
@@ -15,12 +15,12 @@
       <span class="required" v-if="disabled"> disabled </span>
     </div>
   </label>
-
 </template>
 
 <script lang="ts">
 import { Component } from '@libs/lila-component';
 import { ExtPartial, Prop } from '@libs/lila-partial';
+
 
 
 @Component
@@ -33,6 +33,8 @@ export default class InputPartial extends ExtPartial {
   @Prop(Boolean) disabled: boolean;
 
   @Prop(Boolean) required: boolean;
+
+  @Prop(String) label: string;
 
 
   $refs!: {
@@ -56,13 +58,28 @@ export default class InputPartial extends ExtPartial {
    input{
     padding: 10px;
     color: @color1;
+    outline: transparent 2px solid;
+    border: 0;
+    border-bottom: 0.3px @grey solid;
+    background-color: transparent;
 
+    &:hover {
+      border-bottom: 2px @grey solid;
+    }
+
+    &:focus {
+      top : -20px;
+      border-bottom: @color3 2px solid;
+      outline: none;
+      background-color: @white;
+    }
         &.disabled {
             background-color: @grey;
             opacity: 0.3;
             pointer-events: none;
         }
    }
+
 
 }
 

@@ -17,5 +17,6 @@ const Template = (args, { argTypes }) => ({
 export const Form = Template.bind({});
 
 Form.args = {
+  placeholder: 'Enter your Text here',
 };
 
