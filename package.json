@@ -110,11 +110,13 @@
   },
   "dependencies": {
     "@lilaquadrat/studio": "^5.0.0",
+    "@types/uuid": "^9.0.3",
     "axios": "^1.5.0",
     "dayjs": "^1.10.7",
     "highlight.js": "^11.4.0",
     "loglevel": "^1.8.0",
     "portal-vue": "2",
+    "uuid": "^9.0.1",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.6",
     "vue-client-only": "^2.1.0",

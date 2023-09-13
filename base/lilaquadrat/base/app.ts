@@ -14,6 +14,9 @@ import translation from 'src/mixins/translation';
 
 import APPComponent from '@partials/appcomponent.partial.vue';
 
+import '@libs/Models.class';
+import './models';
+
 import store from 'src/store/main.store';
 import log from 'loglevel';
 import mount from 'src/mixins/mount';

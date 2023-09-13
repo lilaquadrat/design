@@ -16,21 +16,46 @@
         "ignoreDeprecations": "5.0",
         "baseUrl": "./",
         "paths": {
-            "@screens/*": ["src/screens/*"],
-            "@partials/*": ["src/partials/*"],
-            "@modules/*": ["modules/*"],
-            "@libs/*": ["src/libs/*"],
-            "@store/*": ["src/store/*"],
-            "@mixins/*": ["src/mixins/*"],
-            "@interfaces/*": ["src/interfaces/*"],
-            "@mock/*": ["test/mock/*"],
-            "@worker/*": ["./worker/*"],
-            "@source/*": ["./source/*"],
-            "@stories/*": ["stories/*"]
+            "@screens/*": [
+                "src/screens/*"
+            ],
+            "@partials/*": [
+                "src/partials/*"
+            ],
+            "@modules/*": [
+                "modules/*"
+            ],
+            "@models/*": [
+                "src/models/*"
+            ],
+            "@libs/*": [
+                "src/libs/*"
+            ],
+            "@store/*": [
+                "src/store/*"
+            ],
+            "@mixins/*": [
+                "src/mixins/*"
+            ],
+            "@interfaces/*": [
+                "src/interfaces/*"
+            ],
+            "@mock/*": [
+                "test/mock/*"
+            ],
+            "@worker/*": [
+                "./worker/*"
+            ],
+            "@source/*": [
+                "./source/*"
+            ],
+            "@stories/*": [
+                "stories/*"
+            ]
         }
     },
     "exclude": [
-       "node_modules",
-       "examples"
+        "node_modules",
+        "examples"
     ]
 }

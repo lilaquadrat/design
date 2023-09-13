@@ -2,17 +2,17 @@
   <section class="lila-contact-module lila-module">
 
     <lila-textblock-partial v-bind="textblock" />
-    {{ list }}
+    {{ list }} {{ model }}
     <form @submit="handleForm">
       <lila-fieldset-partial legend="personal">
 
         <label>
-          <lila-input-partial>
+          <lila-input-partial v-model="model.prename">
             prename
           </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial >
+          <lila-input-partial  v-model="model.lastname">
           lastname
         </lila-input-partial>
         </label>
@@ -72,7 +72,7 @@
 
         <section v-for="(single, index) in list.agreements" :key="`agreement-${index}`">
           <label>
-            <input type="checkbox" :required="single.required" />
+            <input type="checkbox" />
             {{ single.text }}
           </label>
           <lila-content-container-partial :predefined="single.predefined" :id="single.contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
@@ -92,6 +92,8 @@ import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
 import { GenericData } from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
+import Contact from '@models/Contact.model';
+import ModelsClass from '@libs/Models.class';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -101,6 +103,8 @@ export default class ContactModule extends ExtComponent {
   @Prop(Object) textblock: Textblock;
 
   @Prop(Object) genericData: GenericData;
+
+  model: Contact = null;
 
   get list() {
 
@@ -114,11 +118,17 @@ export default class ContactModule extends ExtComponent {
 
   }
 
+  beforeMount() {
+
+    this.model = ModelsClass.add({}, 'contact');
+
+  }
+
   handleForm(event: HTMLFormElement) {
 
     event.preventDefault();
 
-    console.log('form handle');
+    console.log('form handle', ModelsClass.save(this.model, 'contact'));
 
   }
 

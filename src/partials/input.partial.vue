@@ -6,6 +6,8 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :class="noHover"
+      :value="value"
+      @keydown="update"
     />
     <span v-if="slotUsed" class="label">
       <slot />
@@ -21,7 +23,7 @@
 <script lang="ts">
 import { Component } from '@libs/lila-component';
 import { ExtPartial, Prop } from '@libs/lila-partial';
-
+import { KeyboardEvent } from 'react';
 
 
 @Component
@@ -47,6 +49,12 @@ export default class InputPartial extends ExtPartial {
   get slotUsed() {
 
     return this.$slots.default?.length;
+
+  }
+
+  update(input: KeyboardEvent) {
+
+    this.$emit('input', input.originalTarget.value);
 
   }
 
@@ -85,7 +93,7 @@ export default class InputPartial extends ExtPartial {
             pointer-events: none;
           }
    }
-   
+
 }
 
 </style>

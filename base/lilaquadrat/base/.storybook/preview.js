@@ -8,6 +8,8 @@ import loadComponents from '@mixins/loadComponents';
 import Resize from '@libs/lila-resize';
 import Inview from '@libs/lila-inview';
 
+import '@libs/Models.class';
+import './models';
 
 import Attributes from '@mixins/attributes';
 import '@mixins/leadingZero';
