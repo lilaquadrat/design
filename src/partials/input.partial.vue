@@ -5,6 +5,7 @@
       type="text"
       :placeholder="placeholder"
       :disabled="disabled"
+      :class="noHover"
     />
     <span v-if="slotUsed" class="label">
       <slot />
@@ -36,6 +37,8 @@ export default class InputPartial extends ExtPartial {
 
   @Prop(String) label: string;
 
+  @Prop(Boolean) noHover: string;
+
 
   $refs!: {
     input: HTMLInputElement
@@ -62,6 +65,7 @@ export default class InputPartial extends ExtPartial {
     border: 0;
     border-bottom: 0.3px @grey solid;
     background-color: transparent;
+    cursor: pointer;
 
     &:hover {
       border-bottom: 2px @grey solid;
@@ -73,14 +77,15 @@ export default class InputPartial extends ExtPartial {
       outline: none;
       background-color: @white;
     }
-        &.disabled {
+
+&:disabled {
             background-color: @grey;
             opacity: 0.3;
+            border: 0;
             pointer-events: none;
-        }
+          }
    }
-
-
+   
 }
 
 </style>

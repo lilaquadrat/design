@@ -56,16 +56,19 @@ export default class TextareaPartial extends ExtPartial {
 
     &:hover {
       border: 2px @grey solid;
+      cursor:pointer;
     }
     &:focus {
       border: 2px @color3 solid;
       background: white;
+      cursor: default;
+    }
+    &:disabled {
+      background-color: @grey;
+      opacity: 0.3;
+      border: 0;
+      pointer-events: none;
     }
   }
-  &.disabled {
-            background-color: @grey;
-            pointer-events: none;
-            opacity: 0.3;
-    }
  }
 </style>

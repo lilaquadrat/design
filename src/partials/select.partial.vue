@@ -53,23 +53,20 @@ export default class SelectPartial extends ExtPartial {
         background-color: transparent;
         border: @grey 2px solid;
 
-            option {
-                outline: none;
-
-            }
-                &:focus {
-                outline: none;
-                background-color: white;
-            }
-
-            &:hover {
-                border: @color3 2px solid;
-                }
+        &:focus {
+            outline: none;
+            background-color: white;
         }
-        &.disabled {
-                background-color: @grey;
-                pointer-events:  none;
-                opacity: 0.1;
+
+        &:hover {
+            border: @color3 2px solid;
+        }
+        &:disabled {
+            background-color: @grey;
+            opacity: 0.3;
+            border: 0;
+            pointer-events: none;
         }
     }
+}
 </style>

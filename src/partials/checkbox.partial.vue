@@ -59,6 +59,14 @@ export default class InputPartial extends ExtPartial {
      accent-color: @color3;
      width: 1.5em;
      height: 1.5em;
+
+     &:disabled {
+            background-color: @grey;
+            opacity: 0.3;
+            border: 0;
+            pointer-events: none;
+          }
+   }
     }
-  }
+
 </style>

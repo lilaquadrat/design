@@ -48,16 +48,12 @@ export default class RadioPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 .lila-radio {
-
-
     accent-color: @color1;
-    &.disabled {
+    &:disabled {
             background-color: @grey;
             pointer-events: none;
             opacity: 0.3;
     }
-
-
-}
+  }
 
 </style>
