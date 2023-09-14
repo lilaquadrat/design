@@ -12,7 +12,7 @@
           </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial  v-model="model.lastname">
+          <lila-input-partial  v-model="model.name">
           lastname
         </lila-input-partial>
         </label>
@@ -21,22 +21,22 @@
       <lila-fieldset-partial legend="address">
 
         <label>
-          <lila-input-partial>
+          <lila-input-partial v-model="model.streetNumber">
           street & number
         </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial>
+          <lila-input-partial  v-model="model.zipcode">
           zipocode
         </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial>
+        <lila-input-partial  v-model="model.city">
           city
         </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial>
+          <lila-input-partial  v-model="model.country">
           country
         </lila-input-partial>
         </label>
@@ -46,12 +46,12 @@
       <lila-fieldset-partial legend="contact">
 
         <label>
-          <lila-input-partial>
+          <lila-input-partial  v-model="model.email">
           email
         </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial>
+          <lila-input-partial  v-model="model.phone">
           phone
         </lila-input-partial>
         </label>
@@ -61,7 +61,7 @@
       <lila-fieldset-partial  legend="message">
 
         <label>
-          <lila-textarea-partial>
+          <lila-textarea-partial v-model="model.message">
             message
           </lila-textarea-partial>
         </label>
@@ -70,10 +70,12 @@
 
       <lila-fieldset-partial v-if="list" class="agreements">
 
-        <section v-for="(single, index) in list.agreements" :key="`agreement-${index}`">
+        {{ agreements }}
+
+        <section v-for="(single, index) in agreements" :key="`agreement-${index}`">
           <label>
-            <input type="checkbox" />
-            {{ single.text }}
+            <input type="checkbox" @change="changeAgreement($event, index)" />
+            {{ single.text }} - {{ single.value }}
           </label>
           <lila-content-container-partial :predefined="single.predefined" :id="single.contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
         </section>
@@ -90,10 +92,11 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
-import { GenericData } from '@lilaquadrat/studio/lib/interfaces';
+import { Agreement, GenericData, List } from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
 import Contact from '@models/Contact.model';
 import ModelsClass from '@libs/Models.class';
+import StudioSDK from '@libs/StudioSDK';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -105,6 +108,8 @@ export default class ContactModule extends ExtComponent {
   @Prop(Object) genericData: GenericData;
 
   model: Contact = null;
+
+  agreements: Record<string, Agreement & {value: boolean}> = {};
 
   get list() {
 
@@ -121,14 +126,91 @@ export default class ContactModule extends ExtComponent {
   beforeMount() {
 
     this.model = ModelsClass.add({}, 'contact');
+    this.createAgreements();
+
 
   }
 
-  handleForm(event: HTMLFormElement) {
+  changeAgreement(event: MouseEvent, index: string) {
+
+    const agreement = this.agreements[index];
+    const target = event.target as HTMLInputElement;
+
+    agreement.value = target.checked;
+
+  }
+
+  createAgreements() {
+
+    const agreements = {};
+
+    this.list.agreements.forEach((single: Agreement) => {
+
+      agreements[single.contentId] = {
+        ...single,
+        value: false,
+      };
+
+    });
+
+    this.agreements = agreements;
+
+  }
+
+  async handleForm(event: HTMLFormElement) {
 
     event.preventDefault();
 
-    console.log('form handle', ModelsClass.save(this.model, 'contact'));
+    let error = false;
+    const customer = ModelsClass.save(this.model, 'contact');
+    const agreements = [];
+
+    customer.type = 'person';
+
+    this.list.agreements.forEach((single: Agreement) => {
+
+      console.log('try', single.contentId);
+
+      if (single.required && !this.agreements[single.contentId].value) {
+
+        error = true;
+
+      }
+
+      if (this.agreements[single.contentId].value) {
+
+        console.log('add', single.contentId);
+
+
+        agreements.push({ id: single.contentId, version: 0 });
+
+      }
+
+
+    });
+
+    const sdk = new StudioSDK(
+      'design',
+      {
+        customEndpoints: { api: 'http://localhost:9090', media: '' },
+        company: 'lilaquadrat',
+        project: 'homepage',
+      },
+    );
+
+
+    try {
+
+      await sdk.public.lists.join(this.list._id, customer, agreements);
+
+    } catch (e) {
+
+      console.error(e);
+
+    }
+
+
+    console.log('form handle', error, customer);
 
   }
 

@@ -398,6 +398,20 @@ export default class StudioSDK {
       ),
 
     },
+
+    lists: {
+      join: (listId: string, person: any, agreements: any) => StudioSDK.handleCall<Customers>(
+        {
+          method: 'POST',
+          url: this.getUrl('api', ['lists', 'participants', this.company, this.project, listId, 'join']),
+          headers: this.getHeaders(),
+          data: {
+            person,
+            agreements,
+          },
+        },
+      ),
+    },
   };
 
 

@@ -87,7 +87,12 @@ export default class TrainingModule extends ExtComponent {
 
     const element = this.$refs.mainGridContainer;
 
-    this.forceMobileIndex = element.clientWidth < 700;
+    if (element) {
+
+      this.forceMobileIndex = element.clientWidth < 700;
+
+    }
+
 
   }
 

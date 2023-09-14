@@ -3,24 +3,28 @@ import Models, { ModelDeclaration } from '@libs/Models.class';
 
 export default interface Contact {
   prename: string
-  lastname: string
+  name: string
   streetNumber: string
   city: string
+  zipcode: string
   country: string
   email: string
   phone: string
-  termsAccepted: boolean
+  message: string
+  type: string
 }
 
 const declaration: ModelDeclaration<Contact> = {
   prename: { type: 'string' },
-  lastname: { type: 'string' },
+  name: { type: 'string' },
   streetNumber: { type: 'string' },
   city: { type: 'string' },
+  zipcode: { type: 'string' },
   country: { type: 'string' },
   email: { type: 'string' },
   phone: { type: 'string' },
-  termsAccepted: { type: 'boolean', default: false },
+  message: { type: 'string' },
+  type: { type: 'string' },
 };
 
 Models.register('contact', declaration);
