@@ -1,6 +1,6 @@
 <template>
   <label class="lila-textarea" tabindex="" rows="20" cols="20">
-    <textarea :disabled="disabled" @keyup="checkInput($event)" :placeholder="placeholder"></textarea>
+    <textarea ref="textarea" :disabled="disabled" @keyup="checkInput($event)" :placeholder="placeholder"></textarea>
 
     <span v-if="slotUsed" class="label">
       <slot />
@@ -26,6 +26,10 @@ export default class TextareaPartial extends ExtPartial {
 
   @Prop(Boolean) required: boolean;
 
+  $refs!: {
+    textarea: HTMLTextAreaElement
+  };
+
   get slotUsed() {
 
     return this.$slots.default?.length;
@@ -35,9 +39,15 @@ export default class TextareaPartial extends ExtPartial {
 
   checkInput($event: KeyboardEvent) {
 
-    const input = this.$el.querySelector('textarea') as HTMLTextAreaElement;
+    const input = this.$refs.textarea;
 
-    if ($event.key === 'Escape') { input.blur(); }
+    if ($event.key === 'Escape') {
+
+      input.blur();
+
+    }
+
+    this.$emit('input', input.value);
 
   }
 

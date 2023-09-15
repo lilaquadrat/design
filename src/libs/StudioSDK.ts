@@ -7,6 +7,7 @@ import {
   EditorBase,
 } from '@lilaquadrat/studio/lib/interfaces';
 import hardCopy from '@mixins/hardCopy';
+import Contact from '@models/Contact.model';
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
 const mockJs = {};
@@ -400,14 +401,16 @@ export default class StudioSDK {
     },
 
     lists: {
-      join: (listId: string, person: any, agreements: any) => StudioSDK.handleCall<Customers>(
+      join: (listId: string, person: Contact, message: string, category: string, agreements: any) => StudioSDK.handleCall<Customers>(
         {
           method: 'POST',
-          url: this.getUrl('api', ['lists', 'participants', this.company, this.project, listId, 'join']),
+          url: this.getUrl('api', ['public', 'lists', this.company, this.project, listId, 'join']),
           headers: this.getHeaders(),
           data: {
             person,
             agreements,
+            message,
+            category,
           },
         },
       ),

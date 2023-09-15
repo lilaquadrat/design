@@ -4,6 +4,24 @@
     <lila-textblock-partial v-bind="textblock" />
     {{ list }} {{ model }}
     <form @submit="handleForm">
+      <lila-fieldset-partial legend="message">
+
+        <label>
+          <lila-textarea-partial v-model="model.message">
+            message
+          </lila-textarea-partial>
+        </label>
+
+      </lila-fieldset-partial>
+
+      {{ categories }}
+      <label>
+        <select v-model="model.category">
+          <option v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">{{ single.name }}</option>
+        </select>
+        category
+      </label>
+
       <lila-fieldset-partial legend="personal">
 
         <label>
@@ -12,33 +30,34 @@
           </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial  v-model="model.name">
-          lastname
-        </lila-input-partial>
+          <lila-input-partial v-model="model.name">
+            lastname
+          </lila-input-partial>
         </label>
 
       </lila-fieldset-partial>
+
       <lila-fieldset-partial legend="address">
 
         <label>
           <lila-input-partial v-model="model.streetNumber">
-          street & number
-        </lila-input-partial>
+            street & number
+          </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial  v-model="model.zipcode">
-          zipocode
-        </lila-input-partial>
+          <lila-input-partial v-model="model.zipcode">
+            zipocode
+          </lila-input-partial>
         </label>
         <label>
-        <lila-input-partial  v-model="model.city">
-          city
-        </lila-input-partial>
+          <lila-input-partial v-model="model.city">
+            city
+          </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial  v-model="model.country">
-          country
-        </lila-input-partial>
+          <lila-input-partial v-model="model.country">
+            country
+          </lila-input-partial>
         </label>
 
       </lila-fieldset-partial>
@@ -46,24 +65,14 @@
       <lila-fieldset-partial legend="contact">
 
         <label>
-          <lila-input-partial  v-model="model.email">
-          email
-        </lila-input-partial>
+          <lila-input-partial v-model="model.email">
+            email
+          </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial  v-model="model.phone">
-          phone
-        </lila-input-partial>
-        </label>
-
-      </lila-fieldset-partial>
-
-      <lila-fieldset-partial  legend="message">
-
-        <label>
-          <lila-textarea-partial v-model="model.message">
-            message
-          </lila-textarea-partial>
+          <lila-input-partial v-model="model.phone">
+            phone
+          </lila-input-partial>
         </label>
 
       </lila-fieldset-partial>
@@ -109,13 +118,25 @@ export default class ContactModule extends ExtComponent {
 
   model: Contact = null;
 
-  agreements: Record<string, Agreement & {value: boolean}> = {};
+  agreements: Record<string, Agreement & { value: boolean }> = {};
 
   get list() {
 
     if (this.genericData?.lists && this.genericData?.data && Array.isArray(this.genericData?.lists)) {
 
       return this.genericData.data[this.genericData.lists[0]];
+
+    }
+
+    return null;
+
+  }
+
+  get categories() {
+
+    if (this.list.categories.length > 1) {
+
+      return this.list.categories;
 
     }
 
@@ -167,6 +188,14 @@ export default class ContactModule extends ExtComponent {
 
     customer.type = 'person';
 
+    const message = customer.message;
+
+    delete customer.message;
+
+    const category = customer.category;
+
+    delete customer.category;
+
     this.list.agreements.forEach((single: Agreement) => {
 
       console.log('try', single.contentId);
@@ -201,7 +230,7 @@ export default class ContactModule extends ExtComponent {
 
     try {
 
-      await sdk.public.lists.join(this.list._id, customer, agreements);
+      await sdk.public.lists.join(this.list._id, customer, message, category, agreements);
 
     } catch (e) {
 
@@ -227,7 +256,7 @@ export default class ContactModule extends ExtComponent {
 
   max-width: @moduleWidth_S;
 
-  &.medium {
+  grid-te &.medium {
     max-width: @moduleWidth_M;
   }
 

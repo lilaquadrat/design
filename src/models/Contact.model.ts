@@ -12,6 +12,7 @@ export default interface Contact {
   phone: string
   message: string
   type: string
+  category: string
 }
 
 const declaration: ModelDeclaration<Contact> = {
@@ -25,6 +26,7 @@ const declaration: ModelDeclaration<Contact> = {
   phone: { type: 'string' },
   message: { type: 'string' },
   type: { type: 'string' },
+  category: { type: 'string' },
 };
 
 Models.register('contact', declaration);

@@ -39,9 +39,35 @@ basic.args = {
         mode: 'contact',
         categories: [
           {
+            id: 'id-base',
             name: 'base',
+            amount: 0,
             available: true,
             price: {
+              currency: '',
+              amount: 0,
+              tax: 19,
+            },
+          },
+          {
+            id: 'id-hilfe',
+            name: 'hilfe',
+            amount: 0,
+            available: true,
+            price: {
+              currency: '',
+              amount: 0,
+              tax: 19,
+            },
+          },
+          {
+            id: 'id-anfrage',
+            name: 'anfrage',
+            amount: 0,
+            available: true,
+            price: {
+              currency: '',
+              amount: 0,
               tax: 19,
             },
           },
