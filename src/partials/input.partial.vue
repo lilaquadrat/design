@@ -7,15 +7,14 @@
       :disabled="disabled"
       :class="noHover"
       :value="value"
-      @keyup="update"
+      @keydown="update"
     />
-    <span v-if="slotUsed" class="label">
+    <div class="label-container">
+      <span v-if="slotUsed" class="label">
       <slot />
     </span>
-
-    <div class="label-container">
       <span class="required" v-if="required && !disabled"> required </span>
-      <span class="required" v-if="disabled"> disabled </span>
+      <span class="disabled" v-if="disabled"> disabled </span>
     </div>
   </label>
 </template>
@@ -43,7 +42,7 @@ export default class InputPartial extends ExtPartial {
 
   $refs!: {
     input: HTMLInputElement
-  };
+    };
 
   get slotUsed() {
 
@@ -53,9 +52,7 @@ export default class InputPartial extends ExtPartial {
 
   update(input: KeyboardEvent) {
 
-    const target = input.target as HTMLInputElement;
-
-    this.$emit('input', target.value);
+    this.$emit('input', input?.originalTarget?.value);
 
   }
 
@@ -67,33 +64,48 @@ export default class InputPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-input{
-   input{
-    padding: 10px;
-    color: @color1;
-    outline: transparent 2px solid;
+  display: grid;
+  gap: 5px;
+
+  input{
+    padding: 5px 0;
     border: 0;
-    border-bottom: 0.3px @grey solid;
+    border-bottom: 1px @color1 solid;
     background-color: transparent;
-    cursor: pointer;
+    color: @textColor;
+    font-size: @fontText;
 
     &:hover {
-      border-bottom: 2px @grey solid;
+      border-bottom: 1px @grey solid;
     }
 
     &:focus {
-      top : -20px;
-      border-bottom: @color3 2px solid;
+      top: -20px;
       outline: none;
-      background-color: @white;
     }
 
-&:disabled {
-            background-color: @grey;
-            opacity: 0.3;
-            border: 0;
-            pointer-events: none;
-          }
-   }
+    &:disabled {
+      border: 0;
+      background-color: @grey;
+      opacity: .3;
+      pointer-events: none;
+    }
+  }
+
+  .label-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+    .label, .required, .disabled {
+      font-size: @fontTextSmaller;
+      text-transform: uppercase;
+    }
+
+    .required, .disabled {
+      text-align: right;
+    }
+
+  }
 
 }
 

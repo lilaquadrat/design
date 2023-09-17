@@ -30,9 +30,15 @@
           </lila-input-partial>
         </label>
         <label>
+<<<<<<< HEAD
           <lila-input-partial v-model="model.name">
             lastname
           </lila-input-partial>
+=======
+          <lila-input-partial  required v-model="model.name">
+          lastname
+        </lila-input-partial>
+>>>>>>> 723152f (update checkbox)
         </label>
 
       </lila-fieldset-partial>
@@ -45,9 +51,15 @@
           </lila-input-partial>
         </label>
         <label>
+<<<<<<< HEAD
           <lila-input-partial v-model="model.zipcode">
             zipocode
           </lila-input-partial>
+=======
+          <lila-input-partial  v-model="model.zipcode">
+          zipcode
+        </lila-input-partial>
+>>>>>>> 723152f (update checkbox)
         </label>
         <label>
           <lila-input-partial v-model="model.city">
