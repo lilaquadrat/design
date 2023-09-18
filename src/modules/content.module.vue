@@ -1,18 +1,18 @@
 <template>
-  <section class="lila-content-module">
+  <section class="lila-content-module" :class="{sub}">
 
-    <article class="top container" :inline="inline" v-if="!!content.top.length">
-      <component v-for="single in content.top" :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="top" />
+    <article class="top container" :class="{inline, sub}"  v-if="!!content.top.length">
+      <component v-for="single in content.top" :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="top" />
     </article>
 
-    <article class="container" :class="[content.settings.mode, {inline: inline}]" :inline="inline" v-if="!!content.content.length">
+    <article class="container" :class="[content.settings.mode, {inline, sub}]" :inline="inline" v-if="!!content.content.length">
       <template v-for="single in content.content">
-        <component :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="content" />
+        <component :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="content" />
       </template>
     </article>
 
-    <article class="bottom container" :inline="inline" v-if="!!content.bottom.length">
-      <component v-for="single in content.bottom" :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="bottom" />
+    <article class="bottom container" :class="{inline, sub}" v-if="!!content.bottom.length">
+      <component v-for="single in content.bottom" :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="bottom" />
     </article>
 
   </section>
@@ -40,6 +40,8 @@ export default class ContentModule extends ExtComponent {
   @Prop(Object) childData: ChildData;
 
   @Prop(Boolean) inline: boolean;
+
+  @Prop(Boolean) sub: boolean;
 
   @Prop(String) routeBase: string;
 
@@ -103,6 +105,17 @@ export default class ContentModule extends ExtComponent {
 
         &:first-child {
           .multi(margin-top, 8);
+        }
+      }
+    }
+
+    &.sub {
+      .multi(margin-bottom, 0);
+
+      .lila-module {
+
+        &:first-child {
+          .multi(margin-top, 0);
         }
       }
     }

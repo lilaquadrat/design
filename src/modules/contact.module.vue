@@ -1,9 +1,11 @@
 <template>
-  <section class="lila-contact-module lila-module">
+  <section class="lila-contact-module">
 
     <lila-textblock-partial v-bind="textblock" />
-    {{ list }} {{ model }}
-    <form @submit="handleForm">
+    
+    <lila-content-module v-if="showFeedback" sub :content="feedbackContent" />
+
+    <form @submit="handleForm" v-if="!showFeedback">
       <lila-fieldset-partial legend="message">
 
         <label>
@@ -101,11 +103,12 @@
 <script lang="ts">
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
-import { Agreement, GenericData, List } from '@lilaquadrat/studio/lib/interfaces';
+import { Agreement, GenericData, List, ModuleSettings } from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
 import Contact from '@models/Contact.model';
 import ModelsClass from '@libs/Models.class';
 import StudioSDK from '@libs/StudioSDK';
+import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -115,6 +118,8 @@ export default class ContactModule extends ExtComponent {
   @Prop(Object) textblock: Textblock;
 
   @Prop(Object) genericData: GenericData;
+
+  @Prop(Object) editor: {modes: string[]};
 
   model: Contact = null;
 
@@ -141,6 +146,30 @@ export default class ContactModule extends ExtComponent {
     }
 
     return null;
+
+  }
+
+  get feedback() {
+
+    if (this.genericData?.editor && this.genericData?.data && Array.isArray(this.genericData?.editor)) {
+
+      return this.genericData.data[this.genericData.editor[0]];
+
+    }
+
+    return null;
+
+  }
+
+  get showFeedback() {
+
+    return this.editor?.modes?.includes('feedback');
+
+  }
+
+  get feedbackContent() {
+
+    return prepareContent(this.feedback);
 
   }
 
@@ -250,6 +279,7 @@ export default class ContactModule extends ExtComponent {
 
 .lila-contact-module {
   .module;
+  .multi(padding, 4);
 
   display: grid;
   gap: 40px;
