@@ -8,7 +8,7 @@
 
         <div class="markierung">
         <span class="checked-marked">
-          <lila-icons-partial type="close" size="small" color-scheme="red"/>
+          <lila-icons-partial type="checked" size="small" color-scheme="red"/>
         </span>
 
         <!--  -->
@@ -19,11 +19,12 @@
         </div>
       </div>
       <input type="checkbox"  :disabled="disabled" :checked="value" @change="handleChange" />
+
     </label>
 
-    <div v-if="text" class="markierung">
+    <!-- <div v-if="text" class="markierung">
       <span class="checked-marked" />
-    </div>
+    </div> -->
 
     <div class="label-container">
     </div>
@@ -58,12 +59,6 @@ export default class CheckboxPartial extends ExtPartial {
 
   }
 
-  get slotUsed() {
-
-    return this.$slots.default?.length;
-
-  }
-
 
 }
 
@@ -71,73 +66,79 @@ export default class CheckboxPartial extends ExtPartial {
 
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
-  .lila-checkbox-container {
 
-    .markierung  {
-      display: grid;
-      grid-template-columns: 20px auto;
-      gap: 20px;
+.lila-checkbox-container {
+  
+  
+  .markierung  {
+    display: grid;
+    grid-template-columns: 20px, auto;
+    grid-template-areas: "checkbox label";
+    gap: 20px;
 
     .label-container {
+      grid-area: label;
       grid-column-start: 2;
+      // border: 2px solid black;
       cursor: pointer;
-      }
     }
-  }
-
-label.checkbox {
-  background-color: aqua;
-  }
-
-
-  input  {
-      &[type='checkbox'] {
-        display: none;
-      }
-    }
-
-.checked-marked {
-  content: '';
-  display: grid;
-  width: 20px;
-  height: 20px;
-  border:  2px solid @textColor;
-
-  cursor: pointer;
- 
-
-  .icon-partial {
-    display: grid;
-    align-self: center;
-    justify-self: center;
-    background: yellow;
   }
 }
 
-&.checked {
+label.checkbox {
+
+  background-color: aqua;
+  
+}
+
+input  {
+  grid-area: checkbox;
+  &[type='checkbox'] {
+    display: none;
+  }
+}
+
+.checked-marked {
+  content: '';
+  height: fit-content;
+  width: fit-content;
+  border: 2px solid @textColor;
+
+  cursor: pointer;
+
+  // .icon-partial {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+   
+  // }
+}
+
+&.checked-marked {
+
   .checked-marked {
     border: solid 1px @color1;
     accent-color: @color1;
 
     svg {
-        stroke: @white;
-        stroke-width: 3;
+      stroke: @white;
+      stroke-width: 3;
     }
   }
+
   &:hover {
+
     .checked-marked {
       border: solid 3px @color3;
-        background-color: @color3;
+      background-color: @color3;
     }
   }
 }
 
 &.disabled {
-  background-color: @grey;
   border: 0;
+  background-color: @grey;
   pointer-events: none;
 }
-
-
 
 </style>

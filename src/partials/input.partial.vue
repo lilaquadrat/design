@@ -95,7 +95,8 @@ export default class InputPartial extends ExtPartial {
   .label-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:20px;
+    gap: 20px;
+
     .label, .required, .disabled {
       font-size: @fontTextSmaller;
       text-transform: uppercase;
