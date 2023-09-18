@@ -1,16 +1,38 @@
 <template>
-  <label class="lila-checkbox">
-    <input
-      ref="input"
-      type="checkbox"
-      :disabled="disabled"
-      :colorConfig="{ background: '#ffffff',border: '#0d0d0d', leftPlunk: '#8A8A8A',topPlunk: '#E0E0E0'}"
-      @change="handleChange"
-    />
-      <p color="#8A8A8A" :fontSize="16" fontType="body" :fontWeight="400">
-        I agree to terms & conditions
-      </p>
-  </label>
+  <section class="lila-checkbox-container">
+      <label
+        :class="[textType, {disabled:disabled, checked: value, notChecked}]"
+        class="checkbox"
+        :colorConfig="{ background: '#ffffff',border: '#0d0d0d', leftPlunk: '#8A8A8A',topPlunk: '#E0E0E0'}"
+        tabindex="" >
+        <!--  -->
+        <div class="markierung">
+        <span class="checked-marked">
+          <lila-icons-partial type="checked" size="small" color-scheme="red"/>
+        </span>
+
+        <!-- description box  -->
+        <span v-if="textType !== 'noText'" class="label" :class="[textType]">
+          <slot v-if="!text" />
+            <p color="#8A8A8A" :fontSize="16" fontType="body" :fontWeight="400">
+            I agree to terms & conditions
+            </p>
+        </span>
+        <!--  -->
+        <div v-if="!text" class="label-container">
+        </div>
+      </div>
+      <input type="checkbox"  :disabled="disabled" :checked="value" @change="handleChange" />
+
+    </label>
+
+    <div v-if="text" class="markierung">
+      <span class="checked-marked" />
+    </div>
+
+    <div class="label-container">
+    </div>
+  </section>
 </template>
 <script lang="ts">
 import { Component } from '@libs/lila-component';
@@ -18,7 +40,7 @@ import { ExtPartial, Prop } from '@libs/lila-partial';
 
 
 @Component
-export default class InputPartial extends ExtPartial {
+export default class CheckboxPartial extends ExtPartial {
 
   @Prop(String) value: string;
 
@@ -26,10 +48,12 @@ export default class InputPartial extends ExtPartial {
 
   @Prop(Boolean) required: boolean;
 
+  @Prop(Boolean) notChecked: boolean;
 
-  $refs!: {
-    input: HTMLInputElement
-    };
+  @Prop(String) text: string;
+
+  textType: string = 'word';
+
 
   handleChange($event: Event) {
 
@@ -39,34 +63,82 @@ export default class InputPartial extends ExtPartial {
 
   }
 
-  get slotUsed() {
-
-    return this.$slots.default?.length;
-
-  }
-
-
 }
 
 </script>
 
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
-  .lila-checkbox{
-    padding: 10px;
 
-    input {
-     accent-color: @color3;
-     width: 1.5em;
-     height: 1.5em;
+.lila-checkbox-container {
+  .markierung  {
+    display: grid;
+    grid-template-columns: 20px, auto;
+    grid-template-areas: "checkbox label";
+    grid-column-gap: 20px;
+    cursor: pointer;
 
-     &:disabled {
-            background-color: @grey;
-            opacity: 0.3;
-            border: 0;
-            pointer-events: none;
-          }
-   }
-    }
+  }
+
+
+label.checkbox {
+  grid-area: label;
+
+
+input  {
+  grid-area: checkbox;
+  &[type='checkbox'] {
+    display: none;
+  }
+}
+
+.checked-marked {
+  content: '';
+  height: fit-content;
+  width: fit-content;
+  border: 2px solid @textColor;
+
+
+  }
+
+  &.disabled {
+      pointer-events: none;
+      user-select: none;
+      .checked-marked {
+        border:solid 3px @grey;
+      }
+      &.checked {
+        .checked-marked {
+          background-color: @grey;
+        }
+      }
+      .label {
+        color: @grey;
+      }
+  }
+
+
+
+// &.checked-marked {
+
+//   .checked-marked {
+//     border: solid 1px @color1;
+//     accent-color: @color1;
+
+//     svg {
+//       stroke: @white;
+//       stroke-width: 3;
+//     }
+//   }
+
+//   &:hover {
+
+//     .checked-marked {
+//       border: solid 3px @color3;
+//       background-color: @color3;
+//     }
+//   }
+}
+}
 
 </style>
