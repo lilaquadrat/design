@@ -1,30 +1,34 @@
 <template>
   <section class="lila-checkbox-container">
       <label
-        class="checkbox"
         :class="[textType, {disabled:disabled, checked: value, notChecked}]"
+        class="checkbox"
         :colorConfig="{ background: '#ffffff',border: '#0d0d0d', leftPlunk: '#8A8A8A',topPlunk: '#E0E0E0'}"
         tabindex="" >
-
+        <!--  -->
         <div class="markierung">
         <span class="checked-marked">
           <lila-icons-partial type="checked" size="small" color-scheme="red"/>
         </span>
 
+        <!-- description box  -->
+        <span v-if="textType !== 'noText'" class="label" :class="[textType]">
+          <slot v-if="!text" />
+            <p color="#8A8A8A" :fontSize="16" fontType="body" :fontWeight="400">
+            I agree to terms & conditions
+            </p>
+        </span>
         <!--  -->
-        <div class="label-container">
-          <p color="#8A8A8A" :fontSize="16" fontType="body" :fontWeight="400">
-          I agree to terms & conditions
-        </p>
+        <div v-if="!text" class="label-container">
         </div>
       </div>
       <input type="checkbox"  :disabled="disabled" :checked="value" @change="handleChange" />
 
     </label>
 
-    <!-- <div v-if="text" class="markierung">
+    <div v-if="text" class="markierung">
       <span class="checked-marked" />
-    </div> -->
+    </div>
 
     <div class="label-container">
     </div>
@@ -59,7 +63,6 @@ export default class CheckboxPartial extends ExtPartial {
 
   }
 
-
 }
 
 </script>
@@ -68,28 +71,19 @@ export default class CheckboxPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-checkbox-container {
-  
-  
   .markierung  {
     display: grid;
     grid-template-columns: 20px, auto;
     grid-template-areas: "checkbox label";
-    gap: 20px;
+    grid-column-gap: 20px;
+    cursor: pointer;
 
-    .label-container {
-      grid-area: label;
-      grid-column-start: 2;
-      // border: 2px solid black;
-      cursor: pointer;
-    }
   }
-}
+
 
 label.checkbox {
+  grid-area: label;
 
-  background-color: aqua;
-  
-}
 
 input  {
   grid-area: checkbox;
@@ -104,41 +98,47 @@ input  {
   width: fit-content;
   border: 2px solid @textColor;
 
-  cursor: pointer;
 
-  // .icon-partial {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-   
-  // }
-}
-
-&.checked-marked {
-
-  .checked-marked {
-    border: solid 1px @color1;
-    accent-color: @color1;
-
-    svg {
-      stroke: @white;
-      stroke-width: 3;
-    }
   }
 
-  &:hover {
-
-    .checked-marked {
-      border: solid 3px @color3;
-      background-color: @color3;
-    }
+  &.disabled {
+      pointer-events: none;
+      user-select: none;
+      .checked-marked {
+        border:solid 3px @grey;
+      }
+      &.checked {
+        .checked-marked {
+          background-color: @grey;
+        }
+      }
+      .label {
+        color: @grey;
+      }
   }
-}
 
-&.disabled {
-  border: 0;
-  background-color: @grey;
-  pointer-events: none;
+
+
+// &.checked-marked {
+
+//   .checked-marked {
+//     border: solid 1px @color1;
+//     accent-color: @color1;
+
+//     svg {
+//       stroke: @white;
+//       stroke-width: 3;
+//     }
+//   }
+
+//   &:hover {
+
+//     .checked-marked {
+//       border: solid 3px @color3;
+//       background-color: @color3;
+//     }
+//   }
+}
 }
 
 </style>
