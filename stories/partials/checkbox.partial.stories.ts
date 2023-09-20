@@ -16,6 +16,6 @@ const Template = (args, { argTypes }) => ({
 export const Form = Template.bind({});
 
 Form.args = {
-
+ value: true
 };
 

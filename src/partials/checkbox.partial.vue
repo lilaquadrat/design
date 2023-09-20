@@ -1,61 +1,68 @@
 <template>
-  <section class="lila-checkbox-container">
-      <label
-        :class="[textType, {disabled:disabled, checked: value, notChecked}]"
-        class="checkbox"
-        :colorConfig="{ background: '#ffffff',border: '#0d0d0d', leftPlunk: '#8A8A8A',topPlunk: '#E0E0E0'}"
-        tabindex="" >
-        <!--  -->
-        <div class="markierung">
-        <span class="checked-marked">
-          <lila-icons-partial type="checked" size="small" color-scheme="red"/>
+  <section class="lila-label-parent-container">
+    <label :class="[textType, { error: error, checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
+      <div class="indicator-text">
+        <span class="indicator">
+          <lila-icons-partial type="checked" size="small" colorScheme="white" />
         </span>
 
-        <!-- description box  -->
-        <span v-if="textType !== 'noText'" class="label" :class="[textType]">
-          <slot v-if="!text" />
-            <p color="#8A8A8A" :fontSize="16" fontType="body" :fontWeight="400">
-            I agree to terms & conditions
-            </p>
+        <span class="label" v-if="textType !== 'noText'" :class="[textType]">
+          <slot v-if="!text"></slot>
+          <description-partial inline v-if="description && !text">{{ description | translate }}</description-partial>
+          {{ text }}
         </span>
-        <!--  -->
+
         <div v-if="!text" class="label-container">
+          <span class="required" v-if="required && !disabled">{{ 'required' | translate }}</span>
+          <span class="disabled" v-if="disabled">{{ 'disabled' | translate }}</span>
         </div>
       </div>
-      <input type="checkbox"  :disabled="disabled" :checked="value" @change="handleChange" />
 
+      <div v-if="error" class="errors">
+        <p>{{ error }}</p>
+      </div>
+
+      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" v-on:change="changeHandler" />
     </label>
+    <div v-if="text" class="indicator-text">
+      <span class="indicator"> </span>
+      <span class="label" v-if="textType !== 'noText'" :class="[textType]">
+        <slot></slot>
+        <description-partial inline v-if="description">{{ description | translate}}</description-partial>
+      </span>
 
-    <div v-if="text" class="markierung">
-      <span class="checked-marked" />
-    </div>
-
-    <div class="label-container">
+      <div class="label-container">
+        <span class="required" v-if="required && !disabled">{{ 'required' | translate }}</span>
+        <span class="required" v-if="disabled">{{ 'disabled' | translate }}</span>
+      </div>
     </div>
   </section>
 </template>
 <script lang="ts">
-import { Component } from '@libs/lila-component';
-import { ExtPartial, Prop } from '@libs/lila-partial';
-
+import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
-export default class CheckboxPartial extends ExtPartial {
+export default class checkboxPartial extends ExtPartial {
 
-  @Prop(String) value: string;
+  @Prop(String) name: string;
 
-  @Prop(Boolean) disabled: boolean;
+  @Prop(Boolean) value: boolean;
+
+  @Prop(String) error: string;
 
   @Prop(Boolean) required: boolean;
 
-  @Prop(Boolean) notChecked: boolean;
+  @Prop(String) description: string;
+
+  @Prop(Boolean) disabled: boolean;
+
+  @Prop(Boolean) noIndicator: boolean;
 
   @Prop(String) text: string;
 
   textType: string = 'word';
 
-
-  handleChange($event: Event) {
+  changeHandler($event: Event): void {
 
     const target = $event.target as HTMLInputElement;
 
@@ -63,82 +70,215 @@ export default class CheckboxPartial extends ExtPartial {
 
   }
 
+  beforeUpdate(): void {
+
+    this.setTextType();
+
+  }
+
+  mounted(): void {
+
+    this.setTextType();
+
+  }
+
+  setTextType(): void {
+
+    const useText = this.text ? this.text : this.$slots.default[0].text;
+
+    if (useText) {
+
+      if (useText.length >= 30) this.textType = 'text';
+
+      if (useText.length < 30) this.textType = 'word';
+
+      if (useText.length === 0) this.textType = 'noText';
+
+    } else {
+
+      this.textType = 'noText';
+
+    }
+
+  }
+
 }
-
 </script>
-
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.lila-checkbox-container {
-  .markierung  {
+.lila-label-parent-container {
+
+  .indicator-text {
     display: grid;
-    grid-template-columns: 20px, auto;
-    grid-template-areas: "checkbox label";
-    grid-column-gap: 20px;
-    cursor: pointer;
+    grid-template-columns: 25px auto;
+    gap: 0 20px;
 
+    .label-container {
+      grid-template-columns: 100%;
+      grid-column-start: 2;
+      text-align: right;
+    }
   }
 
-
-label.checkbox {
-  grid-area: label;
-
-
-input  {
-  grid-area: checkbox;
-  &[type='checkbox'] {
-    display: none;
-  }
 }
 
-.checked-marked {
-  content: '';
-  height: fit-content;
-  width: fit-content;
-  border: 2px solid @textColor;
+label.checkbox {
+  display: grid;
+  gap: 10px;
 
+  .label,
+  .description {
+    .trans(color);
+  }
 
+  input {
+
+    &[type='checkbox'] {
+      display: none;
+    }
+  }
+
+  &.noText {
+    display: inline-block;
+    min-width: auto;
+    margin: 0;
+
+    .indicator-text {
+      display: inline;
+    }
+
+    .label-container {
+      display: none;
+    }
+  }
+
+  .label {
+    .multi(margin-bottom, 2);
+
+    justify-self: start;
+    margin: 0;
+    text-align: left;
+
+    cursor: pointer;
+
+    &.text {
+      padding-top: 2px;
+    }
+
+    &.word {
+      .font-bold;
+
+      display: grid;
+      gap: 5px;
+      align-self: center;
+      min-width: 160px;
+      margin: 0;
+      padding: 0;
+    }
+
+    &.noText {
+      display: block;
+      min-width: auto;
+      margin: 0;
+    }
+
+    .description {
+      .multi(padding-top, 1);
+    }
+  }
+
+  .indicator {
+    content: '';
+    display: grid;
+    width: 25px;
+    height: 25px;
+    border: solid 1px @textColor;
+
+    cursor: pointer;
+
+    transition: background .4s ease, border .4s ease;
+
+    .lila-icons-partial {
+      display: grid;
+      align-self: center;
+      justify-self: center;
+    }
+  }
+
+  &.noIndicator {
+
+    .indicator {
+      display: none;
+    }
+
+    .indicator-text {
+      grid-template-rows: min-content;
+      grid-template-columns: auto;
+    }
+  }
+
+  &:hover {
+
+    .indicator {
+      border: solid 1px @color1;
+
+      svg {
+        stroke: @color1;
+      }
+    }
+
+    .label {
+      color: @color3;
+    }
+  }
+
+  &.checked {
+
+    .indicator {
+      border: solid 1px @color1;
+      background-color: @color1;
+
+      svg {
+        stroke: @white;
+        stroke-width: 2;
+      }
+    }
+
+    &:hover {
+
+      .indicator {
+        border: solid 1px @color3;
+        background-color: @color3;
+
+        svg {
+          stroke: @white;
+          stroke-width: 2;
+        }
+      }
+    }
   }
 
   &.disabled {
-      pointer-events: none;
-      user-select: none;
-      .checked-marked {
-        border:solid 3px @grey;
+
+    pointer-events: none;
+    user-select: none;
+
+    .indicator {
+      border: solid 3px @grey;
+    }
+
+    &.checked {
+
+      .indicator {
+        background-color: @grey;
       }
-      &.checked {
-        .checked-marked {
-          background-color: @grey;
-        }
-      }
-      .label {
-        color: @grey;
-      }
+    }
+
+    .label,
+    .description {
+      color: @grey;
+    }
   }
-
-
-
-// &.checked-marked {
-
-//   .checked-marked {
-//     border: solid 1px @color1;
-//     accent-color: @color1;
-
-//     svg {
-//       stroke: @white;
-//       stroke-width: 3;
-//     }
-//   }
-
-//   &:hover {
-
-//     .checked-marked {
-//       border: solid 3px @color3;
-//       background-color: @color3;
-//     }
-//   }
 }
-}
-
 </style>
