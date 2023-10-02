@@ -1,7 +1,7 @@
 <template>
   <section class="content-head">
     <h3><slot /></h3>
-    <lila-button-partial v-if="!hideButton" type="button" icon="close" size="medium" color-scheme="transparent" @click="close"><lila-icons-partial type="close"/></lila-button-partial>
+    <lila-button-partial v-if="!hideButton" type="button" icon size="medium" color-scheme="transparent" @click="close"><lila-icons-partial type="close"/></lila-button-partial>
   </section>
 </template>
 <script lang="ts">

@@ -1,11 +1,11 @@
 <template>
   <section class="content-container-full" :class="{ overlay: overlay, inline: !overlay, full: full, visible: visible }">
-    <button v-if="overlay" class="preview-text" type="button" @click="open"> <slot /> </button>
+    <button v-if="overlay" class="preview-text" type="button" @click="open"> {{ loading }} <slot /> </button>
 
     <component :is="overlay ? 'portal' : 'section'" to="overlay">
       <transition>
         <section class="content-container" ref="container" v-if="visible || !overlay" :class="{ overlay: overlay, visible: visible }">
-
+          
           <button v-if="overlay" class="closeOutside" type="button" @keyup="close" @click="close" />
 
           <section class="content-position-container">
@@ -16,7 +16,7 @@
             </lila-content-head-partial>
             <section class="scroll-container">
               <lila-indicator-partial v-if="loading === 100">LOADING</lila-indicator-partial>
-              <lila-content-module v-if="loading > 100 && (error || content)" :content="error ? errorContent : content" :inline="!overlay" />
+              <lila-content-module v-if="contentOrError" :content="error ? errorContent : content" :inline="!overlay" />
             </section>
           </section>
 
@@ -90,7 +90,13 @@ export default class contentContainerPartial extends ExtPartial {
 
   }
 
-  mounted() {
+  get contentOrError() {
+
+    return  (this.loading > 100 || this.content) || this.error;
+
+  }
+
+  beforeMount() {
 
     if (this.id || this.latest) {
 
@@ -101,6 +107,9 @@ export default class contentContainerPartial extends ExtPartial {
   }
 
   async getContent() {
+
+    console.log('GET CONTENT', this.id);
+    if(this.loading) return false;
 
     this.error = null;
     this.content = null;
@@ -116,7 +125,7 @@ export default class contentContainerPartial extends ExtPartial {
       },
     );
 
-    console.log(this.predefined, this.latest, this.category);
+    console.log(129, this.predefined, this.latest, this.category);
 
 
     try {
@@ -137,9 +146,12 @@ export default class contentContainerPartial extends ExtPartial {
 
     } catch (error) {
 
+      console.error(error);
+
       this.content = null;
       this.error = true;
       this.loading = 404;
+      return false;
 
     }
 

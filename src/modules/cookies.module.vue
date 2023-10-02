@@ -1,5 +1,6 @@
 <template>
   <section :id="id" v-if="visible && isOverlay || !isOverlay" :class="[{'lila-module': !isOverlay, isOverlay,}, overlayPosition]" class="lila-cookies-module">
+    
     <lila-overlay-background-partial v-if="visible && isOverlay && overlayPosition === 'overlayFull'" background="mobile">
       <lila-dialog-partial class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
         <lila-textblock-partial v-if="textblock" v-bind="textblock" />
@@ -48,6 +49,7 @@ import Textblock from '@interfaces/textblock.interface';
 import {
   ExtComponent, Component, Prop,
 } from '@libs/lila-component';
+import { overlay } from '@stories/partials/content-container.partial.stories';
 import dayjs from 'dayjs';
 
 @Component

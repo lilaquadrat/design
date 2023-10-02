@@ -1,7 +1,9 @@
 <template>
+  <portal to="overlay">
     <section class="lila-overlay-background" ref="background" :class="[backgroundMode]" @keydown="checkClose" @click="checkClose">
       <slot></slot>
     </section>
+  </portal>
 </template>
 <script lang="ts">
 import { Prop } from '@libs/lila-component';

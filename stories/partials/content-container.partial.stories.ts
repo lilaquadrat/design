@@ -7,7 +7,7 @@ export default {
 
 const template = (args: unknown, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<section><portal-target name="overlay" multiple /><lila-content-container-partial v-bind="$props">open overlay</lila-content-container-partial></section>',
+  template: '<lila-content-container-partial v-bind="$props">open overlay</lila-content-container-partial>',
 });
 
 export const basic = template.bind({});
