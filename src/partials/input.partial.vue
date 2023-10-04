@@ -74,6 +74,9 @@ export default class InputPartial extends ExtPartial {
     background-color: transparent;
     color: @textColor;
     font-size: @fontText;
+    line-height: 18px;
+
+    .trans(border-color);
 
     &:hover {
       border-bottom: 1px @grey solid;

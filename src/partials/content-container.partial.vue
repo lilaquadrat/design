@@ -1,6 +1,6 @@
 <template>
   <section class="content-container-full" :class="{ overlay: overlay, inline: !overlay, full: full, visible: visible }">
-    <button v-if="overlay" class="preview-text" type="button" @click="open"> {{ loading }} <slot /> </button>
+    <button v-if="overlay" class="preview-text" type="button" @click="open"> <slot /> </button>
 
     <component :is="overlay ? 'portal' : 'section'" to="overlay">
       <transition>

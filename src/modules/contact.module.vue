@@ -83,12 +83,7 @@
 
         {{ agreements }}
 
-        <section v-for="(single, index) in agreements" :key="`agreement-${index}`">
-          <lila-checkbox-partial v-model="single.value">
-            {{ single.text }} - {{ single.value }}
-          </lila-checkbox-partial>
-          <lila-content-container-partial :predefined="single.predefined" :id="single.contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
-        </section>
+      <lila-agreement-partial v-for="(single, index) in agreements" :key="`agreement-${index}`" v-model="single.value" :predefined="single.predefined" :contentId="single.contentId">{{ single.text }}</lila-agreement-partial>
 
 
       </lila-fieldset-partial>
@@ -291,7 +286,7 @@ export default class ContactModule extends ExtComponent {
 
   .agreements {
     display: grid;
-    gap: 10px;
+    gap: 20px;
   }
 
 }

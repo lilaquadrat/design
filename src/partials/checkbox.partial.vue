@@ -22,7 +22,7 @@
         <p>{{ error }}</p>
       </div>
 
-      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" v-on:change="changeHandler" />
+      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" @change="changeHandler" />
     </label>
     <div v-if="text" class="indicator-text">
       <span class="indicator"> </span>
@@ -137,6 +137,7 @@ label.checkbox {
     &[type='checkbox'] {
       display: none;
     }
+
   }
 
   &.noText {
@@ -167,8 +168,6 @@ label.checkbox {
     }
 
     &.word {
-      .font-bold;
-
       display: grid;
       gap: 5px;
       align-self: center;
@@ -221,11 +220,16 @@ label.checkbox {
   &:hover {
 
     .indicator {
-      border: solid 1px @color1;
 
-      svg {
-        stroke: @color1;
+      .lila-icons-partial::v-deep {
+
+        svg {
+
+          stroke: @color1;
+        }
+
       }
+
     }
 
     .label {
@@ -251,9 +255,13 @@ label.checkbox {
         border: solid 1px @color3;
         background-color: @color3;
 
-        svg {
-          stroke: @white;
-          stroke-width: 2;
+        .lila-icons-partial::v-deep {
+
+          svg {
+
+            stroke: @white;
+          }
+
         }
       }
     }
