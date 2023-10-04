@@ -17,5 +17,5 @@ basic.args = {
   contentId: 'contact-dsgvo',
   predefined: true,
   latest: true,
-  value: false
+  value: false, 
 };

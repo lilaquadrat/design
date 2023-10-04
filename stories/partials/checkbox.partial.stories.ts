@@ -10,7 +10,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-checkbox-partial v-model="$props.value">{{ $props.text }}</lila-checkbox-partial>',
+  template: '<lila-checkbox-partial v-model="$props.value" :disabled=$props.disabled>{{ $props.text }}</lila-checkbox-partial>',
 });
 
 export const Form = Template.bind({});

@@ -4,7 +4,6 @@
       <div class="indicator-text">
         <span  class="indicator">
           <span class="active"></span>
-          <!-- <lila-icons-partial type="close" size="small" colorScheme="color1"/> -->
         </span>
         <!--  -->
         <span class="label">
@@ -86,11 +85,11 @@ label.radio {
     border-radius: 50%;
 
     .active {
-    display: none;
-    width: 8px;
-    height: 8px;
-    background-color: @color1 ;
-    border-radius: 50%;
+      display: none;
+      width: 12px;
+      height: 12px;
+      background-color: @color1 ;
+      border-radius: 50%;
     }
   }
 
@@ -125,20 +124,14 @@ label.radio {
   &.checked {
 
     .indicator {
-
+      background-color: @color3;
       .active {
         display: grid;
-        background-color: @color1;
+        background-color:white;
+    
       }
     }
 
-    // &:hover {
-
-    //   .indicator {
-    //     border: solid 1px @color3;
-    //     background-color: @color3;
-    //   }
-    // }
   }
 
   &.disabled {
@@ -146,16 +139,9 @@ label.radio {
     pointer-events: none;
     user-select: none;
     .indicator {
-      border: solid 3px @grey;
+      background-color: @grey;
+      border: 0;
     }
-
-    &.checked {
-
-      .indicator {
-        color: @grey;
-      }
-    }
-
   }
 
 }
