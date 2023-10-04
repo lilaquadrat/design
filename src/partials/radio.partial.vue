@@ -3,7 +3,8 @@
     <label :class="[textType, {checked:value === single.value , disabled}]" class="radio" tabindex="" v-for="(single, index) in elements" :key="`element-${index}`">
       <div class="indicator-text">
         <span  class="indicator">
-          <lila-icons-partial type="checked" size="small" colorScheme="color1"/>
+          <span class="active"></span>
+          <!-- <lila-icons-partial type="close" size="small" colorScheme="color1"/> -->
         </span>
         <!--  -->
         <span class="label">
@@ -75,8 +76,7 @@ label.radio {
   cursor: pointer;
 
   .indicator {
-    content: '';
-    display: flex;
+    display: grid;
     grid-area: radio;
     align-items: center;
     justify-content: center;
@@ -84,6 +84,14 @@ label.radio {
     height: 20px;
     border: 1px solid @textColor;
     border-radius: 50%;
+
+    .active {
+    display: none;
+    width: 8px;
+    height: 8px;
+    background-color: @color1 ;
+    border-radius: 50%;
+    }
   }
 
   .lila-icons-partial {
@@ -101,11 +109,11 @@ label.radio {
   &:hover {
 
     .indicator {
-      border: solid 2px @color1;
+      // border: solid 2px @color1;
 
-      .lila-icons-partial {
-        color: @color1;
-        opacity: 1;
+      .active {
+        display: grid;
+        background-color: @grey;
       }
     }
 
@@ -117,22 +125,20 @@ label.radio {
   &.checked {
 
     .indicator {
-      border: 1px solid @color1;
-      background-color: @color1;
 
-      .lila-icons-partial {
-        color: white;
-        opacity: 1;
+      .active {
+        display: grid;
+        background-color: @color1;
       }
     }
 
-    &:hover {
+    // &:hover {
 
-      .indicator {
-        border: solid 1px @color3;
-        background-color: @color3;
-      }
-    }
+    //   .indicator {
+    //     border: solid 1px @color3;
+    //     background-color: @color3;
+    //   }
+    // }
   }
 
   &.disabled {

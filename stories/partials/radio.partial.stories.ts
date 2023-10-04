@@ -12,7 +12,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-radio-partial :elements="$props.elements" v-model="$props.value"/>',
+  template: '<lila-radio-partial :elements="$props.elements" v-model="$props.value" :disabled="$props.disabled"/>',
 });
 
 export const Form = Template.bind({});
