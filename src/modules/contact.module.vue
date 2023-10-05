@@ -16,13 +16,10 @@
 
       </lila-fieldset-partial>
 
-      {{ categories }}
-      <label>
-        <select v-model="model.category">
-          <option v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">{{ single.name }}</option>
-        </select>
-        category
-      </label>
+      <lila-fieldset-partial extendedGap legend="category">
+        <lila-textblock-partial v-bind="categoryTextblock" />
+        <lila-select-category-partial v-model="model.category" :categories="categories" />
+      </lila-fieldset-partial>
 
       <lila-fieldset-partial legend="personal">
 
@@ -81,14 +78,20 @@
 
       <lila-fieldset-partial v-if="list" class="agreements">
 
-        {{ agreements }}
-
       <lila-agreement-partial v-for="(single, index) in agreements" :key="`agreement-${index}`" v-model="single.value" :predefined="single.predefined" :contentId="single.contentId">{{ single.text }}</lila-agreement-partial>
 
 
       </lila-fieldset-partial>
 
-      <lila-button-partial colorScheme="colorScheme1" type="submit">submit</lila-button-partial>
+      <lila-button-group-partial>
+
+        <lila-button-partial colorScheme="colorScheme1" type="submit">
+          <template v-if="list.payment === 'required'">Kostenpflichtig Bestellen</template>
+          <template v-if="list.payment !== 'required' && list.mode === 'contact'">Kontakformular senden</template>
+          <template v-if="list.payment !== 'required' && list.mode === 'reservation'">Reservierung senden</template>
+        </lila-button-partial>
+        
+      </lila-button-group-partial>
 
     </form>
 
@@ -111,6 +114,8 @@ export default class ContactModule extends ExtComponent {
 
   @Prop(Object) textblock: Textblock;
 
+  @Prop(Object) categoryTextblock: Textblock;
+
   @Prop(Object) genericData: GenericData;
 
   @Prop(Object) editor: {modes: string[]};
@@ -119,7 +124,7 @@ export default class ContactModule extends ExtComponent {
 
   agreements: Record<string, Agreement & { value: boolean }> = {};
 
-  get list() {
+  get list(): List {
 
     if (this.genericData?.lists && this.genericData?.data && Array.isArray(this.genericData?.lists)) {
 
@@ -279,10 +284,6 @@ export default class ContactModule extends ExtComponent {
   gap: 40px;
 
   max-width: @moduleWidth_S;
-
-  grid-te &.medium {
-    max-width: @moduleWidth_M;
-  }
 
   .agreements {
     display: grid;

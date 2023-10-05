@@ -50,9 +50,11 @@ export default class InputPartial extends ExtPartial {
 
   }
 
-  update(input: KeyboardEvent) {
+  update($event: KeyboardEvent) {
 
-    this.$emit('input', input?.originalTarget?.value);
+    const target = $event.target as HTMLInputElement;
+
+    this.$emit('input', target?.value);
 
   }
 

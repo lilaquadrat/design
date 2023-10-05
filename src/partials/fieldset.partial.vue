@@ -1,5 +1,5 @@
 <template>
-    <fieldset class="lila-fieldset">
+    <fieldset class="lila-fieldset" :class="{extendedGap}">
         <legend v-if="legend">
             <span class="text">{{ legend }}</span>
             <hr />
@@ -20,6 +20,8 @@ export default class fieldsetPartial extends ExtPartial {
 
   @Prop(String) legend?: string;
 
+  @Prop(Boolean) extendedGap?: boolean;
+
 
 }
 </script>
@@ -28,10 +30,14 @@ export default class fieldsetPartial extends ExtPartial {
 
 fieldset {
   display: grid;
+  gap: 20px;
 
   border: 0;
-  .multi(padding, 8, 0);
-  gap: 10px;
+  .multi(padding, 8, 0, 10, 0);
+
+  &.extendedGap {
+    gap: 40px;
+  }
 
   legend {
     position: relative;
@@ -52,9 +58,9 @@ fieldset {
     }
 
     hr {
+      align-self: center;
       height: 2px;
       background-color: @color1;
-      align-self: center;
     }
 
   }
