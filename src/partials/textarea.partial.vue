@@ -1,5 +1,6 @@
 <template>
-  <label class="lila-textarea" tabindex="" rows="20" cols="20">
+  <label class="lila-textarea" tabindex="">
+
     <textarea ref="textarea" :disabled="disabled" @keyup="checkInput($event)" :placeholder="placeholder"></textarea>
 
     <span v-if="slotUsed" class="label">
@@ -10,6 +11,8 @@
       <span class="required" v-if="required && !disabled"> required </span>
       <span class="required" v-if="disabled"> disabled </span>
     </div>
+    
+
   </label>
 </template>
 <script lang="ts">
@@ -55,30 +58,34 @@ export default class TextareaPartial extends ExtPartial {
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
- .lila-textarea {
+
+.lila-textarea {
+
   textarea {
     min-width: 200px;
     padding: 10px;
-    border: 0.5px @grey solid;
-    outline: none;
+    border: .5px @grey solid;
     background: transparent;
-    resize:none;
+    outline: none;
+    resize: none;
 
     &:hover {
       border: 2px @grey solid;
-      cursor:pointer;
+      cursor: pointer;
     }
+
     &:focus {
       border: 2px @color3 solid;
       background: white;
       cursor: default;
     }
+
     &:disabled {
-      background-color: @grey;
-      opacity: 0.3;
       border: 0;
+      background-color: @grey;
+      opacity: .3;
       pointer-events: none;
     }
   }
- }
+}
 </style>

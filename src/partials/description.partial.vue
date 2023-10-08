@@ -1,7 +1,9 @@
 <template>
   <section class="lila-description-partial" :class="[type, { padding: padding, margin: margin, background: background }]">
     <h4 v-if="label">{{ label | translate }}</h4>
-    <p><slot></slot></p>
+    <p>
+      <slot />
+    </p>
   </section>
 </template>
 <script lang="ts">
