@@ -1,13 +1,10 @@
 <template>
   <label class="lila-textarea" tabindex="">
-
+    
     <textarea ref="textarea" :disabled="disabled" @keyup="checkInput($event)" :placeholder="placeholder"></textarea>
-
-    <span v-if="slotUsed" class="label">
-      <slot />
-    </span>
-
+    <!--  -->
     <div class="label-container">
+      <span class="label"> <slot /> </span>
       <span class="required" v-if="required && !disabled"> required </span>
       <span class="required" v-if="disabled"> disabled </span>
     </div>
