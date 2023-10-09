@@ -77,6 +77,7 @@ export default class InputPartial extends ExtPartial {
     color: @textColor;
     font-size: @fontText;
     line-height: 18px;
+    outline: none;
 
     .trans(border-color);
 
@@ -84,16 +85,12 @@ export default class InputPartial extends ExtPartial {
       border-bottom: 1px @grey solid;
     }
 
-    &:focus {
-      top: -20px;
-      outline: none;
-    }
-
     &:disabled {
-      border: 0;
-      background-color: @grey;
-      opacity: .3;
       pointer-events: none;
+
+      &:hover {
+        border-bottom: 1px @color1 solid;
+      }
     }
   }
 

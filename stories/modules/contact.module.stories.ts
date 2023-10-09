@@ -24,8 +24,8 @@ export const reservation = Template.bind({});
 
 reservation.args = {
   textblock: {
-    headline: 'Contact Module',
-    text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
+    headline: 'Reserve your spot',
+    text: ['Welcome to our online ticket reservation platform. Whether you re planning a night out at the theater, attending a concert, or looking forward to a sports event, securing your tickets has never been easier. Our user-friendly form ensures a smooth reservation experience, allowing you to secure your spot at your desired event in just a few clicks.'],
   },
   categoryTextblock: {
     headline: 'Select your Category',

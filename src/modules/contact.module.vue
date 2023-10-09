@@ -206,7 +206,7 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  async handleForm(event: HTMLFormElement) {
+  async handleForm(event: Event) {
 
     event.preventDefault();
 

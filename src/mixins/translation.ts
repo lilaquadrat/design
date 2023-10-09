@@ -13,7 +13,7 @@ class Translation {
      * @type {{[key: string]: any}}
      * @memberof Translation
      */
-  translations: {[key: string]: any} = {};
+  translations: { [key: string]: any } = {};
 
   /**
      *
@@ -32,7 +32,7 @@ class Translation {
      * @returns
      * @memberof Translation
      */
-  translate(value: string, key?:string, hint?: string) {
+  translate(value: string, key?: string, hint?: string, values?: (string | number)[]) {
 
     let returnValue: string;
     const translation = key && this.exists(key)
@@ -63,6 +63,13 @@ class Translation {
 
     }
 
+    if (values) {
+
+      returnValue = values.reduce((p, c) => p.replace(/%s/, c), returnValue);
+
+    }
+
+
     return returnValue;
 
   }
@@ -84,9 +91,15 @@ class Translation {
      * @param {string} key
      * @memberof Translation
      */
-  add(translation: {[key: string]: any}, key: string) {
+  add(translation: Record<string, string>, key: string) {
 
     this.translations[key] = translation;
+
+  }
+
+  extend(translations: Record<string, string>, key: string) {
+
+    this.translations[key] = { ...this.translations[key], ...translations };
 
   }
 
@@ -119,6 +132,6 @@ class Translation {
 
 const translate = new Translation();
 
-vue.filter('translate', (value: string, hint?: string) => translate.translate(value, null, hint));
+vue.filter('translate', (value: string, values?: string[]) => translate.translate(value, null, null, values));
 
 export default translate;

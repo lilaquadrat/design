@@ -11,13 +11,15 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  template: '<lila-input-partial  v-bind="$props" />',
+  template: '<lila-input-partial v-bind="$props">input partial</lila-input-partial>',
 });
 
 export const Form = Template.bind({});
 
 Form.args = {
   placeholder: 'Edit your text',
+  required: true,
+  disabled: true
 };
 
 

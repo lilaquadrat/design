@@ -19,6 +19,7 @@ translation.select('de');
 
 window.addEventListener('media', () => {
 
+  console.log('MEDIA');
   store.commit('setMedia', Resize.media);
 
 });

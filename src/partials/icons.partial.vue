@@ -7,6 +7,11 @@
       <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
     </svg>
 
+    <svg v-if="type === 'chevron-down'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+    </svg>
+
+
     <svg v-if="type === 'mouse'" version="1.1" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 42.496">
     <g>
         <g>
