@@ -54,6 +54,9 @@
             ]
         }
     },
+    "vueCompilerOptions": {
+        "target": 2.7
+    },
     "exclude": [
         "node_modules",
         "examples"

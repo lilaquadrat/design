@@ -2,7 +2,7 @@
   <section :class="{ error: error, options: open, disabled }" class="select-input label-replacement" tabindex="">
     <button type="button" ref="trigger" class="options-trigger" @click="toggleOptions">
       <span class="selected-container" v-if="selected.length === 0 || selected === 0">{{$translate(placeholder)}}</span>
-      <span class="selected-container" v-if="(selected.length > 0 || selected > 0) && !colors">
+      <span class="selected-container" v-if="(selected.length > 0 || selected > 0)">
         {{ selectedText }}
       </span>
       <lila-icons-partial type="chevron-down" size="small" />
@@ -14,7 +14,7 @@
         <section class="select-options">
           <button class="single-option-button" type="button" v-for="(option, index) in filteredOptions" :title="$translate(option.text)" :key="`option-index-${index}`" :value="option.value" :class="[{ selected: isSelected(option.value),hasDescription: option.description }, option.class]" @click="toggle(option)">
             <span v-if="!isSelected(option.value)" class="box"></span>
-            <icons-partial v-if="isSelected(option.value)" type="checked" size="small" />
+            <lila-icons-partial v-if="isSelected(option.value)" type="checked" size="small" />
             <span v-if="option.text" class="text">{{$translate(option.text)}}</span>
             <p v-if="option.description" class="description">{{$translate(option.description)}}</p>
           </button>
@@ -22,14 +22,7 @@
 
       </section>
     </lila-overlay-background-partial>
-
-    <div v-if="slotUsed || required || disabled" class="label-container">
-      <span v-if="slotUsed" class="label">
-        <slot></slot>
-      </span>
-      <span class="required" v-if="required && !disabled">{{$translate('required')}}</span>
-      <span class="required" v-if="disabled">{{$translate('disabled')}}</span>
-    </div>
+    <lila-input-labels-partial :required="required" :disabled="disabled"><slot /></lila-input-labels-partial>
 
     <notice-partial v-if="errorMessage" type="error">
       {{errorMessage}}
@@ -174,10 +167,6 @@ export default class selectPartial extends ExtPartial {
   setSelected() {
 
     if (this.value === 0) {
-
-      this.selected = 0;
-
-    } else if(!this.value && this.colors) {
 
       this.selected = 0;
 
@@ -338,7 +327,7 @@ export default class selectPartial extends ExtPartial {
   position: relative;
   display: grid;
   gap: 5px;
-  min-width: 100px;
+  min-width: 200px;
 
   .options-trigger {
 
@@ -375,15 +364,6 @@ export default class selectPartial extends ExtPartial {
 
   }
 
-  .label-container {
-    display: grid;
-    grid-template-columns: 1fr min-content;
-
-    .required {
-
-    }
-  }
-
   &.error {
 
     .options-trigger {
@@ -401,15 +381,6 @@ export default class selectPartial extends ExtPartial {
     .options-trigger {
       border: 0;
     }
-  }
-
-  .selectedColor {
-
-    display: grid;
-    align-content: center;
-    height: @buttonHeight;
-    font-size: @fontSmall;
-    text-align: center;
   }
 
   .options-trigger {
@@ -461,60 +432,6 @@ export default class selectPartial extends ExtPartial {
 
     .options-trigger {
       border-color: @grey;
-    }
-  }
-
-  &.colors {
-
-    .options-trigger {
-      height: 100%;
-      min-height: 30px;
-      padding: 0;
-
-      border: none;
-
-      .icon-partial {
-        margin-right: 5px;
-      }
-
-      .text {
-        width: 100%;
-      }
-    }
-
-  }
-
-  .search-partial-editor {
-
-    .multi(padding, 0);
-
-    position: absolute;
-    top: 29px;
-    left: 0;
-    width: 100%;
-
-    margin-bottom: 10px;
-    background-color: @white;
-    opacity: 0;
-    pointer-events: none;
-    user-select: none;
-
-    transition: opacity .3s ease, transform .3s ease;
-
-    @media @tablet, @desktop {
-      box-shadow: 0 5px 5px @grey;
-    }
-
-    .searchInput {
-      .multi(padding, 0);
-
-      input {
-        .multi(padding, 2, 3);
-      }
-    }
-
-    button {
-      display: none;
     }
   }
 
@@ -597,38 +514,17 @@ export default class selectPartial extends ExtPartial {
 
       gap: 5px 0;
       width: 100%;
+      border: 0;
       border-bottom: solid 1px @grey1;
+      background: none;
 
-      font-size: @fontTextSmaller;
+      font-size: @fontText;
       text-align: left;
       text-overflow: ellipsis;
 
       white-space: normal;
 
       .multi(padding, 3, 0);
-
-      &.colorMode {
-        height: @buttonHeight;
-        padding: 0;
-        font-size: @fontSmall;
-        text-align: center;
-
-        .box,
-        .icon-partial {
-          display: none;
-        }
-
-        .text {
-          display: grid;
-          grid-column-start: 1;
-          grid-column-end: 4;
-          align-content: center;
-          width: 100%;
-          margin: 0;
-        }
-
-        .basicHover;
-      }
 
       &:last-child {
         border: 0;
@@ -646,7 +542,7 @@ export default class selectPartial extends ExtPartial {
       }
 
       .box,
-      .icon-partial {
+      .lila-icons-partial {
         display: grid;
         grid-column-start: 1;
         align-self: center;

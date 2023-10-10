@@ -1,26 +1,23 @@
 <template>
   <section class="lila-radio-container">
-    <label :class="[textType, {checked:value === single.value , disabled}]" class="radio" tabindex="" v-for="(single, index) in elements" :key="`element-${index}`">
+    <label :class="[textType, {checked: value === single.value , disabled}]" class="radio" tabindex="" v-for="(single, index) in elements" :key="`element-${index}`">
+
       <div class="indicator-text">
-        <span  class="indicator">
+
+        <span class="indicator">
           <span class="active"></span>
         </span>
-        <!--  -->
+
         <span class="label">
-          <description-partial inline v-if="description ">{{ description }}</description-partial>
-          {{single.text}}
+          <div>{{single.text}}</div>
+          <description-partial inline v-if="single.description">{{ single.description }}</description-partial>
         </span>
 
-        <div class="label-container">
-          <span class="disabled" v-if="disabled"> {{ description }}</span>
-        </div>
       </div>
 
-      <!-- error class -->
-      
-      <input type="radio" name="test" :disabled="disabled" :value="single.value" @change="changeHandler">  
+      <input type="radio" name="test" :disabled="disabled" :value="single.value" @change="changeHandler">
     </label>
-    {{ value }}
+    <lila-input-labels-partial :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
   </section>
 </template>
 
@@ -34,34 +31,37 @@ export default class RadioPartial extends ExtPartial {
 
   @Prop(Boolean) disabled: boolean;
 
+  @Prop(Boolean) required: boolean;
+
   @Prop(Boolean) valid: boolean;
 
   @Prop(String) description: string;
 
-  @Prop(Array) elements: {value: string, text: string}[]
+  @Prop(Array) elements: {value: string, text: string}[];
 
   textType: string = 'word';
 
   $refs: {
     input: HTMLInputElement
   };
-  
-  
-  
+
+
   changeHandler($event: Event): void {
 
     const target = $event.target as HTMLInputElement;
 
-    this.$emit('input', target.value)  
+    this.$emit('input', target.value);
 
-} 
-  
+  }
+
 }
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-radio-container {
+  display: grid;
+  gap: 15px;
 
   .indicator-text {
     display: grid;
@@ -73,6 +73,11 @@ export default class RadioPartial extends ExtPartial {
 
 label.radio {
   cursor: pointer;
+
+  .label {
+    display: grid;
+    // gap: 5px;
+  }
 
   .indicator {
     display: grid;
@@ -86,23 +91,15 @@ label.radio {
 
     .active {
       display: none;
-      width: 12px;
-      height: 12px;
-      background-color: @color1 ;
+      width: 10px;
+      height: 10px;
+      background-color: @color1;
       border-radius: 50%;
     }
   }
 
-  .lila-icons-partial {
-    grid-area: radio;
-    opacity: 0;
-  }
-
-  input {
-
-    &[type="radio"] {
+  input[type="radio"] {
       display: none;
-    }
   }
 
   &:hover {
@@ -124,11 +121,9 @@ label.radio {
   &.checked {
 
     .indicator {
-      background-color: @color3;
       .active {
         display: grid;
-        background-color:white;
-    
+        background-color:@color3;
       }
     }
 

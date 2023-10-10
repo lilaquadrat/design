@@ -9,13 +9,8 @@
       :value="value"
       @keydown="update"
     />
-    <div class="label-container">
-      <span v-if="slotUsed" class="label">
-      <slot />
-    </span>
-      <span class="required" v-if="required && !disabled"> required </span>
-      <span class="disabled" v-if="disabled"> disabled </span>
-    </div>
+    <lila-input-labels-partial :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
+
   </label>
 </template>
 
@@ -92,22 +87,6 @@ export default class InputPartial extends ExtPartial {
         border-bottom: 1px @color1 solid;
       }
     }
-  }
-
-  .label-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-
-    .label, .required, .disabled {
-      font-size: @fontTextSmaller;
-      text-transform: uppercase;
-    }
-
-    .required, .disabled {
-      text-align: right;
-    }
-
   }
 
 }

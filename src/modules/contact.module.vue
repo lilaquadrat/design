@@ -2,7 +2,7 @@
   <section class="lila-contact-module">
 
     <lila-textblock-partial v-bind="textblock" />
-    
+
     <lila-content-module v-if="showFeedback" sub :content="feedbackContent" />
 
     <form @submit="handleForm" v-if="!showFeedback">
@@ -10,7 +10,7 @@
 
         <label>
           <lila-textarea-partial v-model="model.message">
-            message
+            {{$translate('message')}}
           </lila-textarea-partial>
         </label>
 
@@ -18,19 +18,20 @@
 
       <lila-fieldset-partial extendedGap legend="category">
         <lila-textblock-partial v-bind="categoryTextblock" />
-        <lila-select-category-partial v-model="model.category" :categories="categories" />
+        <lila-select-category-partial v-if="list.mode !== 'contact'" v-model="model.category" :categories="categories" />
+        <lila-select-partial v-if="list.mode === 'contact'" :multiple="false" required :options="selectCategories" placeholder="select category">category</lila-select-partial>
       </lila-fieldset-partial>
 
       <lila-fieldset-partial legend="personal">
 
         <label>
           <lila-input-partial v-model="model.prename">
-            prename
+            {{$translate('prename')}}
           </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial  required v-model="model.name">
-          lastname
+          <lila-input-partial required v-model="model.name">
+          {{$translate('lastname')}}
         </lila-input-partial>
         </label>
 
@@ -40,22 +41,22 @@
 
         <label>
           <lila-input-partial v-model="model.streetNumber">
-            street & number
+            {{$translate('street & number')}}
           </lila-input-partial>
         </label>
         <label>
           <lila-input-partial v-model="model.zipcode">
-            zipocode
+            {{$translate('zipocode')}}
           </lila-input-partial>
         </label>
         <label>
           <lila-input-partial v-model="model.city">
-            city
+            {{$translate('city')}}
           </lila-input-partial>
         </label>
         <label>
           <lila-input-partial v-model="model.country">
-            country
+            {{$translate('country')}}
           </lila-input-partial>
         </label>
 
@@ -65,12 +66,12 @@
 
         <label>
           <lila-input-partial v-model="model.email">
-            email
+            {{$translate('email')}}
           </lila-input-partial>
         </label>
         <label>
           <lila-input-partial v-model="model.phone">
-            phone
+            {{$translate('phone')}}
           </lila-input-partial>
         </label>
 
@@ -78,29 +79,31 @@
 
       <lila-fieldset-partial v-if="list" class="agreements">
 
-      <lila-agreement-partial v-for="(single, index) in agreements" :key="`agreement-${index}`" v-model="single.value" :predefined="single.predefined" :contentId="single.contentId">{{ single.text }}</lila-agreement-partial>
-
+        <lila-agreement-partial v-for="(single, index) in agreements" :key="`agreement-${index}`" v-model="single.value" :predefined="single.predefined" :contentId="single.contentId">{{$translate(single.text)}}</lila-agreement-partial>
 
       </lila-fieldset-partial>
 
       <lila-button-group-partial>
 
         <lila-button-partial colorScheme="colorScheme1" type="submit">
-          <template v-if="list.payment === 'required'">Kostenpflichtig Bestellen</template>
-          <template v-if="list.payment !== 'required' && list.mode === 'contact'">Kontakformular senden</template>
-          <template v-if="list.payment !== 'required' && list.mode === 'reservation'">Reservierung senden</template>
+          <template v-if="list.payment === 'required'">{{$translate('Kostenpflichtig Bestellen')}}</template>
+          <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('Kontakformular senden')}}</template>
+          <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('Reservierung senden')}}</template>
         </lila-button-partial>
-        
+
       </lila-button-group-partial>
 
     </form>
 
   </section>
 </template>
+
 <script lang="ts">
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
-import { Agreement, GenericData, List, ModuleSettings } from '@lilaquadrat/studio/lib/interfaces';
+import {
+  Agreement, GenericData, List,
+} from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
 import Contact from '@models/Contact.model';
 import ModelsClass from '@libs/Models.class';
@@ -141,6 +144,22 @@ export default class ContactModule extends ExtComponent {
     if (this.list.categories.length > 1) {
 
       return this.list.categories;
+
+    }
+
+    return null;
+
+  }
+
+  get selectCategories() {
+
+    if (this.list.categories.length > 1) {
+
+      return this.list.categories.map((single) => ({
+        value: single.id,
+        text: single.name,
+        description: single.description,
+      }));
 
     }
 

@@ -3,7 +3,7 @@
     <lila-checkbox-partial :value="value" @input="changeHandler"><slot /></lila-checkbox-partial>
 
     <lila-content-container-partial :predefined="predefined" :id="contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
-  
+
   </section>
 </template>
 <script lang="ts">
@@ -50,7 +50,7 @@ export default class agreementPartial extends ExtPartial {
   grid-template-columns: 45px 1fr;
   gap: 5px 0;
 
-  .lila-label-parent-container {
+  .lila-checkbox-parent-container {
     grid-column-start: 1;
     grid-column-end: 3;
   }

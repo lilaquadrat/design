@@ -25,6 +25,11 @@ export default class buttonPartial extends ExtPartial {
 
   @Prop(String) type: string;
 
+  $props!: {
+    icon?: boolean;
+    requiredProp: string;
+  };
+
   showCheck: boolean = false;
 
   timeout: number = null;

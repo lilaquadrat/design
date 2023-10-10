@@ -1,6 +1,6 @@
 <template>
   <section class="lila-description-partial" :class="[type, { padding: padding, margin: margin, background: background }]">
-    <h4 v-if="label">{{ label | translate }}</h4>
+    <h4 v-if="label">{{ $translate(label) }}</h4>
     <p>
       <slot />
     </p>

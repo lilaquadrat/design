@@ -4,12 +4,13 @@ import { Prop, Watch } from 'vue-property-decorator';
 import inview from 'src/libs/lila-inview';
 import Dom from 'src/libs/lila-dom';
 import { AdditionalContentInformation, ModuleIndexOptions } from '@lilaquadrat/studio/lib/interfaces';
+import translate from '@mixins/translation';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 @Component({
   inheritAttrs: false,
-  })
+})
 abstract class ExtComponent extends vue {
 
   public state: string = '';
@@ -24,7 +25,7 @@ abstract class ExtComponent extends vue {
 
   @Prop({ type: Array, default: () => [] }) variant: string[];
 
-  @Prop({ type: Object, default: () => {} }) index: ModuleIndexOptions;
+  @Prop({ type: Object, default: () => { } }) index: ModuleIndexOptions;
 
   @Prop(String) position: 'top' | 'content' | 'bottom';
 
@@ -39,6 +40,14 @@ abstract class ExtComponent extends vue {
       this.DOM = new Dom(this.$store);
 
     }
+
+  }
+
+
+  // eslint-disable-next-line class-methods-use-this
+  $translate(text: string, values?: (string | number)[]) {
+
+    return translate.translate(text, undefined, undefined, values);
 
   }
 

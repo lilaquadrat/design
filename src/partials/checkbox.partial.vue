@@ -1,5 +1,5 @@
 <template>
-  <section class="lila-label-parent-container">
+  <section class="lila-checkbox-parent-container">
     <label :class="[textType, { error: error, checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
       <div class="indicator-text">
         <span class="indicator">
@@ -8,14 +8,10 @@
 
         <span class="label" v-if="textType !== 'noText'" :class="[textType]">
           <slot v-if="!text"></slot>
-          <description-partial inline v-if="description && !text">{{ description | translate }}</description-partial>
+          <description-partial inline v-if="description && !text">{{$translate(description)}}</description-partial>
           {{ text }}
         </span>
 
-        <div v-if="!text" class="label-container">
-          <span class="required" v-if="required && !disabled">{{ 'required' | translate }}</span>
-          <span class="disabled" v-if="disabled">{{ 'disabled' | translate }}</span>
-        </div>
       </div>
 
       <div v-if="error" class="errors">
@@ -24,18 +20,17 @@
 
       <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" @change="changeHandler" />
     </label>
+
     <div v-if="text" class="indicator-text">
       <span class="indicator"> </span>
       <span class="label" v-if="textType !== 'noText'" :class="[textType]">
         <slot></slot>
-        <description-partial inline v-if="description">{{ description | translate}}</description-partial>
+        <description-partial inline v-if="description">{{$translate(description)}}</description-partial>
       </span>
 
-      <div class="label-container">
-        <span class="required" v-if="required && !disabled">{{ 'required' | translate }}</span>
-        <span class="required" v-if="disabled">{{ 'disabled' | translate }}</span>
-      </div>
+
     </div>
+    <lila-input-labels-partial :required="required" :disabled="disabled" />
   </section>
 </template>
 <script lang="ts">
@@ -107,7 +102,9 @@ export default class checkboxPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.lila-label-parent-container {
+.lila-checkbox-parent-container {
+  display: grid;
+  gap: 10px;
 
   .indicator-text {
     display: grid;

@@ -8,12 +8,7 @@
       </div>
     </span>
 
-    <div class="label-container">
-      <span class="label"> <slot /> </span>
-      <span class="required" v-if="required && !disabled"> required </span>
-      <span class="required" v-if="disabled"> disabled </span>
-    </div>
-    
+    <lila-input-labels-partial :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
 
   </label>
 </template>
@@ -40,7 +35,6 @@ export default class TextareaPartial extends ExtPartial {
   length: number = 0;
 
   timeout: any;
-
 
   $refs!: {
     textarea: HTMLTextAreaElement
@@ -167,20 +161,5 @@ export default class TextareaPartial extends ExtPartial {
     }
   }
 
-  .label-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-
-    .label, .required, .disabled {
-      font-size: @fontTextSmaller;
-      text-transform: uppercase;
-    }
-
-    .required, .disabled {
-      text-align: right;
-    }
-
-  }
 }
 </style>
