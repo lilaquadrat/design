@@ -1,5 +1,5 @@
 <template>
-    <div v-if="slotUsed || required || disabled" class="label-container">
+    <div v-if="slotUsed || required || disabled" class="label-container" :class="{error}">
       <span class="label">
         <slot />
       </span>
@@ -16,6 +16,8 @@ export default class InputLabelsPartial extends ExtPartial {
   @Prop(Boolean) disabled: boolean;
 
   @Prop(Boolean) required: boolean;
+
+  @Prop(Boolean) error: boolean;
 
   get slotUsed() {
 
@@ -42,5 +44,14 @@ export default class InputLabelsPartial extends ExtPartial {
   .required, .disabled {
     text-align: right;
   }
+
+  &.error {
+
+    .required {
+      color: @error;
+    }
+
+  }
+
 }
 </style>

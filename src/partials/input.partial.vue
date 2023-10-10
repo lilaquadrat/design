@@ -1,5 +1,5 @@
 <template>
-   <label class="lila-input">
+   <label class="lila-input" :class="{ error: hasError }">
     <input
       ref="input"
       type="text"
@@ -9,12 +9,17 @@
       :value="value"
       @keydown="update"
     />
-    <lila-input-labels-partial :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
+    <lila-input-labels-partial :error="hasError" :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
+
+    <notice-partial v-if="errorMessage" type="error">
+      {{errorMessage}}
+    </notice-partial>
 
   </label>
 </template>
 
 <script lang="ts">
+import { ParsedError } from '@libs/ActionNotice';
 import { Component } from '@libs/lila-component';
 import { ExtPartial, Prop } from '@libs/lila-partial';
 
@@ -34,6 +39,7 @@ export default class InputPartial extends ExtPartial {
 
   @Prop(Boolean) noHover: string;
 
+  @Prop(Object) error: ParsedError;
 
   $refs!: {
     input: HTMLInputElement
@@ -42,6 +48,18 @@ export default class InputPartial extends ExtPartial {
   get slotUsed() {
 
     return this.$slots.default?.length;
+
+  }
+
+  get errorMessage() {
+
+    return this.error?.keyword !== 'required' ? this.error?.error : null;
+
+  }
+
+  get hasError() {
+
+    return !!this.error?.error;
 
   }
 
@@ -63,6 +81,14 @@ export default class InputPartial extends ExtPartial {
 .lila-input{
   display: grid;
   gap: 5px;
+
+  &.error {
+
+    input {
+      border-color: @error;
+    }
+
+  }
 
   input{
     padding: 5px 0;

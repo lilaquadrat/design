@@ -25,12 +25,12 @@
       <lila-fieldset-partial legend="personal">
 
         <label>
-          <lila-input-partial v-model="model.prename">
+          <lila-input-partial :error="errorsObject.prename" required v-model="model.prename">
             {{$translate('prename')}}
           </lila-input-partial>
         </label>
         <label>
-          <lila-input-partial required v-model="model.name">
+          <lila-input-partial :error="errorsObject.name" required v-model="model.name">
           {{$translate('lastname')}}
         </lila-input-partial>
         </label>
@@ -65,7 +65,7 @@
       <lila-fieldset-partial legend="contact">
 
         <label>
-          <lila-input-partial v-model="model.email">
+          <lila-input-partial :error="errorsObject.email" required v-model="model.email">
             {{$translate('email')}}
           </lila-input-partial>
         </label>
@@ -83,15 +83,15 @@
 
       </lila-fieldset-partial>
 
-      <lila-button-group-partial>
+      <pre>{{ errorsObject }}</pre>
 
+      <lila-action-notice-partial :state="state" :translation-pre="translationPre" :errors="errors" @update="updateErrors">
         <lila-button-partial colorScheme="colorScheme1" type="submit">
           <template v-if="list.payment === 'required'">{{$translate('Kostenpflichtig Bestellen')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('Kontakformular senden')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('Reservierung senden')}}</template>
         </lila-button-partial>
-
-      </lila-button-group-partial>
+      </lila-action-notice-partial>
 
     </form>
 
@@ -124,6 +124,12 @@ export default class ContactModule extends ExtComponent {
   @Prop(Object) editor: {modes: string[]};
 
   model: Contact = null;
+
+  errors = null;
+
+  errorsObject: ErrorsObject = {};
+
+  translationPre = 'contact';
 
   agreements: Record<string, Agreement & { value: boolean }> = {};
 
@@ -199,6 +205,12 @@ export default class ContactModule extends ExtComponent {
 
   }
 
+  updateErrors(errorsObject: any) {
+
+    this.errorsObject = errorsObject;
+
+  }
+
   changeAgreement(event: MouseEvent, index: string) {
 
     const agreement = this.agreements[index];
@@ -228,6 +240,7 @@ export default class ContactModule extends ExtComponent {
   async handleForm(event: Event) {
 
     event.preventDefault();
+    this.state = '';
 
     let error = false;
     const customer = ModelsClass.save(this.model, 'contact');
@@ -278,10 +291,15 @@ export default class ContactModule extends ExtComponent {
     try {
 
       await sdk.public.lists.join(this.list._id, customer, message, category, agreements);
+      this.state = 'success';
 
     } catch (e) {
 
       console.error(e);
+      console.log(e.response.data);
+
+      this.errors = e.response.data;
+      this.state = 'error';
 
     }
 
