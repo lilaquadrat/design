@@ -14,7 +14,9 @@ import './models';
 import Attributes from '@mixins/attributes';
 import '@mixins/leadingZero';
 import translation from '@mixins/translation';
+import DE from './translations/de';
 translation.select('de');
+translation.add(DE, 'de');
 
 window.addEventListener('media', () => {
 

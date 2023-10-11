@@ -7,7 +7,7 @@
       </div>
       <h1>{{ single.name }}</h1>
       <h3>{{ single.price.amount }} {{ single.price.currency }}</h3>
-      <h4 class="tax">inkl. {{ single.price.tax }}% MwSt</h4>
+      <h4 class="tax">{{$translate('price_with_tax', [single.price.tax])}}</h4>
       <p class="description">{{ single.description }}</p>
       <input name="category" :value="single.id" type="radio" @change="changeHandler(single.id)">
     </label>

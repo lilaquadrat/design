@@ -1,8 +1,8 @@
 <template>
   <section class="lila-agreement-partial">
-    <lila-checkbox-partial :value="value" @input="changeHandler"><slot /></lila-checkbox-partial>
+    <lila-checkbox-partial :required="required" :error="error" :value="value" @input="changeHandler"><slot /></lila-checkbox-partial>
 
-    <lila-content-container-partial :predefined="predefined" :id="contentId" overlay>Inhalte anzeigen</lila-content-container-partial>
+    <lila-content-container-partial :predefined="predefined" :id="contentId" overlay>{{$translate('show content')}}</lila-content-container-partial>
 
   </section>
 </template>
@@ -16,7 +16,7 @@ export default class agreementPartial extends ExtPartial {
 
   @Prop(Boolean) value: boolean;
 
-  @Prop(String) error: string;
+  @Prop(Boolean) error: boolean;
 
   @Prop(String) contentId: string;
 

@@ -7,7 +7,8 @@
       :disabled="disabled"
       :class="noHover"
       :value="value"
-      @keydown="update"
+      @keydown="checkInput($event)"
+      @keyup="update"
     />
     <lila-input-labels-partial :error="hasError" :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
 
@@ -43,7 +44,9 @@ export default class InputPartial extends ExtPartial {
 
   $refs!: {
     input: HTMLInputElement
-    };
+  };
+
+  whitelistedKeys = ['Escape', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'Delete', 'Tab'];
 
   get slotUsed() {
 
@@ -63,11 +66,62 @@ export default class InputPartial extends ExtPartial {
 
   }
 
-  update($event: KeyboardEvent) {
+  update($event?: KeyboardEvent) {
+
+    if (!$event) {
+
+      this.$emit('input', '');
+      return;
+
+    }
 
     const target = $event.target as HTMLInputElement;
 
     this.$emit('input', target?.value);
+
+  }
+
+  checkInput($event: KeyboardEvent) {
+
+    const input = this.$refs.input;
+
+
+    if ($event.key === 'Enter') {
+
+      this.$emit('enter');
+      $event.preventDefault();
+
+    } else {
+
+      this.$emit('keydown', $event);
+
+    }
+
+
+    if (['Backspace', 'Enter'].includes($event.key)) return;
+
+    if ($event.key === 'Escape') {
+
+      if (input.value.length > 0) {
+
+        this.clear();
+
+      } else if (input.value.length === 0) {
+
+        input.blur();
+
+      }
+
+    }
+
+  }
+
+  clear() {
+
+    const input = this.$refs.input as HTMLInputElement;
+
+    input.value = '';
+    this.update();
 
   }
 

@@ -1,6 +1,6 @@
 <template>
-    <div v-if="slotUsed || required || disabled" class="label-container" :class="{error}">
-      <span class="label">
+    <div v-if="slotUsed || required || disabled" class="label-container" :class="{error, hideLabel}">
+      <span class="label" v-if="!hideLabel">
         <slot />
       </span>
       <span class="required" v-if="required && !disabled">{{$translate('required')}}</span>
@@ -16,6 +16,8 @@ export default class InputLabelsPartial extends ExtPartial {
   @Prop(Boolean) disabled: boolean;
 
   @Prop(Boolean) required: boolean;
+
+  @Prop(Boolean) hideLabel: boolean;
 
   @Prop(Boolean) error: boolean;
 
@@ -35,6 +37,10 @@ export default class InputLabelsPartial extends ExtPartial {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+
+  &.hideLabel {
+    grid-template-columns: 1fr;
+  }
 
   .label, .required, .disabled {
     font-size: @fontTextSmaller;

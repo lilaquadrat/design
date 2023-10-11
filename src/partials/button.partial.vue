@@ -167,6 +167,10 @@ export default class buttonPartial extends ExtPartial {
 
   }
 
+  &.error {
+    background-color: @error;
+  }
+
   &.transparent {
     padding: 0;
     background-color: transparent;

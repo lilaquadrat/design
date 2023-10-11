@@ -9,7 +9,7 @@
       <lila-fieldset-partial legend="message">
 
         <label>
-          <lila-textarea-partial v-model="model.message">
+          <lila-textarea-partial :maxLength="2500" v-model="model.message">
             {{$translate('message')}}
           </lila-textarea-partial>
         </label>
@@ -19,7 +19,7 @@
       <lila-fieldset-partial extendedGap legend="category">
         <lila-textblock-partial v-bind="categoryTextblock" />
         <lila-select-category-partial v-if="list.mode !== 'contact'" v-model="model.category" :categories="categories" />
-        <lila-select-partial v-if="list.mode === 'contact'" :multiple="false" required :options="selectCategories" placeholder="select category">category</lila-select-partial>
+        <lila-select-partial v-if="list.mode === 'contact'" :multiple="false" required :options="selectCategories" placeholder="select category">{{$translate('category')}}</lila-select-partial>
       </lila-fieldset-partial>
 
       <lila-fieldset-partial legend="personal">
@@ -31,7 +31,7 @@
         </label>
         <label>
           <lila-input-partial :error="errorsObject.name" required v-model="model.name">
-          {{$translate('lastname')}}
+          {{$translate('name')}}
         </lila-input-partial>
         </label>
 
@@ -46,7 +46,7 @@
         </label>
         <label>
           <lila-input-partial v-model="model.zipcode">
-            {{$translate('zipocode')}}
+            {{$translate('zipcode')}}
           </lila-input-partial>
         </label>
         <label>
@@ -79,17 +79,15 @@
 
       <lila-fieldset-partial v-if="list" class="agreements">
 
-        <lila-agreement-partial v-for="(single, index) in agreements" :key="`agreement-${index}`" v-model="single.value" :predefined="single.predefined" :contentId="single.contentId">{{$translate(single.text)}}</lila-agreement-partial>
+        <lila-agreement-partial v-for="(single, index) in agreements" :error="single.error" :key="`agreement-${index}`" v-model="single.value" :required="single.required" :predefined="single.predefined" :contentId="single.contentId">{{$translate(single.text)}}</lila-agreement-partial>
 
       </lila-fieldset-partial>
 
-      <pre>{{ errorsObject }}</pre>
-
       <lila-action-notice-partial :state="state" :translation-pre="translationPre" :errors="errors" @update="updateErrors">
         <lila-button-partial colorScheme="colorScheme1" type="submit">
-          <template v-if="list.payment === 'required'">{{$translate('Kostenpflichtig Bestellen')}}</template>
-          <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('Kontakformular senden')}}</template>
-          <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('Reservierung senden')}}</template>
+          <template v-if="list.payment === 'required'">{{$translate('order with payment')}}</template>
+          <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('send contactform')}}</template>
+          <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('send reservation')}}</template>
         </lila-button-partial>
       </lila-action-notice-partial>
 
@@ -129,9 +127,9 @@ export default class ContactModule extends ExtComponent {
 
   errorsObject: ErrorsObject = {};
 
-  translationPre = 'contact';
+  translationPre = '';
 
-  agreements: Record<string, Agreement & { value: boolean }> = {};
+  agreements: Record<string, Agreement & { value: boolean, error: boolean }> = {};
 
   get list(): List {
 
@@ -187,7 +185,7 @@ export default class ContactModule extends ExtComponent {
 
   get showFeedback() {
 
-    return this.editor?.modes?.includes('feedback');
+    return this.state === 'success' || this.editor?.modes?.includes('feedback');
 
   }
 
@@ -200,7 +198,7 @@ export default class ContactModule extends ExtComponent {
   beforeMount() {
 
     this.model = ModelsClass.add({}, 'contact');
-    this.createAgreements();
+    this.updateAgreements();
 
 
   }
@@ -208,6 +206,7 @@ export default class ContactModule extends ExtComponent {
   updateErrors(errorsObject: any) {
 
     this.errorsObject = errorsObject;
+    this.updateAgreements();
 
   }
 
@@ -220,16 +219,30 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  createAgreements() {
+  updateAgreements() {
 
     const agreements = {};
 
-    this.list.agreements.forEach((single: Agreement) => {
+    this.list.agreements.forEach((single: Agreement & {error: boolean}) => {
 
       agreements[single.contentId] = {
         ...single,
-        value: false,
+        value: this.agreements[single.contentId]?.value || false,
       };
+
+      const values = this.errorsObject.agreements?.translatedPath?.values;
+
+
+      if (values && values[1]) {
+
+        if (values[1].includes(single.contentId)) {
+
+          agreements[single.contentId].error = true;
+
+        }
+
+      }
+
 
     });
 
@@ -318,7 +331,7 @@ export default class ContactModule extends ExtComponent {
   .multi(padding, 4);
 
   display: grid;
-  gap: 40px;
+  gap: 80px;
 
   max-width: @moduleWidth_S;
 

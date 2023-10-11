@@ -5,7 +5,7 @@
       <component v-for="single in content.top" :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="top" />
     </article>
 
-    <article class="container" :class="[content.settings.mode, {inline, sub}]" :inline="inline" v-if="!!content.content.length">
+    <article class="container" :class="[mode, {inline, sub}]" :inline="inline" v-if="!!content.content.length">
       <template v-for="single in content.content">
         <component :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="content" />
       </template>
@@ -53,6 +53,12 @@ export default class ContentModule extends ExtComponent {
 
     this.linkBase = this.routeBase;
     this.linkMode = this.linkEvents ? 'event' : 'link';
+
+  }
+
+  get mode() {
+
+    return this.content.settings.mode || 'presentation';
 
   }
 

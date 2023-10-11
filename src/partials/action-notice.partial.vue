@@ -1,8 +1,8 @@
 <template>
   <section class="action-notice-partial">
 
-    <overlay-background-partial v-if="open" @mounted="calculateOptionsStyle" @close="closeOptions">
-      <ul class="error-list" @click="toggleErrors" @keydown="toggleErrors" :style="optionsStyle">
+    <lila-overlay-background-partial background="none" v-if="open" @mounted="calculateOptionsStyle" @close="closeOptions">
+      <ul class="error-list" :style="optionsStyle">
         <li v-for="(error, index) in flattenedErrors" :key="`parsedErrors-${index}`">
           <template v-if="error.translatedPath">
             <template v-if="error.translatedPath.path !== 'main'">
@@ -15,10 +15,13 @@
           {{error.error}}
         </li>
       </ul>
-    </overlay-background-partial>
+    </lila-overlay-background-partial>
 
     <section class="buttons-container">
-      <div class="slot-container"><slot /></div><button-partial v-if="hasErrors" @click="toggleErrors" ref="trigger" type="button" variant="error" />
+      <div class="slot-container"><slot /></div>
+      <lila-button-partial v-if="hasErrors" @click="toggleErrors" colorScheme="error" icon ref="trigger" type="button">
+        <lila-icons-partial type="warning" colorScheme="white" />
+      </lila-button-partial>
     </section>
 
   </section>
@@ -162,8 +165,9 @@ export default class ActionNoticePartial extends ExtPartial {
  calculateOptionsStyle() {
 
    const vueElement = this.$refs.trigger as Vue;
-   const optionsContainer = document.querySelector('.overlay-background .error-list') as HTMLElement;
+   const optionsContainer = document.querySelector('.lila-overlay-background .error-list') as HTMLElement;
 
+   console.log(vueElement, optionsContainer);
    if (!vueElement || !optionsContainer) return;
 
    const element = vueElement.$el as HTMLElement;

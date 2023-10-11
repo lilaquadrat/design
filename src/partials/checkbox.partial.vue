@@ -1,6 +1,6 @@
 <template>
-  <section class="lila-checkbox-parent-container">
-    <label :class="[textType, { error: error, checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
+  <section class="lila-checkbox-parent-container" :class="{error}">
+    <label :class="[textType, { checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
       <div class="indicator-text">
         <span class="indicator">
           <lila-icons-partial type="checked" size="small" colorScheme="white" />
@@ -14,11 +14,7 @@
 
       </div>
 
-      <div v-if="error" class="errors">
-        <p>{{ error }}</p>
-      </div>
-
-      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" @change="changeHandler" />
+      <input type="checkbox" :name="name" :disabled="disabled" :checked="value" @change="changeHandler" />
     </label>
 
     <div v-if="text" class="indicator-text">
@@ -30,7 +26,7 @@
 
 
     </div>
-    <lila-input-labels-partial :required="required" :disabled="disabled" />
+    <lila-input-labels-partial hideLabel :error="error" :required="required" :disabled="disabled" />
   </section>
 </template>
 <script lang="ts">
@@ -43,7 +39,7 @@ export default class checkboxPartial extends ExtPartial {
 
   @Prop(Boolean) value: boolean;
 
-  @Prop(String) error: string;
+  @Prop(Boolean) error: boolean;
 
   @Prop(Boolean) required: boolean;
 
@@ -104,7 +100,8 @@ export default class checkboxPartial extends ExtPartial {
 
 .lila-checkbox-parent-container {
   display: grid;
-  gap: 10px;
+  gap: 0 40px;
+  grid-template-columns: 1fr max-content;
 
   .indicator-text {
     display: grid;

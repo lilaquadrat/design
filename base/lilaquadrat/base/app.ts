@@ -31,10 +31,13 @@ import { editorRoutes, routes } from 'src/routes';
 import Components from '@libs/Components';
 import PortalVue from 'portal-vue';
 
+import DE from './translations/de';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const modules = require('./modules');
 
 translation.select('de');
+translation.add(DE, 'de');
 
 // eslint-disable-next-line prefer-destructuring
 const currentScript: any = document.currentScript;

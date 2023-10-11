@@ -1,7 +1,7 @@
 <template>
     <fieldset class="lila-fieldset" :class="{extendedGap}">
         <legend v-if="legend">
-            <span class="text">{{ legend }}</span>
+            <span class="text">{{$translate(legend)}}</span>
             <hr />
         </legend>
         <slot />
@@ -9,9 +9,8 @@
   </template>
 
 <script lang="ts">
-import Link from '@interfaces/link.interface';
 import {
-  Component, ExtPartial, Prop, Watch,
+  Component, ExtPartial, Prop,
 } from '../libs/lila-partial';
 
 
