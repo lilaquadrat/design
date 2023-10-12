@@ -3,7 +3,12 @@
 
     <lila-textblock-partial v-bind="textblock" />
 
+    <section v-if="showFeedback" sub :content="feedbackContent">
+      <lila-button-partial @click="resetForm" colorScheme="colorScheme1">{{ $translate('back to the form') }}</lila-button-partial>
+    </section>
+
     <lila-content-module v-if="showFeedback" sub :content="feedbackContent" />
+
 
     <form @submit="handleForm" v-if="!showFeedback">
       <lila-fieldset-partial legend="message">
@@ -18,7 +23,7 @@
 
       <lila-fieldset-partial extendedGap legend="category">
         <lila-textblock-partial v-bind="categoryTextblock" />
-        <lila-select-category-partial v-if="list.mode !== 'contact'" v-model="model.category" :categories="categories" />
+        <lila-select-category-partial v-if="list.mode !== 'contact'" v-model="model.category" :variant="variant" :categories="categories" />
         <lila-select-partial v-if="list.mode === 'contact'" :multiple="false" required :options="selectCategories" placeholder="select category">{{$translate('category')}}</lila-select-partial>
       </lila-fieldset-partial>
 
@@ -107,6 +112,7 @@ import Contact from '@models/Contact.model';
 import ModelsClass from '@libs/Models.class';
 import StudioSDK from '@libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
+import { ErrorsObject } from '@libs/ActionNotice';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -163,6 +169,7 @@ export default class ContactModule extends ExtComponent {
         value: single.id,
         text: single.name,
         description: single.description,
+        disabled: !single.available,
       }));
 
     }
@@ -203,7 +210,13 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  updateErrors(errorsObject: any) {
+  resetForm() {
+
+    this.state = '';
+
+  }
+
+  updateErrors(errorsObject: ErrorsObject) {
 
     this.errorsObject = errorsObject;
     this.updateAgreements();
@@ -255,7 +268,6 @@ export default class ContactModule extends ExtComponent {
     event.preventDefault();
     this.state = '';
 
-    let error = false;
     const customer = ModelsClass.save(this.model, 'contact');
     const agreements = [];
 
@@ -271,23 +283,11 @@ export default class ContactModule extends ExtComponent {
 
     this.list.agreements.forEach((single: Agreement) => {
 
-      console.log('try', single.contentId);
-
-      if (single.required && !this.agreements[single.contentId].value) {
-
-        error = true;
-
-      }
-
       if (this.agreements[single.contentId].value) {
-
-        console.log('add', single.contentId);
-
 
         agreements.push({ id: single.contentId, version: 0 });
 
       }
-
 
     });
 
@@ -303,21 +303,19 @@ export default class ContactModule extends ExtComponent {
 
     try {
 
-      await sdk.public.lists.join(this.list._id, customer, message, category, agreements);
+      await sdk.public.lists.join(this.list._id.toString(), customer, message, category, agreements);
       this.state = 'success';
 
     } catch (e) {
 
       console.error(e);
-      console.log(e.response.data);
+      console.log(e.response?.data);
 
-      this.errors = e.response.data;
+      this.errors = e.response?.data;
       this.state = 'error';
 
     }
 
-
-    console.log('form handle', error, customer);
 
   }
 

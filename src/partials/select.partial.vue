@@ -12,7 +12,7 @@
       <section ref="options" class="options-container content-container" :style="optionsStyle">
         
         <section class="select-options">
-          <button class="single-option-button" type="button" v-for="(option, index) in filteredOptions" :title="$translate(option.text)" :key="`option-index-${index}`" :value="option.value" :class="[{ selected: isSelected(option.value),hasDescription: option.description }, option.class]" @click="toggle(option)">
+          <button class="single-option-button" type="button" v-for="(option, index) in filteredOptions" :title="$translate(option.text)" :key="`option-index-${index}`" :value="option.value" :class="[{ selected: isSelected(option.value), hasDescription: option.description, disabled: option.disabled }, option.class]" @click="toggle(option)">
             <span v-if="!isSelected(option.value)" class="box"></span>
             <lila-icons-partial v-if="isSelected(option.value)" type="checked" size="small" />
             <span v-if="option.text" class="text">{{$translate(option.text)}}</span>
@@ -524,6 +524,8 @@ export default class selectPartial extends ExtPartial {
 
       white-space: normal;
 
+      cursor: pointer;
+
       .multi(padding, 3, 0);
 
       &:last-child {
@@ -532,6 +534,16 @@ export default class selectPartial extends ExtPartial {
 
       &:hover {
         color: @color1;
+      }
+
+      &.disabled {
+        pointer-events: none;
+        background-color: @grey1;
+        color: @grey;
+
+        .box {
+          background-color: @grey1;
+        }
       }
 
       .box {

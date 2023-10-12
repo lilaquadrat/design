@@ -30,4 +30,6 @@ export default {
   'send contactform': 'Kontaktformular senden',
   'send reservation': 'Reservierung senden',
   'order with payment': 'Zahlungspflichtig bestellen',
+  'back to the form': 'Zurück zum Formular',
+  'not available': 'nicht verfügbar',
 };

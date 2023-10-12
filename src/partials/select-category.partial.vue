@@ -1,14 +1,18 @@
 <template>
   <section class="lila-select-category-partial">
 
-    <label class="single-category" :class="{'not-selected': single.id !== value}" v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">
+    <label class="single-category" :class="[variant, {'not-selected': single.id !== value, disabled: !single.available, free: !single.price.amount}]" v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">
       <div class="indicator">
         <span class="active"></span>
       </div>
       <h1>{{ single.name }}</h1>
-      <h3>{{ single.price.amount }} {{ single.price.currency }}</h3>
-      <h4 class="tax">{{$translate('price_with_tax', [single.price.tax])}}</h4>
+      <h3>
+        <template v-if="single.price.amount">{{ single.price.amount }} {{ single.price.currency }}</template>
+        <template v-if="!single.price.amount">{{ $translate('no charge') }}</template>
+      </h3>
+      <h4 v-if="single.price.amount" class="tax">{{$translate('price_with_tax', [single.price.tax])}}</h4>
       <p class="description">{{ single.description }}</p>
+      <p v-if="!single.available" class="notAvailable">{{$translate('not available')}}</p>
       <input name="category" :value="single.id" type="radio" @change="changeHandler(single.id)">
     </label>
 
@@ -19,7 +23,7 @@ import { ListCategory } from '@lilaquadrat/studio/lib/interfaces';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
-export default class agreementPartial extends ExtPartial {
+export default class selectCategoryPartial extends ExtPartial {
 
   @Prop(String) value: string;
 
@@ -29,7 +33,6 @@ export default class agreementPartial extends ExtPartial {
 
   changeHandler(selected: string): void {
 
-    console.log(selected);
     this.$emit('input', selected);
 
   }
@@ -57,11 +60,38 @@ export default class agreementPartial extends ExtPartial {
       display: none;
     }
 
+    &.hide-free-notice.free {
+      h3 {
+        display: none;
+      }
+    }
+
+    &.disabled.not-selected {
+
+      pointer-events: none;
+
+      h1, h3, .description {
+        color: @grey;
+      }
+
+      .indicator {
+        border-color: @grey;
+      }
+
+      &:hover {
+
+        h1, h3 {
+          color: @grey;
+        }
+      }
+
+    }
+
     .indicator {
       display: grid;
       align-content: center;
-      justify-content: center;
       align-self: center;
+      justify-content: center;
       width: 18px;
       height: 18px;
       border: solid 1px @color1;
@@ -79,6 +109,12 @@ export default class agreementPartial extends ExtPartial {
       .font-head;
       color: @color1;
       .trans(color);
+    }
+
+    .notAvailable {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      text-transform: uppercase;
     }
 
     .description {
@@ -109,15 +145,17 @@ export default class agreementPartial extends ExtPartial {
     &.not-selected {
 
       h1, h3, h4 {
-        color: @grey;
+        color: @color1;
       }
 
       &:hover {
 
-        h1, h3 {
-          color: @color1;
-        }
+        .indicator {
 
+          .active {
+            display: grid;
+          }
+        }
       }
 
       .indicator {
