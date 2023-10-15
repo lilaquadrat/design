@@ -8,11 +8,12 @@
       </div>
     </span>
 
-    <lila-input-labels-partial :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
+    <lila-input-labels-partial :required="required" :error="error" :disabled="disabled"><slot/></lila-input-labels-partial>
 
   </label>
 </template>
 <script lang="ts">
+import { ParsedError } from '@libs/ActionNotice';
 import { Component, ExtPartial, Prop } from '../libs/lila-partial';
 
 @Component
@@ -25,6 +26,8 @@ export default class TextareaPartial extends ExtPartial {
   @Prop(String) placeholder: string;
 
   @Prop(Boolean) required: boolean;
+
+  @Prop(Object) error: ParsedError;
 
   @Prop(Number) maxLength: number;
 
@@ -101,7 +104,7 @@ export default class TextareaPartial extends ExtPartial {
 .lila-textarea {
 
   display: grid;
-  gap: 5px;
+  gap: 10px;
 
   .textarea-placement-container {
 

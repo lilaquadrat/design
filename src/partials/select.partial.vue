@@ -38,6 +38,7 @@ import hardCopy from '@mixins/hardCopy';
 import Translation from '@mixins/translation';
 import SelectOption from '../interfaces/selectOption.interface';
 import { ExtPartial } from '@libs/lila-partial';
+import { ParsedError } from '@libs/ActionNotice';
 
 @Component
 export default class selectPartial extends ExtPartial {
@@ -49,7 +50,7 @@ export default class selectPartial extends ExtPartial {
 
   @Prop([Array, String, Number]) value: [] | string | number;
 
-  @Prop(Object) error: InputError;
+  @Prop(Object) error: ParsedError;
 
   @Prop(Boolean) required: boolean;
 

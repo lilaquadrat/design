@@ -1,25 +1,29 @@
 <template>
   <section class="lila-select-category-partial">
 
-    <label class="single-category" :class="[variant, {'not-selected': single.id !== value, disabled: !single.available, free: !single.price.amount}]" v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">
+    <label class="single-category" :class="[variant, {'not-selected': single.id !== value, disabled: single.disabled, free: !single.price.amount, limited: single.amount}]" v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">
       <div class="indicator">
         <span class="active"></span>
       </div>
       <h1>{{ single.name }}</h1>
+      <h4 v-if="single.amount" class="available">{{ $translate('LIST_CATEGORY_LIMITED_AVAILABILITY', [single.amount]) }}</h4>
       <h3>
-        <template v-if="single.price.amount">{{ single.price.amount }} {{ single.price.currency }}</template>
+        <template v-if="single.price.amount">{{ single.price.amount }} {{ $translate(single.price.currency) }}</template>
         <template v-if="!single.price.amount">{{ $translate('no charge') }}</template>
       </h3>
       <h4 v-if="single.price.amount" class="tax">{{$translate('price_with_tax', [single.price.tax])}}</h4>
       <p class="description">{{ single.description }}</p>
-      <p v-if="!single.available" class="notAvailable">{{$translate('not available')}}</p>
+      <p v-if="single.disabled" class="notAvailable">{{$translate('not available')}}</p>
       <input name="category" :value="single.id" type="radio" @change="changeHandler(single.id)">
     </label>
+
+    <lila-input-labels-partial :error="hasError" :required="required"><slot/></lila-input-labels-partial>
 
   </section>
 </template>
 <script lang="ts">
 import { ListCategory } from '@lilaquadrat/studio/lib/interfaces';
+import { ParsedError } from '@libs/ActionNotice';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
@@ -29,6 +33,10 @@ export default class selectCategoryPartial extends ExtPartial {
 
   @Prop(Array) categories: ListCategory[];
 
+  @Prop(Boolean) required: boolean;
+
+  @Prop(Object) error: ParsedError;
+
   textType: string = 'word';
 
   changeHandler(selected: string): void {
@@ -36,6 +44,13 @@ export default class selectCategoryPartial extends ExtPartial {
     this.$emit('input', selected);
 
   }
+
+  get hasError() {
+
+    return !!this.error?.error;
+
+  }
+
 
 }
 </script>
@@ -61,9 +76,27 @@ export default class selectCategoryPartial extends ExtPartial {
     }
 
     &.hide-free-notice.free {
+
       h3 {
         display: none;
       }
+    }
+
+    &.limited {
+      grid-template-rows: max-content max-content max-content max-content;
+
+      .available {
+        grid-row-start: 2;
+        grid-column-start: 2;
+        text-align: left;
+        .font-bold;
+        font-size: @fontText;
+      }
+
+      p {
+        grid-row-start: 3;
+      }
+
     }
 
     &.disabled.not-selected {

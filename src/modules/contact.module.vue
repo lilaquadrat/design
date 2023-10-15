@@ -1,7 +1,11 @@
 <template>
-  <section class="lila-contact-module">
+  <section class="lila-contact-module lila-module">
 
-    <lila-textblock-partial v-bind="textblock" />
+    <section class="intro-container">
+      <lila-textblock-partial v-bind="textblock" />
+      <h3 class="limited" v-if="limited">{{ $translate('LIST_LIMITED_AVAILABILITY', [limited]) }}</h3>
+    </section>
+
 
     <section v-if="showFeedback" sub :content="feedbackContent">
       <lila-button-partial @click="resetForm" colorScheme="colorScheme1">{{ $translate('back to the form') }}</lila-button-partial>
@@ -9,22 +13,19 @@
 
     <lila-content-module v-if="showFeedback" sub :content="feedbackContent" />
 
-
     <form @submit="handleForm" v-if="!showFeedback">
       <lila-fieldset-partial legend="message">
 
         <label>
-          <lila-textarea-partial :maxLength="2500" v-model="model.message">
-            {{$translate('message')}}
-          </lila-textarea-partial>
+          <lila-textarea-partial :required="list.mode === 'contact'" :error="errorsObject.message" :maxLength="2500" v-model="model.message">{{$translate('message')}}</lila-textarea-partial>
         </label>
 
       </lila-fieldset-partial>
 
-      <lila-fieldset-partial extendedGap legend="category">
+      <lila-fieldset-partial v-if="categories" extendedGap legend="category">
         <lila-textblock-partial v-bind="categoryTextblock" />
-        <lila-select-category-partial v-if="list.mode !== 'contact'" v-model="model.category" :variant="variant" :categories="categories" />
-        <lila-select-partial v-if="list.mode === 'contact'" :multiple="false" required :options="selectCategories" placeholder="select category">{{$translate('category')}}</lila-select-partial>
+        <lila-select-category-partial v-if="list.mode !== 'contact'" v-model="model.category" required :error="errorsObject.category" :variant="variant" :categories="categories" />
+        <lila-select-partial v-if="list.mode === 'contact'" :multiple="false" :error="errorsObject.category" required :options="selectCategories" placeholder="select category">{{$translate('category')}}</lila-select-partial>
       </lila-fieldset-partial>
 
       <lila-fieldset-partial legend="personal">
@@ -86,6 +87,10 @@
 
         <lila-agreement-partial v-for="(single, index) in agreements" :error="single.error" :key="`agreement-${index}`" v-model="single.value" :required="single.required" :predefined="single.predefined" :contentId="single.contentId">{{$translate(single.text)}}</lila-agreement-partial>
 
+      </lila-fieldset-partial>
+
+      <lila-fieldset-partial>
+        <lila-description-partial v-if="mainErrors" type="error">{{$translate(mainErrors)}}</lila-description-partial>
       </lila-fieldset-partial>
 
       <lila-action-notice-partial :state="state" :translation-pre="translationPre" :errors="errors" @update="updateErrors">
@@ -169,7 +174,7 @@ export default class ContactModule extends ExtComponent {
         value: single.id,
         text: single.name,
         description: single.description,
-        disabled: !single.available,
+        disabled: single.disabled,
       }));
 
     }
@@ -202,6 +207,24 @@ export default class ContactModule extends ExtComponent {
 
   }
 
+  get limited() {
+
+    return this.list.participants?.max || null;
+
+  }
+
+  get mainErrors() {
+
+    if (['LIST_CANNOT_JOIN', 'LIST_UNIQUE_CUSTOMER_CONFIRMED', 'LIST_NOT_FOUND', 'LIST_NO_SPOT_AVAILABLE'].includes(this.errors?.message)) {
+
+      return `${this.errors.message}_${this.list.mode}`;
+
+    }
+
+    return null;
+
+  }
+
   beforeMount() {
 
     this.model = ModelsClass.add({}, 'contact');
@@ -213,6 +236,9 @@ export default class ContactModule extends ExtComponent {
   resetForm() {
 
     this.state = '';
+    this.model = ModelsClass.add({}, 'contact');
+    this.errors = null;
+    this.errorsObject = {};
 
   }
 
@@ -270,6 +296,7 @@ export default class ContactModule extends ExtComponent {
 
     const customer = ModelsClass.save(this.model, 'contact');
     const agreements = [];
+    let category: string;
 
     customer.type = 'person';
 
@@ -277,7 +304,7 @@ export default class ContactModule extends ExtComponent {
 
     delete customer.message;
 
-    const category = customer.category;
+    category = customer.category;
 
     delete customer.category;
 
@@ -290,6 +317,12 @@ export default class ContactModule extends ExtComponent {
       }
 
     });
+
+    if (this.list.categories.length === 1 && !category) {
+
+      category = this.list.categories[0].id;
+
+    }
 
     const sdk = new StudioSDK(
       'design',
@@ -332,6 +365,11 @@ export default class ContactModule extends ExtComponent {
   gap: 80px;
 
   max-width: @moduleWidth_S;
+
+  .intro-container {
+    display: grid;
+    gap: 20px;
+  }
 
   .agreements {
     display: grid;
