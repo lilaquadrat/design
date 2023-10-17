@@ -26,6 +26,13 @@ abstract class ExtPartial extends vue {
 
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  $translateDiff(textToTranslate: string, value: number) {
+
+    return translate.translateWithDiff(textToTranslate, value);
+
+  }
+
 }
 
 export {

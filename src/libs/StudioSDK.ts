@@ -59,12 +59,12 @@ export default class StudioSDK {
 
   readonly endpoints = {
     live: {
-      api: 'http://api.lilaquadrat.de',
-      media: 'http://media.lilaquadrat.de',
+      api: 'https://api.lilaquadrat.de',
+      media: 'https://media.lilaquadrat.de',
     },
     next: {
-      api: 'http://next-api.lilaquadrat.de',
-      media: 'http://next-media.lilaquadrat.de',
+      api: 'https://next-api.lilaquadrat.de',
+      media: 'https://next-media.lilaquadrat.de',
     },
   };
 
@@ -120,6 +120,8 @@ export default class StudioSDK {
     const method = methodArray.filter((single) => single);
     const urlArray = [];
     let useEndpoint: string;
+
+    console.log(124, this.mode);
 
     if (this.mode === 'custom') {
 
@@ -404,7 +406,7 @@ export default class StudioSDK {
       join: (listId: string, person: Contact, message: string, category: string, agreements: any) => StudioSDK.handleCall<Customers>(
         {
           method: 'POST',
-          url: this.getUrl('api', ['public', 'lists', this.company, this.project, listId, 'join']),
+          url: this.getUrl('api', ['public', 'lists', 'participants', this.company, this.project, listId, 'join']),
           headers: this.getHeaders(),
           data: {
             person,
@@ -412,6 +414,13 @@ export default class StudioSDK {
             message,
             category,
           },
+        },
+      ),
+      state: (listId: string) => StudioSDK.handleCall<any>(
+        {
+          method: 'get',
+          url: this.getUrl('api', ['public', 'lists', this.company, this.project, listId, 'state']),
+          headers: this.getHeaders(),
         },
       ),
     },
@@ -455,25 +464,6 @@ export default class StudioSDK {
       {
         group: 'editor',
         action: 'settings',
-      },
-    ),
-
-    list1: (site: number = 0, active?: boolean, search?: string, tags?: string[], sort?: string, order?: number) => StudioSDK.handleCall<Editor>(
-      {
-        method: 'GET',
-        url: this.getUrl('api', ['editor', this.company, this.project, 'list', site]),
-        headers: this.getHeaders(),
-        params: {
-          active,
-          search,
-          tags,
-          sort,
-          order,
-        },
-      },
-      {
-        group: 'editor',
-        action: 'list',
       },
     ),
 

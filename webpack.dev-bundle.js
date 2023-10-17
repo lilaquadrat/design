@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
 
   return merge(baseConfig, {
     // Point entry to your app's server entry file
-    entry: './src/app-server/server-entry.ts',
+    entry: `./${useEnv.path}/${useEnv.company}/${useEnv.project}/server/server-entry.ts`,
     mode: 'development',
   
     // This allows webpack to handle dynamic imports in a Node-appropriate

@@ -3,7 +3,12 @@
 
     <section class="intro-container">
       <lila-textblock-partial v-bind="textblock" />
-      <h3 class="limited" v-if="limited">{{ $translate('LIST_LIMITED_AVAILABILITY', [limited]) }}</h3>
+
+      <lila-description-partial v-if="disabled" type="error">{{$translate('LIST_SOLD_OUT')}}</lila-description-partial>
+      <h3 class="limited" v-if="limited && !disabled && !hideFreeSlots">
+        <template v-if="!participantsState && !disabled">{{ $translateDiff('LIST_LIMITED_AVAILABILITY', limited) }}</template>
+        <template v-if="participantsState && !disabled">{{ $translate('LIST_LIMITED_AVAILABILITY_STATE', [slotsAvailable, limited]) }}</template>
+      </h3>
     </section>
 
 
@@ -90,11 +95,12 @@
       </lila-fieldset-partial>
 
       <lila-fieldset-partial>
+        <lila-description-partial v-if="disabled" type="error">{{$translate('LIST_SOLD_OUT')}}</lila-description-partial>
         <lila-description-partial v-if="mainErrors" type="error">{{$translate(mainErrors)}}</lila-description-partial>
       </lila-fieldset-partial>
 
       <lila-action-notice-partial :state="state" :translation-pre="translationPre" :errors="errors" @update="updateErrors">
-        <lila-button-partial colorScheme="colorScheme1" type="submit">
+        <lila-button-partial :disabled="disabled" colorScheme="colorScheme1" type="submit">
           <template v-if="list.payment === 'required'">{{$translate('order with payment')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('send contactform')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('send reservation')}}</template>
@@ -110,7 +116,7 @@
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
 import {
-  Agreement, GenericData, List,
+  Agreement, GenericData, List, ListPartiticpantsDetails,
 } from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
 import Contact from '@models/Contact.model';
@@ -118,6 +124,7 @@ import ModelsClass from '@libs/Models.class';
 import StudioSDK from '@libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { ErrorsObject } from '@libs/ActionNotice';
+import ListCategoryExtended from '@interfaces/ListCategoryExtended.interface';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -140,6 +147,8 @@ export default class ContactModule extends ExtComponent {
 
   translationPre = '';
 
+  participantsState: ListPartiticpantsDetails = null;
+
   agreements: Record<string, Agreement & { value: boolean, error: boolean }> = {};
 
   get list(): List {
@@ -154,11 +163,32 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  get categories() {
+  get categories(): ListCategoryExtended[] {
 
     if (this.list.categories.length > 1) {
 
-      return this.list.categories;
+      const categories = this.list.categories as ListCategoryExtended[];
+
+      if (this.participantsState) {
+
+        categories.forEach((single: ListCategoryExtended) => {
+
+          const stateCategory = this.participantsState?.categories?.find((singleState) => singleState.category === single.id);
+
+          if (stateCategory) {
+
+            single.used = stateCategory.used;
+            single.available = single.amount - single.used;
+            single.percentUsed = (single.used / single.amount) * 100;
+            single.percentAvailable = 100 - (single.used / single.amount) * 100;
+
+          }
+
+        });
+
+      }
+
+      return categories;
 
     }
 
@@ -213,11 +243,29 @@ export default class ContactModule extends ExtComponent {
 
   }
 
+  get disabled() {
+
+    if (this.participantsState && this.list.participants?.max) {
+
+      return this.participantsState.used >= this.list.participants?.max;
+
+    }
+
+    return false;
+
+  }
+
+  get hideFreeSlots() {
+
+    return this.variant.includes('hide-free-slots');
+
+  }
+
   get mainErrors() {
 
     if (['LIST_CANNOT_JOIN', 'LIST_UNIQUE_CUSTOMER_CONFIRMED', 'LIST_NOT_FOUND', 'LIST_NO_SPOT_AVAILABLE'].includes(this.errors?.message)) {
 
-      return `${this.errors.message}_${this.list.mode}`;
+      return `${this.errors?.message}_${this.list.mode}`;
 
     }
 
@@ -225,10 +273,17 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  beforeMount() {
+  get slotsAvailable() {
+
+    return this.list.participants.max - this.participantsState.used;
+
+  }
+
+  created() {
 
     this.model = ModelsClass.add({}, 'contact');
     this.updateAgreements();
+    this.getparticipantsState();
 
 
   }
@@ -289,6 +344,30 @@ export default class ContactModule extends ExtComponent {
 
   }
 
+  async getparticipantsState() {
+
+    const sdk = new StudioSDK('design', this.$store.state.api);
+
+    try {
+
+      const participantsState = await sdk.public.lists.state(this.list._id.toString());
+
+      if (participantsState.data) {
+
+        this.participantsState = participantsState.data;
+
+      }
+
+    } catch (e) {
+
+      console.error(e);
+      console.log(e.response?.data);
+
+    }
+
+
+  }
+
   async handleForm(event: Event) {
 
     event.preventDefault();
@@ -324,15 +403,7 @@ export default class ContactModule extends ExtComponent {
 
     }
 
-    const sdk = new StudioSDK(
-      'design',
-      {
-        customEndpoints: { api: 'http://localhost:9090', media: '' },
-        company: 'lilaquadrat',
-        project: 'homepage',
-      },
-    );
-
+    const sdk = new StudioSDK('design', this.$store.state.api);
 
     try {
 
@@ -348,7 +419,6 @@ export default class ContactModule extends ExtComponent {
       this.state = 'error';
 
     }
-
 
   }
 

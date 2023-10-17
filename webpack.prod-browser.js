@@ -32,7 +32,8 @@ module.exports = (env, argv) => {
       new webpack.DefinePlugin({
         'process.env.LOGLEVEL': JSON.stringify(process.env.LOGLEVEL),
         'process.env.company': JSON.stringify(useEnv.company),
-        'process.env.project': JSON.stringify(useEnv.project)
+        'process.env.project': JSON.stringify(useEnv.project),
+        'process.env.apiMode': JSON.stringify('live'),
       }),
       new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.css$/g,

@@ -1,19 +1,24 @@
 <template>
   <section class="lila-select-category-partial">
 
-    <label class="single-category" :class="[variant, {'not-selected': single.id !== value, disabled: single.disabled, free: !single.price.amount, limited: single.amount}]" v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">
+    <label class="single-category" :class="[variant, {'not-selected': single.id !== value, disabled: single.disabled || single.percentAvailable === 0, free: !single.price.amount, limited: single.amount}, hideFreeSlots]" v-for="(single, index) in categories" :key="`select-${index}`" :value="single.id">
       <div class="indicator">
         <span class="active"></span>
       </div>
       <h1>{{ single.name }}</h1>
-      <h4 v-if="single.amount" class="available">{{ $translate('LIST_CATEGORY_LIMITED_AVAILABILITY', [single.amount]) }}</h4>
+      <h4 v-if="(single.amount && !hideFreeSlots) || (single.disabled || single.percentAvailable === 0)" class="available">
+        <span v-if="single.amount && !hideFreeSlots">{{ $translateDiff('LIST_CATEGORY_LIMITED_AVAILABILITY', single.amount) }}</span>
+        <span v-if="single.disabled" class="highlight notAvailable">{{$translate('not available')}}</span>
+        <span class="highlight sold-out" v-if="single.percentAvailable === 0">{{$translate('LIST_CATEGORY_SOLD_OUT')}}</span>
+        <span class="highlight" v-if="highlight && single.percentAvailable > 0 && single.percentAvailable <= 20 && usePercent && !hideFreeSlots">{{$translate('LIST_CATEGORY_LAST_CHANCE_PERCENT', [single.percentUsed])}}</span>
+        <span class="highlight" v-if="highlight && single.percentAvailable > 0 && single.percentAvailable <= 20 && !usePercent && !hideFreeSlots">{{$translateDiff('LIST_CATEGORY_LAST_CHANCE', single.available)}}</span>
+      </h4>
       <h3>
         <template v-if="single.price.amount">{{ single.price.amount }} {{ $translate(single.price.currency) }}</template>
         <template v-if="!single.price.amount">{{ $translate('no charge') }}</template>
       </h3>
       <h4 v-if="single.price.amount" class="tax">{{$translate('price_with_tax', [single.price.tax])}}</h4>
       <p class="description">{{ single.description }}</p>
-      <p v-if="single.disabled" class="notAvailable">{{$translate('not available')}}</p>
       <input name="category" :value="single.id" type="radio" @change="changeHandler(single.id)">
     </label>
 
@@ -22,8 +27,8 @@
   </section>
 </template>
 <script lang="ts">
-import { ListCategory } from '@lilaquadrat/studio/lib/interfaces';
 import { ParsedError } from '@libs/ActionNotice';
+import ListCategoryExtended from '@interfaces/ListCategoryExtended.interface';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
@@ -31,7 +36,7 @@ export default class selectCategoryPartial extends ExtPartial {
 
   @Prop(String) value: string;
 
-  @Prop(Array) categories: ListCategory[];
+  @Prop(Array) categories: ListCategoryExtended[];
 
   @Prop(Boolean) required: boolean;
 
@@ -48,6 +53,24 @@ export default class selectCategoryPartial extends ExtPartial {
   get hasError() {
 
     return !!this.error?.error;
+
+  }
+
+  get highlight() {
+
+    return this.variant.includes('categoriesHighlight');
+
+  }
+
+  get usePercent() {
+
+    return this.variant.includes('categoriesPercent');
+
+  }
+
+  get hideFreeSlots() {
+
+    return this.variant.includes('hide-free-slots');
 
   }
 
@@ -82,15 +105,15 @@ export default class selectCategoryPartial extends ExtPartial {
       }
     }
 
-    &.limited {
+    &.limited, &.disabled {
       grid-template-rows: max-content max-content max-content max-content;
 
       .available {
         grid-row-start: 2;
         grid-column-start: 2;
+        font-size: @fontText;
         text-align: left;
         .font-bold;
-        font-size: @fontText;
       }
 
       p {
@@ -99,11 +122,21 @@ export default class selectCategoryPartial extends ExtPartial {
 
     }
 
+    &.limited {
+
+      &.hide-free-slots:not(.disabled) {
+
+        p {
+          grid-row-start: 2;
+        }
+      }
+    }
+
     &.disabled.not-selected {
 
       pointer-events: none;
 
-      h1, h3, .description {
+      h1, h3, .description, h4 {
         color: @grey;
       }
 
@@ -118,6 +151,21 @@ export default class selectCategoryPartial extends ExtPartial {
         }
       }
 
+    }
+
+    .highlight {
+      margin-top: 30px;
+      padding: 0 3px;
+      background-color: @error;
+      color: @white;
+      font-size: @fontTextSmaller;
+
+      &.sold-out, &.notAvailable {
+        background-color: @grey;
+      }
+
+      &.notAvailable {
+      }
     }
 
     .indicator {

@@ -51,6 +51,13 @@ abstract class ExtComponent extends vue {
 
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  $translateDiff(textToTranslate: string, value: number) {
+
+    return translate.translateWithDiff(textToTranslate, value);
+
+  }
+
   // /**
   //  * add a eventlistener to this element
   //  * calls the [[Inview.check]] function

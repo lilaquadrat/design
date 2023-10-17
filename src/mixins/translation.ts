@@ -74,6 +74,24 @@ class Translation {
 
   }
 
+  translateWithDiff(textToTranslate: string, value: number) {
+
+    const translation = this.translations[this.current];
+    const type = value === 1
+      ? 'SINGULAR'
+      : 'PLURAL';
+    const useKey = `${textToTranslate}_${type}`;
+
+    if (!translation) return useKey;
+
+    const returnValue = translation[useKey]
+      ? translation[useKey]
+      : useKey;
+
+    return returnValue.replace(/%s/, value);
+
+  }
+
   isset(key: string) {
 
     const translation = this.translations[this.current];
@@ -133,5 +151,6 @@ class Translation {
 const translate = new Translation();
 
 vue.filter('translate', (value: string, values?: string[]) => translate.translate(value, null, null, values));
+vue.filter('translatePlural', (textToTranslate: string, value: number) => translate.translateWithDiff(textToTranslate, value));
 
 export default translate;

@@ -29,8 +29,7 @@ import '../../base/lilaquadrat/base/source/less/base.less';
 
 translation.select('de');
 
-// eslint-disable-next-line prefer-destructuring
-const currentScript: any = document.currentScript;
+const currentScript = document.currentScript as HTMLScriptElement;
 
 if (currentScript) {
 
@@ -42,6 +41,7 @@ if (currentScript) {
 
 }
 
+const ISLOCAL = window.location.toString().match(/(:9001|:9000)/i);
 const ENVIRONMENT = window.location.toString().match(/(editor|dist|:9001|:9000)(\/(index\.html))?/i) ? 'editor' : 'live';
 const usedRoutes = ENVIRONMENT === 'editor' ? editorRoutes : routes;
 
@@ -54,9 +54,9 @@ Vue.use(VueRouter);
 Vue.use(PortalVue);
 
 /** APP Object for vuejs initialization */
-const appObject: any = {
+const appObject = {
 
-  render: (h: any) => h(APPComponent),
+  render: (h: (any)) => h(APPComponent),
 
   created: () => {
 
@@ -79,6 +79,15 @@ window.addEventListener('media', () => {
 });
 
 store.commit('setMedia', Resize.media);
+
+if (!ISLOCAL) {
+
+  store.commit('setApi', { url: process.env.apiUrl });
+  console.log(83, { url: process.env.apiUrl });
+
+}
+
+
 /**
  * let webpack preload modules and partials
 */
