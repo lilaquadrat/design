@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { Call, Response } from 'src/libs/lila-call';
 import MainStoreState from './mainStoreState.interface';
+import { CallsStore } from './calls.store';
 
 Vue.use(Vuex);
 
@@ -41,7 +42,9 @@ export default new Vuex.Store({
 
 
   state,
-  modules: {},
+  modules: {
+    Calls: CallsStore,
+  },
   mutations: {
 
     init(mainstate) {

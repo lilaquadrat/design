@@ -5,7 +5,7 @@
     <component :is="overlay ? 'portal' : 'section'" to="overlay">
       <transition>
         <section class="content-container" ref="container" v-if="visible || !overlay" :class="{ overlay: overlay, visible: visible }">
-          
+
           <button v-if="overlay" class="closeOutside" type="button" @keyup="close" @click="close" />
 
           <section class="content-position-container">
@@ -92,7 +92,7 @@ export default class contentContainerPartial extends ExtPartial {
 
   get contentOrError() {
 
-    return  (this.loading > 100 || this.content) || this.error;
+    return (this.loading > 100 || this.content) || this.error;
 
   }
 
@@ -109,21 +109,14 @@ export default class contentContainerPartial extends ExtPartial {
   async getContent() {
 
     console.log('GET CONTENT', this.id);
-    if(this.loading) return false;
+    if (this.loading) return false;
 
     this.error = null;
     this.content = null;
     this.loading = 100;
 
     let data: SDKResponse<Editor> = null;
-    const sdk = new StudioSDK(
-      'design',
-      {
-        customEndpoints: { api: 'http://localhost:9090', media: '' },
-        company: 'lilaquadrat',
-        project: 'homepage',
-      },
-    );
+    const sdk = new StudioSDK('design', this.$store.state.api);
 
     console.log(129, this.predefined, this.latest, this.category);
 
@@ -158,6 +151,8 @@ export default class contentContainerPartial extends ExtPartial {
 
     if (data) this.content = prepareContent(data.data);
     this.loading = 200;
+
+    return true;
 
 
   }

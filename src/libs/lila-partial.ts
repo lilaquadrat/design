@@ -33,6 +33,35 @@ abstract class ExtPartial extends vue {
 
   }
 
+  async $traceable<T>(promise: Promise<T>, time = 3000) {
+
+    const id = await this.$store.dispatch('Calls/add', promise);
+    const minimum = new Promise<void>((resolve) => {
+
+      setTimeout(() => {
+
+        console.log('minimum promise resolved');
+        resolve();
+
+      }, time);
+
+    });
+
+
+    Promise.all([minimum, promise])
+      .then(() => {
+
+        console.log('all resolved');
+
+        this.$store.commit('Calls/update', { id });
+
+      });
+
+    return this.$store.state.Calls.calls[id];
+
+
+  }
+
 }
 
 export {

@@ -18,7 +18,7 @@
 
     <lila-content-module v-if="showFeedback" sub :content="feedbackContent" />
 
-    <form @submit="handleForm" v-if="!showFeedback">
+    <form @submit="handleForm" v-if="!showFeedback && list">
       <lila-fieldset-partial legend="message">
 
         <label>
@@ -100,7 +100,7 @@
       </lila-fieldset-partial>
 
       <lila-action-notice-partial :state="state" :translation-pre="translationPre" :errors="errors" @update="updateErrors">
-        <lila-button-partial :disabled="disabled" colorScheme="colorScheme1" type="submit">
+        <lila-button-partial :disabled="disabled" :callId="this.traceId" colorScheme="colorScheme1" type="submit">
           <template v-if="list.payment === 'required'">{{$translate('order with payment')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('send contactform')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('send reservation')}}</template>
@@ -165,7 +165,7 @@ export default class ContactModule extends ExtComponent {
 
   get categories(): ListCategoryExtended[] {
 
-    if (this.list.categories.length > 1) {
+    if (this.list?.categories.length > 1) {
 
       const categories = this.list.categories as ListCategoryExtended[];
 
@@ -198,7 +198,7 @@ export default class ContactModule extends ExtComponent {
 
   get selectCategories() {
 
-    if (this.list.categories.length > 1) {
+    if (this.list?.categories.length > 1) {
 
       return this.list.categories.map((single) => ({
         value: single.id,
@@ -239,15 +239,15 @@ export default class ContactModule extends ExtComponent {
 
   get limited() {
 
-    return this.list.participants?.max || null;
+    return this.list?.participants?.max || null;
 
   }
 
   get disabled() {
 
-    if (this.participantsState && this.list.participants?.max) {
+    if (this.participantsState && this.list?.participants?.max) {
 
-      return this.participantsState.used >= this.list.participants?.max;
+      return this.participantsState.used >= this.list?.participants?.max;
 
     }
 
@@ -265,7 +265,7 @@ export default class ContactModule extends ExtComponent {
 
     if (['LIST_CANNOT_JOIN', 'LIST_UNIQUE_CUSTOMER_CONFIRMED', 'LIST_NOT_FOUND', 'LIST_NO_SPOT_AVAILABLE'].includes(this.errors?.message)) {
 
-      return `${this.errors?.message}_${this.list.mode}`;
+      return `${this.errors?.message}_${this.list?.mode}`;
 
     }
 
@@ -275,7 +275,7 @@ export default class ContactModule extends ExtComponent {
 
   get slotsAvailable() {
 
-    return this.list.participants.max - this.participantsState.used;
+    return (this.list?.participants.max || 0) - this.participantsState.used;
 
   }
 
@@ -317,7 +317,7 @@ export default class ContactModule extends ExtComponent {
 
     const agreements = {};
 
-    this.list.agreements.forEach((single: Agreement & {error: boolean}) => {
+    this.list?.agreements.forEach((single: Agreement & {error: boolean}) => {
 
       agreements[single.contentId] = {
         ...single,
@@ -350,7 +350,7 @@ export default class ContactModule extends ExtComponent {
 
     try {
 
-      const participantsState = await sdk.public.lists.state(this.list._id.toString());
+      const participantsState = await sdk.public.lists.state(this.list?._id.toString());
 
       if (participantsState.data) {
 
@@ -387,7 +387,7 @@ export default class ContactModule extends ExtComponent {
 
     delete customer.category;
 
-    this.list.agreements.forEach((single: Agreement) => {
+    this.list?.agreements.forEach((single: Agreement) => {
 
       if (this.agreements[single.contentId].value) {
 
@@ -397,17 +397,19 @@ export default class ContactModule extends ExtComponent {
 
     });
 
-    if (this.list.categories.length === 1 && !category) {
+    if (this.list?.categories.length === 1 && !category) {
 
       category = this.list.categories[0].id;
 
     }
 
     const sdk = new StudioSDK('design', this.$store.state.api);
+    const call = sdk.public.lists.join(this.list?._id.toString(), customer, message, category, agreements);
 
     try {
 
-      await sdk.public.lists.join(this.list._id.toString(), customer, message, category, agreements);
+      await this.$traceable(call);
+
       this.state = 'success';
 
     } catch (e) {

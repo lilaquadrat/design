@@ -29,7 +29,7 @@ module.exports = (env) => {
         'process.env.LOGLEVEL': JSON.stringify(process.env.LOGLEVEL),
         'process.env.company': JSON.stringify(useEnv.company),
         'process.env.project': JSON.stringify(useEnv.project),
-        'process.env.apiMode': JSON.stringify('next'),
+        'process.env.apiMode': JSON.stringify(useEnv.mode || 'next'),
       }),
       new HtmlWebpackPlugin({
         template: `./${useEnv.path}/${useEnv.company}/${useEnv.project}/index.html`,

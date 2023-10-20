@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
         'process.env.LOGLEVEL': JSON.stringify(process.env.LOGLEVEL),
         'process.env.company': JSON.stringify(useEnv.company),
         'process.env.project': JSON.stringify(useEnv.project),
-        'process.env.apiMode': JSON.stringify('live'),
+        'process.env.apiMode': JSON.stringify(useEnv.mode || 'live'),
       }),
       new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.css$/g,

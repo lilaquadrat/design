@@ -109,7 +109,7 @@
     "webpack-watch-files-plugin": "^1.2.1"
   },
   "dependencies": {
-    "@lilaquadrat/studio": "^5.0.0",
+    "@lilaquadrat/studio": "^5.1.0",
     "@types/uuid": "^9.0.3",
     "axios": "^1.5.0",
     "dayjs": "^1.10.7",

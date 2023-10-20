@@ -40,49 +40,37 @@ reservation.args = {
   genericData: {
     data: {
       1: {
-        _id: '64e8a1d3d96549a0378c9d2a',
-        name: 'Liste 12',
-        description: 'fasfdd',
-        payment: 'free',
+        _id: '6464c12d074ca92142352b64',
+        name: 'Neue Liste Test',
+        description: 'gute beschreibung1212',
+        payment: 'optional',
         state: 'open',
-        mode: 'reservation',
+        mode: 'contact',
         categories: [
           {
-            id: 'id-base',
-            name: 'Base',
-            description: 'Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten.',
-            amount: 10,
-            available: true,
+            id: 'standard',
+            name: 'standard',
+            amount: 15,
             price: {
-              currency: '€',
-              amount: 15,
-              tax: 19,
-            },
-          },
-          {
-            id: 'id-anfrage',
-            name: 'Anfrage',
-            amount: 0,
-            available: true,
-            price: {
-              currency: '€',
-              amount: 0,
-              tax: 19,
-            },
-          },
-          {
-            id: 'id-hilfe',
-            name: 'Hilfe',
-            description: 'Ich stimme zu, dass meine persönlichen Daten gemäß der Datenschutz-Grundverordnung (DSGVO) verarbeitet werden dürfen.',
-            amount: 0,
-            available: true,
-            price: {
-              currency: '€',
-              amount: 3.99,
+              currency: 'euro',
+              amount: 45,
               tax: 19,
             },
           },
         ],
+        company: 'company',
+        project: 'project',
+        history: {
+          version: 18,
+          created: '2023-05-17T11:57:33.982Z',
+          source: 'lists-app',
+          updated: '2023-10-20T15:06:10.507Z',
+        },
+        participants: {
+          max: 15,
+          confirmed: 2,
+          available: true,
+        },
         agreements: [
           {
             contentId: 'contact-dsgvo',
@@ -91,27 +79,15 @@ reservation.args = {
             required: true,
           },
           {
-            text: 'sdfasdf',
-            contentId: '61e2de3585f79bcb5e58c518',
+            text: 'adfasdf',
+            contentId: 'layout-test',
             required: true,
           },
           {
-            text: 'bdfhg',
-            contentId: '6213769a11814099b0ecc292',
-          },
-          {
-            text: 'djhahjkjhdka',
-            contentId: 'hallo',
+            text: 'sdrtfgrfgh',
+            contentId: 'pdftest',
           },
         ],
-        company: 'lilaquadrat',
-        project: 'homepage',
-        history: {
-          version: 4,
-          created: '2023-08-25T12:42:59.228Z',
-          source: 'lists-app',
-          updated: '2023-08-25T16:24:16.289Z',
-        },
       },
       2: {
         modules: [
