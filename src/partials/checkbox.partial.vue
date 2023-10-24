@@ -100,8 +100,12 @@ export default class checkboxPartial extends ExtPartial {
 
 .lila-checkbox-parent-container {
   display: grid;
-  gap: 0 40px;
+  gap: 0 20px;
   grid-template-columns: 1fr max-content;
+
+  @media @desktop {
+    gap: 0 40px;
+  }
 
   .indicator-text {
     display: grid;

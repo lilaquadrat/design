@@ -1,6 +1,6 @@
 <template>
-  <button class="lila-button base save" :disabled="disabled" :type="type" :class="[colorScheme, state, {doublecheck: doublecheck, showCheck: showCheck, confirmed: confirmed, icon, noPadding}]" @click="confirm">
-      <span></span>
+  <button class="lila-button base" :disabled="disabled" :type="type" :class="[colorScheme, state, {doublecheck, showCheck, confirmed: confirmed, icon, noPadding, save}]" @click="confirm">
+      <span v-if="save"></span>
       <slot v-if="!showCheck && !confirmed"></slot>
       <span v-if="showCheck">Please confirm your action.</span>
       <span v-if="confirmed">confirmed</span>
@@ -20,6 +20,8 @@ export default class buttonPartial extends ExtPartial {
   @Prop(Boolean) icon: boolean;
 
   @Prop(Boolean) noPadding: boolean;
+
+  @Prop(Boolean) save: boolean;
 
   @Prop(String) colorScheme: string;
 
@@ -98,7 +100,7 @@ export default class buttonPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-button {
-
+  display: grid;
   .trans(background);
 
   @keyframes border {

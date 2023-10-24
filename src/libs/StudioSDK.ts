@@ -416,6 +416,16 @@ export default class StudioSDK {
           },
         },
       ),
+      address: (address: string) => StudioSDK.handleCall<any>(
+        {
+          method: 'get',
+          url: this.getUrl('api', ['public', 'lists', 'participants', this.company, this.project, 'address']),
+          headers: this.getHeaders(),
+          params: {
+            address,
+          },
+        },
+      ),
       state: (listId: string) => StudioSDK.handleCall<any>(
         {
           method: 'get',

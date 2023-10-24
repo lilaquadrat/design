@@ -3,14 +3,18 @@
     <input
       ref="input"
       type="text"
-      :placeholder="placeholder"
+      :placeholder="$translate(placeholder)"
       :disabled="disabled"
       :class="noHover"
-      :value="value"
+      :value="tempValue"
       @keydown="checkInput($event)"
       @keyup="update"
+      @focus="focus"
+      @blur="blur"
     />
-    <lila-input-labels-partial :error="hasError" :required="required" :disabled="disabled"><slot/></lila-input-labels-partial>
+    <lila-input-labels-partial :error="hasError" :required="required" :disabled="disabled">
+      <slot/>
+    </lila-input-labels-partial>
 
     <notice-partial v-if="errorMessage" type="error">
       {{errorMessage}}
@@ -21,7 +25,7 @@
 
 <script lang="ts">
 import { ParsedError } from '@libs/ActionNotice';
-import { Component } from '@libs/lila-component';
+import { Component, Watch } from '@libs/lila-component';
 import { ExtPartial, Prop } from '@libs/lila-partial';
 
 
@@ -36,17 +40,30 @@ export default class InputPartial extends ExtPartial {
 
   @Prop(Boolean) required: boolean;
 
-  @Prop(String) label: string;
-
   @Prop(Boolean) noHover: string;
 
   @Prop(Object) error: ParsedError;
+
+  @Prop(Boolean) instant: boolean;
+
+  debounceTime: number = 500;
+
+  timeout = null;
+
+  tempValue = '';
 
   $refs!: {
     input: HTMLInputElement
   };
 
   whitelistedKeys = ['Escape', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'Delete', 'Tab'];
+
+  @Watch('value')
+  watchValue() {
+
+    this.tempValue = this.value;
+
+  }
 
   get slotUsed() {
 
@@ -66,18 +83,33 @@ export default class InputPartial extends ExtPartial {
 
   }
 
+  created() {
+
+    this.tempValue = this.value;
+
+  }
+
   update($event?: KeyboardEvent) {
 
-    if (!$event) {
+    clearTimeout(this.timeout);
 
-      this.$emit('input', '');
-      return;
+    this.timeout = setTimeout(() => {
 
-    }
+      if (!$event) {
 
-    const target = $event.target as HTMLInputElement;
+        this.$emit('input', '');
+        return;
 
-    this.$emit('input', target?.value);
+      }
+
+      const target = $event.target as HTMLInputElement;
+
+      this.tempValue = target.value;
+
+      this.$emit('input', target?.value);
+
+    }, this.debounceTime);
+
 
   }
 
@@ -122,6 +154,18 @@ export default class InputPartial extends ExtPartial {
 
     input.value = '';
     this.update();
+
+  }
+
+  focus() {
+
+    this.$emit('focus');
+
+  }
+
+  blur() {
+
+    this.$emit('blur');
 
   }
 

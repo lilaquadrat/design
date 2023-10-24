@@ -1,6 +1,8 @@
 <template>
   <section class="lila-contact-module lila-module">
 
+    <lila-address-partial required />
+
     <section class="intro-container">
       <lila-textblock-partial v-bind="textblock" />
 
@@ -21,9 +23,7 @@
     <form @submit="handleForm" v-if="!showFeedback && list">
       <lila-fieldset-partial legend="message">
 
-        <label>
-          <lila-textarea-partial :required="list.mode === 'contact'" :error="errorsObject.message" :maxLength="2500" v-model="model.message">{{$translate('message')}}</lila-textarea-partial>
-        </label>
+      <lila-textarea-partial :required="list.mode === 'contact'" :error="errorsObject.message" :maxLength="2500" v-model="model.message">{{$translate('message')}}</lila-textarea-partial>
 
       </lila-fieldset-partial>
 
@@ -35,56 +35,25 @@
 
       <lila-fieldset-partial legend="personal">
 
-        <label>
-          <lila-input-partial :error="errorsObject.prename" required v-model="model.prename">
-            {{$translate('prename')}}
-          </lila-input-partial>
-        </label>
-        <label>
-          <lila-input-partial :error="errorsObject.name" required v-model="model.name">
+        <lila-input-partial :error="errorsObject.prename" required v-model="model.prename">
+          {{$translate('prename')}}
+        </lila-input-partial>
+
+        <lila-input-partial :error="errorsObject.name" required v-model="model.name">
           {{$translate('name')}}
         </lila-input-partial>
-        </label>
-
-      </lila-fieldset-partial>
-
-      <lila-fieldset-partial legend="address">
-
-        <label>
-          <lila-input-partial v-model="model.streetNumber">
-            {{$translate('street & number')}}
-          </lila-input-partial>
-        </label>
-        <label>
-          <lila-input-partial v-model="model.zipcode">
-            {{$translate('zipcode')}}
-          </lila-input-partial>
-        </label>
-        <label>
-          <lila-input-partial v-model="model.city">
-            {{$translate('city')}}
-          </lila-input-partial>
-        </label>
-        <label>
-          <lila-input-partial v-model="model.country">
-            {{$translate('country')}}
-          </lila-input-partial>
-        </label>
 
       </lila-fieldset-partial>
 
       <lila-fieldset-partial legend="contact">
 
-        <label>
-          <lila-input-partial :error="errorsObject.email" required v-model="model.email">
-            {{$translate('email')}}
-          </lila-input-partial>
-        </label>
-        <label>
-          <lila-input-partial v-model="model.phone">
-            {{$translate('phone')}}
-          </lila-input-partial>
-        </label>
+        <lila-input-partial :error="errorsObject.email" required v-model="model.email">
+          {{$translate('email')}}
+        </lila-input-partial>
+
+        <lila-input-partial v-model="model.phone">
+          {{$translate('phone')}}
+        </lila-input-partial>
 
       </lila-fieldset-partial>
 
@@ -100,7 +69,7 @@
       </lila-fieldset-partial>
 
       <lila-action-notice-partial :state="state" :translation-pre="translationPre" :errors="errors" @update="updateErrors">
-        <lila-button-partial :disabled="disabled" :callId="this.traceId" colorScheme="colorScheme1" type="submit">
+        <lila-button-partial save :disabled="disabled" :callId="this.traceId" colorScheme="colorScheme1" type="submit">
           <template v-if="list.payment === 'required'">{{$translate('order with payment')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'contact'">{{$translate('send contactform')}}</template>
           <template v-if="list.payment !== 'required' && list.mode === 'reservation'">{{$translate('send reservation')}}</template>

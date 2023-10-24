@@ -22,6 +22,8 @@ abstract class ExtPartial extends vue {
   // eslint-disable-next-line class-methods-use-this
   $translate(text: string, values?: (string | number)[]) {
 
+    console.log('trams;ate');
+
     return translate.translate(text, undefined, undefined, values);
 
   }
