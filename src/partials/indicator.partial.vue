@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-indicator" :class="{ small: small, medium: medium, large: large }">
+  <div class="lila-loading-indicator" :class="{ small: small, medium: medium, large: large }">
     <div />
     <div />
     <div />
@@ -25,7 +25,7 @@ export default class indicatorPartial extends Vue {
 <style lang="less">
 @import (reference) '@{projectPath}/source/less/shared.less';
 
-.loading-indicator {
+.lila-loading-indicator {
   position: relative;
   display: grid;
 

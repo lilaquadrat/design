@@ -1,8 +1,6 @@
 <template>
   <section class="lila-contact-module lila-module">
 
-    <lila-address-partial required />
-
     <section class="intro-container">
       <lila-textblock-partial v-bind="textblock" />
 
@@ -44,6 +42,8 @@
         </lila-input-partial>
 
       </lila-fieldset-partial>
+
+      <lila-address-partial required />
 
       <lila-fieldset-partial legend="contact">
 

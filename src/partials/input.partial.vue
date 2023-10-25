@@ -61,6 +61,12 @@ export default class InputPartial extends ExtPartial {
   @Watch('value')
   watchValue() {
 
+    const activeElement = document.activeElement;
+    const input = this.$refs.input;
+
+    console.log(activeElement, input);
+
+
     this.tempValue = this.value;
 
   }
@@ -83,6 +89,7 @@ export default class InputPartial extends ExtPartial {
 
   }
 
+
   created() {
 
     this.tempValue = this.value;
@@ -90,6 +97,10 @@ export default class InputPartial extends ExtPartial {
   }
 
   update($event?: KeyboardEvent) {
+
+    const target = $event.target as HTMLInputElement;
+
+    this.tempValue = target.value;
 
     clearTimeout(this.timeout);
 
@@ -102,9 +113,6 @@ export default class InputPartial extends ExtPartial {
 
       }
 
-      const target = $event.target as HTMLInputElement;
-
-      this.tempValue = target.value;
 
       this.$emit('input', target?.value);
 
@@ -116,7 +124,6 @@ export default class InputPartial extends ExtPartial {
   checkInput($event: KeyboardEvent) {
 
     const input = this.$refs.input;
-
 
     if ($event.key === 'Enter') {
 
@@ -194,9 +201,9 @@ export default class InputPartial extends ExtPartial {
     border-bottom: 1px @color1 solid;
     background-color: transparent;
     color: @textColor;
+    outline: none;
     font-size: @fontText;
     line-height: 18px;
-    outline: none;
 
     .trans(border-color);
 

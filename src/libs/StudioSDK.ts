@@ -4,7 +4,7 @@ import {
   Hosting, Domain, ApiResponses, AppFilter,
   ListOfModels, Tracker, TrackerStatistics, DataObject, Media,
   MediaContentFiles, PublishContentGroup, Publish, Customers, List, ListParticipants, Content,
-  EditorBase,
+  EditorBase, Location,
 } from '@lilaquadrat/studio/lib/interfaces';
 import hardCopy from '@mixins/hardCopy';
 import Contact from '@models/Contact.model';
@@ -416,7 +416,7 @@ export default class StudioSDK {
           },
         },
       ),
-      address: (address: string) => StudioSDK.handleCall<any>(
+      address: (address: string) => StudioSDK.handleCall<ListOfModels<Location>>(
         {
           method: 'get',
           url: this.getUrl('api', ['public', 'lists', 'participants', this.company, this.project, 'address']),

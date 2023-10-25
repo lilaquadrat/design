@@ -13,6 +13,8 @@ abstract class ExtPartial extends vue {
 
   @Prop({ type: Array, default: () => [] }) variant: string[];
 
+  public traceId: string = '';
+
   get renderTarget(): 'pdf' | 'web' {
 
     return this.$store.state.renderTarget;
@@ -35,32 +37,38 @@ abstract class ExtPartial extends vue {
 
   }
 
+  /**
+   * will add the promise to vuex and make its status available.
+   *
+   * additionally provides a minimum time before the promise gets resolved
+   */
   async $traceable<T>(promise: Promise<T>, time = 3000) {
 
+    // add the new call to vuex and fetch the id
     const id = await this.$store.dispatch('Calls/add', promise);
     const minimum = new Promise<void>((resolve) => {
 
-      setTimeout(() => {
-
-        console.log('minimum promise resolved');
-        resolve();
-
-      }, time);
+      setTimeout(() => resolve(), time);
 
     });
 
+    this.traceId = id;
 
-    Promise.all([minimum, promise])
-      .then(() => {
+    // the minimum promise will hold the execution of allsettled
+    const results = await Promise.allSettled([minimum, promise]);
 
-        console.log('all resolved');
+    // no error will be thrown, we need to check the result of the given promise
+    if (results[1].status === 'rejected') {
 
-        this.$store.commit('Calls/update', { id });
+      this.$store.commit('Calls/update', { id, state: 'rejected' });
+      throw results[1].reason;
 
-      });
+    } else {
 
-    return this.$store.state.Calls.calls[id];
+      this.$store.commit('Calls/update', { id, state: 'resolved' });
+      return results[1].value;
 
+    }
 
   }
 
