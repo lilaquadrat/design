@@ -100,7 +100,6 @@ export default class buttonPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-button {
-  display: grid;
   .trans(background);
 
   @keyframes border {
@@ -130,6 +129,7 @@ export default class buttonPartial extends ExtPartial {
       left: -17px;
     }
   }
+  display: grid;
 
   border: none;
   background: transparent;

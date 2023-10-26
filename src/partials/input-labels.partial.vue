@@ -54,6 +54,7 @@ export default class InputLabelsPartial extends ExtPartial {
   &.error {
 
     .required {
+      .font-bold;
       color: @error;
     }
 

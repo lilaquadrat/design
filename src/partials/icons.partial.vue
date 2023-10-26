@@ -1,5 +1,5 @@
 <template>
-  <span class="lila-icons-partial" :class="[type, colorScheme, size, rotateClass, {animate: animate}]">
+  <span class="lila-icons-partial" :class="[type, colorScheme, size, rotateClass, {animate, buttonParent}, positionIcon]">
       <svg v-if="type === 'arrow-right'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
     </svg>
@@ -59,10 +59,23 @@ export default class IconsPartial extends ExtPartial {
 
   @Prop({ type: Boolean, default: false }) animate: string;
 
+  @Prop(String) positionIcon: 'topRight';
+
   get rotateClass() {
 
     if (!this.rotate) return null;
     return `rotate${this.rotate}`;
+
+  }
+
+  // add a class hor hover purpose when the parent is a button
+  get buttonParent() {
+
+    const options = this.$parent?.$options;
+
+    if (!options) return false;
+
+    return options?.name === 'buttonPartial';
 
   }
 
@@ -81,6 +94,12 @@ export default class IconsPartial extends ExtPartial {
     align-self: center;
     justify-self: center;
     stroke-width: 1.5;
+  }
+
+  &.topRight {
+    align-content: start;
+    justify-content: end;
+
   }
 
   &.rotate90 {
@@ -150,6 +169,12 @@ export default class IconsPartial extends ExtPartial {
     width: 20px;
     height: 20px;
 
+    &.buttonParent {
+      width: 35px;
+
+      height: 35px;
+    }
+
     svg {
       width: 20px;
       height: 20px;
@@ -180,10 +205,28 @@ export default class IconsPartial extends ExtPartial {
 
     svg {
       stroke: @color1;
+      .trans(stroke);
 
       &.useFill {
+        .trans(fill);
         fill: @color1;
         stroke-width: 0;
+      }
+    }
+
+    &.buttonParent {
+
+      &:hover {
+
+        svg {
+          stroke: @color2;
+
+          &.useFill {
+            fill: @color2;
+            stroke-width: 0;
+          }
+        }
+
       }
     }
 

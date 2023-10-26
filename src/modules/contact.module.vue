@@ -11,7 +11,6 @@
       </h3>
     </section>
 
-
     <section v-if="showFeedback" sub :content="feedbackContent">
       <lila-button-partial @click="resetForm" colorScheme="colorScheme1">{{ $translate('back to the form') }}</lila-button-partial>
     </section>
@@ -21,7 +20,7 @@
     <form @submit="handleForm" v-if="!showFeedback && list">
       <lila-fieldset-partial legend="message">
 
-      <lila-textarea-partial :required="list.mode === 'contact'" :error="errorsObject.message" :maxLength="2500" v-model="model.message">{{$translate('message')}}</lila-textarea-partial>
+        <lila-textarea-partial :required="list.mode === 'contact'" :error="errorsObject.message" :maxLength="2500" v-model="model.message">{{$translate('message')}}</lila-textarea-partial>
 
       </lila-fieldset-partial>
 
@@ -43,7 +42,7 @@
 
       </lila-fieldset-partial>
 
-      <lila-address-partial required />
+      <lila-address-partial v-model="addressModel" :error="errorsObject.address" required />
 
       <lila-fieldset-partial legend="contact">
 
@@ -93,7 +92,9 @@ import ModelsClass from '@libs/Models.class';
 import StudioSDK from '@libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { ErrorsObject } from '@libs/ActionNotice';
+import { ErrorObject } from 'ajv/dist/types';
 import ListCategoryExtended from '@interfaces/ListCategoryExtended.interface';
+import Address from '@models/Address.model';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -109,6 +110,8 @@ export default class ContactModule extends ExtComponent {
   @Prop(Object) editor: {modes: string[]};
 
   model: Contact = null;
+
+  addressModel: Address = null;
 
   errors = null;
 
@@ -251,6 +254,7 @@ export default class ContactModule extends ExtComponent {
   created() {
 
     this.model = ModelsClass.add({}, 'contact');
+    this.addressModel = ModelsClass.add({}, 'address');
     this.updateAgreements();
     this.getparticipantsState();
 
@@ -261,6 +265,7 @@ export default class ContactModule extends ExtComponent {
 
     this.state = '';
     this.model = ModelsClass.add({}, 'contact');
+    this.addressModel = ModelsClass.add({}, 'address');
     this.errors = null;
     this.errorsObject = {};
 
@@ -342,7 +347,8 @@ export default class ContactModule extends ExtComponent {
     event.preventDefault();
     this.state = '';
 
-    const customer = ModelsClass.save(this.model, 'contact');
+    const address = ModelsClass.save(this.addressModel, 'address');
+    const customer = ModelsClass.save({ ...this.model, ...address }, 'contact');
     const agreements = [];
     let category: string;
 
@@ -386,7 +392,65 @@ export default class ContactModule extends ExtComponent {
       console.error(e);
       console.log(e.response?.data);
 
-      this.errors = e.response?.data;
+      /**
+       * because of the address partial we need to remove the single errors from the error messages and add
+       * one error for the whole address
+       */
+      const addressKeys = ['street', 'streetNumber', 'osm_id', 'zipcode', 'city', 'country'];
+      const filteredErrorArray = [];
+      let addAddressError = false;
+
+      // Check if the error response has a message indicating validation failure
+      if (e.response?.data?.message === 'VALIDATION_FAILED') {
+
+        // Iterate over each error in the response data
+        e.response?.data?.errors.forEach((single: ErrorObject) => {
+
+          // If the missing property in the error is not in the addressKeys array
+          if (!addressKeys.includes(single.params.missingProperty)) {
+
+            // Add the error to the filtered error array
+            filteredErrorArray.push(single);
+
+          } else {
+
+            // Flag that there's an address-related error
+            addAddressError = true;
+
+          }
+
+        });
+
+        // After checking all errors, if there's an address-related error
+        if (addAddressError) {
+
+          // Add a custom address error to the filtered error array
+          filteredErrorArray.push({
+            instancePath: '',
+            schemaPath: '#/required',
+            keyword: 'required',
+            params: {
+              missingProperty: 'address',
+            },
+            message: 'must have required property \'address\'',
+          });
+
+        }
+
+        // Set the component's errors property to the filtered error array
+        this.errors = {
+          message: 'VALIDATION_FAILED',
+          errors: filteredErrorArray,
+        };
+
+      } else {
+
+        // If the error isn't a validation failure, just set the component's errors to the response data
+        this.errors = e.response?.data;
+
+      }
+
+
       this.state = 'error';
 
     }
