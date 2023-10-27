@@ -109,11 +109,17 @@ export default class selectCategoryPartial extends ExtPartial {
       grid-template-rows: max-content max-content max-content max-content;
 
       .available {
+        .font-bold;
         grid-row-start: 2;
         grid-column-start: 2;
+        grid-column-end: 3;
+
         font-size: @fontText;
         text-align: left;
-        .font-bold;
+
+        .highlight {
+          margin: 0;
+        }
       }
 
       p {

@@ -108,7 +108,6 @@ export default class contentContainerPartial extends ExtPartial {
 
   async getContent() {
 
-    console.log('GET CONTENT', this.id);
     if (this.loading) return false;
 
     this.error = null;
@@ -167,6 +166,7 @@ export default class contentContainerPartial extends ExtPartial {
 
     this.$emit('open');
     this.visible = true;
+    this.$store.dispatch('fullscreen', true);
 
   }
 
@@ -174,6 +174,7 @@ export default class contentContainerPartial extends ExtPartial {
 
     this.$emit('closed');
     this.visible = false;
+    this.$store.dispatch('fullscreen', false);
 
   }
 
