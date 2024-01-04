@@ -1,0 +1,45 @@
+&.hasElementDescription {
+
+  .elements {
+
+    grid-row-start: 1;
+    grid-row-end: 3;
+
+  }
+}
+
+&.variant2 {
+
+  &.hasElementDescription {
+
+    .elements {
+
+      grid-row-end: 2;
+
+    }
+  }
+
+}
+
+.elements {
+
+  position: relative;
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  .scroll-container {
+    --n: 1;
+    width: 100%;
+    width: calc(var(--n)*100%);
+
+    transform: translate(calc(var(--i, 0)/var(--n)*-100% + var(--ts, 0px)));
+
+    &.transition {
+      .trans(transform);
+    }
+
+    .clearfix;
+
+  }
+
+}

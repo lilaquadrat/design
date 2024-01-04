@@ -1,0 +1,25 @@
+.picture-indicators {
+
+  position: absolute;
+
+  top: var(--top);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-150%);
+
+  .indicator {
+
+    display: inline-block;
+
+    width: 10px;
+    height: 10px;
+
+    border: solid 1px @white;
+    .multi(margin, 1);
+
+    &.active {
+      background-color: @white;
+    }
+  }
+}

@@ -1,0 +1,93 @@
+&.variant2 {
+
+  .gallery-controls {
+
+    button {
+
+      .trans(background);
+
+      display: grid;
+
+      align-self: center;
+
+      width: 35px;
+      height: 35px;
+      pointer-events: all;
+
+      &.control {
+        background-color: transparent;
+
+        .icon::v-deep {
+
+          svg {
+            fill: @color1;
+          }
+        }
+
+        &:hover {
+          background-color: transparent;
+
+          .icon {
+
+            svg {
+              fill: @color3;
+            }
+          }
+        }
+      }
+
+      .icon {
+        width: 35px;
+        height: 35px;
+      }
+
+      &.active {
+        opacity: 1;
+      }
+
+      &:hover {
+        background-color: @color3;
+      }
+
+      &:last-child {
+        justify-self: end;
+      }
+    }
+
+  }
+
+}
+
+.gallery-controls {
+
+  .lila-button {
+
+    .trans(background);
+
+    display: grid;
+
+    width: 35px;
+    height: 35px;
+
+    background-color: @color1;
+    opacity: .5;
+    pointer-events: all;
+
+    .lila-icons-partial::v-deep {
+      justify-self: center;
+    }
+
+    &.active {
+      opacity: 1;
+    }
+
+    &:hover {
+      background-color: @color3;
+    }
+
+    &:last-child {
+      justify-self: end;
+    }
+  }
+
+}

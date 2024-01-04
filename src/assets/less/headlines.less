@@ -1,0 +1,54 @@
+.headlines {
+
+  h1,
+  h2 {
+    color: @color1;
+
+    font-size: @headline_M;
+    line-height: @headlineLineHeight_M;
+
+  }
+
+  h3 {
+    .font-normal;
+    font-size: @fontText;
+  }
+
+  h4 {
+    .font-bold;
+    color: @color1;
+    font-size: @fontTextSmaller;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    color: @black;
+  }
+
+  h1 {
+    .font-head;
+
+    text-transform: uppercase;
+
+    @media @tablet,
+      @desktop {
+      font-size: @headline_L;
+      line-height: @headlineLineHeight_L;
+    }
+  }
+
+  h2 {
+
+    .font-bold;
+
+    color: @color3;
+
+    @media @tablet,
+      @desktop {
+      font-size: @headline_M;
+      line-height: @headlineLineHeight_M;
+    }
+
+  }
+
+}

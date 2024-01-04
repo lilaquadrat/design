@@ -1,0 +1,203 @@
+.font(@font) {
+
+  @font-face {
+    font-family: '@{font}';
+    src: url('@{fontBase}@{font}.woff');
+    font-display: swap;
+  }
+}
+
+.font(@font, @name) {
+
+  @font-face {
+    font-family: '@{name}';
+    src: url('@{fontBase}@{font}.woff');
+    font-display: swap;
+  }
+}
+
+.index(@a) {
+  z-index: @a * 100;
+}
+
+.lineHeight(@fontSize, @multi: 1.3) {
+  line-height: @fontSize * @multi;
+}
+
+.multi(@type, @multi) {
+  @{type}: @multi * 5px;
+}
+.multi(@type, @top, @sides) {
+  @{type}: @top * 5px @sides * 5px;
+}
+.multi(@type, @top, @right, @bottom, @left) {
+  @{type}: @top * 5px @right * 5px @bottom * 5px @left * 5px;
+}
+
+.modulePadding() {
+  padding: 0 @modulePadding;
+
+  @media @tablet, @desktop {
+    padding: 0 @modulePaddingExt;
+  }
+}
+
+.modulePadding(@type) when (@type = 'none') {
+  padding: 0;
+
+  @media @tablet, @desktop {
+    padding: 0;
+  }
+}
+
+.modulePadding(@type) when (@type = 'full') {
+  padding: @modulePadding;
+
+  @media @tablet, @desktop {
+    padding: 0 @modulePaddingExt;
+  }
+}
+
+.clearfix {
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+.formBorder {
+  border: 0;
+  border-bottom: 2px solid @color1;
+}
+
+.trans(@type) {
+  transition: @type @aTime @aType;
+}
+
+.basicHover {
+  .trans(opacity);
+
+  &:hover {
+    opacity: .5;
+  }
+}
+
+.offsetMenu {
+
+  @media only screen, print and (min-width: 520px) {
+    padding-left: 60px;
+  }
+
+  @media only screen, print and (min-width: 800px) {
+    padding-left: 250px;
+  }
+}
+
+.backgroundGradient(@type, @from, @to) {
+  background: linear-gradient(@type, @from, @to);
+}
+
+.module {
+  display: grid;
+  justify-self: center;
+  break-inside: avoid;
+
+  width: 100%;
+
+  .modulePadding();
+
+  &.pdf-single-page {
+
+    @media print {
+      page-break-before: always;
+      page-break-after: always;
+    }
+
+  }
+
+  &.pdf-new-page-after {
+
+    @media print {
+      page-break-after: always;
+    }
+
+  }
+
+  &.pdf-new-page-before {
+
+    @media print {
+      page-break-before: always;
+    }
+
+  }
+
+  &.pdf-invisible {
+
+    @media print {
+      display: none;
+    }
+
+  }
+
+}
+
+.headlines {
+
+  h1,
+  h2 {
+    color: @color1;
+
+    font-size: @headline_M;
+    line-height: @headlineLineHeight_M;
+
+  }
+
+  h3 {
+    .font-normal;
+    font-size: @fontText;
+  }
+
+  h4 {
+    .font-bold;
+    color: @color1;
+    font-size: @fontTextSmaller;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    color: @black;
+  }
+
+  h1 {
+    .font-head;
+
+    text-transform: uppercase;
+
+    @media @tablet,
+      @desktop {
+      font-size: @headline_L;
+      line-height: @headlineLineHeight_L;
+    }
+  }
+
+  h2 {
+
+    .font-bold;
+
+    color: @color3;
+
+    @media @tablet,
+      @desktop {
+      font-size: @headline_M;
+      line-height: @headlineLineHeight_M;
+    }
+
+  }
+
+}

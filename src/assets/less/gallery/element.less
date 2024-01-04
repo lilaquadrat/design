@@ -1,0 +1,161 @@
+&.hasElementDescription {
+
+  .elements {
+
+    .element {
+      grid-template-rows: max-content max-content;
+      background-color: @white;
+
+      @media @desktop {
+        grid-template-rows: max-content 90px;
+        grid-column-end: 2;
+      }
+
+      .lila-textblock::v-deep {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        .multi(padding, 4, 8);
+
+        @media @desktop {
+          grid-column-end: 2;
+        }
+      }
+    }
+  }
+}
+
+&.hasElementDescription {
+
+  &.variant2 {
+
+    .elements {
+
+      .element {
+        grid-template-rows: max-content;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+&.disableOverlay {
+
+  .elements {
+
+    .element {
+
+      @media @desktop {
+        grid-template-columns: auto 185px;
+      }
+    }
+  }
+
+}
+
+.elements {
+
+  .element {
+
+    .multi(padding, 0);
+    .multi(margin, 0);
+    position: relative;
+
+    display: grid;
+
+    grid-template-rows: max-content;
+    grid-template-columns: auto 95px;
+
+    gap: 0 10px;
+
+    float: left;
+    width: var(--width);
+
+    opacity: 1;
+
+    pointer-events: none;
+
+    @media @desktop {
+      grid-template-rows: max-content;
+      grid-template-columns: auto 185px;
+    }
+
+    &.selected {
+
+      picture {
+        .trans(opacity);
+      }
+    }
+
+    .picture-container {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    .lila-textblock::v-deep {
+      grid-row-start: 2;
+      .multi(padding, 4, 0, 4, 4);
+    }
+
+    .lila-figure::v-deep {
+      overflow: hidden;
+      min-height: 100px;
+
+      max-height: 50vh;
+      margin: 0;
+      padding: 0;
+
+      opacity: 0;
+
+      &.picture {
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 0;
+          overflow: hidden;
+          width: auto;
+          min-width: 100%;
+          height: auto;
+          min-height: 100%;
+          max-height: none;
+          transform: translateX(-50%) translateY(-50%);
+        }
+
+      }
+
+      &.placeholder {
+        visibility: hidden;
+
+      }
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+  }
+
+}
+
+&.fullscreen {
+
+  max-height: var(--realHeight);
+
+  .elements {
+
+    .element {
+
+      .lila-figure::v-deep {
+        max-height: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/components/modules/*.vue",
+    "src/components/partials/*.vue",
+    "projects/**/*",
+    "projects/**/*.vue",
+    "projects/company/project/src/modules/*.vue",
+    "components.d.ts"
+  ],
+  "exclude": [
+    "src/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@mixins/*": [
+        "./src/mixins/*"
+      ],
+      "@modules/*": [
+        "./src/components/modules/*"
+      ],
+      "@partials/*": [
+        "./src/components/partials/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ]
+    }
+  }
+}

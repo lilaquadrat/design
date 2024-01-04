@@ -1,0 +1,21 @@
+body {
+  .font-normal;
+
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 57%, rgba(240,240,240,1) 100%);
+  background-attachment: fixed;
+
+  @media print {
+    background: transparent;
+    background-attachment: scroll;
+  }
+
+  color: @textColor;
+
+  font-size: @fontText;
+  .lineHeight(@fontText, 1.5);
+}
+
+@page {
+  margin: 0;
+  size: 210mm 297mm;
+}
