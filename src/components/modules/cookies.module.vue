@@ -1,80 +1,38 @@
-<template>
-  <section :id="id" v-if="visible && isOverlay || !isOverlay"
-    :class="[{ 'lila-module': !isOverlay, isOverlay, }, overlayPosition]" class="lila-cookies-module">
-
-    <lila-overlay-background-partial v-if="visible && isOverlay && overlayPosition === 'overlayFull'" background="mobile">
-      <lila-dialog-partial class="lila-cookies-module-dialog" type="check" @confirm="consent('all')"
-        @cancel="consent('selection')" :translations="translations">
-        <lila-textblock-partial v-if="textblock" v-bind="textblock" />
-        <section class="checkbox-container">
-          <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
-          <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
-        </section>
-      </lila-dialog-partial>
-    </lila-overlay-background-partial>
-
-    <lila-dialog-partial v-if="visible && isOverlay && overlayPosition === 'overlayRight'"
-      class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')"
-      :translations="translations">
-      <lila-textblock-partial v-if="textblock" v-bind="textblock" />
-      <section class="checkbox-container">
-        <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
-        <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
-      </section>
-    </lila-dialog-partial>
-
-    <template v-if="!isOverlay">
-
-      <lila-textblock-partial v-if="textblock" v-bind="textblock" />
-      <lila-list-partial v-bind="list" mode="list" />
-      <lila-list-partial v-bind="links" mode="links" />
-
-      <section class="checkbox-container">
-        <lila-checkbox-partial disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
-        <lila-checkbox-partial v-model="cookies.analytics">Analyse-Cookies </lila-checkbox-partial>
-      </section>
-      <lila-button-group-partial gap>
-        <lila-button-partial @confirmed="consent('all')" colorScheme="colorScheme1">{{ translations.confirm
-        }}</lila-button-partial>
-        <lila-button-partial @confirmed="consent('selection')" colorScheme="transparent">{{ translations.cancel
-        }}</lila-button-partial>
-      </lila-button-group-partial>
-    </template>
-
-  </section>
-</template>
 <script setup lang="ts">
-/* __vue_virtual_code_placeholder__ */
+
 import type Link from '@interfaces/link.interface';
 import type Textblock from '@interfaces/textblock.interface';
 
 import dayjs from 'dayjs';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
+import useMainStore from '@/stores/main.store';
+
+const store = useMainStore();
 const props = defineProps<{
   textblock: Textblock;
 
-  links: Link[];
+  links?: Link[];
 
-  list: string[];
+  list?: string[];
   id?:string
   variant?: string[];
 
 }>();
-let technical = true;
-let visible = false;
-let cookies:any | {analytics:any}= {
-  analytics: false ,    // change cokie type def
-};
-let translations = {
+let technical = ref<boolean>(true);
+let visible = ref<boolean>(false);
+let cookies = ref<Record<string, boolean>>({
+  analytics: false
+});
+const translations = ref<Record<string, string>>({
   confirm: 'Alle akzeptieren',
-  cancel: 'Auswahl bestätigen',
-};
+  cancel : 'Auswahl bestätigen',
+});
 const gtag = computed(() => {
 
   const useWindow: any = window;
 
-  return useWindow.gtag || function gtag() { return true; };
+  return useWindow.gtag || function gtag () { return true; };
 
 });
 const isOverlay = computed(() => {
@@ -99,12 +57,10 @@ onMounted(() => {
 
   }
 
-  console.log(this.$store);
-
 });
 
 
-function calcVisibilty() {
+function calcVisibilty () {
 
   const cookies = getCookies();
 
@@ -112,17 +68,17 @@ function calcVisibilty() {
 
   if (props.variant?.includes('overlay')) {
 
-    visible = !cookies.find((single) => single.name === 'lila-cookies');
+    visible.value = !cookies.find((single) => single.name === 'lila-cookies');
 
     if (overlayPosition.value === 'overlayFull') {
 
-      this.$store.dispatch('fullscreen', visible);
+      store.setFullscreen(visible.value);
 
     }
 
   } else {
 
-    visible = true;
+    visible.value = true;
 
   }
 
@@ -130,7 +86,7 @@ function calcVisibilty() {
 }
 
 
-function updateSelection() {
+function updateSelection () {
 
   const currCookies = getCookies();
   const acceptedCookie = currCookies.find((single) => single.name === 'lila-cookies-accepted');
@@ -141,9 +97,9 @@ function updateSelection() {
     accepted = acceptedCookie.value.split(',');
     accepted.forEach((single) => {
 
-      if (cookies[single] !== undefined) {
+      if (cookies.value[single] !== undefined) {
 
-        cookies[single] = true;
+        cookies.value[single] = true;
 
       }
 
@@ -154,27 +110,27 @@ function updateSelection() {
 }
 
 
-function consent(type: 'all' | 'selection') {
+function consent (type: 'all' | 'selection') {
 
   const currCookies = getCookies();
 
   if (type === 'all') {
 
-    Object.keys(currCookies).forEach((single) => { cookies[single] = true; });
+    Object.keys(currCookies).forEach((single) => { cookies.value[single] = true; });
 
   }
 
-  if (cookies.analytics) {
+  if (cookies.value.analytics) {
 
     gtag.value('consent', 'update', {
-      ad_storage: 'granted',
+      ad_storage       : 'granted',
       analytics_storage: 'granted',
     });
 
   } else {
 
     gtag.value('consent', 'update', {
-      ad_storage: 'denied',
+      ad_storage       : 'denied',
       analytics_storage: 'denied',
     });
 
@@ -190,7 +146,7 @@ function consent(type: 'all' | 'selection') {
 
   }
 
-  const cookieKeys = Object.keys(cookies).filter((single) => (cookies[single] ? single : null));
+  const cookieKeys = Object.keys(cookies).filter((single) => (cookies.value[single] ? single : null));
 
   cookieKeys.push('technical');
 
@@ -203,7 +159,7 @@ function consent(type: 'all' | 'selection') {
 
 }
 
-function getCookies() {
+function getCookies () {
 
   const cookies = document.cookie.split(';').filter((single) => single);
 
@@ -218,6 +174,46 @@ function getCookies() {
 }
 
 </script>
+<template>
+  <section :id="id" v-if="visible && isOverlay || !isOverlay"
+    :class="[{ 'lila-module': !isOverlay, isOverlay, }, overlayPosition]" class="lila-cookies-module">
+
+    <lila-overlay-background-partial v-if="visible && isOverlay && overlayPosition === 'overlayFull'" background="mobile">
+      <lila-dialog-partial class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
+        <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+        <section class="checkbox-container">
+          <lila-checkbox-partial name="technical" disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
+          <lila-checkbox-partial name="analytics" v-model="cookies.analytics">Analyse-Cookies</lila-checkbox-partial>
+        </section>
+      </lila-dialog-partial>
+    </lila-overlay-background-partial>
+
+    <lila-dialog-partial v-if="visible && isOverlay && overlayPosition === 'overlayRight'" class="lila-cookies-module-dialog" type="check" @confirm="consent('all')" @cancel="consent('selection')" :translations="translations">
+      <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+      <section class="checkbox-container">
+        <lila-checkbox-partial name="technical" disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
+        <lila-checkbox-partial name="analytics" v-model="cookies.analytics">Analyse-Cookies</lila-checkbox-partial>
+      </section>
+    </lila-dialog-partial>
+
+    <template v-if="!isOverlay">
+
+      <lila-textblock-partial v-if="textblock" v-bind="textblock" />
+      <lila-list-partial v-bind="list" mode="list" />
+      <lila-list-partial v-bind="links" mode="links" />
+
+      <section class="checkbox-container">
+        <lila-checkbox-partial name="technical" disabled v-model="technical">technisch notwendige Cookies</lila-checkbox-partial>
+        <lila-checkbox-partial name="analytics" v-model="cookies.analytics">Analyse-Cookies</lila-checkbox-partial>
+      </section>
+      <lila-button-group-partial gap>
+        <lila-button-partial @confirmed="consent('all')" colorScheme="colorScheme1">{{ translations.confirm }}</lila-button-partial>
+        <lila-button-partial @confirmed="consent('selection')" colorScheme="transparent">{{ translations.cancel }}</lila-button-partial>
+      </lila-button-group-partial>
+    </template>
+
+  </section>
+</template>
 <style lang="less" scoped>
 
 
@@ -272,11 +268,8 @@ function getCookies() {
 
     max-width: @moduleWidth_S;
 
-    .lila-label-parent-container::v-deep {
-
-      .label-container {
+    .lila-label-parent-container:deep(.label-container) {
         display: none;
-      }
     }
 
   }

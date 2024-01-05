@@ -3,13 +3,17 @@
   "include": [
     "env.d.ts",
     "src/**/*",
+    "src/stores/*",
     "src/**/*.vue",
+    "src/plugins/*",
+    "src/translations/*",
     "src/components/modules/*.vue",
     "src/components/partials/*.vue",
     "projects/**/*",
     "projects/**/*.vue",
     "projects/company/project/src/modules/*.vue",
-    "components.d.ts"
+    "components.d.ts",
+    "customs.ts"
   ],
   "exclude": [
     "src/**/__tests__/*"
@@ -33,7 +37,10 @@
       ],
       "@interfaces/*": [
         "./src/interfaces/*"
-      ]
+      ],
+      "@stores/*": [
+        "./src/stores/*"
+      ],
     }
   }
 }

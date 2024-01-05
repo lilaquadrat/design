@@ -4,18 +4,18 @@
       <slot></slot>
 
       <section class="message-container">
-        <h3 v-if="message">{{ message | translate }}</h3>
-        <p v-if="description">{{ description | translate }}</p>
+        <h3 v-if="message">{{ $translate(message) }}</h3>
+        <p v-if="description">{{ $translate(description)}}</p>
       </section>
     </section>
 
     <lila-button-group-partial v-if="type === 'check'" gap>
-      <lila-button-partial @confirmed="confirm" :colorScheme="colorScheme">{{CONFIRM | translate}}</lila-button-partial>
-      <lila-button-partial @confirmed="cancel" colorScheme="transparent">{{CANCEL | translate}}</lila-button-partial>
+      <lila-button-partial @confirmed="confirm" :colorScheme="colorScheme">{{$translate(CONFIRM)}}</lila-button-partial>
+      <lila-button-partial @confirmed="cancel" colorScheme="transparent">{{$translate(CANCEL)}}</lila-button-partial>
     </lila-button-group-partial>
 
     <lila-button-group-partial v-if="type === 'confirm'" gap>
-      <lila-button-partial @confirmed="confirm" colorScheme="transparent">{{ACKNOWLEDGE | translate}}</lila-button-partial>
+      <lila-button-partial @confirmed="confirm" colorScheme="transparent">{{$translate(ACKNOWLEDGE)}}</lila-button-partial>
     </lila-button-group-partial>
 
   </section>
@@ -23,51 +23,49 @@
 <script setup lang="ts">
 import { type ComputedRef, computed } from 'vue';
 
-const props = defineProps < {
-  doublecheck: boolean;
+const props = defineProps<{
+  doublecheck?: boolean;
   type: 'confirm' | 'check';
-  message: string;
-  description: string;
-  variant: string[];
+  message?: string;
+  description?: string;
+  variant?: string[];
   translations?: {confirm?: string, cancel?: string, acknowledge?: string};
   callback?: (confirm: boolean) => void;
-}> ();
+}>();
 let emit = defineEmits<{
     (e: string): void
 }>();
-const colorScheme: ComputedRef<string|undefined> = computed(() =>  {
-   
+const colorScheme: ComputedRef<string|undefined> = computed(() => {
   return props.variant?.some((single) => ['error', 'success', 'color1', 'color3'].includes(single)) ? 'transparent' : 'colorScheme1';
 }); 
- const confirm =()=>{
+const confirm =() => {
   emit('confirm');
   if (props.callback) props.callback(true);
   return;
- }; 
- const cancel=()=>{
+}; 
+const cancel = () => {
   emit('cancel');
-    if (props.callback) props.callback(false);
+  if (props.callback) props.callback(false);
   return;
 
- };
-  const CONFIRM= computed((): string=> {
+};
+const CONFIRM = computed((): string => {
 
-    return props.translations?.confirm ?? 'confirm';
+  return props.translations?.confirm ?? 'confirm';
 
-  });
-  const CANCEL= computed((): string =>{
+});
+const CANCEL = computed((): string => {
 
-    return props.translations?.cancel ?? 'cancel';
+  return props.translations?.cancel ?? 'cancel';
 
-  });
-  const ACKNOWLEDGE= computed((): string =>{
+});
+const ACKNOWLEDGE = computed((): string => {
 
-    return props.translations?.acknowledge ?? 'acknowledge';
+  return props.translations?.acknowledge ?? 'acknowledge';
 
-  });
+});
 </script>
 <style lang="less" scoped>
-
 
 .lila-dialog-partial {
 

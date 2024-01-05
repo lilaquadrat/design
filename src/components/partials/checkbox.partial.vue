@@ -1,6 +1,6 @@
 <template>
   <section class="lila-label-parent-container">
-    <label :class="[textType, { error: error, checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
+    <label :class="[textType, { error: error, checked: modelValue, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
       <div class="indicator-text">
         <span class="indicator">
           <lila-icons-partial type="checked" size="small" colorScheme="white" />
@@ -22,12 +22,12 @@
         <p>{{ error }}</p>
       </div>
 
-      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" v-on:change="changeHandler" />
+      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="modelValue" @input="updateValue" />
     </label>
     <div v-if="text" class="indicator-text">
       <span class="indicator"> </span>
       <span class="label" v-if="textType !== 'noText'" :class="[textType]">
-        <slot></slot>
+        <slot />
         <description-partial inline v-if="description">{{ description | translate}}</description-partial>
       </span>
 
@@ -39,67 +39,56 @@
   </section>
 </template>
 <script setup lang="ts">
-import { onMounted, onBeforeUpdate, Slots, useSlots } from 'vue';
+import type TypedEvent from '@/interfaces/Event.interface';
+import { onMounted, onBeforeUpdate, useSlots, ref } from 'vue';
 
 const props = withDefaults(
   defineProps<{
     name: string;
-    value: boolean;
-    error: string;
-    required: boolean;
-    description: string;
-    disabled: boolean;
-    noIndicator: boolean;
-    text: string;
+    modelValue: boolean;
+    error?: string;
+    required?: boolean;
+    description?: string;
+    disabled?: boolean;
+    noIndicator?: boolean;
+    text?: string;
   }>(),
   {
 
   }
 );
-let slotsProp = useSlots();
-let emit = defineEmits<{
-    (e: string, i:boolean): void
-}>();
-let   textType: string = 'word';
+let slots = useSlots();
+const emit = defineEmits(['update:modelValue']);
+const updateValue = (event: TypedEvent<HTMLInputElement>) => emit('update:modelValue', event.target?.checked);
+let textType = ref<string>('word');
 
 function setTextType(): void {
+  
+  const slotContent = slots.default ? slots.default() : null;
+  const useText = props.text 
+    ? props.text 
+    : slotContent;
 
-const useText = props.text ? props.text : slotsProp.default[0].text; //Tis.$slots
 
-if (useText) {
+  if (useText?.length) {
 
-  if (useText.length >= 30) textType = 'text';
+    if (useText.length >= 30) textType.value = 'text';
 
-  if (useText.length < 30) textType = 'word';
+    if (useText.length < 30) textType.value = 'word';
 
-  if (useText.length === 0) textType = 'noText';
+    if (useText.length === 0) textType.value = 'noText';
 
-} else {
+  } else {
 
-  textType = 'noText';
+    textType.value = 'noText';
 
-}
-
-}
-
-function changeHandler($event: Event): void {
-
-const target = $event.target as HTMLInputElement;
-
-emit('input', target.checked);
+  }
 
 }
 
+onMounted(() => setTextType());
+onBeforeUpdate(() => setTextType());
 
-onMounted(()=>{
-  setTextType();
-
-
-});
-onBeforeUpdate(()=>{
-  setTextType();
-
-});
 </script>
 <style lang="less" scoped>
 

@@ -32,9 +32,6 @@ provide('linkBase', props.linkBase);
       <component v-for="(single, i) in content.bottom" :class="single.classes" :is="`${single.type}`" :key="`module-${single.type}-${i}`" v-bind="single" :additional="content.additional" position="bottom" />
     </article>
 
-
-    CONTENT MODULE12 PROP
-    
   </article>
 </template>
 

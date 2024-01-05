@@ -1,4 +1,4 @@
-import Link from './link.interface';
+import type Link from './link.interface';
 
 export default interface FooterContact {
 
@@ -6,5 +6,5 @@ export default interface FooterContact {
 
     link: Link;
 
-  };
+}
 
