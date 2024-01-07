@@ -6,6 +6,7 @@
     "src/stores/*",
     "src/**/*.vue",
     "src/plugins/*",
+    "src/functions/*",
     "src/translations/*",
     "src/components/modules/*.vue",
     "src/components/partials/*.vue",

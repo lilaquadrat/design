@@ -1,5 +1,5 @@
-import Picture from './picture.interface';
-import Textblock from './textblock.interface';
+import type Picture from './picture.interface';
+import type Textblock from './textblock.interface';
 
 export interface GalleryElement {
   picture: Picture;

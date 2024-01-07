@@ -1,5 +1,4 @@
 import useTranslationsStore from '@/stores/translations.store';
-import type { Store } from 'pinia';
 import type { App } from 'vue';
 
 class TranslationPlugin {

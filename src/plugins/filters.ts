@@ -3,7 +3,7 @@ import type { App } from 'vue';
 
 const HelpersPlugin = {
 
-  leadingZero (value: string, minLength: number) {
+  leadingZero (value: string | number, minLength: number) {
     return value.toString().padStart(minLength, '0');
   }
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { GalleryElement } from '@interfaces/galleryElement.interface';
 import type Textblock from '@interfaces/textblock.interface';
+import dom from '@/functions/lila-dom';
 
 import { ref, watch, type Ref, nextTick, computed, onMounted } from 'vue';
 
@@ -16,9 +17,13 @@ const tempSwipe = ref<number>(0);
 const dragging = ref<boolean>(false);
 const elementsWidth = ref<number>(0);
 const imageIndex = ref<number>(0);
-const nextImageBlocked = ref<boolean>(false);
 const currentHeadline = ref<string>('');
 const controlsOffset = ref<number>(0);
+/**
+ * defines how far the image needs to be swiped to change
+ * higher means more distant needs to be swiped
+ */ 
+const swipeThreshold = ref<number>(0.2);
 const firstLoad = ref<boolean>(false);
 const fullscreenOverlay = ref<boolean>(false);
 const emit = defineEmits<{(e: string, element: any): void}>();
@@ -64,7 +69,8 @@ const indicatorsTop = computed((): { [key: string]: string } => {
     '--top': `${controlsOffset.value}px`,
   };
 
-}); /** checks if any elements has a description */
+}); 
+/** checks if any elements has a description */
 const elementDescription = computed((): boolean => {
 
   return !!props.elements.find((single: any) => single.textblock?.headline || single.textblock?.subline || single.textblock?.intro || single.textblock?.text?.length);
@@ -105,27 +111,15 @@ function pictureLoaded (): void {
 
 function setControlsTop (this: any): void {
 
-  // if (this.fullscreenOverlay) {
+  const elements = scrollContainer.value?.querySelectorAll('.element');
+  const single = elements?.item(currentOptionIndex.value).querySelector('.picture-container');
 
-  //   this.controlsOffset = window.innerHeight;
-
-  // } else {
-
-  // const elements = this.$el?.querySelectorAll('.scroll-container .element');
-  // const single = elements.item(currentOptionIndex).querySelector('.picture-container');
-
-  // controlsOffset.value = single?.scrollHeight;
-
-  // }
-
+  if(single?.scrollHeight) controlsOffset.value = single?.scrollHeight;
 
 }
 
 /** gets the correct event type */
-// eslint-disable-next-line class-methods-use-this
 function getEvent (event: MouseEvent | TouchEvent): Touch | MouseEvent {
-
-  // if (!event) return null;
 
   return 'changedTouches' in event ? event.changedTouches[0] : event;
 
@@ -143,46 +137,41 @@ function touchstart (event: TouchEvent): void {
 
 }
 
-function swipe (this: any, event: TouchEvent): void {
-
-  const length = this.elements.length - 1;
+function swipe (event: TouchEvent): void {
+  const length = props.elements.length - 1;
+  // Calculate the horizontal distance of the swipe
   const currentSwipeX = getEvent(event).clientX - swipeX.value;
+  // Get the unified touch or mouse event
   const unifiedEvent = getEvent(event);
   const target = unifiedEvent.target as HTMLElement;
 
+  // If the target is a link ('A' tag), exit the function to allow normal link behavior
   if (target.tagName === 'A') return;
-
   event.preventDefault();
 
+  // Set dragging flag to false indicating the swipe action is complete
   dragging.value = false;
+
+  // Reset temporary swipe distance value
   tempSwipe.value = 0;
 
-  if (currentSwipeX === 0) {
+  // If the swipe distance is less than 20% of the element's width, don't change the image
+  if (((Math.sign(currentSwipeX) * currentSwipeX) / elementsWidth.value) < swipeThreshold.value) return;
 
-    set(event, this.elements[this.currentOptionIndex]);
-    nextImage();
+  // Update the index of the current image based on the swipe direction
+  currentOptionIndex.value -= Math.sign(currentSwipeX);
 
-    return;
-
-  }
-
-  if (+((Math.sign(currentSwipeX) * currentSwipeX) / elementsWidth.value).toFixed(2) < 0.2) return;
-
-  currentOptionIndex.value -= Math.sign(swipeX.value);
-
+  // Ensure the current index is not less than 0 or more than the total number of elements
   if (currentOptionIndex.value < 0) currentOptionIndex.value = 0;
   if (currentOptionIndex.value > length) currentOptionIndex.value = length;
 
-  imageIndex.value = 0;
-  set(null, this.elements[this.currentOptionIndex]);
-  emit('change', this.elements[this.currentOptionIndex]);
-
+  emit('change', props.elements[currentOptionIndex.value]);
 }
+
 
 function change ( direction: string): void {
 
   const length = props.elements.length - 1;
-  const tempIndex = currentOptionIndex;
 
   if (direction === 'more') {
 
@@ -197,107 +186,69 @@ function change ( direction: string): void {
   if (currentOptionIndex.value < 0) currentOptionIndex.value = 0;
   if (currentOptionIndex.value > length) currentOptionIndex.value = length;
 
-  if (tempIndex.value !== currentOptionIndex.value) {
-
-    imageIndex.value = 0;
-    set(null, props.elements[currentOptionIndex.value]);
-
-  }
-
+  emit('change', props.elements[currentOptionIndex.value]);
 }
 
-function nextImage (this: any): void {
+function drag (event: TouchEvent): void {
 
-  if (this.nextImageBlocked) return;
-  if (!this.elements[this.currentOptionIndex]?.pictures) return;
+  if (!dragging.value) return;
 
-  this.imageIndex += 1;
-
-  if (this.imageIndex > this.elements[this.currentOptionIndex].pictures.length - 1) {
-
-    this.imageIndex = 0;
-
-  }
-
-  this.nextImageBlocked = true;
-
-  setTimeout(() => {
-
-    this.nextImageBlocked = false;
-
-  }, 500);
-
-}
-
-function drag (this: any, event: TouchEvent): void {
-
-  if (!this.dragging) return;
-
-  const unifiedEvent = this.getEvent(event);
+  const unifiedEvent = getEvent(event);
   const target = unifiedEvent.target as HTMLElement;
 
   if (target.tagName === 'A') return;
 
-  this.tempSwipe = Math.round(unifiedEvent.clientX - this.swipeX);
+  tempSwipe.value = Math.round(unifiedEvent.clientX - swipeX.value);
 
 }
 
-function touchmove (this: any, event: TouchEvent): void {
+// function touchmove (event: TouchEvent): void {
 
-  const unifiedEvent = this.getEvent(event);
-  const target = unifiedEvent.target as HTMLElement;
+//   const unifiedEvent = getEvent(event);
+//   const target = unifiedEvent.target as HTMLElement;
 
-  if (target.tagName === 'A') return;
+//   if (target.tagName === 'A') return;
 
-  event.preventDefault();
+//   event.preventDefault();
 
-}
+// }
 
 onMounted(() => {
 
-  gallery();
+  init();
   updateText();
   setControlsTop();
 
 });
 
 
-function gallery (this: any): void {
+function init (): void {
 
   window.addEventListener('resized', () => {
 
     elementsWidth.value = elementsContainer.value?.getBoundingClientRect().width || 0;
 
-    this.setControlsTop();
+    setControlsTop();
 
   });
 
   elementsWidth.value = elementsContainer.value?.getBoundingClientRect().width || 0;
 
-  // this.DOM.onElement('touchstart mousedown', scrollContainer.value, touchstart);
-  // this.DOM.onElement('touchend mouseup', scrollContainer.value, swipe);
-  // this.DOM.onElement('touchmove mousemove', scrollContainer.value, drag);
+  if(mainElement.value) {
 
-  // this.DOM.onElement('touchmove', mainElement.value, touchmove);
+    dom.onElement('touchstart mousedown', mainElement.value, touchstart as EventListener);
+    dom.onElement('touchend mouseup', mainElement.value, swipe as EventListener);
+    dom.onElement('touchmove mousemove', mainElement.value, drag as EventListener);
 
-}
+  }
 
-function set ( event: TouchEvent | MouseEvent |null, option: GalleryElement): void {
+  // if(mainElement.value) dom.onElement('touchmove', mainElement.value, touchmove as EventListener);
 
-  const unifiedEvent = getEvent(event as TouchEvent | MouseEvent);
-  const target = unifiedEvent?.target as HTMLElement;
-
-  if (!unifiedEvent) return;
-  if (target.tagName === 'A') return;
-
-  if (event) event.preventDefault();
-
-  emit('change', option);
 
 }
 
 /** updates the current headline for variant2 */
-function updateText (this: any): void {
+function updateText (): void {
 
   currentHeadline.value = props.elements[currentOptionIndex.value].textblock?.headline || '';
 
@@ -311,78 +262,82 @@ function indicatorchange (index: number): void {
 
 </script>
 <template>
-  {{ elementsWidth }}
   <section :id="id" ref="mainElement" class="gallery-module lila-module" :class="[variant, { hasDescription: textblock, hasElementDescription: elementDescription, fullscreenOverlay, fullscreenOverlayEnabled }]">
-    <section ref="elementsContainer" class="elements">
-      
-      <div ref="scrollContainer" :style="cssElementsLength" :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
+
+    <section ref="contentContainer" class="content-container">
+    
+      <section ref="elementsContainer" class="elements">
         
-        <template v-for="(element, elementIndex) in elements" :key="`gallery-element-${elementIndex}`">
+        <div ref="scrollContainer" :style="cssElementsLength" :class="{ transition: !dragging }" v-if="elements.length > 0" class="scroll-container">
+          
+          <template v-for="(element, elementIndex) in elements" :key="`gallery-element-${elementIndex}`">
 
-          <div class="element" :style="cssWidth" :class="{ hasImage: element.picture || element.pictures, hasDescription: element.textblock }" @click="set($event, element)" @keyup="set($event, element)">
-            
-            <div class="picture-container" v-if="element && element.picture">
-              <lila-picture-partial :key="`gallery-placeholder-${elementIndex}`" class="placeholder" v-bind="element.picture" />
-              <lila-picture-partial :key="`gallery-picture-${elementIndex}`" @loaded="pictureLoaded" class="active picture" v-bind="element.picture" />
-            </div>
+            <div class="element" :style="cssWidth" :class="{ hasImage: element.picture || element.pictures, hasDescription: element.textblock }">
+              
+              <div class="picture-container" v-if="element && element.picture">
+                <lila-picture-partial :key="`gallery-placeholder-${elementIndex}`" class="placeholder" v-bind="element.picture" />
+                <lila-picture-partial :key="`gallery-picture-${elementIndex}`" @loaded="pictureLoaded" class="active picture" v-bind="element.picture" />
+              </div>
 
-            <template v-if="element.pictures">
-              <template v-for="(picture, index) in element.pictures">
-                <div v-if="(imageIndex === index && currentOptionIndex === elementIndex) || (currentOptionIndex !== elementIndex && index === 0)" :key="`singlePicture-${index}`" class="picture-container">
-                  <lila-picture-partial :key="`gallery-placeholder-${index}`" class="placeholder" v-bind="element.pictures[0]" />
-                  <lila-picture-partial :key="`gallery-picture-${index}`" observerroot="$refs.scrollContainer" class="picture active" noLoadAnimation @loaded="pictureLoaded" v-bind="picture" />
-                </div>
+              <template v-if="element.pictures">
+                <template v-for="(picture, index) in element.pictures">
+                  <div v-if="(imageIndex === index && currentOptionIndex === elementIndex) || (currentOptionIndex !== elementIndex && index === 0)" :key="`singlePicture-${index}`" class="picture-container">
+                    <lila-picture-partial :key="`gallery-placeholder-${index}`" class="placeholder" v-bind="element.pictures[0]" />
+                    <lila-picture-partial :key="`gallery-picture-${index}`" observerroot="$refs.scrollContainer" class="picture active" noLoadAnimation @loaded="pictureLoaded" v-bind="picture" />
+                  </div>
+                </template>
               </template>
-            </template>
 
-            <div v-if="element.pictures && firstLoad" :style="indicatorsTop" class="picture-indicators">
-              <span class="indicator" v-for="(picture, index) in element.pictures" :class="{ active: imageIndex === index }" :key="`picture-indicator-${index}`"></span>
+              <div v-if="element.pictures && firstLoad" :style="indicatorsTop" class="picture-indicators">
+                <span class="indicator" v-for="(picture, index) in element.pictures" :class="{ active: imageIndex === index }" :key="`picture-indicator-${index}`"></span>
+              </div>
+              <lila-textblock-partial v-if="element.textblock && !variant2" v-bind="element.textblock" class="picture-description" />
             </div>
-            <lila-textblock-partial v-if="element.textblock && !variant2" v-bind="element.textblock" class="picture-description" />
-          </div>
 
-        </template>
+          </template>
 
+        </div>
+
+      </section>
+
+      <div v-if="!variant2" class="indexIndicator">
+        <lila-button-partial class="toggleFullscreen" v-if="fullscreenOverlayEnabled" colorScheme="transparent" :icon="true" @click="toggleFullscreenOverlay">
+          <lila-icons-partial colorScheme="colorScheme1" :type="fullscreenOverlay ? 'zoom-out' : 'zoom-in'" />
+        </lila-button-partial>
+        <span class="currentIndex">{{ $helpers.leadingZero(currentOptionIndex + 1, 2) }}</span>
+        <span class="seperator"></span>
+        <span class="allIndex">{{ $helpers.leadingZero(elements.length, 2) }}</span>
       </div>
 
-  </section>
-
-    <div v-if="!variant2" class="indexIndicator">
-      <lila-button-partial class="toggleFullscreen" v-if="fullscreenOverlayEnabled" colorScheme="transparent" :icon="true" @click="toggleFullscreenOverlay">
-        <lila-icons-partial colorScheme="colorScheme1" :type="fullscreenOverlay ? 'zoom-out' : 'zoom-in'" />
-      </lila-button-partial>
-      <span class="currentIndex">{{ $helpers.leadingZero(currentOptionIndex + 1, 2) }}</span>
-      <span class="seperator"></span>
-      <span class="allIndex">{{ $helpers.leadingZero(elements.length, 2) }}</span>
-    </div>
-
-    <div v-if="!variant2 && firstLoad" :style="controlsTop" class="gallery-controls">
-      <lila-button-partial icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
-        <lila-icons-partial colorScheme="white" type="arrow-left" />
-      </lila-button-partial>
-
-      <lila-button-partial icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
-        <lila-icons-partial colorScheme="white" type="arrow-right" />
-      </lila-button-partial>
-    </div>
-
-    <div v-if="variant2" class="container gallery-controls">
-      <div class="row-container">
-        <lila-button-partial class="one-left control" icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
-          <lila-icons-partial colorScheme="colorScheme1" size="small" type="arrow-left" />
+      <div v-if="!variant2 && firstLoad" :style="controlsTop" class="gallery-controls">
+        <lila-button-partial icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
+          <lila-icons-partial colorScheme="white" type="arrow-left" />
         </lila-button-partial>
 
-        <h4>{{ currentHeadline }}</h4>
-
-        <lila-button-partial class="one-right control" icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
-          <lila-icons-partial colorScheme="colorScheme1" size="small" type="arrow-right" />
+        <lila-button-partial icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
+          <lila-icons-partial colorScheme="white" type="arrow-right" />
         </lila-button-partial>
       </div>
 
-      <div class="carousel-indicators carousel-indicators-numbers">
-        <lila-button-partial class="indicator" icon v-for="(element, index) in elements" :key="`indicator-${index}`" :class="{ active: currentOptionIndex === index }" @click="indicatorchange(index)" />
+      <div v-if="variant2" class="container gallery-controls">
+        <div class="row-container">
+          <lila-button-partial class="one-left control" icon :class="{ active: currentOptionIndex > 0 }" @click="change('less')">
+            <lila-icons-partial colorScheme="colorScheme1" size="small" type="arrow-left" />
+          </lila-button-partial>
+
+          <h4>{{ currentHeadline }}</h4>
+
+          <lila-button-partial class="one-right control" icon :class="{ active: currentOptionIndex + 1 < elements.length }" @click="change('more')">
+            <lila-icons-partial colorScheme="colorScheme1" size="small" type="arrow-right" />
+          </lila-button-partial>
+        </div>
+
+        <div class="carousel-indicators carousel-indicators-numbers">
+          <lila-button-partial class="indicator" icon v-for="(element, index) in elements" :key="`indicator-${index}`" :class="{ active: currentOptionIndex === index }" @click="indicatorchange(index)" />
+        </div>
       </div>
-    </div>
+
+    </section>
   </section>
 </template>
 <style lang="less" scoped>
@@ -390,60 +345,93 @@ function indicatorchange (index: number): void {
 .lila-module.gallery-module {
   .module;
 
-  &.hasElementDescription {
+  .modulePadding('none');
 
-.elements {
+  position: relative;
+  display: grid;
 
-  .element {
-    grid-template-rows: max-content max-content;
-    background-color: @white;
+  grid-template-rows: max-content 25px;
+  grid-template-columns: 100%;
 
-    @media @desktop {
-      grid-template-rows: max-content 90px;
-      grid-column-end: 2;
-    }
+  gap: 20px 0;
+  justify-content: center;
+  justify-items: center;
 
-    .lila-textblock::v-deep {
-      grid-column-start: 1;
-      grid-column-end: 3;
+  overflow: hidden;
 
-      .multi(padding, 4, 8);
+  width: 100%;
 
-      @media @desktop {
-        grid-column-end: 2;
-      }
-    }
+  
+  cursor: grabbing;
+  -moz-user-select: none;
+  
+  user-select: none;
+  
+  transition: transform .75s ease, opacity .5s ease;
+  transition-delay: .3s;
+  
+  // @media @desktop {
+  //   grid-template-columns: auto 125px;
+  // }
+  
+  .content-container {
+    max-width: @moduleWidth_M;
+    overflow: hidden;
   }
-}
-}
 
-&.hasElementDescription {
 
-&.variant2 {
+  // &.hasElementDescription {
 
-  .elements {
+  //   .elements {
 
-    .element {
-      grid-template-rows: max-content;
-      background-color: transparent;
-    }
-  }
-}
-}
+  //     .element {
+  //       grid-template-rows: max-content max-content;
+  //       background-color: @white;
 
-&.disableOverlay {
+  //       @media @desktop {
+  //         grid-template-rows: max-content 90px;
+  //         grid-column-end: 2;
+  //       }
 
-.elements {
+  //       .lila-textblock::v-deep {
+  //         grid-column-start: 1;
+  //         grid-column-end: 3;
 
-  .element {
+  //         .multi(padding, 4, 8);
 
-    @media @desktop {
-      grid-template-columns: auto 185px;
-    }
-  }
-}
+  //         @media @desktop {
+  //           grid-column-end: 2;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   &.variant2 {
 
-}
+  //     .elements {
+
+  //       .element {
+  //         grid-template-rows: max-content;
+  //         background-color: transparent;
+  //       }
+  //     }
+
+  //   }
+  // }
+
+
+  // &.disableOverlay {
+
+  //   .elements {
+
+  //     .element {
+
+  //       @media @desktop {
+  //         grid-template-columns: auto 185px;
+  //       }
+  //     }
+  //   }
+
+  // }
 
 .elements {
 
@@ -537,62 +525,100 @@ function indicatorchange (index: number): void {
 
 }
 
-&.fullscreen {
+// &.fullscreen {
 
-max-height: var(--realHeight);
+//   max-height: var(--realHeight);
 
-.elements {
+//   .elements {
 
-  .element {
+//     .element {
 
-    .lila-figure::v-deep {
-      max-height: 100%;
-    }
-  }
-}
-}
+//       .lila-figure::v-deep {
+//         max-height: 100%;
+//       }
+//     }
+//   }
 
-&.variant2 {
+// }
+
+// &.variant2 {
+
+//   .gallery-controls {
+
+//     button {
+
+//       .trans(background);
+
+//       display: grid;
+
+//       align-self: center;
+
+//       width: 35px;
+//       height: 35px;
+//       pointer-events: inherit;
+
+//       &.control {
+//         background-color: transparent;
+
+//         .icon::v-deep {
+
+//           svg {
+//             fill: @color1;
+//           }
+//         }
+
+//         &:hover {
+//           background-color: transparent;
+
+//           .icon {
+
+//             svg {
+//               fill: @color3;
+//             }
+//           }
+//         }
+//       }
+
+//       .icon {
+//         width: 35px;
+//         height: 35px;
+//       }
+
+//       &.active {
+//         opacity: 1;
+//       }
+
+//       &:hover {
+//         background-color: @color3;
+//       }
+
+//       &:last-child {
+//         justify-self: end;
+//       }
+//     }
+
+//   }
+
+// }
 
 .gallery-controls {
 
-  button {
+  max-width: @moduleWidth_M;
+
+  .lila-button {
 
     .trans(background);
 
     display: grid;
 
-    align-self: center;
-
     width: 35px;
     height: 35px;
-    pointer-events: inherit;
 
-    &.control {
-      background-color: transparent;
+    background-color: @color1;
+    opacity: .5;
 
-      .icon::v-deep {
-
-        svg {
-          fill: @color1;
-        }
-      }
-
-      &:hover {
-        background-color: transparent;
-
-        .icon {
-
-          svg {
-            fill: @color3;
-          }
-        }
-      }
-    }
-
-    .icon {
-      width: 35px;
-      height: 35px;
+    .lila-icons-partial::v-deep {
+      justify-self: center;
     }
 
     &.active {
@@ -610,41 +636,6 @@ max-height: var(--realHeight);
 
 }
 
-}
-
-.gallery-controls {
-
-.lila-button {
-
-  .trans(background);
-
-  display: grid;
-
-  width: 35px;
-  height: 35px;
-
-  background-color: @color1;
-  opacity: .5;
-
-  .lila-icons-partial::v-deep {
-    justify-self: center;
-  }
-
-  &.active {
-    opacity: 1;
-  }
-
-  &:hover {
-    background-color: @color3;
-  }
-
-  &:last-child {
-    justify-self: end;
-  }
-}
-
-}
-
   // @import '../source/less/gallery/picture-description.less';
 
   // @import '../source/less/gallery/indexIndicator.less';
@@ -652,16 +643,16 @@ max-height: var(--realHeight);
   
 .gallery-controls {
 
-position: absolute;
+  position: absolute;
 
-top: var(--top);
+  top: var(--top);
 
-display: grid;
-grid-template-columns: 50% 50%;
+  display: grid;
+  grid-template-columns: 50% 50%;
 
-width: 100%;
-transform: translateY(-50%);
-// height: 40px;
+  width: 100%;
+  transform: translateY(-50%);
+  // height: 40px;
 
 }
 
@@ -736,81 +727,52 @@ transform: translateY(-50%);
 }
 
 
-  &.hasElementDescription {
-
-.elements {
-
-  grid-row-start: 1;
-  grid-row-end: 3;
-
-}
-}
-
-&.variant2 {
-
 &.hasElementDescription {
 
   .elements {
 
-    grid-row-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
 
   }
+
 }
+
+&.variant2 {
+
+  &.hasElementDescription {
+
+    .elements {
+
+      grid-row-end: 2;
+
+    }
+  }
 
 }
 
 .elements {
 
-position: relative;
-grid-column-start: 1;
-grid-column-end: 3;
-
-.scroll-container {
-  --n: 1;
-  width: 100%;
-  width: calc(var(--n)*100%);
-
-  transform: translate(calc(var(--i, 0)/var(--n)*-100% + var(--ts, 0px)));
-
-  &.transition {
-    .trans(transform);
-  }
-
-  .clearfix;
-
-}
-
-}
-
-  .modulePadding('none');
-
   position: relative;
-  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
 
-  grid-template-rows: max-content 25px;
-  grid-template-columns: 100%;
+  .scroll-container {
+    --n: 1;
+    width: 100%;
+    width: calc(var(--n)*100%);
 
-  gap: 20px 0;
-  justify-self: center;
+    transform: translate(calc(var(--i, 0)/var(--n)*-100% + var(--ts, 0px)));
 
-  overflow: hidden;
+    &.transition {
+      .trans(transform);
+    }
 
-  width: 100%;
-
-  max-width: @moduleWidth_M;
-
-  cursor: grabbing;
-  -moz-user-select: none;
-
-  user-select: none;
-
-  transition: transform .75s ease, opacity .5s ease;
-  transition-delay: .3s;
-
-  @media @desktop {
-    grid-template-columns: auto 125px;
+    .clearfix;
 
   }
+
+}
 
   &.fullscreen {
     max-width: @moduleWidth_Full;
@@ -843,133 +805,133 @@ grid-column-end: 3;
     }
   }
 
-  .picture-indicators {
+  // .picture-indicators {
 
-    position: absolute;
+  //   position: absolute;
 
-    top: var(--top);
-    left: 0;
-    width: 100%;
-    text-align: center;
-    transform: translateY(-150%);
+  //   top: var(--top);
+  //   left: 0;
+  //   width: 100%;
+  //   text-align: center;
+  //   transform: translateY(-150%);
 
-    .indicator {
+  //   .indicator {
 
-      display: inline-block;
+  //     display: inline-block;
 
-      width: 10px;
-      height: 10px;
+  //     width: 10px;
+  //     height: 10px;
 
-      border: solid 1px @white;
-      .multi(margin, 1);
+  //     border: solid 1px @white;
+  //     .multi(margin, 1);
 
-      &.active {
-        background-color: @white;
-      }
-    }
-  }
+  //     &.active {
+  //       background-color: @white;
+  //     }
+  //   }
+  // }
 
-  &.fullscreenOverlayEnabled {
-    grid-template-columns: auto 185px;
+  // &.fullscreenOverlayEnabled {
+  //   grid-template-columns: auto 185px;
 
-    .indexIndicator {
-      grid-template-rows: 20px;
-      grid-template-columns: 35px 25px 3px 25px;
+  //   .indexIndicator {
+  //     grid-template-rows: 20px;
+  //     grid-template-columns: 35px 25px 3px 25px;
 
-      .currentIndex {
-        justify-self: end;
-      }
+  //     .currentIndex {
+  //       justify-self: end;
+  //     }
 
-      .toggleFullscreen {
-        margin-top: -6.5px;
-      }
+  //     .toggleFullscreen {
+  //       margin-top: -6.5px;
+  //     }
 
-      span {
-        display: grid;
-      }
-    }
+  //     span {
+  //       display: grid;
+  //     }
+  //   }
 
-  }
+  // }
 
-  &.fullscreenOverlay.fullscreenOverlayEnabled {
+  // &.fullscreenOverlay.fullscreenOverlayEnabled {
 
-    .index(9);
+  //   .index(9);
 
-    position: fixed;
-    top: 0;
-    left: 0;
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
 
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    overflow: hidden;
-    width: 100vw;
-    max-width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
+  //   display: grid;
+  //   align-content: center;
+  //   justify-content: center;
+  //   overflow: hidden;
+  //   width: 100vw;
+  //   max-width: 100vw;
+  //   height: 100vh;
+  //   max-height: 100vh;
 
-    background-color: @white;
+  //   background-color: @white;
 
-    &:first-child {
-      margin: 0;
-    }
+  //   &:first-child {
+  //     margin: 0;
+  //   }
 
-    .placeholder {
-      display: none;
-    }
+  //   .placeholder {
+  //     display: none;
+  //   }
 
-    .elements {
+  //   .elements {
 
-      .element {
-        grid-template-rows: 1fr;
+  //     .element {
+  //       grid-template-rows: 1fr;
 
-        height: 100%;
+  //       height: 100%;
 
-        &.hasDescription {
-          grid-template-rows: 1fr 90px;
-        }
+  //       &.hasDescription {
+  //         grid-template-rows: 1fr 90px;
+  //       }
 
-        .picture-container {
-          overflow: hidden;
+  //       .picture-container {
+  //         overflow: hidden;
 
-          .lila-figure::v-deep {
-            grid-template-rows: 100%;
-            overflow: visible;
-            min-height: auto;
-            max-height: 100%;
+  //         .lila-figure::v-deep {
+  //           grid-template-rows: 100%;
+  //           overflow: visible;
+  //           min-height: auto;
+  //           max-height: 100%;
 
-            &.picture {
-              position: relative;
+  //           &.picture {
+  //             position: relative;
 
-              img {
-                position: relative;
-                top: unset;
-                left: unset;
-                align-self: center;
-                justify-self: center;
-                min-width: auto;
-                max-width: 100%;
-                min-height: auto;
-                max-height: 100%;
-                transform: none;
-              }
-            }
-          }
-        }
+  //             img {
+  //               position: relative;
+  //               top: unset;
+  //               left: unset;
+  //               align-self: center;
+  //               justify-self: center;
+  //               min-width: auto;
+  //               max-width: 100%;
+  //               min-height: auto;
+  //               max-height: 100%;
+  //               transform: none;
+  //             }
+  //           }
+  //         }
+  //       }
 
-      }
-    }
+  //     }
+  //   }
 
-    grid-template-rows: calc(100% - 90px) 90px;
+  //   grid-template-rows: calc(100% - 90px) 90px;
 
-    .scroll-container {
-      height: calc(100% - 40px);
+  //   .scroll-container {
+  //     height: calc(100% - 40px);
 
-      @media @desktop {
-        height: 100%;
-      }
-    }
+  //     @media @desktop {
+  //       height: 100%;
+  //     }
+  //   }
 
-  }
+  // }
 }
 </style>
