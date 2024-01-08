@@ -53,8 +53,11 @@ const content: Content = {
       variant: ['small'],
     },
     {
-      type: 'text-module',
-      text: [
+      type    : 'text-module',
+      headline: 'some headline',
+      subline : 'some subline',
+      intro   : 'some intro',
+      text    : [
         'Egal, was auf der To-Do-Liste steht: Auf den Support ist Verlass. Ein persönlicher Ansprechpartner agiert bei jeder Anfrage nach definierten Regeln, hält sich an Absprachen und kümmert sich innerhalb fixierter Zeiten um eine Lösung.',
         'Ein persönlicher Ansprechpartner agiert bei jeder Anfrage nach definierten Regeln, hält sich an Absprachen und kümmert sich innerhalb fixierter Zeiten um eine Lösung.',
       ],
@@ -78,6 +81,11 @@ const content: Content = {
       variant : [],
       elements: [
         {
+          textblock: {
+            headline: 'some headline',
+            subline : 'some subline',
+            intro   : 'some intro',
+          },
           picture: {
             source: [],
             alt   : 'IMAGE ALT',

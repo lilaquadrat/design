@@ -36,6 +36,7 @@ const notEmpty: ComputedRef<boolean> = computed(() => !!(props.headline || props
   gap: 15px;
   width: 100%;
   word-break: break-word;
+  grid-template-rows: max-content;
 
   .headlines;
 

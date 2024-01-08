@@ -1,5 +1,3 @@
-const { strict } = require('assert');
-
 /* eslint-env node */
 require('@rushstack/eslint-patch/modern-module-resolution');
 

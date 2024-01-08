@@ -17,8 +17,8 @@ export default defineConfig({
       less: {
         globalVars: {
           globalVariables: 'true; @import "./projects/company/project/src/assets/less/variables.less";',
-          globalMixins: 'true; @import "./projects/company/project/src/assets/less/mixins.less";',
-          globalFonts: 'true; @import "./projects/company/project/src/assets/less/fonts.less";',
+          globalMixins   : 'true; @import "./projects/company/project/src/assets/less/mixins.less";',
+          globalFonts    : 'true; @import "./projects/company/project/src/assets/less/fonts.less";',
         },
       }
     }
@@ -26,7 +26,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~fonts': fileURLToPath(new URL('src/assets/fonts', import.meta.url)),
-      '@': path.resolve(__dirname, '../../../src/'),
+      '@'     : path.resolve(__dirname, '../../../src/'),
     }
   }
 });

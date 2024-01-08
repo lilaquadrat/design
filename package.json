@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite projects/company/project",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -30,7 +33,11 @@
     "eslint-plugin-vue": "^9.17.0",
     "less": "^4.2.0",
     "npm-run-all2": "^6.1.1",
+    "postcss-html": "^1.5.0",
+    "postcss-less": "^6.0.0",
+    "prettier-eslint": "^16.2.0",
     "stylelint": "^16.1.0",
+    "stylelint-config-html": "^1.1.0",
     "stylelint-config-recommended": "^14.0.0",
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-order": "^6.0.4",

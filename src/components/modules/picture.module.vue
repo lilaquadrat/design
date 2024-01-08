@@ -47,7 +47,13 @@ const showText = computed((): boolean => {
 
   if (!props.textblock) return false;
 
-  return Object.keys(props.textblock).some((single) => props.textblock[single].length);
+  return Object.keys(props.textblock).some((single) => {
+
+    const singleTyped = single as keyof Textblock;
+
+    return props.textblock[singleTyped]?.length
+
+  });
 
 });
 const fullscreenOverlayEnabled = computed(() => {
@@ -57,7 +63,7 @@ const fullscreenOverlayEnabled = computed(() => {
 });
 
 
-function toggleFullscreenOverlay() {
+function toggleFullscreenOverlay () {
 
   fullscreenOverlay = !fullscreenOverlay;
   emit('fullscreen', fullscreenOverlay);
@@ -67,8 +73,6 @@ function toggleFullscreenOverlay() {
 
 </script>
 <style lang="less" scoped>
-
-
 .lila-picture-module {
   .module;
   max-width: @moduleWidth_L;
@@ -142,6 +146,8 @@ function toggleFullscreenOverlay() {
     left: 0;
 
     display: grid;
+    align-content: center;
+    justify-content: center;
     overflow: hidden;
     width: 100vw;
     max-width: 100vw;
@@ -149,8 +155,6 @@ function toggleFullscreenOverlay() {
     max-height: 100vh;
 
     background-color: @white;
-    justify-content: center;
-    align-content: center;
 
     &:first-child {
       margin: 0;
@@ -161,17 +165,17 @@ function toggleFullscreenOverlay() {
 
       picture {
         object-fit: contain;
+        overflow: hidden;
         width: 100%;
         height: 100%;
-        overflow: hidden;
 
         .multi(padding, 2);
 
         img {
           align-self: center;
           justify-self: center;
-          box-shadow: 0 0 7px @grey;
           border: solid 1px @grey;
+          box-shadow: 0 0 7px @grey;
         }
 
       }
