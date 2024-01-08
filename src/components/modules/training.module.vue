@@ -87,7 +87,7 @@ onMounted((): void => {
 
 });
 
-function checkRealWidth() {
+function checkRealWidth () {
 
   const element = $refs.mainGridContainer;
 
@@ -106,7 +106,7 @@ const indexTeaser = computed(() => {
     if (!singleData.settings) {
 
       singleData.settings = {
-        title: 'No Title',
+        title      : 'No Title',
         description: '',
       };
 
@@ -137,14 +137,14 @@ const currentContent = computed(() => {
 });
 
 
-function setIndex(index: number) {
+function setIndex (index: number) {
 
   currentIndex = index;
   toggleIndex(null, false);
 
 }
 
-function toggleIndex(event: MouseEvent | null, hint?: boolean) {
+function toggleIndex (event: MouseEvent | null, hint?: boolean) {
 
   if (hint !== undefined) {
 
@@ -285,7 +285,7 @@ function toggleIndex(event: MouseEvent | null, hint?: boolean) {
         grid-column-start: 2;
       }
 
-      .lila-content-module::v-deep {
+      .lila-content-module:deep {
         position: relative;
         display: grid;
 

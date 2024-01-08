@@ -65,7 +65,7 @@ const props = defineProps<{
 
 
 // eslint-disable-next-line class-methods-use-this
-function highlight(element: { variant: string | string[]; }) {
+function highlight (element: { variant: string | string[]; }) {
 
   return element.variant?.includes('highlight');
 

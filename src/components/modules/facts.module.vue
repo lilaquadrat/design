@@ -58,14 +58,12 @@ const props = defineProps<{
 
 }>();
 let active: number = 0;
-  const isVariant1=computed(()=>
-{
+const isVariant1=computed(() => {
 
   return props.variant?.includes('variant1');
 
 });
-  const isVariant3=computed(()=>
- {
+const isVariant3=computed(() => {
 
   return props.variant?.includes('variant3');
 
@@ -73,14 +71,14 @@ let active: number = 0;
 let el = ref(null);
 
 
-onMounted(()=>{
+onMounted(() => {
 
   checkInview(el);
 
 });
 
 
-function setActive(index: number) {
+function setActive (index: number) {
 
   active = index;
 

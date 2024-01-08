@@ -40,38 +40,38 @@ let playing: boolean = false;
 let started: boolean = false;
 let el = ref(null);
 
-onMounted((): void =>{
+onMounted((): void => {
 
   checkInview(el);
 
 });
 
 
-function trigger(): void {
+function trigger (): void {
 
   clickEvent = !clickEvent;
 
 }
 
-function toggle(event: boolean): void {
+function toggle (event: boolean): void {
 
   started = true;
   playing = event;
 
 }
 
-function ended(): void {
+function ended (): void {
 
   started = false;
 
 }
 
-  const hasPoster=computed(()=>{
+const hasPoster=computed(() => {
 
   return !!props.poster?.src;
 
 });
-  const controls=computed((): boolean|undefined =>{
+const controls=computed((): boolean|undefined => {
 
   return props.video?.attributes?.includes('controls');
 
@@ -210,7 +210,7 @@ function ended(): void {
       .trans(opacity);
     }
 
-    .posterExt::v-deep {
+    .posterExt:deep {
 
       align-self: auto;
       justify-self: auto;

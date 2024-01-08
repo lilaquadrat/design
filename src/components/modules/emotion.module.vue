@@ -57,7 +57,7 @@ let fullscreen: boolean = false;
 
 watch('content', contentFunction);
 
-function contentFunction(): void {
+function contentFunction (): void {
 
   if (props.variant?.includes('align')) {
 
@@ -82,7 +82,7 @@ onMounted(() => {
 
 });
 
-function scrollToNext(): void {
+function scrollToNext (): void {
 
   const next = el.value.nextSibling as Element;
 

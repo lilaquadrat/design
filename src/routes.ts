@@ -3,8 +3,8 @@ import ContentView from './views/content.view.vue';
 
 const routes: readonly RouteRecordRaw[] = [
   {
-    path: '/:pathMatch(.*)*',
-    name: 'editor',
+    path     : '/:pathMatch(.*)*',
+    name     : 'editor',
     component: ContentView
   },
 ];

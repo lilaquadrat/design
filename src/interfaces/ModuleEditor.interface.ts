@@ -9,4 +9,4 @@ export default interface ModuleEditor {
     variant?: string[];
 
     dataStrings?: string[];
-};
+}

@@ -35,9 +35,9 @@ const listVariant = (type: 'list' | 'links') => {
 
 </script>
 <script lang="ts">
-  export default {
-    inheritAttrs: false,
-  };
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <template>

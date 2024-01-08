@@ -14,13 +14,13 @@ export default interface MediaModel {
     info?: MediaInfo;
     view?: MediaViewInfo;
     download?: string;
-};
+}
 
 export default interface MediaInfo {
     width?: number;
     height?: number;
     ratio?: number;
-};
+}
 
 export default interface MediaViewInfo {
     width?: number;

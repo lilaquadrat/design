@@ -15,8 +15,8 @@ const notEmpty: ComputedRef<boolean> = computed(() => {
   
   return !!props.value?.find((single) => {
 
-  if (typeof single === 'string') return single.length > 0;
-  return single.text?.length > 0;
+    if (typeof single === 'string') return single.length > 0;
+    return single.text?.length > 0;
 
   });
 

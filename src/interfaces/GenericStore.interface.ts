@@ -18,4 +18,4 @@ export default interface GenericStore<T extends GenericState> {
   getters?: {
     [key: string]: (store: Store<T>, data: any) => string | number | {[key: string]: any};
   };
-};
+}

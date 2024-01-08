@@ -21,11 +21,12 @@ const props = defineProps < {
   variant?: string[]
 
 }> ();
-const hasPicture = computed(() =>{
+const hasPicture = computed(() => {
 
-return !!props.picture?.src?.length;
+  return !!props.picture?.src?.length;
 
 });
+
 </script>
 <style lang="less" scoped>
 
@@ -40,7 +41,7 @@ return !!props.picture?.src?.length;
       grid-column-gap: 40px;
     }
 
-    .lila-figure::v-deep {
+    .lila-figure:deep {
       display: grid;
     }
   }
@@ -53,7 +54,7 @@ return !!props.picture?.src?.length;
     }
   }
 
-  .lila-figure::v-deep {
+  .lila-figure:deep {
 
     img {
       max-width: 80px;
@@ -81,14 +82,14 @@ return !!props.picture?.src?.length;
     //   grid-template-columns: 1fr;
     // }
 
-    .lila-textblock::v-deep {
+    .lila-textblock::deep {
       width: 100%;
       // background-color: @grey1;
       // .multi(padding, 12, 4, 4, 4);
       // margin-top: -40px;
     }
 
-    .lila-figure::v-deep {
+    .lila-figure::deep {
       position: relative;
       display: grid;
       justify-self: center;

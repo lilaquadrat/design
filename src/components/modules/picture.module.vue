@@ -111,7 +111,7 @@ function toggleFullscreenOverlay () {
     width: 100%;
     background-color: rgba(255, 255, 255, .9);
 
-    .lila-textblock::v-deep {
+    .lila-textblock::deep {
       .multi(padding, 4, 8);
 
       h3 {
@@ -160,7 +160,7 @@ function toggleFullscreenOverlay () {
       margin: 0;
     }
 
-    .lila-figure::v-deep {
+    .lila-figure::deep {
       overflow: hidden;
 
       picture {
@@ -186,7 +186,7 @@ function toggleFullscreenOverlay () {
 
       position: relative;
 
-      .lila-textblock::v-deep {
+      .lila-textblock::deep {
         .multi(padding, 4);
         text-align: center;
       }
@@ -232,7 +232,7 @@ function toggleFullscreenOverlay () {
       background: transparent;
     }
 
-    .lila-textblock::v-deep {
+    .lila-textblock::deep {
       .multi(padding, 0, 8);
     }
 

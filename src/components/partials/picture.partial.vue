@@ -60,8 +60,8 @@ watch(loading, (state, prevState) => {
 
 // if (this.$store?.state?.settings?.preloadImages) {
 
-  loading = ref(true);
-  loadImage = true;
+loading = ref(true);
+loadImage = true;
 
 // }
 

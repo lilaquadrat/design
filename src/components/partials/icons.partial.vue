@@ -11,7 +11,7 @@ const props = withDefaults(
   }>(),
   {
     colorScheme: 'colorScheme1',
-    size: 'medium'
+    size       : 'medium'
   }
 );
 // const props = defineProps({

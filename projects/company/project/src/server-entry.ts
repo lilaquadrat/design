@@ -9,7 +9,7 @@ const globalModules: Record<string, Record<'default', Component>> = import.meta.
 const globalPartials: Record<string, Record<'default', Component>> = import.meta.glob('../../../../src/components/partials/*', { eager: true });
 const localComponents: Record<string, Record<'default', Component>> = import.meta.glob('./components/modules/*', { eager: true });
 
-export async function render(url, manifest) {
+export async function render (url, manifest) {
   const { app, router } = createApp();
 
   loadComponents(localComponents, 'lila', app);
@@ -34,11 +34,11 @@ export async function render(url, manifest) {
   return [html, preloadLinks];
 }
 
-function renderPreloadLinks(modules, manifest) {
+function renderPreloadLinks (modules, manifest) {
   let links = '';
   const seen = new Set();
   
-  console.log(modules,manifest);
+  console.log(modules, manifest);
   modules.forEach((id: string) => {
 
     console.log(id);
@@ -67,7 +67,7 @@ function renderPreloadLinks(modules, manifest) {
   return links;
 }
 
-function renderPreloadLink(file: string) {
+function renderPreloadLink (file: string) {
   if (file.endsWith('.js')) {
     return `<link rel="modulepreload" crossorigin href="${file}">`;
   } else if (file.endsWith('.css')) {

@@ -18,29 +18,29 @@ const emit = defineEmits<{
 }>();
 const event = ($event: MouseEvent) => {
 
-if (props.attributes?.includes('event') || linkMode === 'event') {
+  if (props.attributes?.includes('event') || linkMode === 'event') {
 
-  $event.preventDefault();
+    $event.preventDefault();
 
-  const instance = getCurrentInstance();
+    const instance = getCurrentInstance();
 
-  if (linkMode === 'event') {
+    if (linkMode === 'event') {
 
       instance?.emit('integratedLink', {link: props.link.slice(1), text: props.text});
-    // this.$root.$emit('integratedLink', { link: this.link, text: this.text });
+      // this.$root.$emit('integratedLink', { link: this.link, text: this.text });
 
-  } else {
+    } else {
 
-    emit(props.link.slice(1), props.text);
-    instance?.emit(props.link.slice(1), props.text);
+      emit(props.link.slice(1), props.text);
+      instance?.emit(props.link.slice(1), props.text);
 
-    // this.$emit(this.link.slice(1), this.text);
-    // this.$root.$emit(this.link.slice(1), this.text);
+      // this.$emit(this.link.slice(1), this.text);
+      // this.$root.$emit(this.link.slice(1), this.text);
+
+    }
+
 
   }
-
-
-}
 
 };
 

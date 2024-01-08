@@ -79,7 +79,7 @@ onMounted(() => {
 
 });
 
-function copyCode(this: any) {
+function copyCode (this: any) {
 
   navigator.clipboard.writeText(this.code);
 

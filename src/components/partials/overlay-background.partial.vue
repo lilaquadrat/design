@@ -4,7 +4,7 @@
     </section>
 </template>
 <script setup lang="ts">
-import  { computed, nextTick, onDeactivated, onMounted } from 'vue';
+import { computed, nextTick, onDeactivated, onMounted } from 'vue';
 
 const props = defineProps < {
   background: 'none' | 'mobile' | 'tablet' | 'desktop';
@@ -12,36 +12,36 @@ const props = defineProps < {
 let emit = defineEmits<{
     (e: string): void
 }>();
-const backgroundMode= computed(()=> {
+const backgroundMode= computed(() => {
 
   return props.background || 'mobile';
 
 });
 
-  function checkClose($e: { target: any; }) {
+function checkClose ($e: { target: any; }) {
 
-    if (this.$refs.background !== $e.target) return;
+  if (this.$refs.background !== $e.target) return;
 
-    emit('close');
+  emit('close');
 
-  }
+}
 
-  onMounted(() =>{
+onMounted(() => {
 
-    nextTick(() => {
+  nextTick(() => {
 
-      if (this.$store) this.$store.dispatch('fullscreen', true);
-      emit('mounted');
-
-    });
+    if (this.$store) this.$store.dispatch('fullscreen', true);
+    emit('mounted');
 
   });
 
-  onDeactivated(()=> {
+});
 
-    if (this.$store) this.$store.dispatch('fullscreen', false);
+onDeactivated(() => {
 
-  });
+  if (this.$store) this.$store.dispatch('fullscreen', false);
+
+});
 // not sure sbout this.$store
 </script>
 <style lang="less">

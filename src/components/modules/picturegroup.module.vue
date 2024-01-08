@@ -47,7 +47,7 @@ onMounted((): void => {
 });
 
 // eslint-disable-next-line class-methods-use-this
-function componentType(link: Link): 'lila-link-partial' | 'section' {
+function componentType (link: Link): 'lila-link-partial' | 'section' {
 
   return link?.link?.length
     ? 'lila-link-partial'
@@ -56,7 +56,7 @@ function componentType(link: Link): 'lila-link-partial' | 'section' {
 }
 
 // eslint-disable-next-line class-methods-use-this
-function getLink(link: Link): string {
+function getLink (link: Link): string {
 
   return link?.link?.length
     ? link.link
@@ -205,7 +205,7 @@ const brightText = computed(() => {
           justify-content: start;
         }
 
-        picture::v-deep {
+        picture:deep {
           overflow: hidden;
           max-width: 100%;
 
@@ -421,7 +421,7 @@ const brightText = computed(() => {
             .multi(padding, 0, 4)
           }
 
-          .lila-textblock::v-deep {
+          .lila-textblock:deep {
             gap: 5px;
             text-align: left;
 
@@ -482,7 +482,7 @@ const brightText = computed(() => {
             .multi(padding, 0, 4)
           }
 
-          .lila-textblock::v-deep {
+          .lila-textblock:deep {
             gap: 5px;
             max-width: @moduleWidth_XS;
             text-align: center;

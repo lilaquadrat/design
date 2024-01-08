@@ -64,6 +64,7 @@ const ACKNOWLEDGE = computed((): string => {
   return props.translations?.acknowledge ?? 'acknowledge';
 
 });
+
 </script>
 <style lang="less" scoped>
 

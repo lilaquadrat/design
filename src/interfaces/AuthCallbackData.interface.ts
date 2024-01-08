@@ -12,4 +12,4 @@ export default interface AuthCallbackData {
     sub?: string;
     updated_at?: string;
 
-};
+}

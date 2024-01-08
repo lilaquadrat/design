@@ -8,4 +8,4 @@ export default interface FooterSocial {
     link: Link;
 
     elements: PictureGroupElement[];
-  };
+  }

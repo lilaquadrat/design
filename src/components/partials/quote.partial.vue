@@ -49,7 +49,7 @@ const notEmpty = computed((): boolean => {
 
 });
 
-function setTextSize(): void {
+function setTextSize (): void {
 
 
   nextTick().then(() => {

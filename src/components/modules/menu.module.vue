@@ -90,7 +90,7 @@ const props = defineProps<{
 
 watch(() => props.elements, watchFunc);
 
-function watchFunc(this: any): void {
+function watchFunc (this: any): void {
 
   this.updateElements();
 
@@ -100,31 +100,31 @@ let el = ref(null);
 
 watch('media', watchMediafunction);
 
-function watchMediafunction(): void {
+function watchMediafunction (): void {
 
   closeAll();
   open = false;
 
 }
 
-  const media=computed((): string =>{
+const media=computed((): string => {
 
   return this.$store.state.media;
 
-});  const isLeft=computed((): boolean=> {
+}); const isLeft=computed((): boolean => {
 
   return props.variant?.includes('left');
 
 });
 
 
-function created(): void {
+function created (): void {
 
   updateElements();
 
 }
 
-onMounted((): void =>{
+onMounted((): void => {
 
   // checkInview(el);
 
@@ -143,7 +143,7 @@ onMounted((): void =>{
 });
 
 
-function updateElements(): void {
+function updateElements (): void {
 
   elementsArray = [];
 
@@ -167,26 +167,26 @@ function updateElements(): void {
 
 }
 
-function type(element: { link: { text: any; }; }): 'router-link' | 'button' {
+function type (element: { link: { text: any; }; }): 'router-link' | 'button' {
 
   if (element.link.text) return 'router-link';
   return 'button';
 
 }
 
-function  toggle(): void {
+function toggle (): void {
 
   open = !open;
 
 }
 
-function toggleElement(element: { active: boolean; }): void {
+function toggleElement (element: { active: boolean; }): void {
 
   element.active = !element.active;
 
 }
 
-function closeAll() {
+function closeAll () {
 
   props.elements?.forEach((element) => {
 
@@ -385,7 +385,7 @@ function closeAll() {
 
   }
 
-  a::v-deep,
+  a::deep,
   button {
     .font-head;
 
@@ -563,7 +563,7 @@ function closeAll() {
 
   }
 
-  .logo::v-deep {
+  .logo::deep {
 
     .basicHover();
 
@@ -789,8 +789,8 @@ function closeAll() {
 
         background-color: @color1;
 
-        a::v-deep,
-        button::v-deep {
+        a::deep,
+        button::deep {
 
           border-bottom: solid 1px @color3;
           color: @white;

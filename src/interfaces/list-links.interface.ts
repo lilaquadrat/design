@@ -8,4 +8,4 @@ export default interface ListLink {
 
     link: Link
 
-};
+}

@@ -12,4 +12,4 @@ export default interface GalleryModule extends ModuleEditor {
 
    elements: GalleryElement[]
 
-};
+}

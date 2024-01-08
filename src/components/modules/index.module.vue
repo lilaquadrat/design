@@ -42,8 +42,8 @@ const useLinks = computed(() => {
     return {
       title: props.links?.title,
       value: props.additional.index?.map((single) => ({
-        text: single?.title,
-        link: `#${single.anchor}`,
+        text      : single?.title,
+        link      : `#${single.anchor}`,
         attributes: ['static'],
       })),
     };

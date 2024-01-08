@@ -49,31 +49,31 @@ const props = defineProps<{
   view?: string;
 
 }>();
- let el = ref(null);
+let el = ref(null);
 
-onMounted(()=>{
+onMounted(() => {
 
   checkInview(el);
 
 });
 
-  const textTop=computed(()=>{
+const textTop=computed(() => {
 
   return {
     headline: props.textblock?.headline,
-    subline: props.textblock?.subline,
+    subline : props.textblock?.subline,
   };
 
 });
-  const textBottom=computed(()=>{
+const textBottom=computed(() => {
 
   return {
     intro: props.textblock?.intro,
-    text: props.textblock?.text,
+    text : props.textblock?.text,
   };
 
 });
-  const linkExists=computed(()=> {
+const linkExists=computed(() => {
 
   return !!props.link?.link;
 

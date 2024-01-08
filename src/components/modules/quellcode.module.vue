@@ -21,6 +21,7 @@ const props = defineProps<{
   variant: string[];
 
 }>();
+
 </script>
 
 <style lang="less" scoped>

@@ -60,7 +60,7 @@ onMounted(() => {
   });
 });
 
-function toggle(element: AccordionElement & { visible: boolean, height: number, headline: string }, index: number) {
+function toggle (element: AccordionElement & { visible: boolean, height: number, headline: string }, index: number) {
 
   let newVisible;
 
@@ -102,7 +102,7 @@ function toggle(element: AccordionElement & { visible: boolean, height: number, 
 
 }
 
-function setElements(this, elements: AccordionElement[], resetVisible = false) {
+function setElements (this, elements: AccordionElement[], resetVisible = false) {
 
   const newElements: any[] = [];
 
@@ -153,7 +153,7 @@ function setElements(this, elements: AccordionElement[], resetVisible = false) {
 
   });
 
-  function listVariant(type: string):string[]{
+  function listVariant (type: string):string[]{
 
     const base = props.variant || [];
 

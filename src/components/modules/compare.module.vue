@@ -65,7 +65,7 @@ const props = defineProps<{
   structure: CompareStructure[];
   id?: string;
 }>();
-const modifiedElements=computed(() =>{
+const modifiedElements=computed(() => {
 
   const data: CompareModified[] = [];
   const headline: (CompareHeadline | string)[] = [''];
@@ -120,7 +120,7 @@ const legend=computed(() => {
   return modifiedElements.value[0].slice(1);
 
 });
-const amountStyle=computed(() =>{
+const amountStyle=computed(() => {
 
   return {
     '--amount': props.elements.length,
@@ -128,14 +128,14 @@ const amountStyle=computed(() =>{
 
 });
 
-function elementsLength(getLength: boolean) {
+function elementsLength (getLength: boolean) {
 
   return getLength ? props.elements.length + 1 : false;
 
 }
 
 // eslint-disable-next-line class-methods-use-this
-function componentType(lineIndex: number) {
+function componentType (lineIndex: number) {
 
   if (lineIndex === 0) return 'h3';
 
