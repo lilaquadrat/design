@@ -16,8 +16,10 @@
   },
   "dependencies": {
     "@lilaquadrat/studio": "^5.11.0",
+    "axios": "^1.6.5",
     "dayjs": "^1.11.10",
     "pinia": "^2.1.7",
+    "uuid": "^9.0.1",
     "vite-tsconfig-paths": "^4.2.3",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
@@ -25,7 +27,8 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",
     "@tsconfig/node18": "^18.2.2",
-    "@types/node": "^18.19.3",
+    "@types/node": "^20.10.7",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-vue": "^5.0.2",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.0",

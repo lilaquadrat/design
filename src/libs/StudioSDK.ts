@@ -1,4 +1,4 @@
-import {
+import type {
   Company,
   Editor, HttpStatusCode, Me, Project, PublishMethod,
   Hosting, Domain, ApiResponses, AppFilter,
@@ -6,9 +6,9 @@ import {
   MediaContentFiles, PublishContentGroup, Publish, Customers, List, ListParticipants, Content,
   EditorBase, Location,
 } from '@lilaquadrat/studio/lib/interfaces';
-import hardCopy from '@mixins/hardCopy';
-import Contact from '@models/Contact.model';
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import hardCopy from '../mixins/hardCopy';
+import type Contact from '../models/Contact.model';
+import axios, { type AxiosResponse, type AxiosRequestConfig } from 'axios';
 
 const mockJs = {};
 const ISMOCK = false;
@@ -75,7 +75,7 @@ export default class StudioSDK {
 
   authToken: string;
 
-  mode: 'live' | 'next' | 'custom' = null;
+  mode: 'live' | 'next' | 'custom' | null;
 
   company: string;
 

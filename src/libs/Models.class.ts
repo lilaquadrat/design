@@ -491,10 +491,6 @@ class Models {
 const ModelsClass = new Models();
 
 export default ModelsClass;
-<<<<<<< HEAD
-export type {
-=======
 export {
->>>>>>> e2a757e (update models.class)
   Models, ModelDeclaration, ModelDeclarationExtended, ModelOptions, ModelHooks,
 };
