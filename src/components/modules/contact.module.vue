@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type Textblock from '@interfaces/textblock.interface';
+import Contact from '../../models/Contact.model.ts';
+import Address from '../../models/Address.model.ts'; 
+import ModelsClass from '../../libs/Models.class.ts';
 import { computed, onBeforeMount } from 'vue';
 
 const props = defineProps<{

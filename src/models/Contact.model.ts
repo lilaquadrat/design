@@ -1,5 +1,6 @@
 
-import type Models, { ModelDeclaration } from '@libs/Models.class';
+import Models from 'src/libs/Models.class';
+import type { ModelDeclaration } from 'src/libs/Models.class';
 
 export default interface Contact {
   prename: string

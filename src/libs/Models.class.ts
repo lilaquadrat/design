@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import type GenericModel from '@interfaces/GenericModel.interface';
-import hardCopy from '@mixins/hardCopy';
+import hardCopy from '../mixins/hardCopy';
 
 type DeclarationTypes = 'string' | 'number' | 'boolean' | 'object';
 type SingleDeclaration = { type: 'string', default?: string } |
@@ -174,7 +174,7 @@ class Models {
 
     if (this.debug) console.debug(data, declaration, targetObject, usecase);
 
-    const keys = Object.keys(declaration);
+    const keys = Object.keys(declaration || {});
 
 
     // if (typeof this.legacy === 'function' && legacy) {
@@ -491,6 +491,10 @@ class Models {
 const ModelsClass = new Models();
 
 export default ModelsClass;
+<<<<<<< HEAD
 export type {
+=======
+export {
+>>>>>>> e2a757e (update models.class)
   Models, ModelDeclaration, ModelDeclarationExtended, ModelOptions, ModelHooks,
 };
