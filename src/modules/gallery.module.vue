@@ -467,10 +467,10 @@ export default class galleryModule extends ExtComponent {
   }
 
   &.hasElementDescription {
-    grid-template-rows: max-content 90px 20px;
+    grid-template-rows: max-content 89px 20px;
 
     @media @desktop {
-      grid-template-rows: max-content 90px;
+      grid-template-rows: max-content 89px;
       gap: 0;
       background-color: @white;
     }

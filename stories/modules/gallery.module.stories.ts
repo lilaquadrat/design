@@ -47,6 +47,17 @@ basic.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
+        src: 'women2.jpg',
+      },
+      textblock: {
+        // eslint-disable-next-line max-len
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
         src: 'women1.jpg',
       },
       textblock: {

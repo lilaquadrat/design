@@ -1,5 +1,4 @@
-import translate from '@mixins/translation';
-import { ErrorObject } from 'ajv';
+import translate from '@plugins/translations';
 
 
 export interface TranslatedPath {
@@ -21,7 +20,7 @@ export interface ErrorsObject {
 
 export default class ActionNotice {
 
-  static parse(errors: ErrorObject[], translationPre?: string): ErrorsObject {
+  static parse(errors: any[], translationPre?: string): ErrorsObject {
 
     const parsedErrors: ErrorsObject = {};
 
@@ -37,7 +36,7 @@ export default class ActionNotice {
 
   }
 
-  static parseSingle(error: ErrorObject, translationPre: string | undefined, errors: ErrorsObject) {
+  static parseSingle(error: any, translationPre: string | undefined, errors: ErrorsObject) {
 
     const pathArray = error.instancePath.split('/').filter((single) => single);
     // check if the second element is a number, to determine if we are inside of a array
@@ -79,7 +78,7 @@ export default class ActionNotice {
 
   }
 
-  static getParsedError(error: ErrorObject, usePath: string, basePath: string | undefined, translationPre: string | undefined): ParsedError {
+  static getParsedError(error: any, usePath: string, basePath: string | undefined, translationPre: string | undefined): ParsedError {
 
     let message: string;
     let path: string = usePath || undefined;

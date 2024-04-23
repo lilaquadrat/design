@@ -1,8 +1,9 @@
 import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
-import { Call, Response } from 'src/libs/lila-call';
-import MainStoreState from './mainStoreState.interface';
+import Vuex from 'vuex';
+import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
+import { Content } from '@lilaquadrat/studio/lib/interfaces';
 import { CallsStore } from './calls.store';
+import MainStoreState from './mainStoreState.interface';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ const state: MainStoreState = {
   content: [],
   fullscreen: false,
   availableModules: [],
+  availableModulesWithRevision: { revision: 0, modules: [] },
   editor: {
     content: null,
     active: '',
@@ -126,6 +128,12 @@ export default new Vuex.Store({
 
     },
 
+    setAvailableModulesWithRevision(mainstate, data:{ revision: number, modules: any[]}) {
+
+      mainstate.availableModulesWithRevision = data;
+
+    },
+
     setFullscreen(mainstate, fullscreen: boolean) {
 
       mainstate.fullscreen = fullscreen;
@@ -147,50 +155,26 @@ export default new Vuex.Store({
 
     },
 
-    getData(store, params: any) {
+    async getContent(store, params: { predefined: boolean, latest: boolean, id: string, categories?: string[] }) {
 
-      const call = new Call();
-      let apiLink: string = '/data';
+      let data: SDKResponse<Content> = null;
+      const sdk = new StudioSDK('design', store.state.api);
 
-      if (params.link) {
+      if (params.predefined && !params.latest) {
 
-        apiLink = !params.id
-          ? `/data/${params.link}`
-          : `/data/${params.link}/${params.id}`;
+        data = await sdk.public.content.predefined(params.id);
+
+      } else if (params.predefined && params.latest) {
+
+        data = await sdk.public.content.predefinedLatest(params.categories);
+
+      } else {
+
+        data = await sdk.public.content.getByInternalId(params.id);
 
       }
 
-      return call.get('api', apiLink, {})
-        .then((data: Response) => {
-
-          this.commit('setData', data.r);
-
-        })
-        .catch((e) => {
-
-          console.error(e);
-
-        });
-
-    },
-
-    getContent(store, params: any) {
-
-      const call = new Call();
-
-      return call.get('api', `/data/link/${params.link}`, {})
-        .then((data: Response) => {
-
-          this.commit('setData', data.r);
-
-        })
-        .catch((e) => {
-
-          console.error(e, params.link);
-          if (params.link === 404) return;
-          this.commit('set404', {});
-
-        });
+      return data;
 
     },
 

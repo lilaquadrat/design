@@ -3,7 +3,7 @@
 
     <lila-picture-partial v-if="hasPicture" v-bind="picture" />
 
-    <lila-textblock-partial v-bind="textblock" />
+    <lila-textblock-partial v-bind="textblock"  />
 
     <slot></slot>
 

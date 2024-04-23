@@ -30,11 +30,10 @@
 import { ExtPartial, Prop } from '@libs/lila-partial';
 import Component from 'vue-class-component';
 import { Watch } from '@libs/lila-component';
-import translate from '@mixins/translation';
-import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentPrepared.interface';
-import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
+import translate from '@plugins/translations';
+import { SDKResponse } from '@libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
-import { Editor } from '@lilaquadrat/studio/lib/interfaces';
+import { Editor, ContentWithPositions } from '@lilaquadrat/studio/lib/interfaces';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -55,7 +54,7 @@ export default class contentContainerPartial extends ExtPartial {
 
   @Prop(Boolean) full: boolean;
 
-  content: ContentPrepared = null;
+  content: ContentWithPositions = null;
 
   error: boolean = true;
 
@@ -115,26 +114,18 @@ export default class contentContainerPartial extends ExtPartial {
     this.loading = 100;
 
     let data: SDKResponse<Editor> = null;
-    const sdk = new StudioSDK('design', this.$store.state.api);
-
-    console.log(129, this.predefined, this.latest, this.category);
-
 
     try {
 
-      if (this.predefined && !this.latest) {
-
-        data = await sdk.public.content.predefined(this.id);
-
-      } else if (this.predefined && this.latest) {
-
-        data = await sdk.public.content.predefinedLatest(this.category);
-
-      } else {
-
-        data = await sdk.public.content.getByInternalId(this.id);
-
-      }
+      data = await this.$store.dispatch(
+        'getContent',
+        {
+          id: this.id,
+          predefined: this.predefined,
+          latest: this.latest,
+          categories: this.category,
+        },
+      );
 
     } catch (error) {
 

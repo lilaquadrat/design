@@ -46,9 +46,8 @@ import Address from '@models/Address.model';
 import ModelsClass from '@libs/Models.class';
 import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
 import { ParsedError } from '@libs/ActionNotice';
-import { Location } from '@lilaquadrat/studio/interfaces';
-import { convertCountryISO2 } from '@lilaquadrat/studio/frontend';
-import ListOfModel from '@lilaquadrat/studio/src/interfaces/ListOfModels.interface';
+import { Location, ListOfModels } from '@lilaquadrat/studio/lib/interfaces';
+import { convertCountryISO2 } from '@lilaquadrat/studio/lib/frontend';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
 @Component
@@ -193,7 +192,7 @@ export default class agreementPartial extends ExtPartial {
 
       const sdk = new StudioSDK('design', this.$store.state.api);
       const call = sdk.public.lists.address(address);
-      let response: SDKResponse<ListOfModel<Location>>;
+      let response: SDKResponse<ListOfModels<Location>>;
 
       try {
 
@@ -298,6 +297,12 @@ export default class agreementPartial extends ExtPartial {
     box-shadow: 0 0 5px -3px @textColor;
   }
 
+  .no-matching {
+    padding: 5px;
+    cursor: inherit;
+
+  }
+
   .single-address, .no-matching {
     display: grid;
     margin: 0;
@@ -309,20 +314,10 @@ export default class agreementPartial extends ExtPartial {
     line-height: @buttonHeight;
     text-align: left;
     cursor: pointer;
-
-    &:hover {
-      color: @color1;
-    }
-
   }
 
-  .no-matching {
-    padding: 5px;
-    cursor: inherit;
-
-    &:hover {
-      color: @textColor;
-    }
+  .no-matching:hover {
+    color: @color1;
   }
 
 }

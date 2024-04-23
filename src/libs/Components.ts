@@ -39,7 +39,7 @@ class Components {
     return modules.map((single) => ({
       name: `${single.name}-module`,
       variants: single.variants || [],
-      editor: single.editor || {}
+      editor: single.editor || {},
     }));
 
   }

@@ -4,7 +4,6 @@ import { Prop, Watch } from 'vue-property-decorator';
 import inview from 'src/libs/lila-inview';
 import Dom from 'src/libs/lila-dom';
 import { AdditionalContentInformation, ModuleIndexOptions } from '@lilaquadrat/studio/lib/interfaces';
-import translate from '@mixins/translation';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -42,20 +41,6 @@ abstract class ExtComponent extends vue {
       this.DOM = new Dom(this.$store);
 
     }
-
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  $translate(text: string, values?: (string | number)[]) {
-
-    return translate.translate(text, undefined, undefined, values);
-
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  $translateDiff(textToTranslate: string, value: number) {
-
-    return translate.translateWithDiff(textToTranslate, value);
 
   }
 

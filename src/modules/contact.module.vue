@@ -84,17 +84,18 @@
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
 import {
-  Agreement, GenericData, List, ListPartiticpantsDetails,
+  Agreement, AgreementResponse, GenericData, List, ListPartiticpantsDetails,
 } from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
 import Contact from '@models/Contact.model';
 import ModelsClass from '@libs/Models.class';
-import StudioSDK from '@libs/StudioSDK';
+import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
-import { ErrorsObject } from '@libs/ActionNotice';
-import { ErrorObject } from 'ajv/dist/types';
+import { ErrorsObject, TranslatedPath } from '@libs/ActionNotice';
+import { type ErrorObject } from 'ajv/dist/types';
 import ListCategoryExtended from '@interfaces/ListCategoryExtended.interface';
 import Address from '@models/Address.model';
+import { Content } from '@lilaquadrat/studio/interfaces';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -145,7 +146,7 @@ export default class ContactModule extends ExtComponent {
 
         categories.forEach((single: ListCategoryExtended) => {
 
-          const stateCategory = this.participantsState?.categories?.find((singleState) => singleState.category === single.id);
+          const stateCategory = this.participantsState?.categories?.find((singleState) => singleState.id === single.id);
 
           if (stateCategory) {
 
@@ -278,14 +279,14 @@ export default class ContactModule extends ExtComponent {
 
   }
 
-  changeAgreement(event: MouseEvent, index: string) {
+  // changeAgreement(event: MouseEvent, index: string) {
 
-    const agreement = this.agreements[index];
-    const target = event.target as HTMLInputElement;
+  //   const agreement = this.agreements[index];
+  //   const target = event.target as HTMLInputElement;
 
-    agreement.value = target.checked;
+  //   agreement.value = target.checked;
 
-  }
+  // }
 
   updateAgreements() {
 
@@ -298,10 +299,11 @@ export default class ContactModule extends ExtComponent {
         value: this.agreements[single.contentId]?.value || false,
       };
 
-      const values = this.errorsObject.agreements?.translatedPath?.values;
+      const translatedPath: TranslatedPath = this.errorsObject.agreements?.translatedPath;
+      const values = translatedPath?.values;
 
 
-      if (values && values[1]) {
+      if (values && values[1] && Array.isArray(values[1])) {
 
         if (values[1].includes(single.contentId)) {
 
@@ -349,7 +351,7 @@ export default class ContactModule extends ExtComponent {
 
     const address = ModelsClass.save(this.addressModel, 'address');
     const customer = ModelsClass.save({ ...this.model, ...address }, 'contact');
-    const agreements = [];
+    const agreements: AgreementResponse[] = [];
     let category: string;
 
     customer.type = 'person';
@@ -362,15 +364,21 @@ export default class ContactModule extends ExtComponent {
 
     delete customer.category;
 
-    this.list?.agreements.forEach((single: Agreement) => {
+    const agreementsAsync = this.list?.agreements.map(async (single: Agreement) => {
 
       if (this.agreements[single.contentId].value) {
 
-        agreements.push({ id: single.contentId, version: 0 });
+        const agreementContent: SDKResponse<Content> = await this.$store.dispatch('getContent', { id: single.contentId, predefined: single.predefined });
+
+        console.log(agreementContent);
+
+        agreements.push({ id: single.contentId, version: agreementContent.data.history.version });
 
       }
 
     });
+
+    await Promise.all(agreementsAsync);
 
     if (this.list?.categories.length === 1 && !category) {
 

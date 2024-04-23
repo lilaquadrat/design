@@ -2,7 +2,7 @@ import log from 'loglevel';
 
 export default (store) => {
 
-  const windowRef: any = window;
+  const windowRef: Window & {__INITIAL_STATE__?: string} = window;
   // eslint-disable-next-line no-underscore-dangle
   const SSRState = windowRef.__INITIAL_STATE__;
   /**

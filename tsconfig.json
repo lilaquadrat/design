@@ -6,7 +6,6 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "noImplicitAny": false,
-        "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
@@ -30,6 +29,9 @@
             ],
             "@libs/*": [
                 "src/libs/*"
+            ],
+            "@plugins/*": [
+                "src/plugins/*"
             ],
             "@store/*": [
                 "src/store/*"

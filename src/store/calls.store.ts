@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { v4 as uuid } from 'uuid';
 import GenericStore from '@interfaces/GenericStore.interface';
-import hardCopy from '@mixins/hardCopy';
 import CallsStoreState from './callStoreState.interface';
 
 Vue.use(Vuex);

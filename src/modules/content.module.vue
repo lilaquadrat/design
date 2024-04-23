@@ -24,8 +24,6 @@ import { ProvideReactive } from 'vue-property-decorator';
 import { ChildData } from '@lilaquadrat/studio/lib/interfaces';
 import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentPrepared.interface';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 @Component
 export default class ContentModule extends ExtComponent {
 

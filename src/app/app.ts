@@ -11,7 +11,7 @@ import 'src/mixins/moment';
 import 'src/mixins/formatBytes';
 
 import InitialScroll from 'src/mixins/scroll';
-import translation from 'src/mixins/translation';
+import translation from 'src/plugins/translations';
 
 import APPComponent from '@partials/appcomponent.partial.vue';
 

@@ -120,7 +120,31 @@ export default class EditorChildScreen extends ExtComponent {
       false,
     );
 
-    window.parent.postMessage({ type: 'studio-design-modules', data: this.$store.state.availableModules }, '*');
+
+    if (this.$store.state.availableModulesWithRevision.revision) {
+
+      window.parent.postMessage(
+        {
+          type: 'studio-design-modules-with-revision',
+          data: this.$store.state.availableModulesWithRevision,
+        },
+        '*',
+      );
+
+    } else {
+
+      window.parent.postMessage(
+        {
+          type: 'studio-design-modules',
+          data: this.$store.state.availableModules,
+        },
+        '*',
+      );
+
+
+    }
+
+
     window.parent.postMessage('studio-design-ready', '*');
 
   }

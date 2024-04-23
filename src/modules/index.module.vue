@@ -64,12 +64,13 @@ export default class IndexModule extends ExtComponent {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-index-module {
-  .module;
 
   display: grid;
   gap: 20px;
+  width: 100%;
 
   .index-container {
+    .module;
     display: grid;
     justify-self: center;
     width: 100%;
@@ -84,7 +85,7 @@ export default class IndexModule extends ExtComponent {
     }
   }
 
-  &.top {
+  &.top, &.backgroundGrey, &.backgroundColor1, &.backgroundColor3 {
     .multi(padding-top, 8);
     .multi(padding-bottom, 8);
   }

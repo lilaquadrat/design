@@ -8,7 +8,7 @@ import 'src/mixins/toFixed';
 import 'src/mixins/moment';
 import 'src/mixins/formatBytes';
 
-import translation from 'src/mixins/translation';
+import translation from 'src/plugins/translations';
 
 import loadComponents from 'src/mixins/loadComponents';
 import VueRouter from 'vue-router';

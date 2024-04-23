@@ -29,20 +29,20 @@ export default class DescriptionPartial extends ExtPartial {
 
 .lila-description-partial {
   .font-bold;
-  color: @color1;
-  font-size: @fontTextSmaller;
-  text-align: left;
-
-  border-left: solid 2px @color1;
-
-  .multi(padding, 2);
 
   display: grid;
   gap: 10px;
 
+  border-left: solid 2px @color1;
+  color: @color1;
+  font-size: @fontTextSmaller;
+  text-align: left;
+
+  .multi(padding, 2);
+
   h4 {
-    text-transform: uppercase;
     font-size: @fontTextSmaller;
+    text-transform: uppercase;
     .font-head;
   }
 

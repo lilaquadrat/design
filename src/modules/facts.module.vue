@@ -127,6 +127,18 @@ export default class FactsModule extends ExtComponent {
       }
     }
 
+    .lila-fact-partial::v-deep {
+
+      .lila-textblock {
+
+        h2 {
+          display: none;
+        }
+
+      }
+
+    }
+
     ul {
       display: grid;
       align-content: start;

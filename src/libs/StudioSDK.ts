@@ -1,10 +1,9 @@
 import {
-  Company,
-  Editor, HttpStatusCode, Me, Project, PublishMethod,
-  Hosting, Domain, ApiResponses, AppFilter,
-  ListOfModels, Tracker, TrackerStatistics, DataObject, Media,
-  MediaContentFiles, PublishContentGroup, Publish, Customers, List, ListParticipants, Content,
-  EditorBase, Location,
+  Editor, HttpStatusCode,
+  ListOfModels, DataObject,
+  Customers, List, ListParticipants, Content,
+  Location,
+  ListPartiticpantsDetails,
 } from '@lilaquadrat/studio/lib/interfaces';
 import hardCopy from '@mixins/hardCopy';
 import Contact from '@models/Contact.model';
@@ -28,6 +27,8 @@ export type SDKCache = {
   cacheLifetime?: number
   cacheTime?: number;
 };
+
+export type SDKModes = 'live' | 'next' | 'custom';
 
 export type SDKCallOptions = {
   /**
@@ -53,7 +54,7 @@ export type SDKCallOptions = {
   cacheLifetime?: number
 };
 
-let cachedCalls: Record<string, SDKResponse<any> & SDKCache> = {};
+let cachedCalls: Record<string, SDKResponse<unknown> & SDKCache> = {};
 
 export default class StudioSDK {
 
@@ -89,7 +90,7 @@ export default class StudioSDK {
     company?: string,
     project?: string,
     authToken?: string,
-    mode?: StudioSDK['mode'],
+    mode?: SDKModes,
     customEndpoints?: { api: string, media: string }
     universalModel?: string
   };
@@ -115,13 +116,11 @@ export default class StudioSDK {
 
   }
 
-  private getUrl(type: 'api' | 'media', methodArray: (string | number)[], options?: { noCompanyProject?: boolean }) {
+  private getUrl(type: 'api' | 'media', methodArray: (string | number)[]) {
 
     const method = methodArray.filter((single) => single);
     const urlArray = [];
     let useEndpoint: string;
-
-    console.log(124, this.mode);
 
     if (this.mode === 'custom') {
 
@@ -180,7 +179,7 @@ export default class StudioSDK {
 
   }
 
-  static handleCall<T, D = any>(call: AxiosRequestConfig<D>, options?: SDKCallOptions): Promise<SDKResponse<T>> {
+  static handleCall<T, D = unknown>(call: AxiosRequestConfig<D>, options?: SDKCallOptions): Promise<SDKResponse<T>> {
 
     if (ISMOCK) {
 
@@ -249,7 +248,7 @@ export default class StudioSDK {
 
     }
 
-    const useCache = cachedCalls[key];
+    const useCache = cachedCalls[key] as SDKResponse<T> & SDKCache;
 
     if (!useCache) return null;
 
@@ -426,7 +425,7 @@ export default class StudioSDK {
           },
         },
       ),
-      state: (listId: string) => StudioSDK.handleCall<any>(
+      state: (listId: string) => StudioSDK.handleCall<ListPartiticpantsDetails>(
         {
           method: 'get',
           url: this.getUrl('api', ['public', 'lists', this.company, this.project, listId, 'state']),

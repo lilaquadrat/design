@@ -1,28 +1,30 @@
 <template>
-<section @click="toggle" @keyup="toggle" class="lila-video-partial" :class="{noPreload: preload === 'none'}">
-    <section v-if="preload === 'none' && !loadVideo" class="preload-placeholder">
-      LOAD VIDEO
-    </section>
-    <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId && renderTarget !== 'pdf'" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
-      <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
-      <track kind="captions" />
-      <source v-if="src" :data-src="src" />
-    </video>
-    <youtube class="iframe" v-if="youtubeId" @playing="playing" @paused="paused" @ended="ended" @ready="ready" v-bind="youtubeSettings"></youtube>
-</section>
+  <section @click="toggle" @keyup="toggle" class="lila-video-partial" :class="{noPreload: preload === 'none'}">
+      <section v-if="preload === 'none' && !loadVideo" class="preload-placeholder">
+        LOAD VIDEO
+      </section>
+      <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId && renderTarget !== 'pdf'" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
+        <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
+        <track kind="captions" />
+        <source v-if="src" :data-src="src" />
+      </video>
+      <youtube class="iframe" v-if="youtubeId" @playing="playing" @paused="paused" @ended="ended" @ready="ready" v-bind="youtubeSettings"></youtube>
+  </section>
 </template>
 <script lang="ts">
 import { VideoSource } from '@interfaces/video.interface';
 import {
-  ExtComponent, Component, Prop, Watch,
+  Component, Prop, Watch,
 } from '@libs/lila-component';
 import VueYouTubeEmbed, { getIdFromURL } from 'vue-youtube-embed';
 import Vue from 'vue';
+import { ExtPartial } from '@libs/lila-partial';
+import Dom from '@libs/lila-dom';
 
 Vue.use(VueYouTubeEmbed);
 
 @Component
-export default class VideoPartial extends ExtComponent {
+export default class VideoPartial extends ExtPartial {
 
   $refs: {
     videoElement: HTMLVideoElement;
@@ -52,6 +54,8 @@ export default class VideoPartial extends ExtComponent {
 
   loadVideo: boolean = null;
 
+  public DOM: Dom;
+
   youtubeObject;
 
   @Watch('src')
@@ -79,6 +83,18 @@ export default class VideoPartial extends ExtComponent {
   watchElement() {
 
     console.log('refs changed');
+
+  }
+
+  constructor() {
+
+    super();
+
+    if (this.$store) {
+
+      this.DOM = new Dom(this.$store);
+
+    }
 
   }
 

@@ -35,7 +35,7 @@
 <script lang="ts">
 import { Component, Prop, Watch } from '@libs/lila-component';
 import hardCopy from '@mixins/hardCopy';
-import Translation from '@mixins/translation';
+import Translation from '@plugins/translations';
 import SelectOption from '../interfaces/selectOption.interface';
 import { ExtPartial } from '@libs/lila-partial';
 import { ParsedError } from '@libs/ActionNotice';

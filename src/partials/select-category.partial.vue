@@ -83,8 +83,13 @@ export default class selectCategoryPartial extends ExtPartial {
 .lila-select-category-partial {
 
   display: grid;
-  gap: 50px 0;
+
+  gap: 30px 0;
   width: 100%;
+
+  @media @tablet, @desktop {
+    gap: 50px 0;
+  }
 
   .single-category {
     display: grid;
@@ -96,6 +101,95 @@ export default class selectCategoryPartial extends ExtPartial {
 
     input {
       display: none;
+    }
+
+    .highlight {
+      margin-top: 30px;
+      padding: 0 3px;
+      background-color: @error;
+      color: @white;
+      font-size: @fontTextSmaller;
+
+      &.sold-out, &.notAvailable {
+        background-color: @grey;
+      }
+
+    }
+
+    .indicator {
+      display: grid;
+      align-content: center;
+      align-self: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border: solid 1px @color1;
+      border-radius: 50%;
+
+      .active {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: @color1;
+      }
+    }
+
+    h1, h3 {
+      .font-head;
+      color: @color1;
+      .trans(color);
+
+      font-size: @headline_XS;
+      text-transform: uppercase;
+
+      @media @tablet, @desktop {
+        font-size: @headline_S;
+      }
+    }
+
+    .description {
+      grid-row-start: 2;
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+
+    h3 {
+      text-align: right;
+    }
+
+    h4 {
+      grid-row-start: 2;
+      grid-column-start: 3;
+      grid-column-end: 4;
+      color: @textColor;
+      font-size: @fontSmall;
+      text-align: right;
+      .font-normal;
+    }
+
+    &.not-selected {
+
+      h1, h3, h4 {
+        color: @color1;
+      }
+
+      .indicator {
+
+        .active {
+          display: none;
+        }
+      }
+
+      &:hover {
+
+        .indicator {
+
+          .active {
+            display: grid;
+          }
+        }
+      }
+
     }
 
     &.hide-free-notice.free {
@@ -159,99 +253,10 @@ export default class selectCategoryPartial extends ExtPartial {
 
     }
 
-    .highlight {
-      margin-top: 30px;
-      padding: 0 3px;
-      background-color: @error;
-      color: @white;
-      font-size: @fontTextSmaller;
-
-      &.sold-out, &.notAvailable {
-        background-color: @grey;
-      }
-
-      &.notAvailable {
-      }
-    }
-
-    .indicator {
-      display: grid;
-      align-content: center;
-      align-self: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      border: solid 1px @color1;
-      border-radius: 50%;
-
-      .active {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: @color1;
-      }
-    }
-
-    h1, h3 {
-      .font-head;
-      color: @color1;
-      .trans(color);
-    }
-
     .notAvailable {
       grid-column-start: 2;
       grid-column-end: 3;
       text-transform: uppercase;
-    }
-
-    .description {
-      grid-row-start: 2;
-      grid-column-start: 2;
-      grid-column-end: 3;
-    }
-
-    h1, h3 {
-      font-size: @headline_S;
-      text-transform: uppercase;
-    }
-
-    h3 {
-      text-align: right;
-    }
-
-    h4 {
-      grid-row-start: 2;
-      grid-column-start: 3;
-      grid-column-end: 4;
-      color: @textColor;
-      font-size: @fontSmall;
-      text-align: right;
-      .font-normal;
-    }
-
-    &.not-selected {
-
-      h1, h3, h4 {
-        color: @color1;
-      }
-
-      &:hover {
-
-        .indicator {
-
-          .active {
-            display: grid;
-          }
-        }
-      }
-
-      .indicator {
-
-        .active {
-          display: none;
-        }
-      }
-
     }
 
   }
