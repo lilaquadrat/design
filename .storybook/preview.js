@@ -14,7 +14,7 @@ import '../base/lilaquadrat/base/models';
 
 import Attributes from '@mixins/attributes';
 import '@mixins/leadingZero';
-import translation from '@mixins/translation';
+import translation from '@plugins/translations';
 import DE from '../base/lilaquadrat/base/translations/de';
 translation.select('de');
 translation.add(DE, 'de');
