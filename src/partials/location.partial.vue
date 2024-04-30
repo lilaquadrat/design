@@ -68,8 +68,8 @@ export default class LocationPartial extends ExtPartial {
 
     return {
       src: this.src,
-      // height: '100%',
-      // width: '100%',
+      height: '100%',
+      width: '100%',
     };
 
   }
@@ -84,7 +84,7 @@ export default class LocationPartial extends ExtPartial {
 
   .iframe {
     position: relative;
-    min-width: 500px;
+    width: 100%;
     max-width: 100%;
     height: auto;
     padding-top: 75%;

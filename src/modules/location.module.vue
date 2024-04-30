@@ -88,7 +88,7 @@ export default class LocationModule extends ExtComponent {
 
     @media @desktop {
       grid-template-columns: 2fr 1fr;
-      gap: 30px;
+      gap: 0 30px;
 
       .map-container {
         grid-row-start: 1;
@@ -102,30 +102,33 @@ export default class LocationModule extends ExtComponent {
   }
 
   &.textLeft {
-    .map-container {
-      grid-row-start: 1;
-    }
 
-    .text-container {
-      grid-row-start: 2;
-    }
-
-    @media @desktop {
-      display: grid;
-      grid-template-columns: auto 1fr;
+    .content-container {
 
       .map-container {
         grid-row-start: 1;
-        grid-column-start: 2;
-
-
       }
 
       .text-container {
-        grid-column-start: 1;
-        grid-row-start: 1;
+        grid-row-start: 2;
+      }
+
+      @media @desktop {
+        grid-template-columns: 1fr 2fr;
+
+        .map-container {
+          grid-row-start: 2;
+          grid-column-start: 2;
+
+
+        }
+
+        .text-container {
+          grid-column-start: 1;
+        }
       }
     }
   }
+
 }
 </style>
