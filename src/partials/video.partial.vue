@@ -3,14 +3,20 @@
       <section v-if="preload === 'none' && !loadVideo" class="preload-placeholder">
         LOAD VIDEO
       </section>
-      <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId && renderTarget !== 'pdf'" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
-        <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" />
+      <video v-if="(preload === 'auto' || (preload === 'none' && loadVideo)) && src && !youtubeId &&
+       renderTarget !== 'pdf'" ref="videoElement" v-attributes="attributes" :preload="preload" :poster="poster" :class="[state, { loading: loading }]" :key="src">
+       
+       <source v-for="single in source" :key="single.media" :class="single.media" :data-src="single.source" /> 
         <track kind="captions" />
         <source v-if="src" :data-src="src" />
+
       </video>
       <youtube class="iframe" v-if="youtubeId" @playing="playing" @paused="paused" @ended="ended" @ready="ready" v-bind="youtubeSettings"></youtube>
   </section>
+
 </template>
+
+
 <script lang="ts">
 import { VideoSource } from '@interfaces/video.interface';
 import {
