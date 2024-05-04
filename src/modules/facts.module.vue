@@ -27,7 +27,7 @@
 
 
       <div v-if="isVariant1 || isVariant3" class="facts-container">
-        <lila-fact-partial v-bind="elements[active]" />
+        <lila-fact-partial v-bind="elements[active]" /> {{ isVariant4 }}
       </div>
 
       <div v-if="!isVariant1 && !isVariant3" class="facts-container">
@@ -71,6 +71,7 @@ export default class FactsModule extends ExtComponent {
   mounted() {
 
     this.checkInview();
+    console.log(document.querySelector('.facts-container').classList.add('mark'));
 
   }
 
@@ -81,6 +82,8 @@ export default class FactsModule extends ExtComponent {
   }
 
 }
+
+
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
@@ -263,13 +266,17 @@ export default class FactsModule extends ExtComponent {
     }
   }
 
-  &.variant4 {
-    max-width: @moduleWidth_L;
+  &.sameSizedImages {
+    max-width: @moduleWidth_M;
 
     .facts-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px; 
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+
+      .lila-fact-partial::v-deep:not(:has(img)) {
+        position: absolute;
+        visibility: hidden;
+      }
     }
   }
 }

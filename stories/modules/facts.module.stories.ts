@@ -208,9 +208,9 @@ variant3.args = {
   variant: ['variant3'],
 };
 
-export const variant4 = Template.bind({});
+export const sameSizedImages = Template.bind({});
 
-variant4.args = {
+sameSizedImages.args = {
   textblock: {
     headline: 'Some nice Headline',
     subline: 'Some nice subline',
@@ -227,6 +227,72 @@ variant4.args = {
       // variant: ['fit'],
     },
     {
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        subline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+      variant: [],
+    },
+    {
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        subline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+      // variant: ['fit'],
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'logo_512x512.png',
+      },
+      // variant: ['fit'],
+    },
+    {
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        subline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+      },
+    },
+    {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
@@ -250,49 +316,11 @@ variant4.args = {
       // variant: ['fit'],
     },
     {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
+      textblock: {
+        headline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        subline: 'incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.?',
+        text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
       },
-    },
-    {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
-      },
-    },
-    {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
-      },
-      // variant: ['fit'],
-    },
-    {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
-      },
-    },
-    {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
-      },
-      variant: ['sameSizedImages'],
-    },
-    {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
-      },
-      // variant: ['fit'],
     },
     {
       picture: {
@@ -310,5 +338,6 @@ variant4.args = {
       //  variant: ['noText'],
     },
   ],
-  variant: ['variant4', 'noText'],
+  variant: ['sameSizedImages', 'noText'],
+  // variant: ['variant4'],
 };

@@ -1,8 +1,7 @@
 <template>
-  <section class="lila-fact-partial" :class="[variant, { hasPicture, noText }]">
+  <section class="lila-fact-partial" :class="[variant, { hasPicture}]">
 
     <lila-picture-partial v-if="hasPicture" v-bind="picture" />
-    <lila-textblock-partial v-if="noText" v-bind="!textblock" />
     <lila-textblock-partial v-bind="textblock" />
     <slot></slot>
 
@@ -27,11 +26,11 @@ export default class FactPartial extends ExtPartial {
 
   }
 
-  get noText() {
+  // get noText() {
 
-    return !this.textblock;
+  //   return !this.textblock;
 
-  }
+  // }
 
 
 }
@@ -116,17 +115,12 @@ export default class FactPartial extends ExtPartial {
     .lila-figure::v-deep {
       position: relative;
       display: grid;
-      width: fit-content;
-
       img {
-
-        max-width: 150px;
-        max-height: 150px;
+      min-width: 150px;
+      min-height: 150px;
       }
     }
-
-    .lila-textblock,
-    &:empty {
+    .lila-textblock {
       display: none;
     }
   }
