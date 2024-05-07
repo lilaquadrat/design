@@ -102,6 +102,7 @@ import { Content } from '@lilaquadrat/studio/interfaces';
 @Component
 export default class ContactModule extends ExtComponent {
 
+
   @Prop(Object) textblock: Textblock;
 
   @Prop(Object) categoryTextblock: Textblock;
@@ -124,346 +125,348 @@ export default class ContactModule extends ExtComponent {
 
   agreements: Record<string, Agreement & { value: boolean, error: boolean }> = {};
 
-  get list(): List {
+$store: any;
 
-    if (this.genericData?.lists && this.genericData?.data && Array.isArray(this.genericData?.lists)) {
+get list(): List {
 
-      return this.genericData.data[this.genericData.lists[0]];
+  if (this.genericData?.lists && this.genericData?.data && Array.isArray(this.genericData?.lists)) {
 
-    }
-
-    return null;
+    return this.genericData.data[this.genericData.lists[0]];
 
   }
 
-  get categories(): ListCategoryExtended[] {
+  return null;
 
-    if (this.list?.categories.length > 1) {
+}
 
-      const categories = this.list.categories as ListCategoryExtended[];
+get categories(): ListCategoryExtended[] {
 
-      if (this.participantsState) {
+  if (this.list?.categories.length > 1) {
 
-        categories.forEach((single: ListCategoryExtended) => {
+    const categories = this.list.categories as ListCategoryExtended[];
 
-          const stateCategory = this.participantsState?.categories?.find((singleState) => singleState.id === single.id);
+    if (this.participantsState) {
 
-          if (stateCategory) {
+      categories.forEach((single: ListCategoryExtended) => {
 
-            single.used = stateCategory.used;
-            single.available = single.amount - single.used;
-            single.percentUsed = (single.used / single.amount) * 100;
-            single.percentAvailable = 100 - (single.used / single.amount) * 100;
+        const stateCategory = this.participantsState?.categories?.find((singleState) => singleState.id === single.id);
 
-          }
+        if (stateCategory) {
 
-        });
-
-      }
-
-      return categories;
-
-    }
-
-    return null;
-
-  }
-
-  get selectCategories() {
-
-    if (this.list?.categories.length > 1) {
-
-      return this.list.categories.map((single) => ({
-        value: single.id,
-        text: single.name,
-        description: single.description,
-        disabled: single.disabled,
-      }));
-
-    }
-
-    return null;
-
-  }
-
-  get feedback() {
-
-    if (this.genericData?.editor && this.genericData?.data && Array.isArray(this.genericData?.editor)) {
-
-      return this.genericData.data[this.genericData.editor[0]];
-
-    }
-
-    return null;
-
-  }
-
-  get showFeedback() {
-
-    return this.state === 'success' || this.editor?.modes?.includes('feedback');
-
-  }
-
-  get feedbackContent() {
-
-    return prepareContent(this.feedback);
-
-  }
-
-  get limited() {
-
-    return this.list?.participants?.max || null;
-
-  }
-
-  get disabled() {
-
-    if (this.participantsState && this.list?.participants?.max) {
-
-      return this.participantsState.used >= this.list?.participants?.max;
-
-    }
-
-    return false;
-
-  }
-
-  get hideFreeSlots() {
-
-    return this.variant.includes('hide-free-slots');
-
-  }
-
-  get mainErrors() {
-
-    if (['LIST_CANNOT_JOIN', 'LIST_UNIQUE_CUSTOMER_CONFIRMED', 'LIST_NOT_FOUND', 'LIST_NO_SPOT_AVAILABLE'].includes(this.errors?.message)) {
-
-      return `${this.errors?.message}_${this.list?.mode}`;
-
-    }
-
-    return null;
-
-  }
-
-  get slotsAvailable() {
-
-    return (this.list?.participants.max || 0) - this.participantsState.used;
-
-  }
-
-  created() {
-
-    this.model = ModelsClass.add({}, 'contact');
-    this.addressModel = ModelsClass.add({}, 'address');
-    this.updateAgreements();
-    this.getparticipantsState();
-
-
-  }
-
-  resetForm() {
-
-    this.state = '';
-    this.model = ModelsClass.add({}, 'contact');
-    this.addressModel = ModelsClass.add({}, 'address');
-    this.errors = null;
-    this.errorsObject = {};
-
-  }
-
-  updateErrors(errorsObject: ErrorsObject) {
-
-    this.errorsObject = errorsObject;
-    this.updateAgreements();
-
-  }
-
-  // changeAgreement(event: MouseEvent, index: string) {
-
-  //   const agreement = this.agreements[index];
-  //   const target = event.target as HTMLInputElement;
-
-  //   agreement.value = target.checked;
-
-  // }
-
-  updateAgreements() {
-
-    const agreements = {};
-
-    this.list?.agreements.forEach((single: Agreement & {error: boolean}) => {
-
-      agreements[single.contentId] = {
-        ...single,
-        value: this.agreements[single.contentId]?.value || false,
-      };
-
-      const translatedPath: TranslatedPath = this.errorsObject.agreements?.translatedPath;
-      const values = translatedPath?.values;
-
-
-      if (values && values[1] && Array.isArray(values[1])) {
-
-        if (values[1].includes(single.contentId)) {
-
-          agreements[single.contentId].error = true;
+          single.used = stateCategory.used;
+          single.available = single.amount - single.used;
+          single.percentUsed = (single.used / single.amount) * 100;
+          single.percentAvailable = 100 - (single.used / single.amount) * 100;
 
         }
 
-      }
+      });
 
+    }
 
-    });
-
-    this.agreements = agreements;
+    return categories;
 
   }
 
-  async getparticipantsState() {
+  return null;
 
-    const sdk = new StudioSDK('design', this.$store.state.api);
+}
 
-    try {
+get selectCategories() {
 
-      const participantsState = await sdk.public.lists.state(this.list?._id.toString());
+  if (this.list?.categories.length > 1) {
 
-      if (participantsState.data) {
+    return this.list.categories.map((single) => ({
+      value: single.id,
+      text: single.name,
+      description: single.description,
+      disabled: single.disabled,
+    }));
 
-        this.participantsState = participantsState.data;
+  }
+
+  return null;
+
+}
+
+get feedback() {
+
+  if (this.genericData?.editor && this.genericData?.data && Array.isArray(this.genericData?.editor)) {
+
+    return this.genericData.data[this.genericData.editor[0]];
+
+  }
+
+  return null;
+
+}
+
+get showFeedback() {
+
+  return this.state === 'success' || this.editor?.modes?.includes('feedback');
+
+}
+
+get feedbackContent() {
+
+  return prepareContent(this.feedback);
+
+}
+
+get limited() {
+
+  return this.list?.participants?.max || null;
+
+}
+
+get disabled() {
+
+  if (this.participantsState && this.list?.participants?.max) {
+
+    return this.participantsState.used >= this.list?.participants?.max;
+
+  }
+
+  return false;
+
+}
+
+get hideFreeSlots() {
+
+  return this.variant.includes('hide-free-slots');
+
+}
+
+get mainErrors() {
+
+  if (['LIST_CANNOT_JOIN', 'LIST_UNIQUE_CUSTOMER_CONFIRMED', 'LIST_NOT_FOUND', 'LIST_NO_SPOT_AVAILABLE'].includes(this.errors?.message)) {
+
+    return `${this.errors?.message}_${this.list?.mode}`;
+
+  }
+
+  return null;
+
+}
+
+get slotsAvailable() {
+
+  return (this.list?.participants.max || 0) - this.participantsState.used;
+
+}
+
+created() {
+
+  this.model = ModelsClass.add({}, 'contact');
+  this.addressModel = ModelsClass.add({}, 'address');
+  this.updateAgreements();
+  this.getparticipantsState();
+
+
+}
+
+resetForm() {
+
+  this.state = '';
+  this.model = ModelsClass.add({}, 'contact');
+  this.addressModel = ModelsClass.add({}, 'address');
+  this.errors = null;
+  this.errorsObject = {};
+
+}
+
+updateErrors(errorsObject: ErrorsObject) {
+
+  this.errorsObject = errorsObject;
+  this.updateAgreements();
+
+}
+
+// changeAgreement(event: MouseEvent, index: string) {
+
+//   const agreement = this.agreements[index];
+//   const target = event.target as HTMLInputElement;
+
+//   agreement.value = target.checked;
+
+// }
+
+updateAgreements() {
+
+  const agreements = {};
+
+  this.list?.agreements.forEach((single: Agreement & {error: boolean}) => {
+
+    agreements[single.contentId] = {
+      ...single,
+      value: this.agreements[single.contentId]?.value || false,
+    };
+
+    const translatedPath: TranslatedPath = this.errorsObject.agreements?.translatedPath;
+    const values = translatedPath?.values;
+
+
+    if (values && values[1] && Array.isArray(values[1])) {
+
+      if (values[1].includes(single.contentId)) {
+
+        agreements[single.contentId].error = true;
 
       }
-
-    } catch (e) {
-
-      console.error(e);
-      console.log(e.response?.data);
 
     }
 
 
-  }
+  });
 
-  async handleForm(event: Event) {
+  this.agreements = agreements;
 
-    event.preventDefault();
-    this.state = '';
+}
 
-    const address = ModelsClass.save(this.addressModel, 'address');
-    const customer = ModelsClass.save({ ...this.model, ...address }, 'contact');
-    const agreements: AgreementResponse[] = [];
-    let category: string;
+async getparticipantsState() {
 
-    customer.type = 'person';
+  const sdk = new StudioSDK('design', this.$store.state.api);
 
-    const message = customer.message;
+  try {
 
-    delete customer.message;
+    const participantsState = await sdk.public.lists.state(this.list?._id.toString());
 
-    category = customer.category;
+    if (participantsState.data) {
 
-    delete customer.category;
-
-    const agreementsAsync = this.list?.agreements.map(async (single: Agreement) => {
-
-      if (this.agreements[single.contentId].value) {
-
-        const agreementContent: SDKResponse<Content> = await this.$store.dispatch('getContent', { id: single.contentId, predefined: single.predefined });
-
-        console.log(agreementContent);
-
-        agreements.push({ id: single.contentId, version: agreementContent.data.history.version });
-
-      }
-
-    });
-
-    await Promise.all(agreementsAsync);
-
-    if (this.list?.categories.length === 1 && !category) {
-
-      category = this.list.categories[0].id;
+      this.participantsState = participantsState.data;
 
     }
 
-    const sdk = new StudioSDK('design', this.$store.state.api);
-    const call = sdk.public.lists.join(this.list?._id.toString(), customer, message, category, agreements);
+  } catch (e) {
 
-    try {
+    console.error(e);
+    console.log(e.response?.data);
 
-      await this.$traceable(call);
+  }
 
-      this.state = 'success';
 
-    } catch (e) {
+}
 
-      console.error(e);
-      console.log(e.response?.data);
+async handleForm(event: Event) {
 
-      /**
+  event.preventDefault();
+  this.state = '';
+
+  const address = ModelsClass.save(this.addressModel, 'address');
+  const customer = ModelsClass.save({ ...this.model, ...address }, 'contact');
+  const agreements: AgreementResponse[] = [];
+  let category: string;
+
+  customer.type = 'person';
+
+  const message = customer.message;
+
+  delete customer.message;
+
+  category = customer.category;
+
+  delete customer.category;
+
+  const agreementsAsync = this.list?.agreements.map(async (single: Agreement) => {
+
+    if (this.agreements[single.contentId].value) {
+
+      const agreementContent: SDKResponse<Content> = await this.$store.dispatch('getContent', { id: single.contentId, predefined: single.predefined });
+
+      console.log(agreementContent);
+
+      agreements.push({ id: single.contentId, version: agreementContent.data.history.version });
+
+    }
+
+  });
+
+  await Promise.all(agreementsAsync);
+
+  if (this.list?.categories.length === 1 && !category) {
+
+    category = this.list.categories[0].id;
+
+  }
+
+  const sdk = new StudioSDK('design', this.$store.state.api);
+  const call = sdk.public.lists.join(this.list?._id.toString(), customer, message, category, agreements);
+
+  try {
+
+    await this.$traceable(call);
+
+    this.state = 'success';
+
+  } catch (e) {
+
+    console.error(e);
+    console.log(e.response?.data);
+
+    /**
        * because of the address partial we need to remove the single errors from the error messages and add
        * one error for the whole address
        */
-      const addressKeys = ['street', 'streetNumber', 'osm_id', 'zipcode', 'city', 'country'];
-      const filteredErrorArray = [];
-      let addAddressError = false;
+    const addressKeys = ['street', 'streetNumber', 'osm_id', 'zipcode', 'city', 'country'];
+    const filteredErrorArray = [];
+    let addAddressError = false;
 
-      // Check if the error response has a message indicating validation failure
-      if (e.response?.data?.message === 'VALIDATION_FAILED') {
+    // Check if the error response has a message indicating validation failure
+    if (e.response?.data?.message === 'VALIDATION_FAILED') {
 
-        // Iterate over each error in the response data
-        e.response?.data?.errors.forEach((single: ErrorObject) => {
+      // Iterate over each error in the response data
+      e.response?.data?.errors.forEach((single: ErrorObject) => {
 
-          // If the missing property in the error is not in the addressKeys array
-          if (!addressKeys.includes(single.params.missingProperty)) {
+        // If the missing property in the error is not in the addressKeys array
+        if (!addressKeys.includes(single.params.missingProperty)) {
 
-            // Add the error to the filtered error array
-            filteredErrorArray.push(single);
+          // Add the error to the filtered error array
+          filteredErrorArray.push(single);
 
-          } else {
+        } else {
 
-            // Flag that there's an address-related error
-            addAddressError = true;
-
-          }
-
-        });
-
-        // After checking all errors, if there's an address-related error
-        if (addAddressError) {
-
-          // Add a custom address error to the filtered error array
-          filteredErrorArray.push({
-            instancePath: '',
-            schemaPath: '#/required',
-            keyword: 'required',
-            params: {
-              missingProperty: 'address',
-            },
-            message: 'must have required property \'address\'',
-          });
+          // Flag that there's an address-related error
+          addAddressError = true;
 
         }
 
-        // Set the component's errors property to the filtered error array
-        this.errors = {
-          message: 'VALIDATION_FAILED',
-          errors: filteredErrorArray,
-        };
+      });
 
-      } else {
+      // After checking all errors, if there's an address-related error
+      if (addAddressError) {
 
-        // If the error isn't a validation failure, just set the component's errors to the response data
-        this.errors = e.response?.data;
+        // Add a custom address error to the filtered error array
+        filteredErrorArray.push({
+          instancePath: '',
+          schemaPath: '#/required',
+          keyword: 'required',
+          params: {
+            missingProperty: 'address',
+          },
+          message: 'must have required property \'address\'',
+        });
 
       }
 
+      // Set the component's errors property to the filtered error array
+      this.errors = {
+        message: 'VALIDATION_FAILED',
+        errors: filteredErrorArray,
+      };
 
-      this.state = 'error';
+    } else {
+
+      // If the error isn't a validation failure, just set the component's errors to the response data
+      this.errors = e.response?.data;
 
     }
 
+
+    this.state = 'error';
+
   }
+
+}
 
 }
 </script>
@@ -488,6 +491,5 @@ export default class ContactModule extends ExtComponent {
     display: grid;
     gap: 20px;
   }
-
 }
 </style>

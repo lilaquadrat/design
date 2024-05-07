@@ -111,7 +111,7 @@ export default class FactPartial extends ExtPartial {
 
   }
 
-  &.noText {
+  &.sameSizedImages {
     .lila-figure::v-deep {
       position: relative;
       display: grid;

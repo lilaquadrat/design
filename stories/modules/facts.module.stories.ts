@@ -335,9 +335,8 @@ sameSizedImages.args = {
         alt: 'IMAGE ALT',
         src: 'logo_512x512.png',
       },
-      //  variant: ['noText'],
     },
   ],
-  variant: ['sameSizedImages', 'noText'],
+  variant: ['sameSizedImages'],
   // variant: ['variant4'],
 };

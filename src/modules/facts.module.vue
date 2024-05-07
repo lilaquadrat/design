@@ -270,10 +270,10 @@ export default class FactsModule extends ExtComponent {
     max-width: @moduleWidth_M;
 
     .facts-container {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
 
-      .lila-fact-partial::v-deep:not(:has(img)) {
+      .lila-fact-partial:not(:has(img)) {
         position: absolute;
         visibility: hidden;
       }

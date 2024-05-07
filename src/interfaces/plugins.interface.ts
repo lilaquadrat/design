@@ -1,8 +1,8 @@
-import { TranslationPlugin } from '@plugins/translations';
+import { TranslationPlugin } from 'src/plugins/translations';
 
 declare module 'vue/types/vue' {
     interface Vue {
-      $translate: TranslationPlugin['translateV2']
+      $translate: TranslationPlugin['translate']
       $translateWithDiff: TranslationPlugin['translateWithDiff']
     }
   }

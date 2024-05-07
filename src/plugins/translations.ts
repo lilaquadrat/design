@@ -5,7 +5,7 @@ import vue from 'vue';
  *
  * @class Translation
  */
-class Translation {
+class  TranslationPlugin {
 
   /**
      *
@@ -148,7 +148,7 @@ class Translation {
 
 }
 
-const translate = new Translation();
+const translate = new TranslationPlugin();
 
 vue.filter('translate', (value: string, values?: string[]) => translate.translate(value, null, null, values));
 vue.filter('translatePlural', (textToTranslate: string, value: number) => translate.translateWithDiff(textToTranslate, value));
