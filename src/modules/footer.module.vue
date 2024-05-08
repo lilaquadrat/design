@@ -185,16 +185,16 @@ export default class FooterModule extends ExtComponent {
     gap: 0;
 
     .footer-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: @moduleWidth_XS;
+      .multi(padding-bottom, 2);
 
       @media @tablet, @desktop {
-        grid-template-rows: min-content;
-        grid-template-columns: 1.5fr 2fr repeat(2, 1fr);
+        grid-template-columns: 1.5fr 2fr auto auto;
         gap: 100px;
         max-width: @moduleWidth_M;
-        .multi(padding-bottom, 6);
+        .multi(padding-bottom, 3);
       }
 
       .picture-container {
@@ -203,28 +203,26 @@ export default class FooterModule extends ExtComponent {
       }
 
       .content {
-
-        @media @tablet, @desktop {
-          height: fit-content;
-          white-space: nowrap;
-        }
+        max-width: fit-content;
+        height: fit-content;
+        white-space: nowrap;
       }
 
       .text-container,
       .content:nth-child(2) {
         white-space: nowrap;
-
       }
 
       .content:not(:nth-child(2)) {
-        text-align: right;
         display: grid;
-        grid-template-columns: 1fr;
+        text-align: right;
+
       }
     }
 
     .contact-social-container {
       grid-template-rows: 1fr;
+
       .multi(padding, 4, 0, 4, 0);
 
       @media @tablet, @desktop {
@@ -239,9 +237,6 @@ export default class FooterModule extends ExtComponent {
     }
 
     .social {
-      grid-column-start: 1;
-      gap: 20px;
-      text-align: right;
 
       @media @tablet, @desktop {
         grid-column-start: 2;
