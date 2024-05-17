@@ -16,7 +16,7 @@ abstract class ExtPartial extends vue {
 
   get renderTarget(): 'pdf' | 'web' {
 
-    return this.$store.state.renderTarget;
+    return this.$store.state.renderTarget || 'web';
 
   }
 

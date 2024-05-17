@@ -135,6 +135,12 @@ export default class VideoPartial extends ExtPartial {
 
   }
 
+  get renderTarget(): 'pdf' | 'web' {
+
+    return this.$store.state.renderTarget || 'web';
+
+  }
+
   toggle() {
 
     if (this.preload === 'none' && !this.loadVideo) {
