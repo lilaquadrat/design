@@ -1,13 +1,13 @@
 <template>
   <section :id="id" :class="[view, variant]" class="lila-facts-module lila-module">
-    <lila-textblock-partial class="intro-textblock" v-bind="textblock" />
+    <lila-textblock-partial class="intro-textblock" v-if="textblock" v-bind="textblock" />
 
     <section class="complete-container">
       <section v-if="isVariant1" class="list-links">
         <ul>
           <li v-for="(element, index) in elements" :key="`elements-${index}`">
             <lila-icons-partial size="small" type="arrow-right"></lila-icons-partial>
-            <lila-button-partial noPadding :class="{ active: index === active }"  @click="setActive(index)">
+            <lila-button-partial noPadding :class="{ active: index === active }" @click="setActive(index)">
               {{ element.textblock.subline }}
             </lila-button-partial>
           </li>
@@ -18,19 +18,21 @@
         <ul>
           <li v-for="(element, index) in elements" :key="`elements-${index}`">
             <lila-icons-partial size="small" type="arrow-right"></lila-icons-partial>
-            <h2 :class="{ active: index === active }" @keypress="setActive(index)"  @click="setActive(index)">
+            <h2 :class="{ active: index === active }" @keypress="setActive(index)" @click="setActive(index)">
               {{ element.textblock.subline }}
             </h2>
           </li>
         </ul>
       </section>
 
+
       <div v-if="isVariant1 || isVariant3" class="facts-container">
-        <lila-fact-partial v-bind="elements[active]" />
+        <lila-fact-partial v-bind="elements[active]" /> {{ isVariant4 }}
       </div>
 
       <div v-if="!isVariant1 && !isVariant3" class="facts-container">
-        <lila-fact-partial v-for="(element, index) in elements" :variant="variant" :key="`fact-index-${index}`" v-bind="element"/>
+        <lila-fact-partial v-for="(element, index) in elements" :variant="variant" :key="`fact-index-${index}`"
+          v-bind="element" />
       </div>
 
       <slot></slot>
@@ -69,6 +71,7 @@ export default class FactsModule extends ExtComponent {
   mounted() {
 
     this.checkInview();
+    console.log(document.querySelector('.facts-container').classList.add('mark'));
 
   }
 
@@ -79,6 +82,8 @@ export default class FactsModule extends ExtComponent {
   }
 
 }
+
+
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
@@ -185,6 +190,7 @@ export default class FactsModule extends ExtComponent {
   &.variant2 {
     max-width: @moduleWidth_M;
 
+
     @media @desktop {
 
       .facts-container {
@@ -260,16 +266,18 @@ export default class FactsModule extends ExtComponent {
     }
   }
 
-  &.threeRow {
+  &.sameSizedImages {
+    max-width: @moduleWidth_M;
 
-    @media @desktop {
+    .facts-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
 
-      .facts-container {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 40px;
+      .lila-fact-partial:not(:has(img)) {
+        position: absolute;
+        visibility: hidden;
       }
     }
   }
-
 }
 </style>

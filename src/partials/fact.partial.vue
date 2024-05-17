@@ -1,13 +1,12 @@
 <template>
-<section class="lila-fact-partial" :class="[variant, {hasPicture}]">
+  <section class="lila-fact-partial" :class="[variant, { hasPicture}]">
 
     <lila-picture-partial v-if="hasPicture" v-bind="picture" />
-
-    <lila-textblock-partial v-bind="textblock"  />
-
+    <lila-textblock-partial v-bind="textblock" />
     <slot></slot>
 
-</section>
+
+  </section>
 </template>
 <script lang="ts">
 import Picture from '@interfaces/picture.interface';
@@ -26,6 +25,13 @@ export default class FactPartial extends ExtPartial {
     return !!this.picture?.src?.length;
 
   }
+
+  // get noText() {
+
+  //   return !this.textblock;
+
+  // }
+
 
 }
 
@@ -68,7 +74,6 @@ export default class FactPartial extends ExtPartial {
 
     display: grid;
     grid-template-rows: min-content;
-
     grid-template-columns: 1fr;
 
     gap: 20px;
@@ -84,13 +89,9 @@ export default class FactPartial extends ExtPartial {
     //   grid-template-columns: 1fr;
     // }
 
-    .lila-textblock::v-deep {
-      width: 100%;
-      // background-color: @grey1;
-      // .multi(padding, 12, 4, 4, 4);
-      // margin-top: -40px;
-    }
-
+    // .lila-textblock {
+    //   display: none;
+    // }
     .lila-figure::v-deep {
       position: relative;
       display: grid;
@@ -110,6 +111,18 @@ export default class FactPartial extends ExtPartial {
 
   }
 
+  &.sameSizedImages {
+    .lila-figure::v-deep {
+      position: relative;
+      display: grid;
+      img {
+      min-width: 150px;
+      min-height: 150px;
+      }
+    }
+    .lila-textblock {
+      display: none;
+    }
+  }
 }
-
 </style>

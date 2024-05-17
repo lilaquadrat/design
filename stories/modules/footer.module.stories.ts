@@ -135,3 +135,138 @@ basic.args = {
     },
   ],
 };
+
+export const footerWithIcon = Template.bind({});
+
+footerWithIcon.args = {
+  picture: {
+    source: [],
+    alt: 'IMAGE ALT',
+    src: 'logo_512x512.png',
+  },
+  legal: 'Terms of privacy',
+  social: {
+    title: 'Follow us',
+    elements: [
+      {
+        link: {
+          link: 'https://fb.com',
+        },
+        picture: {
+          source: [],
+          alt: 'IMAGE ALT',
+          src: 'icon-32x32.png',
+        },
+      },
+      {
+        link: {
+          link: 'https://twitter.com',
+        },
+        picture: {
+          source: [],
+          alt: 'IMAGE ALT',
+          src: 'icon-32x32.png',
+        },
+      },
+      {
+        link: {
+          link: 'https://fb.com',
+        },
+        picture: {
+          source: [],
+          alt: 'IMAGE ALT',
+          src: 'icon-32x32.png',
+        },
+      },
+      {
+        link: {
+          link: 'https://fb.com',
+        },
+        picture: {
+          source: [],
+          alt: 'IMAGE ALT',
+          src: 'icon-32x32.png',
+        },
+      },
+    ],
+  },
+  contact: {
+    title: 'Contact',
+    link: {
+      text: '+012283838',
+      link: 'tel:012222',
+    },
+  },
+  sitemap: [
+    {
+      title: 'Kontakt',
+      address: [
+        'Straßenname',
+        'Postleitzahl Ort',
+        'Country of Company',
+      ],
+      elements: [
+        {
+          text: 'emailadresse@email-adresse.de',
+          link: './test',
+
+        },
+        {
+          text: '+012283838',
+          link: 'tel:012222',
+        },
+      ],
+    },
+    {
+      title: 'Sitemap 2',
+      elements: [
+        {
+          text: 'Link #1',
+          link: '/test',
+        },
+        {
+          text: 'Link #2',
+          link: '/test',
+        },
+        {
+          text: 'Link #3',
+          link: '/test',
+        },
+        {
+          text: 'Link #4',
+          link: '/test',
+        },
+        {
+          text: 'Link #5',
+          link: '/test',
+        },
+      ],
+    },
+    {
+      title: 'Sitemap 3',
+      elements: [
+        {
+          text: 'Link #1',
+          link: '/test',
+        },
+        {
+          text: 'Link #2',
+          link: '/test',
+        },
+        {
+          text: 'Link #3',
+          link: '/test',
+        },
+        {
+          text: 'Link #4',
+          link: '/test',
+        },
+        {
+          text: 'Link #5',
+          link: '/test',
+        },
+      ],
+    },
+  ],
+  variant: ['footerWithIcon'],
+};

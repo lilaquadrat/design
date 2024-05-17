@@ -5,6 +5,7 @@ import { Content } from '@lilaquadrat/studio/lib/interfaces';
 import { CallsStore } from './calls.store';
 import MainStoreState from './mainStoreState.interface';
 
+
 Vue.use(Vuex);
 
 const state: MainStoreState = {

@@ -1,10 +1,15 @@
 <template>
   <footer :id="id" :class="[view, fontVariant, variant]" class="lila-footer-module lila-module">
     <section class="footer-container">
+      <lila-picture-partial v-if="picture" v-bind="picture" class="picture-container" />
       <template v-if="sitemap">
         <section v-for="(element, index) in sitemap" :key="`sitemap-elements-${index}`" class="content">
           <h3>{{ element.title }}</h3>
-
+          <span class="text-container" v-if="element.address">
+            <span v-for="(element, index) in element.address" :key="`address-element-links-${index}`">
+              <p v-bind="element"> {{ element }}</p>
+            </span>
+          </span>
           <ul class="icon-container">
             <li v-for="(element, index) in element.elements" :key="`sitemap-element-links-${index}`">
               <lila-link-partial v-bind="element"></lila-link-partial>
@@ -24,7 +29,8 @@
         <h3>{{ social.title }}</h3>
 
         <div class="icon-container">
-          <lila-link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`" :link="element.link.link">
+          <lila-link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`"
+            :link="element.link.link">
             <lila-picture-partial v-bind="element.picture" />
           </lila-link-partial>
         </div>
@@ -39,6 +45,7 @@ import Sitemap from '@interfaces/Sitemap.interface';
 import FooterContact from '@interfaces/FooterContact.interface';
 import FooterSocial from '@interfaces/FooterSocial.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import Picture from '@interfaces/picture.interface';
 
 @Component
 export default class FooterModule extends ExtComponent {
@@ -52,6 +59,8 @@ export default class FooterModule extends ExtComponent {
   @Prop(String) legal: string;
 
   @Prop(Array) sitemap: Sitemap;
+
+  @Prop(Object) picture?: Picture;
 
 }
 </script>
@@ -80,9 +89,11 @@ export default class FooterModule extends ExtComponent {
     color: @grey;
     font-size: @fontTextSmaller;
     .font-bold;
+
   }
 
   .contact-social-container {
+
     display: grid;
 
     grid-template-rows: 1fr 1fr;
@@ -168,6 +179,81 @@ export default class FooterModule extends ExtComponent {
     text-align: right;
 
     .multi(padding, 4, 0);
+  }
+
+  &.footerWithIcon {
+    gap: 0;
+
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: @moduleWidth_XS;
+      .multi(padding-bottom, 2);
+
+      @media @tablet, @desktop {
+        grid-template-columns: 1.5fr 2fr auto auto;
+        gap: 100px;
+        max-width: @moduleWidth_M;
+        .multi(padding-bottom, 3);
+      }
+
+      .picture-container {
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      .content {
+        max-width: fit-content;
+        height: fit-content;
+        white-space: nowrap;
+      }
+
+      .text-container,
+      .content:nth-child(2) {
+        white-space: nowrap;
+      }
+
+      .content:not(:nth-child(2)) {
+        display: grid;
+        text-align: right;
+
+      }
+    }
+
+    .contact-social-container {
+      grid-template-rows: 1fr;
+
+      .multi(padding, 4, 0, 4, 0);
+
+      @media @tablet, @desktop {
+        .multi(padding-bottom, 4);
+        gap: 0;
+      }
+
+    }
+
+    .contact {
+      display: none;
+    }
+
+    .social {
+
+      @media @tablet, @desktop {
+        grid-column-start: 2;
+
+      }
+
+      .icon-container {
+        flex-wrap: nowrap;
+        gap: 25px;
+        justify-content: space-between;
+      }
+    }
+
+    .legal {
+      grid-row-start: -1;
+      .multi(padding-top, 2);
+    }
   }
 }
 </style>
