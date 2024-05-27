@@ -5,6 +5,5 @@ export default interface FooterContact {
     title: string;
 
     link: Link;
-
   };
 
