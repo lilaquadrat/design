@@ -28,12 +28,11 @@ basic.args = {
     text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.'],
   },
   map: {
-    showMaps: 'Karte anzeigen',
+    showMaps: 'Karte Anzeigen',
     textblock: {
-      text: ['Karte auf Google Maps anzeigen und Lorem ipsum dolor sit amet',
+      text: ['Sie finden uns unter im Zentrum von Name der Ortschaft',
       ],
     },
-    variant: ['left'],
     src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2492.471767935749!2d12.372921977610341!3d51.33923502297324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a6f823ff1388ab%3A0xe676be93217eec8!2sK%C3%BCmmel%20Apotheke!5e0!3m2!1sde!2sde!4v1714073500577!5m2!1sde!2sde',
   },
 };
@@ -48,9 +47,9 @@ withLinks.args = {
     ],
   },
   map: {
-    showMaps: 'Karte anzeigen',
+    showMaps: 'Karte Anzeigen',
     textblock: {
-      text: ['Karte auf Google Maps anzeigen und Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      text: ['Sie finden uns unter im Zentrum von Name der Ortschaft',
       ],
     },
     src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2492.471767935749!2d12.372921977610341!3d51.33923502297324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a6f823ff1388ab%3A0xe676be93217eec8!2sK%C3%BCmmel%20Apotheke!5e0!3m2!1sde!2sde!4v1714073500577!5m2!1sde!2sde',
@@ -74,10 +73,15 @@ withLinks.args = {
 export const withLists = Template.bind({});
 
 withLists.args = {
+  // textblock: {
+  //   subline: 'Sie finden uns unter im Zentrum von Name der Ortschaft',
+  //   text: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis magna.',
+  //   ],
+  // },
   map: {
-    showMaps: 'Karte anzeigen',
+    showMaps: 'Karte Anzeigen',
     textblock: {
-      text: ['Karte auf Google Maps anzeigen und Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      text: ['Sie finden uns unter im Zentrum von Name der Ortschaft',
       ],
     },
     src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2492.471767935749!2d12.372921977610341!3d51.33923502297324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a6f823ff1388ab%3A0xe676be93217eec8!2sK%C3%BCmmel%20Apotheke!5e0!3m2!1sde!2sde!4v1714073500577!5m2!1sde!2sde',
@@ -88,7 +92,7 @@ withLists.args = {
       'Normal entry',
       'entry 3',
     ],
-    title: 'some nice listItems',
+    title: 'some nice list',
   },
 };
 
@@ -102,14 +106,20 @@ textLeft.args = {
     ],
   },
   map: {
-    showMaps: 'Karte anzeigen',
+    showMaps: 'Karte Anzeigen',
     textblock: {
-      text: ['Karte auf Google Maps anzeigen und Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      text: ['Sie finden uns unter im Zentrum von Name der Ortschaft',
       ],
     },
     src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2492.471767935749!2d12.372921977610341!3d51.33923502297324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a6f823ff1388ab%3A0xe676be93217eec8!2sK%C3%BCmmel%20Apotheke!5e0!3m2!1sde!2sde!4v1714073500577!5m2!1sde!2sde',
-    variant: ['square'],
   },
-
+  // list: {
+  //   value: [
+  //     'Entry with some longer text',
+  //     'Normal entry',
+  //     'entry 3',
+  //   ],
+  //   title: 'some nice list',
+  // },
   variant: ['textLeft'],
 };

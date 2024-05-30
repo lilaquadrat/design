@@ -111,19 +111,5 @@ export default class FactPartial extends ExtPartial {
 
   }
 
-  &.sameSizedImages {
-    .lila-figure::v-deep {
-      position: relative;
-      display: grid;
-      img {
-     min-width:100%;
-
-
-      }
-    }
-    .lila-textblock {
-      display: none;
-    }
-  }
 }
 </style>

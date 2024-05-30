@@ -6,12 +6,11 @@
       </div>
       <div v-if="!loadIframe" class="confirmIframe">
         <lila-textblock-partial v-bind="textblock" />
-
-        <lila-button-group-partial center>
-          <lila-button-partial colorScheme="colorScheme1" @confirmed="loadIframeElement">
-            {{ showMaps }}
-          </lila-button-partial>
-        </lila-button-group-partial>
+      <lila-button-group-partial center>
+        <lila-button-partial  colorScheme="colorScheme1" @confirmed="loadIframeElement">
+          {{ showMaps }}
+        </lila-button-partial>
+      </lila-button-group-partial>
       </div>
     </div>
   </section>
@@ -39,8 +38,6 @@ export default class LocationPartial extends ExtPartial {
   @Prop(String) height?: string;
 
   @Prop(String) width?: string;
-
-  disableDefaultUI: boolean = false;
 
   loadIframe: boolean = false;
 
@@ -78,7 +75,7 @@ export default class LocationPartial extends ExtPartial {
       src: this.src,
       height: '100%',
       width: '100%',
-     
+
     };
 
   }
@@ -97,10 +94,10 @@ export default class LocationPartial extends ExtPartial {
     align-content: center;
     justify-content: center;
     justify-self: center;
-    .multi(padding, 20);
+    .multi(padding,20);
     text-align: center;
     background: @color2;
-    gap: 20px;
+    gap:20px;
 
   }
 

@@ -266,31 +266,5 @@ export default class FactsModule extends ExtComponent {
     }
   }
 
-  &.sameSizedImages {
-    max-width: @moduleWidth_M;
-
-    .facts-container {
-      gap: 20px;
-      grid-template-columns: 1fr 1fr;
-
-      @media @tablet, @desktop {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
-
-      .lila-fact-partial:not(:has(img)) {
-        position: absolute;
-        visibility: hidden;
-      }
-
-      .lila-fact-partial::v-deep {
-
-        img {
-
-          object-fit: cover;
-
-        }
-      }
-    }
-  }
 }
 </style>

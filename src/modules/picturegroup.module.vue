@@ -44,14 +44,15 @@
   </section>
 </template>
 <script lang="ts">
-import Link from "@interfaces/link.interface";
-import Picture from "@interfaces/picture.interface";
-import Textblock from "@interfaces/textblock.interface";
-import PictureGroupElement from "@interfaces/PictureGroupElement.interface";
-import { ExtComponent, Component, Prop } from "@libs/lila-component";
+import Link from '@interfaces/link.interface';
+import Picture from '@interfaces/picture.interface';
+import Textblock from '@interfaces/textblock.interface';
+import PictureGroupElement from '@interfaces/PictureGroupElement.interface';
+import { ExtComponent, Component, Prop } from '@libs/lila-component';
 
 @Component
 export default class PicturegroupModule extends ExtComponent {
+
   @Prop(Array) elements: PictureGroupElement[];
 
   @Prop(Object) picture: Picture;
@@ -59,34 +60,47 @@ export default class PicturegroupModule extends ExtComponent {
   @Prop(Object) textblock: Textblock;
 
   mounted(): void {
+
     this.checkInview();
+
   }
 
   // eslint-disable-next-line class-methods-use-this
-  componentType(link: Link): "lila-link-partial" | "section" {
-    return link?.link?.length ? "lila-link-partial" : "section";
+  componentType(link: Link): 'lila-link-partial' | 'section' {
+
+    return link?.link?.length ? 'lila-link-partial' : 'section';
+
   }
 
   // eslint-disable-next-line class-methods-use-this
   getLink(link: Link): string {
-    return link?.link?.length ? link.link : "section";
+
+    return link?.link?.length ? link.link : 'section';
+
   }
 
   get linkVariant() {
-    if (this.variant.includes("product")) return ["actions", "center"];
 
-    return ["noStyle"];
+    if (this.variant.includes('product')) return ['actions', 'center'];
+
+    return ['noStyle'];
+
   }
 
   get fitVariant() {
-    return this.variant.includes("fit");
+
+    return this.variant.includes('fit');
+
   }
 
   get brightText() {
-    return this.variant.includes("color1") || this.variant.includes("color3")
-      ? "bright"
+
+    return this.variant.includes('color1') || this.variant.includes('color3')
+      ? 'bright'
       : undefined;
+
   }
+
 }
 </script>
 <style lang="less" scoped>
@@ -449,22 +463,20 @@ export default class PicturegroupModule extends ExtComponent {
     }
   }
 
-  &.FiveImagesInARow {
-    .content-container {
-      .elements-container {
-        display: grid;
-        gap: 20px;
-        grid-template-columns: 1fr;
+  &.fiveImagesInARow {
+    .content-container .elements-container {
 
-        @media @desktop {
-          grid-template-columns: repeat(5, 1fr);
-        }
- 
-          figure::v-deep {
-            img {
-              height: 100%;
-            }
-        }
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+      grid-auto-rows: 1fr;
+
+      @media @desktop {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      figure::v-deep{
+        height: 100%;
       }
     }
   }
