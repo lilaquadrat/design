@@ -4,14 +4,18 @@
 
       <section class="map-container">
         <lila-location-partial ref="iframeElement" class="iframe" v-bind="map" />
+
       </section>
 
 
       <section class="text-container">
         <lila-textblock-partial v-bind="textblock" />
 
-        <lila-list-partial class="list-container" v-if="list" v-bind="list"></lila-list-partial>
-        <lila-list-partial class="link-container" v-bind="links" />
+        <!-- <lila-list-partial class="list-container" v-if="list" v-bind="list"></lila-list-partial>
+          
+        <lila-list-partial class="link-container" v-if="links" v-bind="links" ></lila-list-partial> -->
+        <lila-list-partial v-bind="list" mode="list" />
+      <lila-list-partial v-bind="links" mode="links" />
 
       </section>
     </section>
@@ -71,7 +75,7 @@ export default class LocationModule extends ExtComponent {
     display: grid;
     grid-template-columns: repeat(1, minmax(auto, 1fr));
     padding: 0 20px;
-    gap: 20px;
+    gap: 40px;
 
     .map-container {
       grid-row-start: 2;
@@ -88,7 +92,7 @@ export default class LocationModule extends ExtComponent {
 
     @media @desktop {
       grid-template-columns: 2fr 1fr;
-      gap: 0 30px;
+      gap: 40px;
 
       .map-container {
         grid-row-start: 1;

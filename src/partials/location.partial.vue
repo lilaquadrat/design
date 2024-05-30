@@ -1,12 +1,24 @@
 <template>
   <section class="lila-location-partial" :class="[variant, loadIframe]">
-    <div class="iframe">
-      <iframe ref="iframeElement" v-if="loadIframe" title="iframe" :src="src" :width="width" :height="height"> </iframe>
+    <div class="iframe-container">
+      <div class="iframe" v-if="loadIframe">
+        <iframe ref="iframeElement" title="iframe" :src="src" :width="width" :height="height"> </iframe>
+      </div>
+      <div v-if="!loadIframe" class="confirmIframe">
+        <lila-textblock-partial v-bind="textblock" />
+
+        <lila-button-group-partial center>
+          <lila-button-partial colorScheme="colorScheme1" @confirmed="loadIframeElement">
+            {{ showMaps }}
+          </lila-button-partial>
+        </lila-button-group-partial>
+      </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
+import Textblock from '@interfaces/textblock.interface';
 import { Component, Prop } from '@libs/lila-component';
 import { ExtPartial } from '@libs/lila-partial';
 
@@ -14,10 +26,13 @@ import { ExtPartial } from '@libs/lila-partial';
 @Component
 export default class LocationPartial extends ExtPartial {
 
-
   $refs: {
     iframeElement: HTMLIFrameElement;
   };
+
+  @Prop(Object) textblock: Textblock;
+
+  @Prop(String) showMaps: string;
 
   @Prop(String) src: string;
 
@@ -25,19 +40,13 @@ export default class LocationPartial extends ExtPartial {
 
   @Prop(String) width?: string;
 
+  disableDefaultUI: boolean = false;
+
   loadIframe: boolean = false;
 
+  loadIframeElement(): void {
 
-  constructor() {
-
-    super();
-
-
-    if (this.$store?.state) {
-
-      this.loadIframe = true;
-
-    }
+    this.loadIframe = true;
 
   }
 
@@ -48,7 +57,6 @@ export default class LocationPartial extends ExtPartial {
   }
 
   get mapType() {
-
 
     return this.src?.match('^https://(www.)?google.com/maps') ? 'google.com/maps' : 'basic';
 
@@ -70,23 +78,33 @@ export default class LocationPartial extends ExtPartial {
       src: this.src,
       height: '100%',
       width: '100%',
+     
     };
 
   }
 
-
 }
 </script>
+
 <style lang="less">
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-location-partial {
+  position: relative;
+
+  .confirmIframe {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-self: center;
+    .multi(padding, 20);
+    text-align: center;
+    background: @color2;
+    gap: 20px;
+
+  }
 
   .iframe {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
     padding-top: 75%;
 
     iframe {
@@ -97,16 +115,16 @@ export default class LocationPartial extends ExtPartial {
       top: 0;
       left: 0;
       border: 0;
+
     }
+
   }
 
   &.square {
     .iframe {
-      position: relative;
-      min-width: 500px;
-      max-width: 100%;
       padding-top: 100%;
     }
+
   }
 }
 </style>

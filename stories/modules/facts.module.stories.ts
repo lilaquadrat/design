@@ -305,14 +305,6 @@ sameSizedImages.args = {
         alt: 'IMAGE ALT',
         src: 'logo_512x512.png',
       },
-      variant: ['sameSizedImages'],
-    },
-    {
-      picture: {
-        source: [],
-        alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
-      },
       // variant: ['fit'],
     },
     {
@@ -326,14 +318,14 @@ sameSizedImages.args = {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
+        src: 'icon-32x32.png',
       },
     },
     {
       picture: {
         source: [],
         alt: 'IMAGE ALT',
-        src: 'logo_512x512.png',
+        src: 'women1.jpg',
       },
     },
   ],

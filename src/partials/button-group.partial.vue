@@ -1,5 +1,5 @@
 <template>
-  <section :class="{gap: gap}" class="lila-button-group">
+  <section :class="{ gap: gap, left: left, center: center }" class="lila-button-group">
     <slot></slot>
   </section>
 </template>
@@ -10,6 +10,10 @@ import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 export default class ButtonGroupPartial extends ExtPartial {
 
   @Prop(Boolean) gap: boolean;
+
+  @Prop(Boolean) left: boolean;
+
+  @Prop(Boolean) center: boolean;
 
 }
 </script>
@@ -27,6 +31,14 @@ export default class ButtonGroupPartial extends ExtPartial {
 
   &.gap {
     gap: 10px 20px;
+  }
+
+  &.left {
+    justify-content: start;
+  }
+
+  &.center {
+    justify-content: center;
   }
 
 }

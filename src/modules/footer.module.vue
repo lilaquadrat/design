@@ -2,14 +2,29 @@
   <footer :id="id" :class="[view, fontVariant, variant]" class="lila-footer-module lila-module">
     <section class="footer-container">
       <lila-picture-partial v-if="picture" v-bind="picture" class="picture-container" />
+      <section class="information-container" v-if="information">
+        <lila-textblock-partial v-if="information.textblock" v-bind="information.textblock" />
+        <!-- List -->
+        <section v-if="information.list" class="list-container">
+          <h3>{{ information.list.title }}</h3>
+        <ul v-for="(item, index) in information.list.elements" :key="`list-elements-${index}`">
+          <li> {{ item }}</li>
+        </ul>
+        </section>
+        <!-- links -->
+       <section v-if="information.links" class="link-container">
+        <h3>{{ information.links.title }}</h3>
+        <ul v-for="(item, index) in information.links" :key="`links-elements-${index}`">
+          <li v-for="(element, index) in item" :key="`sitemap-element-links-${index}`">
+            <lila-link-partial v-bind="element" />
+          </li>
+        </ul>
+       </section>
+      </section>
+
       <template v-if="sitemap">
         <section v-for="(element, index) in sitemap" :key="`sitemap-elements-${index}`" class="content">
           <h3>{{ element.title }}</h3>
-          <span class="text-container" v-if="element.address">
-            <span v-for="(element, index) in element.address" :key="`address-element-links-${index}`">
-              <p v-bind="element"> {{ element }}</p>
-            </span>
-          </span>
           <ul class="icon-container">
             <li v-for="(element, index) in element.elements" :key="`sitemap-element-links-${index}`">
               <lila-link-partial v-bind="element"></lila-link-partial>
@@ -46,6 +61,8 @@ import FooterContact from '@interfaces/FooterContact.interface';
 import FooterSocial from '@interfaces/FooterSocial.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
 import Picture from '@interfaces/picture.interface';
+import Textblock from '@interfaces/textblock.interface';
+import ListWithTitle from '@interfaces/ListWithTitle.interface';
 
 @Component
 export default class FooterModule extends ExtComponent {
@@ -61,6 +78,12 @@ export default class FooterModule extends ExtComponent {
   @Prop(Array) sitemap: Sitemap;
 
   @Prop(Object) picture?: Picture;
+
+  @Prop(Object) information: {
+    textblock: Textblock,
+    list: ListWithTitle,
+    links: ListWithTitle
+  };
 
 }
 </script>
@@ -182,65 +205,32 @@ export default class FooterModule extends ExtComponent {
   }
 
   &.footerWithIcon {
-    gap: 0;
 
     .footer-container {
+
       grid-template-columns: 1fr;
-      gap: 10px;
-      max-width: @moduleWidth_XS;
-      .multi(padding-bottom, 2);
 
-      @media @tablet, @desktop {
-        grid-template-columns: 1.5fr 2fr auto auto;
-        gap: 100px;
-        max-width: @moduleWidth_M;
-        .multi(padding-bottom, 3);
+      @media @desktop, @tablet {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        width: 100%;
+        max-width: @desktopWidthExt;
       }
 
-      .picture-container {
-        min-width: 200px;
-        max-width: 200px;
-      }
-
-      .content {
-        max-width: fit-content;
-        height: fit-content;
-        white-space: nowrap;
-      }
-
-      .text-container,
-      .content:nth-child(2) {
-        white-space: nowrap;
-      }
-
-      .content:not(:nth-child(2)) {
+      .information-container {
         display: grid;
-        text-align: right;
-
+        gap: 15px;
       }
-    }
-
-    .contact-social-container {
-      grid-template-rows: 1fr;
-
-      .multi(padding, 4, 0, 4, 0);
-
-      @media @tablet, @desktop {
-        .multi(padding-bottom, 4);
-        gap: 0;
-      }
-
     }
 
     .contact {
-      display: none;
+      display: none
     }
 
     .social {
 
       @media @tablet, @desktop {
         grid-column-start: 2;
-
       }
 
       .icon-container {
@@ -248,11 +238,10 @@ export default class FooterModule extends ExtComponent {
         gap: 25px;
         justify-content: space-between;
       }
-    }
 
-    .legal {
-      grid-row-start: -1;
-      .multi(padding-top, 2);
+      .legal {
+        .multi(padding, 2, 0);
+      }
     }
   }
 }

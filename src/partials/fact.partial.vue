@@ -116,8 +116,9 @@ export default class FactPartial extends ExtPartial {
       position: relative;
       display: grid;
       img {
-      min-width: 150px;
-      min-height: 150px;
+     min-width:100%;
+
+
       }
     }
     .lila-textblock {
