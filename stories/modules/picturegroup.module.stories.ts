@@ -325,9 +325,9 @@ variant5.args = {
 };
 
 
-export const fiveImagesInARow = Template.bind({});
+export const fiveImagesInAColumn = Template.bind({});
 
-fiveImagesInARow.args = {
+fiveImagesInAColumn.args = {
   elements: [
     {
       picture: {
@@ -366,7 +366,7 @@ fiveImagesInARow.args = {
     },
 
   ],
-  variant: ['fiveImagesInARow', 'fit'],
+  variant: ['fiveImagesInAColumn', 'fit'],
 };
 
 export const fitImages = Template.bind({});
