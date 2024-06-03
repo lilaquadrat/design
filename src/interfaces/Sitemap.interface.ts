@@ -1,13 +1,21 @@
-import Link from './link.interface';
-import Textblock from './textblock.interface';
+
+import LinkListWithTitle from "./LinkListWithTitle.interface";
+// export default interface Sitemap {
+
+
+
+//     title?: string
+//     address?: string[]
+
+//     elements: {
+//         title?: string
+//         elements: Link[]
+//     }[]
+// }
 
 export default interface Sitemap {
-
-    title?: string
-    address?: string[]
-
-    elements: {
-        title?: string
-        elements: Link[]
-    }[]
+    elements?: {
+        links: LinkListWithTitle;
+    }
 }
+

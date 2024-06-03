@@ -5,18 +5,18 @@
     <ul v-if="!actions || mode === 'list'">
       <li v-for="(single, index) in filteredValues" :key="`list-element-${index}`">
 
-        <lila-icons-partial v-if="!isNumbered && !noStyle" size="small" type="arrow-right" />
+        <lila-icons-partial v-if="!isNumbered && !noStyle && !noIcon" size="small" type="arrow-right" />
 
-        <lila-link-partial v-if="typeof(single) === 'object'" v-bind="single" />
-        <template v-if="typeof(single) === 'string'">{{ single }}</template>
+        <lila-link-partial v-if="typeof (single) === 'object'" v-bind="single" />
+        <template v-if="typeof (single) === 'string'">{{ single }}</template>
 
       </li>
     </ul>
 
     <lila-link-group-partial :variant="variant" v-if="actions">
 
-      <template v-for="(single, index) in filteredValues" >
-        <lila-link-partial v-if="typeof(single) === 'object'" v-bind="single" :key="`list-actions-element-${index}`" />
+      <template v-for="(single, index) in filteredValues">
+        <lila-link-partial v-if="typeof (single) === 'object'" v-bind="single" :key="`list-actions-element-${index}`" />
       </template>
 
     </lila-link-group-partial>
@@ -79,6 +79,12 @@ export default class listPartial extends ExtPartial {
 
   }
 
+  get noIcon(): boolean {
+
+    return this.variant?.includes('noIcon');
+
+  }
+
 }
 </script>
 <style lang="less" scoped>
@@ -118,7 +124,8 @@ export default class listPartial extends ExtPartial {
 
   }
 
-  &.noStyle, &.actions {
+  &.noStyle,
+  &.actions {
 
     h4 {
       .multi(margin-left, 0);
@@ -163,7 +170,8 @@ export default class listPartial extends ExtPartial {
 
   &.white {
 
-    a, h4 {
+    a,
+    h4 {
       color: @white;
     }
 
@@ -172,6 +180,21 @@ export default class listPartial extends ExtPartial {
       &:hover {
         color: @color2;
       }
+    }
+  }
+
+  &.noIcon {
+
+    h4 {
+      .multi(margin-left, 0);
+    }
+
+    ul {
+
+      li {
+        grid-template-columns: auto;
+      }
+
     }
   }
 
