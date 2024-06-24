@@ -5,6 +5,7 @@ export default (): void => {
   if (document.location.href.indexOf('#') > -1) {
 
     hash = document.location.href.split('#');
+
     const element = document.getElementById(hash[1]);
 
     if (!element) return;

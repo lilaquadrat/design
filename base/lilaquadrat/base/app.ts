@@ -10,9 +10,12 @@ import 'src/mixins/moment';
 import 'src/mixins/formatBytes';
 
 import InitialScroll from 'src/mixins/scroll';
-import translation from 'src/mixins/translation';
+import translation from '@plugins/translations';
 
 import APPComponent from '@partials/appcomponent.partial.vue';
+
+import '@libs/Models.class';
+import './models';
 
 import store from 'src/store/main.store';
 import log from 'loglevel';
@@ -26,11 +29,15 @@ import ssr from 'src/mixins/ssr';
 import './source/less/base.less';
 import { editorRoutes, routes } from 'src/routes';
 import Components from '@libs/Components';
+import PortalVue from 'portal-vue';
+
+import DE from './translations/de';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const modules = require('./modules');
 
 translation.select('de');
+translation.add(DE, 'de');
 
 // eslint-disable-next-line prefer-destructuring
 const currentScript: any = document.currentScript;
@@ -54,6 +61,7 @@ ENVIRONMENT === 'editor'
   : log.setLevel('warn');
 
 Vue.use(VueRouter);
+Vue.use(PortalVue);
 
 /** APP Object for vuejs initialization */
 const appObject: any = {
@@ -104,7 +112,7 @@ if (ENVIRONMENT === 'editor') {
     'message',
     (message) => {
 
-      if (message.data.type === 'studio-settings') {
+      if (message.data.type === 'studio-editor-settings') {
 
         store.commit('setSettings', message.data.data);
         mount(appObject);

@@ -1,10 +1,7 @@
 <template>
   <article class="editor-screen screen">
-
     <lila-content-module :content="content" />
-
   </article>
-
 </template>
 <script lang="ts">
 import { ExtComponent, Component, vue } from '@libs/lila-component';
@@ -48,9 +45,13 @@ export default class EditorChildScreen extends ExtComponent {
 
     if (this.live) return;
 
-    const messageHandler = (message: StudioIframeMessage<Editor['modules']|Editor['settings']|EditorActiveModule>) => {
+    const messageHandler = (message: StudioIframeMessage<Editor['modules'] | Editor['settings'] | EditorActiveModule>) => {
 
       if (message.data.type === 'studio-content') {
+
+        console.groupCollapsed('MESSAGE_STUDIO_CONTENT');
+        console.log(message.data.data);
+        console.groupEnd();
 
         this.contentCache = message.data.data as Editor['modules'];
         this.updateContent();
@@ -59,14 +60,30 @@ export default class EditorChildScreen extends ExtComponent {
 
       if (message.data.type === 'studio-editor-settings') {
 
+        console.groupCollapsed('MESSAGE_STUDIO_EDITOR_SETTINGS');
+        console.log(message.data.data);
+        console.groupEnd();
+
         this.settingsCache = message.data.data as Editor['settings'];
         this.updateContent();
 
       }
 
-      if (message.data.type === 'studio-settings') this.$store.commit('setSettings', message.data.data);
+      if (message.data.type === 'studio-settings') {
+
+        console.groupCollapsed('MESSAGE_STUDIO_SETTINGS');
+        console.log(message.data.data);
+        console.groupEnd();
+
+        this.$store.commit('setSettings', message.data.data);
+
+      }
 
       if (message.data.type === 'studio-active') {
+
+        console.groupCollapsed('MESSAGE_STUDIO_ACTIVE');
+        console.log(message.data.data);
+        console.groupEnd();
 
         this.active = message.data.data as EditorActiveModule;
 
@@ -80,9 +97,14 @@ export default class EditorChildScreen extends ExtComponent {
 
       if (message.data.type === 'studio-cookie-reset') {
 
+        console.groupCollapsed('MESSAGE_STUDIO_COOKIE_RESET');
+        console.log(message.data.data);
+        console.groupEnd();
+
         this.resetCookies();
 
       }
+
 
     };
 
@@ -98,7 +120,31 @@ export default class EditorChildScreen extends ExtComponent {
       false,
     );
 
-    window.parent.postMessage({ type: 'studio-design-modules', data: this.$store.state.availableModules }, '*');
+
+    if (this.$store.state.availableModulesWithRevision.revision) {
+
+      window.parent.postMessage(
+        {
+          type: 'studio-design-modules-with-revision',
+          data: this.$store.state.availableModulesWithRevision,
+        },
+        '*',
+      );
+
+    } else {
+
+      window.parent.postMessage(
+        {
+          type: 'studio-design-modules',
+          data: this.$store.state.availableModules,
+        },
+        '*',
+      );
+
+
+    }
+
+
     window.parent.postMessage('studio-design-ready', '*');
 
   }

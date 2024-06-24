@@ -1,4 +1,7 @@
-import { Store } from 'vuex';
+import StudioSDK from '@libs/StudioSDK';
+import {
+  GetterTree, MutationTree, ActionTree,
+} from 'vuex';
 import GenericState from './GenericState.interface';
 
 export default interface GenericStore<T extends GenericState> {
@@ -7,15 +10,11 @@ export default interface GenericStore<T extends GenericState> {
 
   state: T;
 
-  mutations: {
-    [key: string]: (state: T, data: any) => void;
-  };
+  mutations: MutationTree<T>;
 
-  actions: {
-    [key: string]: (store: Store<T>, data: any) => Promise<any> | void;
-  };
+  actions: ActionTree<T, any>;
 
-  getters?: {
-    [key: string]: (store: Store<T>, data: any) => string | number | {[key: string]: any};
-  };
-};
+  getters?: GetterTree<T, any>;
+
+  sdkOptions?: () => StudioSDK['options']
+}

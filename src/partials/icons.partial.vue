@@ -1,11 +1,16 @@
 <template>
-    <span class="lila-icons-partial" :class="[type, colorScheme, size, rotateClass, {animate: animate}]">
-    <svg v-if="type === 'arrow-right'" width="16px" height="16px"  xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <span class="lila-icons-partial" :class="[type, colorScheme, size, rotateClass, {animate, buttonParent}, positionIcon]">
+      <svg v-if="type === 'arrow-right'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
     </svg>
-    <svg v-if="type === 'arrow-left'" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <svg v-if="type === 'arrow-left'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
     </svg>
+
+    <svg v-if="type === 'chevron-down'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+    </svg>
+
 
     <svg v-if="type === 'mouse'" version="1.1" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 42.496">
     <g>
@@ -17,19 +22,26 @@
     </g>
     </svg>
 
-    <svg v-if="type === 'checked'" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <svg v-if="type === 'checked'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
     </svg>
-    <svg v-if="type === 'close'" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+    <svg v-if="type === 'close'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
     <svg v-if="type === 'zoom-in'" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
     </svg>
+
     <svg v-if="type === 'zoom-out'" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
     </svg>
-    </span>
+
+    <svg  v-if="type === 'warning'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+    </svg>
+
+  </span>
 </template>
 <script lang="ts">
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
@@ -47,10 +59,23 @@ export default class IconsPartial extends ExtPartial {
 
   @Prop({ type: Boolean, default: false }) animate: string;
 
+  @Prop(String) positionIcon: 'topRight';
+
   get rotateClass() {
 
     if (!this.rotate) return null;
     return `rotate${this.rotate}`;
+
+  }
+
+  // add a class hor hover purpose when the parent is a button
+  get buttonParent() {
+
+    const options = this.$parent?.$options;
+
+    if (!options) return false;
+
+    return options?.name === 'buttonPartial';
 
   }
 
@@ -69,6 +94,12 @@ export default class IconsPartial extends ExtPartial {
     align-self: center;
     justify-self: center;
     stroke-width: 1.5;
+  }
+
+  &.topRight {
+    align-content: start;
+    justify-content: end;
+
   }
 
   &.rotate90 {
@@ -138,6 +169,12 @@ export default class IconsPartial extends ExtPartial {
     width: 20px;
     height: 20px;
 
+    &.buttonParent {
+      width: 35px;
+
+      height: 35px;
+    }
+
     svg {
       width: 20px;
       height: 20px;
@@ -168,10 +205,28 @@ export default class IconsPartial extends ExtPartial {
 
     svg {
       stroke: @color1;
+      .trans(stroke);
 
       &.useFill {
+        .trans(fill);
         fill: @color1;
         stroke-width: 0;
+      }
+    }
+
+    &.buttonParent {
+
+      &:hover {
+
+        svg {
+          stroke: @color2;
+
+          &.useFill {
+            fill: @color2;
+            stroke-width: 0;
+          }
+        }
+
       }
     }
 

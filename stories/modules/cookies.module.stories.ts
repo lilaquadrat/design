@@ -24,6 +24,28 @@ module.args = {
     headline: 'Cookie-Richtlinie',
     text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
   },
+  list: {
+    value: [
+      'entry 1',
+      'entry 2',
+    ],
+    title: 'some nice list',
+  },
+  links: {
+    value: [
+      {
+        text: 'Link with some longer text',
+        link: 'https://testlink',
+        attributes: [],
+      },
+      {
+        text: 'Normal link',
+        link: 'https://testlink',
+        attributes: [],
+      },
+    ],
+    title: 'Follow up links',
+  },
   variant: [],
 };
 
@@ -34,6 +56,15 @@ overlayFull.args = {
     intro: 'Cookie-Richtlinie',
     text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
   },
+  links: {
+    value: [
+      {
+        text: 'Link with some longer text',
+        link: 'https://testlink',
+        attributes: [],
+      },
+    ],
+  },
   variant: ['overlay', 'overlayFull'],
 };
 
@@ -43,6 +74,15 @@ overlayRight.args = {
   textblock: {
     intro: 'Cookie-Richtlinie',
     text: ['Wir nutzen Cookies und Pixel um Dir die bestmögliche Browsing-Erfahrung zu bieten. Die mit Hilfe von Cookies und Pixeln gesammelten Daten werden zur Optimierung unserer Webseite genutzt. Diese Daten werden im Rahmen unserer EU-weiten und globalen Tätigkeiten genutzt.'],
+  },
+  links: {
+    value: [
+      {
+        text: 'Link with some longer text',
+        link: 'https://testlink',
+        attributes: [],
+      },
+    ],
   },
   variant: ['overlay', 'overlayRight'],
 };

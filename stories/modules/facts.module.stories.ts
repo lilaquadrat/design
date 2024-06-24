@@ -129,7 +129,7 @@ variant2.args = {
         alt: 'IMAGE ALT',
         src: 'logo_512x512.png',
       },
-      variant: ['fit'],
+      variant: [''],
     },
     {
       textblock: {
@@ -181,12 +181,12 @@ variant3.args = {
         alt: 'IMAGE ALT',
         src: 'logo_512x512.png',
       },
-      variant: ['fit'],
+      variant: [],
     },
     {
       textblock: {
-        headline: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis?',
-        subline: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis?',
+         headline: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis?',
+         subline: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu felis bibendum ut tristique et egestas quis. Nisi est sit amet facilisis?',
         text: [
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         ],

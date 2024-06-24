@@ -3,10 +3,16 @@ module.exports = {
   env: {
     es6: true
   },
-  extends: ["plugin:vue/essential", "@vue/airbnb", "@vue/typescript/recommended", "plugin:storybook/recommended"],
+  extends: [
+    "plugin:vue/essential", 
+    "@vue/airbnb", 
+    "@vue/typescript/recommended", 
+    "plugin:storybook/recommended"
+  ],
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     ecmaVersion: 2020,
-    moduleResolution: 'node'
+    sourceType: 'module',
   },
   'settings': {
     'import/resolver': {

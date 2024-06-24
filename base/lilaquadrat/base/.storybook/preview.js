@@ -8,11 +8,15 @@ import loadComponents from '@mixins/loadComponents';
 import Resize from '@libs/lila-resize';
 import Inview from '@libs/lila-inview';
 
+import '@libs/Models.class';
+import './models';
 
 import Attributes from '@mixins/attributes';
 import '@mixins/leadingZero';
 import translation from '@mixins/translation';
+import DE from './translations/de';
 translation.select('de');
+translation.add(DE, 'de');
 
 window.addEventListener('media', () => {
 

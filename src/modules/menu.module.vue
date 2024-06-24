@@ -26,7 +26,7 @@
               <lila-link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element" />
 
               <section :key="`group-${index}`" v-if="element.links" class="link-group main">
-                <button :class="{hasIcon: element.icon}" @click="toggleElement(element)">
+                <button :class="{ hasIcon: element.icon }" @click="toggleElement(element)">
                   <lila-icons-partial v-if="element.icon" :type="element.icon" size="small" />
                   {{ element.text }}
                 </button>
@@ -50,13 +50,14 @@
           <template v-for="(element, index) in elementsArray">
             <lila-link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element" />
             <section :key="`group-${index}`" v-if="element.links" class="link-group main">
-              <button :class="{hasIcon: element.icon}" @click="toggleElement(element)">
-                <lila-icons-partial v-if="element.icon" colorScheme="white" :type="element.icon" size="small" /> {{ element.text }}
+              <button :class="{ hasIcon: element.icon }" @click="toggleElement(element)">
+                <lila-icons-partial v-if="element.icon" colorScheme="white" :type="element.icon" size="small" /> {{
+                  element.text }}
               </button>
               <transition mode="out-in" name="menu">
                 <ul class="link-list" v-if="element.links && element.active">
                   <li :key="`sublinks-${index}`" v-for="(single, index) in element.links">
-                    <lila-link-partial v-if="single.text" v-bind="single"></lila-link-partial>
+                    <lila-link-partial v-if="single.text" v-bind="single">{{ single }}</lila-link-partial>
                   </li>
                 </ul>
               </transition>
@@ -83,9 +84,9 @@ export default class MenuModule extends ExtComponent {
 
   @Prop(Object) picture: Picture;
 
-  @Prop(Array) elements: (LinkGroupElement & {active: boolean})[];
+  @Prop(Array) elements: (LinkGroupElement & { active: boolean })[];
 
-  elementsArray: (LinkGroupElement & {active: boolean})[] = [];
+  elementsArray: (LinkGroupElement & { active: boolean })[] = [];
 
   open: boolean = false;
 
@@ -214,6 +215,7 @@ export default class MenuModule extends ExtComponent {
 
   &.overlay {
 
+
     .placeholder {
       display: none;
     }
@@ -222,7 +224,9 @@ export default class MenuModule extends ExtComponent {
   .container-menu {
     width: 100%;
 
-    @media only screen and (min-width: 520px), print and (min-width: 520px) {
+
+    @media only screen and (min-width: 520px),
+    print and (min-width: 520px) {
       width: 250px;
 
       transform: translateX(0);
@@ -231,10 +235,12 @@ export default class MenuModule extends ExtComponent {
 
   .trigger {
     position: relative;
+
     padding: 0;
 
     -webkit-tap-highlight-color: transparent;
-    .multi(padding-right, 8);
+    .multi(margin-right, 8);
+
 
     @media @wide {
       padding: 0;
@@ -341,9 +347,11 @@ export default class MenuModule extends ExtComponent {
   .link-group {
     position: relative;
 
+
     .link-list {
 
       background-color: @white;
+
 
       @media @wide {
 
@@ -381,7 +389,8 @@ export default class MenuModule extends ExtComponent {
 
   }
 
-  a::v-deep, button {
+  a::v-deep,
+  button {
     .font-head;
 
     .multi(padding, 0, 8);
@@ -462,8 +471,9 @@ export default class MenuModule extends ExtComponent {
     max-width: @desktopWidthExt;
 
     height: 40px;
+    .multi(padding-right, 8);
 
-    margin: auto;
+    margin: 0 auto;
 
     @media @desktop {
       max-width: 100%;
@@ -471,15 +481,18 @@ export default class MenuModule extends ExtComponent {
 
     @media @wide {
       grid-template-columns: max-content 1fr;
+      padding: 0;
       max-width: @desktopWidthExt;
     }
 
     .trigger,
     .base-container {
       background-color: @white;
+
     }
 
     .links {
+
       display: grid;
       grid-column-start: 1;
 
@@ -538,6 +551,7 @@ export default class MenuModule extends ExtComponent {
 
       .link-group {
 
+
         &:last-child {
 
           button {
@@ -559,7 +573,6 @@ export default class MenuModule extends ExtComponent {
   }
 
   .logo::v-deep {
-
     .basicHover();
 
     width: max-content;
@@ -603,6 +616,7 @@ export default class MenuModule extends ExtComponent {
 
         background-color: transparent;
 
+
         @media @desktop {
 
           position: relative;
@@ -629,7 +643,6 @@ export default class MenuModule extends ExtComponent {
   &.open {
 
     .links-container {
-
       .links {
         display: grid;
         opacity: 1;
@@ -639,7 +652,6 @@ export default class MenuModule extends ExtComponent {
     }
 
     .logo {
-
       justify-content: end;
     }
 
@@ -655,7 +667,7 @@ export default class MenuModule extends ExtComponent {
         }
 
         &:last-child {
-          transform: rotate(-45deg)  translateY(-4.5px);
+          transform: rotate(-45deg) translateY(-4.5px);
         }
       }
     }
@@ -675,21 +687,22 @@ export default class MenuModule extends ExtComponent {
   &.left {
 
     .link-list {
-
       li {
         display: block;
         margin: 0;
 
         a,
         button {
-          .multi(padding, 2, 10);
+          .multi(padding, 2, 0);
         }
       }
     }
 
     .links-container {
+
       position: relative;
       grid-template-columns: min-content 1fr;
+      .multi(padding-left, 8);
 
       transition: transform @animationTime @animationType;
       transition-delay: .1s;
@@ -700,6 +713,7 @@ export default class MenuModule extends ExtComponent {
         display: grid;
         grid-row-start: 1;
         grid-column-start: 2;
+
       }
 
       .trigger {
@@ -716,14 +730,15 @@ export default class MenuModule extends ExtComponent {
 
         .trigger-container {
           justify-self: start;
+
         }
       }
 
       .logo {
+
         display: grid;
         justify-self: end;
         padding: 0;
-        .multi(padding-right, 8)
       }
 
       .links {
@@ -734,7 +749,6 @@ export default class MenuModule extends ExtComponent {
 
     .link-group-container {
       position: fixed;
-
       top: 0;
       left: 0;
 
@@ -760,7 +774,8 @@ export default class MenuModule extends ExtComponent {
         grid-row-start: 2;
       }
 
-      a, button {
+      a,
+      button {
 
         display: grid;
         align-content: center;
@@ -776,71 +791,66 @@ export default class MenuModule extends ExtComponent {
 
     }
 
-    &.colorScheme1 {
+    &.colorScheme1 .link-group-container {
+      background: @color1;
 
-      .link-group-container {
+      a::v-deep,
+      button::v-deep {
 
-        background-color: @color1;
+        border-bottom: solid 1px @color3;
+        color: @white;
 
-        a::v-deep, button::v-deep {
-
-          border-bottom: solid 1px @color3;
-          color: @white;
-
-          &:hover {
-            background-color: @color3;
-            opacity: 1;
-          }
-
-          // svg {
-          //   fill: @white;
-          // }
+        &:hover {
+          background-color: @color3;
+          opacity: 1;
         }
 
+        svg {
+          fill: @white;
+        }
       }
+
     }
+  }
 
-    &.open {
-
-      @media @wide {
-
-        .links-container {
-          transform: translateX(150px);
-        }
-      }
+  &.open {
+    @media @wide {
 
       .links-container {
-
-        transform: translatex(250px);
-
+        transform: translateX(150px);
       }
+    }
 
-      .link-group-container {
-        transform: translateX(0);
-      }
+    .links-container {
+      transform: translateX(250px);
 
     }
 
-    .link-group {
+    .link-group-container {
+      transform: translateX(0);
+    }
 
-      .link-list {
+  }
 
-        @media @desktop {
+  .link-group {
 
-          position: relative;
+    .link-list {
 
-          left: 0;
+      @media @desktop {
 
-          width: 100%;
-          min-width: 100%;
+        position: relative;
 
-          padding: 0;
+        left: 0;
 
-          background-color: transparent;
+        width: 100%;
+        min-width: 100%;
 
-          transition: none;
+        padding: 0;
+         padding: 1000;
 
-        }
+        background-color: transparent;
+
+        transition: none;
 
       }
 
@@ -850,4 +860,5 @@ export default class MenuModule extends ExtComponent {
 
 }
 
+// }
 </style>

@@ -1,10 +1,30 @@
 <template>
   <footer :id="id" :class="[view, fontVariant, variant]" class="lila-footer-module lila-module">
     <section class="footer-container">
+      <lila-picture-partial v-if="picture" v-bind="picture" class="picture-container" />
+      <section class="information-container" v-if="information">
+        <lila-textblock-partial v-if="information.textblock" v-bind="information.textblock" />
+        <!-- List -->
+        <section v-if="information.list" class="list-container">
+          <h3>{{ information.list.title }}</h3>
+        <ul v-for="(item, index) in information.list.elements" :key="`list-elements-${index}`">
+          <li> {{ item }}</li>
+        </ul>
+        </section>
+        <!-- links -->
+       <section v-if="information.links" class="link-container">
+        <h3>{{ information.links.title }}</h3>
+        <ul v-for="(item, index) in information.links" :key="`links-elements-${index}`">
+          <li v-for="(element, index) in item" :key="`sitemap-element-links-${index}`">
+            <lila-link-partial v-bind="element" />
+          </li>
+        </ul>
+       </section>
+      </section>
+
       <template v-if="sitemap">
         <section v-for="(element, index) in sitemap" :key="`sitemap-elements-${index}`" class="content">
           <h3>{{ element.title }}</h3>
-
           <ul class="icon-container">
             <li v-for="(element, index) in element.elements" :key="`sitemap-element-links-${index}`">
               <lila-link-partial v-bind="element"></lila-link-partial>
@@ -24,7 +44,8 @@
         <h3>{{ social.title }}</h3>
 
         <div class="icon-container">
-          <lila-link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`" :link="element.link.link">
+          <lila-link-partial v-for="(element, index) in social.elements" :key="`social-elements-${index}`"
+            :link="element.link.link">
             <lila-picture-partial v-bind="element.picture" />
           </lila-link-partial>
         </div>
@@ -39,6 +60,9 @@ import Sitemap from '@interfaces/Sitemap.interface';
 import FooterContact from '@interfaces/FooterContact.interface';
 import FooterSocial from '@interfaces/FooterSocial.interface';
 import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import Picture from '@interfaces/picture.interface';
+import Textblock from '@interfaces/textblock.interface';
+import ListWithTitle from '@interfaces/ListWithTitle.interface';
 
 @Component
 export default class FooterModule extends ExtComponent {
@@ -52,6 +76,14 @@ export default class FooterModule extends ExtComponent {
   @Prop(String) legal: string;
 
   @Prop(Array) sitemap: Sitemap;
+
+  @Prop(Object) picture?: Picture;
+
+  @Prop(Object) information: {
+    textblock: Textblock,
+    list: ListWithTitle,
+    links: ListWithTitle
+  };
 
 }
 </script>
@@ -80,9 +112,11 @@ export default class FooterModule extends ExtComponent {
     color: @grey;
     font-size: @fontTextSmaller;
     .font-bold;
+
   }
 
   .contact-social-container {
+
     display: grid;
 
     grid-template-rows: 1fr 1fr;
@@ -168,6 +202,47 @@ export default class FooterModule extends ExtComponent {
     text-align: right;
 
     .multi(padding, 4, 0);
+  }
+
+  &.footerWithIcon {
+
+    .footer-container {
+
+      grid-template-columns: 1fr;
+
+      @media @desktop, @tablet {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        width: 100%;
+        max-width: @desktopWidthExt;
+      }
+
+      .information-container {
+        display: grid;
+        gap: 15px;
+      }
+    }
+
+    .contact {
+      display: none
+    }
+
+    .social {
+
+      @media @tablet, @desktop {
+        grid-column-start: 2;
+      }
+
+      .icon-container {
+        flex-wrap: nowrap;
+        gap: 25px;
+        justify-content: space-between;
+      }
+
+      .legal {
+        .multi(padding, 2, 0);
+      }
+    }
   }
 }
 </style>

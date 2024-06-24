@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view />
+    <lila-client-only-partial><portal-target name="overlay" multiple /></lila-client-only-partial>
   </div>
 </template>
 <script lang="ts">
@@ -9,5 +10,5 @@ import {
 } from '@libs/lila-component';
 
 @Component
-export default class appComponentPartial extends ExtComponent {}
+export default class appComponentPartial extends ExtComponent { }
 </script>

@@ -7,7 +7,8 @@
 import {
   ExtComponent, Component, Watch,
 } from '@libs/lila-component';
-import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
+import { distributeGenericData, prepareContent } from '@lilaquadrat/studio/lib/frontend';
+import { generateDataWithContent } from '@lilaquadrat/studio/lib/src/prepareContent';
 import MainStoreState from '@store/mainStoreState.interface';
 import { Route } from 'vue-router';
 import { Store } from 'vuex';
@@ -32,7 +33,9 @@ export default class ModuleScreen extends ExtComponent {
 
   get contentMerged() {
 
-    return prepareContent(this.$store.state.data);
+    distributeGenericData(this.$store.state.data.modules, generateDataWithContent(this.$store.state.data.genericData));
+
+    return prepareContent(this.$store.state.data, this.$store.state.layout);
 
   }
 

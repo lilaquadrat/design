@@ -1,14 +1,14 @@
 import Vue from 'vue';
 
 import APPComponent from '@partials/appcomponent.partial.vue';
-import { storeFactory } from 'src/store/main.store';
+import store from 'src/store/main.store';
 
 import 'src/mixins/leadingZero';
 import 'src/mixins/toFixed';
 import 'src/mixins/moment';
 import 'src/mixins/formatBytes';
 
-import translation from 'src/mixins/translation';
+import translation from 'src/plugins/translations';
 
 import loadComponents from 'src/mixins/loadComponents';
 import VueRouter from 'vue-router';
@@ -26,7 +26,6 @@ export default function createApp(): {app: Vue, router: VueRouter, store: Store<
     routes,
     mode: 'history',
   });
-  const store = storeFactory();
   const app = new Vue({
     router,
     store,

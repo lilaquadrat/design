@@ -1,14 +1,11 @@
 <template>
-    <button class="lila-button base" :disabled="disabled"
-    :class="[colorScheme, {doublecheck: doublecheck, showCheck: showCheck, confirmed: confirmed, icon, noPadding}]"
-    @click="confirm"
-    >
+  <button class="lila-button base" :disabled="disabled" :type="type" :class="[colorScheme, state, {doublecheck, showCheck, confirmed: confirmed, icon, noPadding, save}]" @click="confirm">
+      <span v-if="save"></span>
+      <slot v-if="!showCheck && !confirmed"></slot>
+      <span v-if="showCheck">Please confirm your action.</span>
+      <span v-if="confirmed">confirmed</span>
 
-        <slot v-if="!showCheck && !confirmed"></slot>
-        <span v-if="showCheck">Please confirm your action.</span>
-        <span v-if="confirmed">confirmed</span>
-
-    </button>
+  </button>
 </template>
 <script lang="ts">
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
@@ -24,7 +21,18 @@ export default class buttonPartial extends ExtPartial {
 
   @Prop(Boolean) noPadding: boolean;
 
+  @Prop(Boolean) save: boolean;
+
   @Prop(String) colorScheme: string;
+
+  @Prop(String) callId: string;
+
+  @Prop(String) type: 'button' | 'submit' | 'reset';
+
+  $props!: {
+    icon?: boolean;
+    requiredProp: string;
+  };
 
   showCheck: boolean = false;
 
@@ -32,7 +40,16 @@ export default class buttonPartial extends ExtPartial {
 
   confirmed: boolean = false;
 
-  confirm(): void {
+
+  get state() {
+
+    if (!this.callId) return null;
+
+    return this.$store.state.Calls.calls[this.callId].state;
+
+  }
+
+  async confirm(): Promise<void> {
 
     if (this.doublecheck) {
 
@@ -83,6 +100,36 @@ export default class buttonPartial extends ExtPartial {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-button {
+  .trans(background);
+
+  @keyframes border {
+
+    0% {
+      bottom: calc(100% - 3px);
+      left: -17px;
+    }
+
+    25% {
+      bottom: calc(100% - 3px);
+      left: calc(100% - 3px);
+    }
+
+    50% {
+      bottom: -17px;
+      left: calc(100% - 3px);
+    }
+
+    75% {
+      bottom: -17px;
+      left: -17px;
+    }
+
+    100% {
+      bottom: calc(100% - 3px);
+      left: -17px;
+    }
+  }
+  display: grid;
 
   border: none;
   background: transparent;
@@ -93,8 +140,6 @@ export default class buttonPartial extends ExtPartial {
   cursor: pointer;
 
   -webkit-tap-highlight-color: transparent;
-
-  .trans(background);
 
   &.base {
     height: @buttonHeight;
@@ -110,21 +155,6 @@ export default class buttonPartial extends ExtPartial {
 
   &.colorScheme1,
   &.colorScheme2 {
-
-    &.save {
-
-      &.init {
-        background-color: transparent;
-        color: @color1;
-
-        span {
-
-          &:after {
-            background-color: @color1;
-          }
-        }
-      }
-    }
 
     &.success {
       background-color: @success;
@@ -163,6 +193,10 @@ export default class buttonPartial extends ExtPartial {
 
   }
 
+  &.error {
+    background-color: @error;
+  }
+
   &.transparent {
     padding: 0;
     background-color: transparent;
@@ -184,13 +218,13 @@ export default class buttonPartial extends ExtPartial {
   }
 
   &.icon {
-    width: 35px;
-    height: 35px;
-    padding: 0;
 
     display: grid;
     align-items: center;
     justify-items: center;
+    width: 35px;
+    height: 35px;
+    padding: 0;
   }
 
   &.noPadding {
@@ -223,6 +257,49 @@ export default class buttonPartial extends ExtPartial {
       justify-self: center;
       margin-top: 5px;
     }
+  }
+
+  &.save {
+
+    position: relative;
+    overflow: hidden;
+
+    &.pending {
+
+      background-color: transparent;
+      color: @color1;
+
+      span {
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+
+          width: 20px;
+          height: 20px;
+
+          background-color: @color1;
+
+          animation-name: border;
+          animation-duration: 1.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+      }
+    }
+
+    &.resolved {
+      background-color: @success;
+      color: @white;
+    }
+
+    &.rejected {
+      background-color: @error;
+      color: @white;
+    }
+
   }
 }
 </style>

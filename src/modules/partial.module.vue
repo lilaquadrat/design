@@ -1,8 +1,7 @@
 <template>
 <section class="lila-partial-container lila-module" v-if="modules">
 
-  <component
-  v-for="(single, i) in modules" :class="single.classes" :is="single.type" v-bind:key="`module-${i}`" v-bind="single"></component>
+  <component v-for="(single, i) in modules" :class="single.classes" :is="single.type" v-bind:key="`module-${i}`" v-bind="single"></component>
 
 </section>
 
@@ -26,9 +25,18 @@ export default class partialModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
+@import (reference) "@{projectPath}/source/less/shared.less";
 
-  .lila-partial-container {
-    display: grid;
+.lila-partial-container {
+  display: grid;
+
+  .container.presentation & {
+    gap: @rowGapPresentation;
   }
+
+  .container.content & {
+    gap: @rowGapContent;
+  }
+}
 
 </style>

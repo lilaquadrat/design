@@ -12,6 +12,12 @@ module.exports = {
 			"customSyntax": "postcss-html"
 		}
 	],
+	"overrides": [
+		{
+			"files": ["*.less", "**/*.less"],
+			"customSyntax": "postcss-less"
+		}
+	],
 	"rules": {
 		"color-no-invalid-hex": true,
 		"unit-case": "lower",
@@ -22,6 +28,7 @@ module.exports = {
 		"max-empty-lines": 1,
 		"indentation": 2,
 		"at-rule-empty-line-before": "always",
+		"at-rule-name-case": "lower",
 		"rule-empty-line-before": "always-multi-line",
 		"declaration-block-semicolon-newline-after": "always",
 		"declaration-block-semicolon-newline-before": "never-multi-line",
@@ -31,15 +38,10 @@ module.exports = {
 			[
 				'dollar-variables',
 				'custom-properties',
-				'at-rules',
 				'declarations',
 				{
 					type: 'at-rule',
 					name: 'supports',
-				},
-				{
-					type: 'at-rule',
-					name: 'media',
 				},
 				'rules',
 			],

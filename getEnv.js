@@ -30,6 +30,7 @@ module.exports = (env) => {
     console.log('');
     console.log(purple('company:'), chalk.white(useData.company));
     console.log(purple('project:'), chalk.white(useData.project));
+    console.log(purple('api mode:'), chalk.white(cliData.mode));
     console.log('');
     console.log('');
     
@@ -42,6 +43,7 @@ module.exports = (env) => {
     console.log('');
     console.log(purple('company:'), chalk.bgGreen.white(useData.company));
     console.log(purple('project:'), chalk.bgGreen.white(useData.project));
+    console.log(purple('api mode:'), chalk.bgGreen.white(useData.mode));
     console.log('');
     console.log('');
 
@@ -50,6 +52,7 @@ module.exports = (env) => {
   returnData.path = env.project === 'base' ? 'base' : 'projects';
   returnData.company = useData.company;
   returnData.project = useData.project;
+  returnData.mode = cliData.mode;
 
   return returnData;
 }

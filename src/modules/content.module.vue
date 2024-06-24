@@ -1,18 +1,18 @@
 <template>
-  <section class="lila-content-module">
+  <section class="lila-content-module" :class="{sub}">
 
-    <article class="top container" :inline="inline" v-if="!!content.top.length">
-      <component v-for="single in content.top" :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="top" />
+    <article class="top container" :class="{inline, sub}"  v-if="!!content.top.length">
+      <component v-for="single in content.top" :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="top" />
     </article>
 
-    <article class="container" :class="[content.settings.mode, {inline: inline}]" :inline="inline" v-if="!!content.content.length">
+    <article class="container" :class="[mode, {inline, sub}]" :inline="inline" v-if="!!content.content.length">
       <template v-for="single in content.content">
-        <component :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="content" />
+        <component :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="content" />
       </template>
     </article>
 
-    <article class="bottom container" :inline="inline" v-if="!!content.bottom.length">
-      <component v-for="single in content.bottom" :class="single.classes" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="bottom" />
+    <article class="bottom container" :class="{inline, sub}" v-if="!!content.bottom.length">
+      <component v-for="single in content.bottom" :class="[single.classes, {sub}]" :is="`${single.type}`" :key="single.uuid" v-bind="single" :additional="content.additional" position="bottom" />
     </article>
 
   </section>
@@ -21,11 +21,9 @@
 import Component from 'vue-class-component';
 import { ExtComponent, Prop } from '@libs/lila-component';
 import { ProvideReactive } from 'vue-property-decorator';
-import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentWithPositions.interface';
 import { ChildData } from '@lilaquadrat/studio/lib/interfaces';
+import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentPrepared.interface';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 @Component
 export default class ContentModule extends ExtComponent {
 
@@ -41,6 +39,8 @@ export default class ContentModule extends ExtComponent {
 
   @Prop(Boolean) inline: boolean;
 
+  @Prop(Boolean) sub: boolean;
+
   @Prop(String) routeBase: string;
 
   @Prop(Boolean) linkEvents: boolean;
@@ -51,6 +51,12 @@ export default class ContentModule extends ExtComponent {
 
     this.linkBase = this.routeBase;
     this.linkMode = this.linkEvents ? 'event' : 'link';
+
+  }
+
+  get mode() {
+
+    return this.content.settings.mode || 'presentation';
 
   }
 
@@ -85,7 +91,29 @@ export default class ContentModule extends ExtComponent {
       }
     }
 
-    &.top, &.inline {
+    &.top {
+      .multi(margin-bottom, 0);
+
+      .lila-module {
+
+        &:first-child {
+          .multi(margin-top, 0);
+        }
+      }
+    }
+
+    &.inline {
+      .multi(margin-bottom, 8);
+
+      .lila-module {
+
+        &:first-child {
+          .multi(margin-top, 8);
+        }
+      }
+    }
+
+    &.sub {
       .multi(margin-bottom, 0);
 
       .lila-module {

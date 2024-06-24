@@ -12,8 +12,9 @@
 <script lang="ts">
 import Link from '@interfaces/link.interface';
 import Picture from '@interfaces/picture.interface';
+import Component from 'vue-class-component';
 import {
-  ExtComponent, Component, Prop,
+  ExtComponent, Prop,
 } from '@libs/lila-component';
 
 @Component

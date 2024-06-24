@@ -1,6 +1,6 @@
 <template>
-  <section class="lila-label-parent-container">
-    <label :class="[textType, { error: error, checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
+  <section class="lila-checkbox-parent-container" :class="{error}">
+    <label :class="[textType, { checked: value, disabled: disabled, noIndicator }]" class="checkbox" tabindex="">
       <div class="indicator-text">
         <span class="indicator">
           <lila-icons-partial type="checked" size="small" colorScheme="white" />
@@ -8,34 +8,25 @@
 
         <span class="label" v-if="textType !== 'noText'" :class="[textType]">
           <slot v-if="!text"></slot>
-          <description-partial inline v-if="description && !text">{{ description | translate }}</description-partial>
+          <description-partial inline v-if="description && !text">{{$translate(description)}}</description-partial>
           {{ text }}
         </span>
 
-        <div v-if="!text" class="label-container">
-          <span class="required" v-if="required && !disabled">{{ 'required' | translate }}</span>
-          <span class="disabled" v-if="disabled">{{ 'disabled' | translate }}</span>
-        </div>
       </div>
 
-      <div v-if="error" class="errors">
-        <p>{{ error }}</p>
-      </div>
-
-      <input type="checkbox" :name="name" :required="required" :disabled="disabled" :checked="value" v-on:change="changeHandler" />
+      <input type="checkbox" :name="name" :disabled="disabled" :checked="value" @change="changeHandler" />
     </label>
+
     <div v-if="text" class="indicator-text">
       <span class="indicator"> </span>
       <span class="label" v-if="textType !== 'noText'" :class="[textType]">
         <slot></slot>
-        <description-partial inline v-if="description">{{ description | translate}}</description-partial>
+        <description-partial inline v-if="description">{{$translate(description)}}</description-partial>
       </span>
 
-      <div class="label-container">
-        <span class="required" v-if="required && !disabled">{{ 'required' | translate }}</span>
-        <span class="required" v-if="disabled">{{ 'disabled' | translate }}</span>
-      </div>
+
     </div>
+    <lila-input-labels-partial hideLabel :error="error" :required="required" :disabled="disabled" />
   </section>
 </template>
 <script lang="ts">
@@ -48,7 +39,7 @@ export default class checkboxPartial extends ExtPartial {
 
   @Prop(Boolean) value: boolean;
 
-  @Prop(String) error: string;
+  @Prop(Boolean) error: boolean;
 
   @Prop(Boolean) required: boolean;
 
@@ -107,7 +98,14 @@ export default class checkboxPartial extends ExtPartial {
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
 
-.lila-label-parent-container {
+.lila-checkbox-parent-container {
+  display: grid;
+  gap: 0 20px;
+  grid-template-columns: 1fr max-content;
+
+  @media @desktop {
+    gap: 0 40px;
+  }
 
   .indicator-text {
     display: grid;
@@ -137,6 +135,7 @@ label.checkbox {
     &[type='checkbox'] {
       display: none;
     }
+
   }
 
   &.noText {
@@ -167,8 +166,6 @@ label.checkbox {
     }
 
     &.word {
-      .font-bold;
-
       display: grid;
       gap: 5px;
       align-self: center;
@@ -221,11 +218,16 @@ label.checkbox {
   &:hover {
 
     .indicator {
-      border: solid 1px @color1;
 
-      svg {
-        stroke: @color1;
+      .lila-icons-partial::v-deep {
+
+        svg {
+
+          stroke: @color1;
+        }
+
       }
+
     }
 
     .label {
@@ -251,9 +253,13 @@ label.checkbox {
         border: solid 1px @color3;
         background-color: @color3;
 
-        svg {
-          stroke: @white;
-          stroke-width: 2;
+        .lila-icons-partial::v-deep {
+
+          svg {
+
+            stroke: @white;
+          }
+
         }
       }
     }

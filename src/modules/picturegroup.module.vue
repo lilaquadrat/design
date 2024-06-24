@@ -1,23 +1,47 @@
 <template>
-<section :id="id" :class="[variant, view]" class="lila-picturegroup-module lila-module">
+  <section
+    :id="id"
+    :class="[variant, view]"
+    class="lila-picturegroup-module lila-module"
+  >
+    <section class="content-container">
+      <lila-textblock-partial
+        :variant="[brightText]"
+        v-if="textblock"
+        v-bind="textblock"
+      />
 
-  <section class="content-container">
-    <lila-textblock-partial :variant="[brightText]" v-if="textblock" v-bind="textblock" />
-
-    <section class="elements-container">
-
-      <component v-for="(element, index) in elements" :key="`picturegroup-element-${index}`" class="element" :is="componentType(element.link)" v-bind="element.link">
-        <lila-picture-partial v-if="element.picture" center :fit="fitVariant" v-bind="element.picture" />
-        <lila-textblock-partial :variant="[brightText]" v-if="element.textblock" v-bind="element.textblock" />
-        <lila-list-partial :variant="['noStyle']" v-bind="element.list"></lila-list-partial>
-        <lila-list-partial :variant="linkVariant" v-bind="element.links"></lila-list-partial>
-      </component>
-
+      <section class="elements-container">
+        <component
+          v-for="(element, index) in elements"
+          :key="`picturegroup-element-${index}`"
+          class="element"
+          :is="componentType(element.link)"
+          v-bind="element.link"
+        >
+          <lila-picture-partial
+            v-if="element.picture"
+            center
+            :fit="fitVariant"
+            v-bind="element.picture"
+          />
+          <lila-textblock-partial
+            :variant="[brightText]"
+            v-if="element.textblock"
+            v-bind="element.textblock"
+          />
+          <lila-list-partial
+            :variant="['noStyle']"
+            v-bind="element.list"
+          ></lila-list-partial>
+          <lila-list-partial
+            :variant="linkVariant"
+            v-bind="element.links"
+          ></lila-list-partial>
+        </component>
+      </section>
     </section>
-
   </section>
-</section>
-
 </template>
 <script lang="ts">
 import Link from '@interfaces/link.interface';
@@ -44,18 +68,14 @@ export default class PicturegroupModule extends ExtComponent {
   // eslint-disable-next-line class-methods-use-this
   componentType(link: Link): 'lila-link-partial' | 'section' {
 
-    return link?.link?.length
-      ? 'lila-link-partial'
-      : 'section';
+    return link?.link?.length ? 'lila-link-partial' : 'section';
 
   }
 
   // eslint-disable-next-line class-methods-use-this
   getLink(link: Link): string {
 
-    return link?.link?.length
-      ? link.link
-      : 'section';
+    return link?.link?.length ? link.link : 'section';
 
   }
 
@@ -75,12 +95,13 @@ export default class PicturegroupModule extends ExtComponent {
 
   get brightText() {
 
-    return this.variant.includes('color1') || this.variant.includes('color3') ? 'bright' : undefined;
+    return this.variant.includes('color1') || this.variant.includes('color3')
+      ? 'bright'
+      : undefined;
 
   }
 
 }
-
 </script>
 <style lang="less" scoped>
 @import (reference) "@{projectPath}/source/less/shared.less";
@@ -94,7 +115,6 @@ export default class PicturegroupModule extends ExtComponent {
   word-break: break-word;
 
   picture {
-
     img {
       align-content: center;
       justify-content: center;
@@ -102,14 +122,12 @@ export default class PicturegroupModule extends ExtComponent {
   }
 
   &.noText {
-
     .lila-textblock {
       display: none;
     }
   }
 
   &.centerText {
-
     .lila-textblock {
       text-align: center;
     }
@@ -125,15 +143,15 @@ export default class PicturegroupModule extends ExtComponent {
 
   &.color1,
   &.color3 {
-
-    .modulePadding('full');
+    .modulePadding("full");
 
     color: @white;
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       color: @white;
     }
-
   }
 
   .lila-textblock {
@@ -145,29 +163,23 @@ export default class PicturegroupModule extends ExtComponent {
   }
 
   .content-container {
-
     .elements-container {
       justify-self: center;
       width: 100%;
       max-width: @desktopWidthExt;
     }
-
   }
 
   &.small {
-
     .content-container {
-
       .elements-container {
         max-width: @desktopWidth;
       }
-
     }
   }
 
   &.variant1,
   &.variant4 {
-
     .content-container {
       display: grid;
       gap: 40px;
@@ -176,8 +188,7 @@ export default class PicturegroupModule extends ExtComponent {
         display: grid;
         gap: 40px;
 
-        @media @tablet,
-          @desktop {
+        @media @tablet, @desktop {
           grid-template-rows: max-content max-content;
           grid-template-columns: 1fr 1fr 1fr;
           gap: 40px 2%;
@@ -204,7 +215,6 @@ export default class PicturegroupModule extends ExtComponent {
         picture::v-deep {
           overflow: hidden;
           max-width: 100%;
-
         }
 
         .lila-textblock {
@@ -216,15 +226,11 @@ export default class PicturegroupModule extends ExtComponent {
           }
         }
       }
-
     }
-
   }
 
   &.variant4 {
-
     .content-container {
-
       .element {
         grid-template-rows: auto;
         grid-template-columns: 1fr;
@@ -245,15 +251,12 @@ export default class PicturegroupModule extends ExtComponent {
           grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 40px;
         }
-
       }
-
     }
-
   }
 
-  &.variant2, &.variant5 {
-
+  &.variant2,
+  &.variant5 {
     .content-container {
       display: grid;
       gap: 40px;
@@ -267,8 +270,7 @@ export default class PicturegroupModule extends ExtComponent {
         grid-template-columns: 1fr;
         gap: 40px;
 
-        @media @tablet,
-          @desktop {
+        @media @tablet, @desktop {
           grid-template-rows: max-content max-content;
           grid-template-columns: 1fr 1fr 1fr;
         }
@@ -279,27 +281,19 @@ export default class PicturegroupModule extends ExtComponent {
       }
 
       .element {
-
         display: grid;
 
-        @media @tablet,
-          @desktop {
-
+        @media @tablet, @desktop {
           &:first-child {
             grid-column-start: 1;
             grid-column-end: 4;
-
           }
         }
-
       }
-
     }
-
   }
 
   &.variant5 {
-
     .content-container {
       display: grid;
       gap: 40px;
@@ -311,8 +305,7 @@ export default class PicturegroupModule extends ExtComponent {
         grid-template-columns: 1fr;
         gap: 40px;
 
-        @media @tablet,
-          @desktop {
+        @media @tablet, @desktop {
           grid-template-rows: max-content max-content;
           grid-template-columns: 1fr 1fr 1fr 1fr;
         }
@@ -323,25 +316,17 @@ export default class PicturegroupModule extends ExtComponent {
       }
 
       .element {
-
-        @media @tablet,
-          @desktop {
-
+        @media @tablet, @desktop {
           &:first-child {
             grid-column-start: 1;
             grid-column-end: 5;
-
           }
         }
-
       }
-
     }
-
   }
 
   &.variant3 {
-
     .content-container {
       display: grid;
       gap: 40px;
@@ -356,19 +341,15 @@ export default class PicturegroupModule extends ExtComponent {
         grid-template-columns: 1fr;
         gap: 40px;
 
-        @media @tablet,
-          @desktop {
+        @media @tablet, @desktop {
           grid-template-columns: 2fr 1fr;
         }
       }
 
       .element {
-
         display: grid;
 
-        @media @tablet,
-          @desktop {
-
+        @media @tablet, @desktop {
           grid-column-start: 2;
 
           &:first-child {
@@ -388,21 +369,15 @@ export default class PicturegroupModule extends ExtComponent {
           }
         }
       }
-
     }
-
   }
 
   &.contact {
-
     text-align: left;
 
     .content-container {
-
       .elements-container {
-
         .element {
-
           display: grid;
 
           grid-template-columns: 100%;
@@ -411,8 +386,9 @@ export default class PicturegroupModule extends ExtComponent {
           justify-content: start;
           text-align: left;
 
-          .lila-list-links, .lila-textblock {
-            .multi(padding, 0, 4)
+          .lila-list-links,
+          .lila-textblock {
+            .multi(padding, 0, 4);
           }
 
           .lila-textblock::v-deep {
@@ -422,8 +398,7 @@ export default class PicturegroupModule extends ExtComponent {
             h1 {
               font-size: @headline_S;
 
-              @media @tablet,
-                @desktop {
+              @media @tablet, @desktop {
                 font-size: @headline_S;
               }
             }
@@ -433,23 +408,18 @@ export default class PicturegroupModule extends ExtComponent {
             }
 
             .link-list {
-
               a {
                 .font-head;
               }
             }
           }
-
         }
       }
     }
-
   }
 
   &.product {
-
     .content-container {
-
       display: grid;
 
       .elements-container {
@@ -463,7 +433,6 @@ export default class PicturegroupModule extends ExtComponent {
         justify-items: center;
 
         .element {
-
           display: grid;
           gap: 40px;
           align-content: center;
@@ -471,8 +440,9 @@ export default class PicturegroupModule extends ExtComponent {
           justify-content: center;
           justify-self: center;
 
-          .lila-list-links, .lila-textblock {
-            .multi(padding, 0, 4)
+          .lila-list-links,
+          .lila-textblock {
+            .multi(padding, 0, 4);
           }
 
           .lila-textblock::v-deep {
@@ -483,20 +453,32 @@ export default class PicturegroupModule extends ExtComponent {
             h1 {
               font-size: @headline_S;
 
-              @media @tablet,
-                @desktop {
+              @media @tablet, @desktop {
                 font-size: @headline_S;
               }
             }
-
           }
-
         }
       }
-
     }
-
   }
 
+  &.fiveImagesInARow {
+    .content-container .elements-container {
+
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+      grid-auto-rows: 1fr;
+
+      @media @desktop {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      figure::v-deep{
+        height: 100%;
+      }
+    }
+  }
 }
 </style>

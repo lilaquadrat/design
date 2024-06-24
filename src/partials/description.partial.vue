@@ -1,7 +1,9 @@
 <template>
   <section class="lila-description-partial" :class="[type, { padding: padding, margin: margin, background: background }]">
-    <h4 v-if="label">{{ label | translate }}</h4>
-    <p><slot></slot></p>
+    <h4 v-if="label">{{ $translate(label) }}</h4>
+    <p>
+      <slot />
+    </p>
   </section>
 </template>
 <script lang="ts">
@@ -27,20 +29,20 @@ export default class DescriptionPartial extends ExtPartial {
 
 .lila-description-partial {
   .font-bold;
-  color: @color1;
-  font-size: @fontTextSmaller;
-  text-align: left;
-
-  border-left: solid 2px @color1;
-
-  .multi(padding, 2);
 
   display: grid;
   gap: 10px;
 
+  border-left: solid 2px @color1;
+  color: @color1;
+  font-size: @fontTextSmaller;
+  text-align: left;
+
+  .multi(padding, 2);
+
   h4 {
-    text-transform: uppercase;
     font-size: @fontTextSmaller;
+    text-transform: uppercase;
     .font-head;
   }
 

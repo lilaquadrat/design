@@ -324,6 +324,51 @@ variant5.args = {
   variant: ['variant5'],
 };
 
+
+export const fiveImagesInARow = Template.bind({});
+
+fiveImagesInARow.args = {
+  elements: [
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'women1.jpg',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: '320.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: '320.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'modulespez.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'women1.jpg',
+      },
+    },
+
+  ],
+  variant: ['fiveImagesInARow', 'fit'],
+};
+
 export const fitImages = Template.bind({});
 
 fitImages.args = {
@@ -361,6 +406,13 @@ fitImages.args = {
         source: [],
         alt: 'IMAGE ALT',
         src: '320.png',
+      },
+    },
+    {
+      picture: {
+        source: [],
+        alt: 'IMAGE ALT',
+        src: 'women1.jpg',
       },
     },
   ],

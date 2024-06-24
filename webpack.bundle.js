@@ -13,11 +13,9 @@ module.exports = (env, argv) => {
 
   const useEnv = getEnv(env);
 
-  console.log(`./${useEnv.path}/${useEnv.company}/${useEnv.project}/source/less/base.less`);
-
   return merge(baseConfig, {
     // Point entry to your app's server entry file
-    entry: './src/app-server/server-entry.ts',
+    entry: `./${useEnv.path}/${useEnv.company}/${useEnv.project}/server/server-entry.ts`,
     mode: 'production',
   
     // This allows webpack to handle dynamic imports in a Node-appropriate

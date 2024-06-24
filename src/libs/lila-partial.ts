@@ -7,14 +7,51 @@ import inview from './lila-inview';
 // @ts-ignore
 @Component({
   inheritAttrs: false,
-  })
+})
 abstract class ExtPartial extends vue {
 
   @Prop({ type: Array, default: () => [] }) variant: string[];
 
+  public traceId: string = '';
+
   get renderTarget(): 'pdf' | 'web' {
 
-    return this.$store.state.renderTarget;
+    return this.$store.state.renderTarget || 'web';
+
+  }
+
+  /**
+   * will add the promise to vuex and make its status available.
+   *
+   * additionally provides a minimum time before the promise gets resolved
+   */
+  async $traceable<T>(promise: Promise<T>, time = 3000) {
+
+    // add the new call to vuex and fetch the id
+    const id = await this.$store.dispatch('Calls/add', promise);
+    const minimum = new Promise<void>((resolve) => {
+
+      setTimeout(() => resolve(), time);
+
+    });
+
+    this.traceId = id;
+
+    // the minimum promise will hold the execution of allsettled
+    const results = await Promise.allSettled([minimum, promise]);
+
+    // no error will be thrown, we need to check the result of the given promise
+    if (results[1].status === 'rejected') {
+
+      this.$store.commit('Calls/update', { id, state: 'rejected' });
+      throw results[1].reason;
+
+    } else {
+
+      this.$store.commit('Calls/update', { id, state: 'resolved' });
+      return results[1].value;
+
+    }
 
   }
 

@@ -896,4 +896,14 @@ module.exports = [
     ],
     component: () => import(/* webpackChunkName: "design-cookies-module" */'../../../src/modules/cookies.module.vue'),
   },
+  {
+    name: 'contact',
+    variants: [],
+    component: () => import(/* webpackChunkName: "design-contact-module" */'../../../src/modules/contact.module.vue'),
+  },
+  {
+    name: 'location',
+    variants: [],
+    component: () => import(/* webpackChunkName: "design-contact-module" */'../../../src/modules/location.module.vue'),
+  },
 ];
