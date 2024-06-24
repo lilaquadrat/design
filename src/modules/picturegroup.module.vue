@@ -463,7 +463,7 @@ export default class PicturegroupModule extends ExtComponent {
     }
   }
 
-  &.fiveImagesInARow {
+  &.fiveImagesInAColumn {
     .content-container .elements-container {
 
       display: grid;
