@@ -59,81 +59,104 @@ basic.args = {
   },
   sitemap: [
     {
-      title: 'Sitemap 1',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up Details',
+        variant:['noIcon']
+      },
     },
     {
-      title: 'Sitemap 2',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up links',
+        variant:['noIcon']
+      },
     },
     {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up links',
+        variant:['noIcon']
+      },
     },
-  ],
+
+    {
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Details',
+        variant:['noIcon']
+      },
+    },
+    {
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'sitemap',
+        variant:['noIcon']
+      },
+    },
+   ],
+   variant: ['noPicture']
 };
 
 export const footerWithIcon = Template.bind({});
@@ -197,240 +220,102 @@ footerWithIcon.args = {
       link: 'tel:012222',
     },
   },
-  information: {
-    textblock: {
-      // headline: 'headline',
-      // subline: 'subline',
-      intro: 'Kontakt',
-      text: [
-        'Streetnane of company Postcode Streetname Number',
-        'Postcode Streetname'
-      ],
-    },
-    // list: {
-    //   title: 'Liste',
-    //   elements: [
-    //     'At vero eos',
-    //     'et accusam et justo',
-
-    //   ],
-    // },
-    // links: {
-    //   title: 'Links',
-    //   elements: [
-    //     {
-    //       text: 'SEE ON MAP',
-    //       link: '/test',
-    //     },
-    //     {
-    //       text: '+03456789012283838',
-    //       link: '/test',
-    //     },
-    //   ],
-    // },
+  textblock: {
+    // headline: 'headline',
+    // subline: 'subline',
+    intro: 'Kontakt',
+    text: [
+      'Streetnane of company Postcode Streetname Number',
+      'Postcode Streetname'
+    ],
+  },
+  list: {
+    value: [
+      'This is a list item',
+      'this an other list item',
+      'I am a third list item',
+    ],
+    title: 'some nice list',
+  },
+  links: {
+    value: [
+      {
+        text: 'Link with some longer text',
+        link: 'https://testlink',
+      },
+      {
+        text: 'Normal link',
+        link: 'https://testlink',
+      },
+    ],
+    title: 'Follow up links',
+    variant:['noIcon']
   },
   sitemap: [
     {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up links',
+        variant:['noIcon']
+      },
     },
     {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up links',
+        variant:['noIcon']
+      },
     },
     {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up links',
+        variant:['noIcon']
+      },
     },
     {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
+      links: {
+        value: [
+          {
+            text: 'Link with some longer text',
+            link: 'https://testlink',
+          },
+          {
+            text: 'Normal link',
+            link: 'https://testlink',
+          },
+        ],
+        title: 'Follow up links',
+        variant:[]
+      },
     },
-    {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
-    },
-    {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
-    },
-    {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
-    },
-    {
-      title: 'Sitemap 3',
-      elements: [
-        {
-          text: 'Link #1',
-          link: '/test',
-        },
-        {
-          text: 'Link #2',
-          link: '/test',
-        },
-        {
-          text: 'Link #3',
-          link: '/test',
-        },
-        {
-          text: 'Link #4',
-          link: '/test',
-        },
-        {
-          text: 'Link #5',
-          link: '/test',
-        },
-      ],
-    },
-
   ],
   variant: ['footerWithIcon'],
 };
