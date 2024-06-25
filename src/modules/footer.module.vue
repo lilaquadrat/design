@@ -188,7 +188,8 @@ export default class FooterModule extends ExtComponent {
   }
 
   &.noPicture {
-    .footer-container> :first-child {
+
+    .footer-container > :first-child {
       visibility: hidden;
       position: absolute;
     }
