@@ -4,18 +4,18 @@
       <slot></slot>
 
       <section class="message-container">
-        <h3 v-if="message">{{ message | translate }}</h3>
-        <p v-if="description">{{ description | translate }}</p>
+        <h3 v-if="message">{{ $translate(message) }}</h3>
+        <p v-if="description">{{ $translate(description) }}</p>
       </section>
     </section>
 
     <lila-button-group-partial v-if="type === 'check'" gap>
-      <lila-button-partial @confirmed="confirm" :colorScheme="colorScheme">{{CONFIRM | translate}}</lila-button-partial>
-      <lila-button-partial @confirmed="cancel" colorScheme="transparent">{{CANCEL | translate}}</lila-button-partial>
+      <lila-button-partial @confirmed="confirm" :colorScheme="colorScheme">{{ $translate(CONFIRM) }}</lila-button-partial>
+      <lila-button-partial @confirmed="cancel" colorScheme="transparent">{{ $translate(CANCEL)}}</lila-button-partial>
     </lila-button-group-partial>
 
     <lila-button-group-partial v-if="type === 'confirm'" gap>
-      <lila-button-partial @confirmed="confirm" colorScheme="transparent">{{ACKNOWLEDGE | translate}}</lila-button-partial>
+      <lila-button-partial @confirmed="confirm" colorScheme="transparent">{{$translate(ACKNOWLEDGE)}}</lila-button-partial>
     </lila-button-group-partial>
 
   </section>

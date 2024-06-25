@@ -27,7 +27,7 @@
 
 
       <div v-if="isVariant1 || isVariant3" class="facts-container">
-        <lila-fact-partial v-bind="elements[active]" /> {{ isVariant4 }}
+        <lila-fact-partial v-bind="elements[active]" />
       </div>
 
       <div v-if="!isVariant1 && !isVariant3" class="facts-container">
@@ -189,7 +189,6 @@ export default class FactsModule extends ExtComponent {
 
   &.variant2 {
     max-width: @moduleWidth_M;
-
 
     @media @desktop {
 

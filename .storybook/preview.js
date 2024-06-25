@@ -9,15 +9,13 @@ import loadComponents from '@mixins/loadComponents';
 import Resize from '@libs/lila-resize';
 import Inview from '@libs/lila-inview';
 
+import translatePlugin from '@plugins/translations';
 import '@libs/Models.class';
 import '../base/lilaquadrat/base/models';
 
 import Attributes from '@mixins/attributes';
 import '@mixins/leadingZero';
-import translation from '@plugins/translations';
-import DE from '../base/lilaquadrat/base/translations/de';
-translation.select('de');
-translation.add(DE, 'de');
+import de from '../base/lilaquadrat/base/translations/de';
 
 
 window.addEventListener('media', () => {
@@ -32,6 +30,10 @@ store.commit('setMedia', Resize.media);
 Vue.use(Vuex);
 Vue.use(PortalVue);
 Vue.prototype.$store = store;
+Vue.use(translatePlugin, { store });
+
+Vue.prototype.$translations.add(de, 'de');
+Vue.prototype.$translations.select('de');
 
 Vue.component(
   'router-link',

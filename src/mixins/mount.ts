@@ -2,6 +2,7 @@ import log from 'loglevel';
 import Vue from 'vue';
 import { Route } from 'vue-router';
 import Attributes from 'src/mixins/attributes';
+import translatePlugin from '@plugins/translations';
 
 export default (settings: any) => {
 
@@ -60,6 +61,8 @@ export default (settings: any) => {
   APP.$mount('#app');
 
   Attributes();
+
+  Vue.use(translatePlugin, { store: settings.store });
 
   log.info('%c[DESIGN]%cMOUNTED', 'background: #3f2d56; color: #CCC;', 'padding: 10px');
 

@@ -29,8 +29,7 @@
 <script lang="ts">
 import { ExtPartial, Prop } from '@libs/lila-partial';
 import Component from 'vue-class-component';
-import { Watch } from '@libs/lila-component';
-import translate from '@plugins/translations';
+import { vue, Watch } from '@libs/lila-component';
 import { SDKResponse } from '@libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { Editor, ContentWithPositions } from '@lilaquadrat/studio/lib/interfaces';
@@ -69,8 +68,8 @@ export default class contentContainerPartial extends ExtPartial {
       {
         type: 'lila-text-module',
         variant: ['center'],
-        headline: translate.translate('Something went wrong'),
-        intro: translate.translate('The content is missing'),
+        headline: vue.prototype.$translate('Something went wrong'),
+        intro: vue.prototype.$translate('The content is missing'),
       },
     ],
     bottom: [],

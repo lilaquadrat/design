@@ -1,38 +1,22 @@
-import vue from 'vue';
+import { VueConstructor } from 'vue/types/umd';
+import { Store } from 'vuex';
+import MainStoreState from '@store/mainStoreState.interface';
 
-/**
- *
- *
- * @class Translation
- */
-class  TranslationPlugin {
+class TranslationPlugin {
 
-  /**
-     *
-     *
-     * @type {{[key: string]: any}}
-     * @memberof Translation
-     */
-  translations: { [key: string]: any } = {};
+  translations: {[key: string]: Record<string, string>} = {};
 
-  /**
-     *
-     *
-     * @type {string}
-     * @memberof Translation
-     */
   current: string = 'en';
 
-  /**
-     *
-     *
-     * @param {string} value
-     * @param {string} [key] hinting a specific language
-     * @param {string} [hint]
-     * @returns
-     * @memberof Translation
-     */
-  translate(value: string, key?: string, hint?: string, values?: (string | number)[]) {
+  store: Store<MainStoreState>;
+
+  constructor(options: { store: Store<MainStoreState> }) {
+
+    this.store = options?.store;
+
+  }
+
+  translate(value: string, key?:string, hint?: string, values?: (string|number)[]) {
 
     let returnValue: string;
     const translation = key && this.exists(key)
@@ -74,12 +58,39 @@ class  TranslationPlugin {
 
   }
 
+  translateV2(value: string, values?: (string|number)[]) {
+
+
+    let returnValue: string;
+    const translation = this.store.state.Translations.translations[this.current];
+
+
+    if (!translation) return value;
+
+
+    returnValue = translation[value]
+      ? translation[value]
+      : value;
+
+    if (values) {
+
+      returnValue = values.reduce((p, c) => p.replace(/%s/, c), returnValue);
+
+    }
+
+
+    return returnValue;
+
+  }
+
   translateWithDiff(textToTranslate: string, value: number) {
 
-    const translation = this.translations[this.current];
+    console.log(textToTranslate, value);
+
+    const translation = this.store.state.Translations.translations[this.current];
     const type = value === 1
-      ? 'SINGULAR'
-      : 'PLURAL';
+      ? 'singular'
+      : 'plural';
     const useKey = `${textToTranslate}_${type}`;
 
     if (!translation) return useKey;
@@ -88,7 +99,7 @@ class  TranslationPlugin {
       ? translation[useKey]
       : useKey;
 
-    return returnValue.replace(/%s/, value);
+    return returnValue.replace(/%s/, value.toString());
 
   }
 
@@ -102,44 +113,24 @@ class  TranslationPlugin {
 
   }
 
-  /**
-     *
-     *
-     * @param {{[key: string]: any}} translation
-     * @param {string} key
-     * @memberof Translation
-     */
-  add(translation: Record<string, string>, key: string) {
+  add(translations: Record<string, string>, key: string) {
 
-    this.translations[key] = translation;
+    this.store.commit('Translations/add', { key, translations });
 
   }
 
   extend(translations: Record<string, string>, key: string) {
 
-    this.translations[key] = { ...this.translations[key], ...translations };
+    this.store.commit('Translations/extend', { key, translations });
 
   }
 
-  /**
-     *
-     *
-     * @param {string} key
-     * @returns
-     * @memberof Translation
-     */
   exists(key: string) {
 
     return !!this.translations[key];
 
   }
 
-  /**
-     *
-     *
-     * @param {string} key
-     * @memberof Translation
-     */
   select(key: string) {
 
     this.current = key;
@@ -148,9 +139,19 @@ class  TranslationPlugin {
 
 }
 
-const translate = new TranslationPlugin();
+const plugin = {
+  install: (vue: VueConstructor, options: { store: Store<MainStoreState> }): void => {
 
-vue.filter('translate', (value: string, values?: string[]) => translate.translate(value, null, null, values));
-vue.filter('translatePlural', (textToTranslate: string, value: number) => translate.translateWithDiff(textToTranslate, value));
+    const translationPlugin = new TranslationPlugin(options);
 
-export default translate;
+    vue.prototype.$translations = translationPlugin;
+    vue.prototype.$translate = (value: string, values?: string[]) => translationPlugin.translateV2(value, values);
+    vue.prototype.$translateWithDiff = (key: string, value: number) => translationPlugin.translateWithDiff(key, value);
+
+  },
+};
+
+export default plugin;
+export {
+  TranslationPlugin,
+};

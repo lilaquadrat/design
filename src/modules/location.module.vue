@@ -48,8 +48,6 @@ export default class LocationModule extends ExtComponent {
 
     this.checkInview();
 
-    console.log('iframe', this.$refs.iframeElement);
-
   }
 
 
@@ -59,9 +57,8 @@ export default class LocationModule extends ExtComponent {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-location-module {
-  .module;
 
-  max-width: @moduleWidth_S;
+  .module;
 
   @media @desktop {
     max-width: @moduleWidth_M;
@@ -70,20 +67,18 @@ export default class LocationModule extends ExtComponent {
   .content-container {
     display: grid;
     grid-template-columns: repeat(1, minmax(auto, 1fr));
-    padding: 0 20px;
     gap: 20px;
+    width: 100%;
 
     .map-container {
       grid-row-start: 2;
     }
 
     .text-container {
+      display: grid;
       grid-column-start: 1;
+      gap: 20px;
 
-      .link-container,
-      .list-container {
-        padding: 20px 0;
-      }
     }
 
     @media @desktop {
@@ -119,8 +114,6 @@ export default class LocationModule extends ExtComponent {
         .map-container {
           grid-row-start: 2;
           grid-column-start: 2;
-
-
         }
 
         .text-container {

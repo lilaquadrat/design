@@ -6,8 +6,8 @@
 
       <lila-description-partial v-if="disabled" type="error">{{$translate('LIST_SOLD_OUT')}}</lila-description-partial>
       <h3 class="limited" v-if="limited && !disabled && !hideFreeSlots">
-        <template v-if="!participantsState && !disabled">{{ $translateDiff('LIST_LIMITED_AVAILABILITY', limited) }}</template>
-        <template v-if="participantsState && !disabled">{{ $translate('LIST_LIMITED_AVAILABILITY_STATE', [slotsAvailable, limited]) }}</template>
+        <template v-if="!participantsState && !disabled">{{ $translateWithDiff('LIST_LIMITED_AVAILABILITY', limited) }}</template>
+        <template v-if="participantsState && !disabled">{{ $translate('LIST_LIMITED_AVAILABILITY_STATE', undefined, undefined, [slotsAvailable, limited]) }}</template>
       </h3>
     </section>
 
