@@ -105,7 +105,7 @@ export default class LocationPartial extends ExtPartial {
 
     .text-container {
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
 
@@ -136,6 +136,10 @@ export default class LocationPartial extends ExtPartial {
   &.square {
     .confirm-container {
       padding-top: 100%;
+
+    //   .text-container {
+    //   top: 45%;
+    // }
     }
 
     .iframe {
