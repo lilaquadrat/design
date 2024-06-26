@@ -79,10 +79,7 @@ export default class LocationModule extends ExtComponent {
 
     .text-container {
       grid-column-start: 1;
-<<<<<<< Updated upstream
-=======
       gap: 20px;
->>>>>>> Stashed changes
 
       .link-container,
       .list-container {
