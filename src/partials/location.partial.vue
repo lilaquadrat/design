@@ -137,9 +137,9 @@ export default class LocationPartial extends ExtPartial {
     .confirm-container {
       padding-top: 100%;
 
-    //   .text-container {
-    //   top: 45%;
-    // }
+      .text-container {
+      top: 45%;
+    }
     }
 
     .iframe {
