@@ -20,3 +20,4 @@ tools
 *.pem
 /lib
 .yarn
+**/.DS_Store 

@@ -87,7 +87,7 @@ basic.args = {
           },
         ],
         title: 'Follow up links',
-        variant:['noIcon']
+        variant: ['noIcon'],
       },
     },
     {
@@ -249,7 +249,7 @@ footerWithIcon.args = {
       },
     ],
     title: 'Follow up links',
-    variant:['noIcon']
+    variant: ['noIcon'],
   },
   sitemap: [
     {
@@ -265,7 +265,7 @@ footerWithIcon.args = {
           },
         ],
         title: 'Follow up links',
-        variant:['noIcon']
+        variant: ['noIcon'],
       },
     },
     {
@@ -297,7 +297,7 @@ footerWithIcon.args = {
           },
         ],
         title: 'Follow up links',
-        variant:['noIcon']
+        variant: ['noIcon'],
       },
     },
     {
@@ -313,7 +313,6 @@ footerWithIcon.args = {
           },
         ],
         title: 'Follow up links',
-        variant:[]
       },
     },
   ],
