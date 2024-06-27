@@ -44,6 +44,18 @@ basic.args = {
   variant: [],
 };
 
+export const short = Template.bind({});
+
+short.args = {
+  headline: 'JEDES ANLIEGEN VERDIENT GEHÖR.',
+  subline: 'Der Support ist inklusive.',
+  // eslint-disable-next-line max-len
+  text: [
+    'JEDES ANLIEGEN VERDIENT GEHÖR.',
+  ],
+  variant: [],
+};
+
 export const withList = Template.bind({});
 
 withList.args = {

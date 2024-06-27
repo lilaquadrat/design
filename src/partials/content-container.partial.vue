@@ -11,8 +11,8 @@
           <section class="content-position-container">
             <lila-content-head-partial @close="close" :hideButton="!overlay">
               <template v-if="content && loading > 100">{{ content.settings.title }}</template>
-              <template v-if="loading > 400">CONTENT_NOT_FOUND</template>
-              <template v-if="loading === 100">CONTENT_LOADING</template>
+              <template v-if="loading > 400">{{$translate('CONTENT_NOT_FOUND')}}</template>
+              <template v-if="loading === 100">{{$translate('CONTENT_LOADING')}}</template>
             </lila-content-head-partial>
             <section class="scroll-container">
               <lila-indicator-partial v-if="loading === 100">LOADING</lila-indicator-partial>

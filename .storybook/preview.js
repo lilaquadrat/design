@@ -7,14 +7,14 @@ import store from '@store/main.store';
 import loadComponents from '@mixins/loadComponents';
 
 import Resize from '@libs/lila-resize';
-import Inview from '@libs/lila-inview';
 
-import translatePlugin from '@plugins/translations';
 import '@libs/Models.class';
 import '../base/lilaquadrat/base/models';
 
 import Attributes from '@mixins/attributes';
 import '@mixins/leadingZero';
+
+import translatePlugin from '@plugins/translations';
 import de from '../base/lilaquadrat/base/translations/de';
 
 

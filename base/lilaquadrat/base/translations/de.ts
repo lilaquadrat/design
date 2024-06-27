@@ -32,4 +32,8 @@ export default {
   'order with payment': 'Zahlungspflichtig bestellen',
   'back to the form': 'Zurück zum Formular',
   'not available': 'nicht verfügbar',
+  location_module_show_map: 'Karte anzeigen',
+  'Something went wrong': 'Hier ist etwas schiefgelaufen',
+  'The content is missing': 'Der Inhalt wurde nicht gefunden',
+  'CONTENT_NOT_FOUND ': 'Der Inhalt wurde nicht gefunden',
 };

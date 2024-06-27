@@ -50,9 +50,6 @@ class Resize {
 
     const element = document.getElementById('mediadetection');
 
-    console.log('get query', element);
-
-
     if (!element) return;
 
     for (const child of element.children) {

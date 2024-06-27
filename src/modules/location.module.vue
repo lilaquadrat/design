@@ -1,11 +1,9 @@
 <template>
   <section :id="id" :class="[variant, view]" class="lila-location-module lila-module">
-    <section class="content-container">
 
       <section class="map-container">
-        <lila-location-partial ref="iframeElement" class="iframe" v-bind="map" />
+        <lila-location-partial ref="iframeElement" class="iframe" :src="map" />
       </section>
-
 
       <section class="text-container">
         <lila-textblock-partial v-bind="textblock" />
@@ -13,15 +11,12 @@
         <lila-list-partial class="list-container" v-if="list" v-bind="list"></lila-list-partial>
         <lila-list-partial class="link-container" v-bind="links" />
 
-      </section>
     </section>
   </section>
 </template>
 <script lang="ts">
 
-import Iframemap from '@interfaces/Iframemap.interface';
 import Link from '@interfaces/link.interface';
-import Picture from '@interfaces/picture.interface';
 import Textblock from '@interfaces/textblock.interface';
 import {
   Component, ExtComponent, Prop,
@@ -30,11 +25,9 @@ import {
 @Component
 export default class LocationModule extends ExtComponent {
 
-  @Prop(Object) picture: Picture;
-
   @Prop(Object) textblock: Textblock;
 
-  @Prop(Object) map: Iframemap;
+  @Prop(String) map: string;
 
   @Prop(Object) links: Link[];
 
@@ -57,68 +50,66 @@ export default class LocationModule extends ExtComponent {
 @import (reference) "@{projectPath}/source/less/shared.less";
 
 .lila-location-module {
-
-  .module;
+  display: grid;
+  gap: 40px;
+  width: 100%;
 
   @media @desktop {
+    .module;
     max-width: @moduleWidth_M;
   }
 
-  .content-container {
+  .map-container {
+    grid-row-start: 2;
+  }
+
+  .text-container {
+    .modulePadding;
     display: grid;
-    grid-template-columns: repeat(1, minmax(auto, 1fr));
+    grid-column-start: 1;
+    grid-auto-rows: max-content;
     gap: 20px;
-    width: 100%;
+    align-items: start;
+
+    @media @desktop {
+      padding: 0;
+    }
+  }
+
+  @media @desktop {
+    grid-template-columns: 2fr 1fr;
+    gap: 0 40px;
 
     .map-container {
-      grid-row-start: 2;
+      grid-row-start: 1;
     }
 
     .text-container {
-      display: grid;
-      grid-column-start: 1;
-      gap: 20px;
-
+      grid-column-start: 2;
     }
 
-    @media @desktop {
-      grid-template-columns: 2fr 1fr;
-      gap: 0 30px;
-
-      .map-container {
-        grid-row-start: 1;
-
-      }
-
-      .text-container {
-        grid-column-start: 2;
-      }
-    }
   }
 
   &.textLeft {
 
-    .content-container {
+    .map-container {
+      grid-row-start: 1;
+    }
+
+    .text-container {
+      grid-row-start: 2;
+    }
+
+    @media @desktop {
+      grid-template-columns: 1fr 2fr;
 
       .map-container {
-        grid-row-start: 1;
+        grid-row-start: 2;
+        grid-column-start: 2;
       }
 
       .text-container {
-        grid-row-start: 2;
-      }
-
-      @media @desktop {
-        grid-template-columns: 1fr 2fr;
-
-        .map-container {
-          grid-row-start: 2;
-          grid-column-start: 2;
-        }
-
-        .text-container {
-          grid-column-start: 1;
-        }
+        grid-column-start: 1;
       }
     }
   }

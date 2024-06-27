@@ -171,7 +171,7 @@ export default class listPartial extends ExtPartial {
   &.white {
 
     a,
-    h4 {
+    h4, li {
       color: @white;
     }
 

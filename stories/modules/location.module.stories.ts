@@ -67,7 +67,7 @@ withLinks.args = {
       },
     ],
     title: 'Follow up links',
-    variant:['noIcon'],
+    variant: ['noIcon'],
   },
 };
 
@@ -122,7 +122,7 @@ textLeft.args = {
       },
     ],
     title: 'Follow up links',
-    variant:['noIcon'],
+    variant: ['noIcon'],
   },
   variant: ['textLeft'],
 };
