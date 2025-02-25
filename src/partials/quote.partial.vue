@@ -108,7 +108,7 @@ export default class quotePartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-quote {
 

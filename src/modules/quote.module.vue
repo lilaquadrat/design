@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import Link from '@interfaces/link.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 
 @Component
 export default class QuoteModule extends ExtComponent {
@@ -21,7 +21,7 @@ export default class QuoteModule extends ExtComponent {
 </script>
 
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-quote-module {
   .module;

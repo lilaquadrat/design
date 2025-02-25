@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts">
-import { ParsedError } from '@libs/ActionNotice';
-import { Component, Watch } from '@libs/lila-component';
-import { ExtPartial, Prop } from '@libs/lila-partial';
+import { ParsedError } from '@/libs/ActionNotice';
+import { Component, Watch } from '@/libs/lila-component';
+import { ExtPartial, Prop } from '@/libs/lila-partial';
 
 
 @Component
@@ -181,7 +181,7 @@ export default class InputPartial extends ExtPartial {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-input{
   display: grid;

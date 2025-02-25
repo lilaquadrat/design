@@ -11,7 +11,6 @@
         <source v-if="src" :data-src="src" />
 
       </video>
-      <youtube class="iframe" v-if="youtubeId" @playing="playing" @paused="paused" @ended="ended" @ready="ready" v-bind="youtubeSettings"></youtube>
   </section>
 
 </template>
@@ -21,13 +20,10 @@
 import { VideoSource } from '@interfaces/video.interface';
 import {
   Component, Prop, Watch,
-} from '@libs/lila-component';
-import VueYouTubeEmbed, { getIdFromURL } from 'vue-youtube-embed';
+} from '@/libs/lila-component';
 import Vue from 'vue';
-import { ExtPartial } from '@libs/lila-partial';
-import Dom from '@libs/lila-dom';
-
-Vue.use(VueYouTubeEmbed);
+import { ExtPartial } from '@/libs/lila-partial';
+import Dom from '@/libs/lila-dom';
 
 @Component
 export default class VideoPartial extends ExtPartial {
@@ -344,7 +340,7 @@ export default class VideoPartial extends ExtPartial {
 }
 </script>
 <style lang="less">
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-video-partial {
   display: grid;

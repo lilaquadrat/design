@@ -41,7 +41,7 @@
 </template>
 <script lang="ts">
 import Textblock from '@interfaces/textblock.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 import { ChildData, Editor, GenericData } from '@lilaquadrat/studio/lib/interfaces';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { InjectReactive } from 'vue-property-decorator';
@@ -191,7 +191,7 @@ export default class TrainingModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) '@{projectPath}/source/less/shared.less';
+
 
 .lila-training-module {
   .module;

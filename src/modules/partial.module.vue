@@ -7,7 +7,7 @@
 
 </template>
 <script lang="ts">
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 import { ModuleGeneric } from '@lilaquadrat/studio/lib/interfaces';
 
 @Component
@@ -25,7 +25,7 @@ export default class partialModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-partial-container {
   display: grid;

@@ -20,7 +20,7 @@ import Link from '@interfaces/link.interface';
 import Picture from '@interfaces/picture.interface';
 import Textblock from '@interfaces/textblock.interface';
 import PictureGroupElement from '@interfaces/PictureGroupElement.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 
 @Component
 export default class PicturegroupModule extends ExtComponent {
@@ -76,7 +76,7 @@ export default class PicturegroupModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-picturegroup-module {
   .module;

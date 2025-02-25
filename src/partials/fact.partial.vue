@@ -37,7 +37,7 @@ export default class FactPartial extends ExtPartial {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-fact-partial {
   display: grid;

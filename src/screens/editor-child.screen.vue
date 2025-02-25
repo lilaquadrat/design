@@ -4,7 +4,7 @@
   </article>
 </template>
 <script lang="ts">
-import { ExtComponent, Component, vue } from '@libs/lila-component';
+import { ExtComponent, Component, vue } from '@/libs/lila-component';
 import {
   Editor, EditorActiveModule, StudioIframeMessage, ContentWithPositions,
 } from '@lilaquadrat/studio/lib/interfaces';

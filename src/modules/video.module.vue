@@ -20,7 +20,7 @@
 import Picture from '@interfaces/picture.interface';
 import Textblock from '@interfaces/textblock.interface';
 import Video from '@interfaces/video.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 
 @Component
 export default class VideoModule extends ExtComponent {
@@ -80,7 +80,7 @@ export default class VideoModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-video-module {
   .module;

@@ -90,7 +90,7 @@ export default class highlightPartial extends ExtPartial {
 </script>
 
 <style lang="less">
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-highlight {
   overflow: hidden;

@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import Component from 'vue-class-component';
-import { ExtComponent, Prop } from '@libs/lila-component';
+import { ExtComponent, Prop } from '@/libs/lila-component';
 import { ProvideReactive } from 'vue-property-decorator';
 import { ChildData } from '@lilaquadrat/studio/lib/interfaces';
 import ContentPrepared from '@lilaquadrat/studio/lib/src/interfaces/ContentPrepared.interface';
@@ -63,7 +63,6 @@ export default class ContentModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) '@{projectPath}/source/less/shared.less';
 
 .lila-content-module {
   position: relative;

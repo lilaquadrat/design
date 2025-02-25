@@ -39,7 +39,7 @@ export default class textblockPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) '@{projectPath}/source/less/shared.less';
+
 
 .lila-textblock {
   display: grid;

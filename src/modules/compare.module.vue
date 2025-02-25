@@ -48,7 +48,7 @@ import Textblock from '@interfaces/textblock.interface';
 import CompareElement from '@interfaces/CompareElement.interface';
 import CompareStructure from '@interfaces/CompareStructure.interface';
 import CompareModified, { CompareHeadline } from '@interfaces/CompareModified.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 
 @Component
 export default class CompareModule extends ExtComponent {
@@ -147,7 +147,7 @@ export {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-compare-module {
   .module;

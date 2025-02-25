@@ -9,7 +9,7 @@
 <script lang="ts">
 import LinkListWithTitle from '@interfaces/LinkListWithTitle.interface';
 import Textblock from '@interfaces/textblock.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 
 @Component
 export default class IndexModule extends ExtComponent {
@@ -61,7 +61,7 @@ export default class IndexModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-index-module {
 

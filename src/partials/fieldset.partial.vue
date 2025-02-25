@@ -25,7 +25,7 @@ export default class fieldsetPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 fieldset {
   display: grid;

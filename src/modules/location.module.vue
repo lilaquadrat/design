@@ -20,7 +20,7 @@ import Link from '@interfaces/link.interface';
 import Textblock from '@interfaces/textblock.interface';
 import {
   Component, ExtComponent, Prop,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class LocationModule extends ExtComponent {
@@ -47,7 +47,7 @@ export default class LocationModule extends ExtComponent {
 }
 </script>
 <style lang="less">
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-location-module {
   display: grid;

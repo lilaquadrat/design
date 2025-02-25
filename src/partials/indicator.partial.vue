@@ -7,7 +7,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Prop } from '@libs/lila-component';
+import { Prop } from '@/libs/lila-component';
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
@@ -23,7 +23,7 @@ export default class indicatorPartial extends Vue {
 }
 </script>
 <style lang="less">
-@import (reference) '@{projectPath}/source/less/shared.less';
+
 
 .lila-loading-indicator {
   position: relative;

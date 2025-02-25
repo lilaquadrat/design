@@ -74,7 +74,7 @@ import Picture from '@interfaces/picture.interface';
 import LinkGroupElement from '@interfaces/LinkGroupElement.interface';
 import {
   ExtComponent, Component, Prop, Watch,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class MenuModule extends ExtComponent {
@@ -196,7 +196,7 @@ export default class MenuModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-menu-module {
   .index(8);

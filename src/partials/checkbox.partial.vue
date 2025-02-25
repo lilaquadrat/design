@@ -96,7 +96,7 @@ export default class checkboxPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-checkbox-parent-container {
   display: grid;

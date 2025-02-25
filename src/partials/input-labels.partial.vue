@@ -30,7 +30,7 @@ export default class InputLabelsPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .label-container {
 

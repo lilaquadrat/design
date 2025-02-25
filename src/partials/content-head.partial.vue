@@ -24,7 +24,7 @@ export default class contentHeadPartial extends Vue {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .content-head {
 

@@ -31,7 +31,7 @@
 <script lang="ts">
 
 import Picture, { PictureMedia } from '@interfaces/picture.interface';
-import inview from '@libs/lila-inview';
+import inview from '@/libs/lila-inview';
 import {
   ExtPartial, Component, Prop, Watch,
 } from '../libs/lila-partial';
@@ -171,7 +171,7 @@ export default class PicturePartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-link.logo > .lila-figure {
 

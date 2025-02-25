@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
+import StudioSDK, { SDKResponse } from '@/libs/StudioSDK';
 import { Content } from '@lilaquadrat/studio/lib/interfaces';
 import { CallsStore } from './calls.store';
 import Translations from './translations.store';

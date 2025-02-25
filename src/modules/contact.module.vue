@@ -82,16 +82,16 @@
 
 <script lang="ts">
 import Component from 'vue-class-component';
-import { ExtComponent, Prop } from '@libs/lila-component';
+import { ExtComponent, Prop } from '@/libs/lila-component';
 import {
   Agreement, AgreementResponse, GenericData, List, ListPartiticpantsDetails,
 } from '@lilaquadrat/studio/lib/interfaces';
 import Textblock from '@interfaces/textblock.interface';
 import Contact from '@models/Contact.model';
-import ModelsClass from '@libs/Models.class';
-import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
+import ModelsClass from '@/libs/Models.class';
+import StudioSDK, { SDKResponse } from '@/libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
-import { ErrorsObject, TranslatedPath } from '@libs/ActionNotice';
+import { ErrorsObject, TranslatedPath } from '@/libs/ActionNotice';
 import { type ErrorObject } from 'ajv/dist/types';
 import ListCategoryExtended from '@interfaces/ListCategoryExtended.interface';
 import Address from '@models/Address.model';
@@ -471,7 +471,7 @@ async handleForm(event: Event) {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-contact-module {
   .module;

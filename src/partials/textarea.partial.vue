@@ -13,7 +13,7 @@
   </label>
 </template>
 <script lang="ts">
-import { ParsedError } from '@libs/ActionNotice';
+import { ParsedError } from '@/libs/ActionNotice';
 import { Component, ExtPartial, Prop } from '../libs/lila-partial';
 
 @Component
@@ -99,7 +99,7 @@ export default class TextareaPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-textarea {
 

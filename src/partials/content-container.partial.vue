@@ -27,10 +27,10 @@
   </section>
 </template>
 <script lang="ts">
-import { ExtPartial, Prop } from '@libs/lila-partial';
+import { ExtPartial, Prop } from '@/libs/lila-partial';
 import Component from 'vue-class-component';
-import { vue, Watch } from '@libs/lila-component';
-import { SDKResponse } from '@libs/StudioSDK';
+import { vue, Watch } from '@/libs/lila-component';
+import { SDKResponse } from '@/libs/StudioSDK';
 import { prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { Editor, ContentWithPositions } from '@lilaquadrat/studio/lib/interfaces';
 
@@ -171,7 +171,7 @@ export default class contentContainerPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .content-container-full {
   display: inline;

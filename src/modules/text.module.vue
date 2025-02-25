@@ -15,7 +15,7 @@ import Picture from '@interfaces/picture.interface';
 import Component from 'vue-class-component';
 import {
   ExtComponent, Prop,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class TextModule extends ExtComponent {
@@ -79,7 +79,7 @@ export default class TextModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-text-module {
   .module;

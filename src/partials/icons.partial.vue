@@ -83,7 +83,7 @@ export default class IconsPartial extends ExtPartial {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-icons-partial {
   display: grid;

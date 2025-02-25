@@ -41,7 +41,7 @@ export default class agreementPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-agreement-partial {
 

@@ -49,7 +49,7 @@
 </template>
 <script lang="ts">
 import Textblock from '@interfaces/textblock.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 import PricesElementModel from '@interfaces/PricesElement.interface';
 
 @Component
@@ -76,7 +76,7 @@ export default class PricesModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-prices-module {
   .module;

@@ -7,7 +7,7 @@
 <script lang="ts">
 import {
   ExtComponent, Component,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class appComponentPartial extends ExtComponent { }

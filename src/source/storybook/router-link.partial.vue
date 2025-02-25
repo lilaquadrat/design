@@ -4,7 +4,7 @@
 <script lang="ts">
 import {
   ExtComponent, Component, Prop,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class RouterLinkPartial extends ExtComponent {

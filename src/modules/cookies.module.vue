@@ -48,7 +48,7 @@ import Link from '@interfaces/link.interface';
 import Textblock from '@interfaces/textblock.interface';
 import {
   ExtComponent, Component, Prop,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 import { overlay } from '@stories/partials/content-container.partial.stories';
 import dayjs from 'dayjs';
 
@@ -248,7 +248,7 @@ export default class CookiesModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-cookies-module-dialog, .lila-cookies-module.lila-module {
 

@@ -36,7 +36,7 @@ import Textblock from '@interfaces/textblock.interface';
 import Video from '@interfaces/video.interface';
 import {
   ExtComponent, Component, Prop, Watch,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class EmotionModule extends ExtComponent {
@@ -133,7 +133,7 @@ export default class EmotionModule extends ExtComponent {
 
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-module.emotion-module {
   .module;

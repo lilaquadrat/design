@@ -71,7 +71,7 @@ import { GalleryElement } from '@interfaces/galleryElement.interface';
 import Textblock from '@interfaces/textblock.interface';
 import {
   ExtComponent, Component, Prop, Watch,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 
 @Component
 export default class galleryModule extends ExtComponent {
@@ -398,7 +398,7 @@ export default class galleryModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) '@{projectPath}/source/less/shared.less';
+
 
 .lila-module.gallery-module {
   .module;

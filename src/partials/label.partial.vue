@@ -7,7 +7,7 @@
     </section>
 </template>
 <script lang="ts">
-import { Component, ExtPartial, Prop } from '@libs/lila-partial';
+import { Component, ExtPartial, Prop } from '@/libs/lila-partial';
 
 @Component
 export default class LabelPartial extends ExtPartial {
@@ -21,7 +21,7 @@ export default class LabelPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 .lila-label  {
     color: @success;
 

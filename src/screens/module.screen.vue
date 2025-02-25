@@ -6,7 +6,7 @@
 <script lang="ts">
 import {
   ExtComponent, Component, Watch,
-} from '@libs/lila-component';
+} from '@/libs/lila-component';
 import { distributeGenericData, prepareContent } from '@lilaquadrat/studio/lib/frontend';
 import { generateDataWithContent } from '@lilaquadrat/studio/lib/src/prepareContent';
 import MainStoreState from '@store/mainStoreState.interface';

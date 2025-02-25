@@ -19,7 +19,7 @@
 import Link from '@interfaces/link.interface';
 import Picture from '@interfaces/picture.interface';
 import Textblock from '@interfaces/textblock.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 
 @Component
 export default class PictureAndTextModule extends ExtComponent {
@@ -50,7 +50,7 @@ export default class PictureAndTextModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-pictureandtext-module {
   .module;

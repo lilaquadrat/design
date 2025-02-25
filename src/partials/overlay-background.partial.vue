@@ -6,7 +6,7 @@
   </portal>
 </template>
 <script lang="ts">
-import { Prop } from '@libs/lila-component';
+import { Prop } from '@/libs/lila-component';
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
@@ -50,7 +50,7 @@ export default class overlayBackgroundPartial extends Vue {
 }
 </script>
 <style lang="less">
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-overlay-background {
   position: fixed;

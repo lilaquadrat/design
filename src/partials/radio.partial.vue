@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { Component, ExtPartial, Prop } from '@libs/lila-partial';
+import { Component, ExtPartial, Prop } from '@/libs/lila-partial';
 
 @Component
 export default class RadioPartial extends ExtPartial {
@@ -57,7 +57,7 @@ export default class RadioPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-radio-container {
   display: grid;

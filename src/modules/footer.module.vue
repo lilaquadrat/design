@@ -40,7 +40,7 @@
 import Sitemap from '@interfaces/Sitemap.interface';
 import FooterContact from '@interfaces/FooterContact.interface';
 import FooterSocial from '@interfaces/FooterSocial.interface';
-import { ExtComponent, Component, Prop } from '@libs/lila-component';
+import { ExtComponent, Component, Prop } from '@/libs/lila-component';
 import Picture from '@interfaces/picture.interface';
 import Textblock from '@interfaces/textblock.interface';
 import ListWithTitle from '@interfaces/ListWithTitle.interface';
@@ -70,7 +70,7 @@ export default class FooterModule extends ExtComponent {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) '@{projectPath}/source/less/shared.less';
+
 
 .lila-footer-module {
 

@@ -43,9 +43,9 @@
 </template>
 <script lang="ts">
 import Address from '@models/Address.model';
-import ModelsClass from '@libs/Models.class';
-import StudioSDK, { SDKResponse } from '@libs/StudioSDK';
-import { ParsedError } from '@libs/ActionNotice';
+import ModelsClass from '@/libs/Models.class';
+import StudioSDK, { SDKResponse } from '@/libs/StudioSDK';
+import { ParsedError } from '@/libs/ActionNotice';
 import { Location, ListOfModels } from '@lilaquadrat/studio/lib/interfaces';
 import { convertCountryISO2 } from '@lilaquadrat/studio/lib/frontend';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
@@ -219,7 +219,7 @@ export default class agreementPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-address-partial {
 

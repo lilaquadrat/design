@@ -27,7 +27,7 @@
   </section>
 </template>
 <script lang="ts">
-import { ParsedError } from '@libs/ActionNotice';
+import { ParsedError } from '@/libs/ActionNotice';
 import ListCategoryExtended from '@interfaces/ListCategoryExtended.interface';
 import { ExtPartial, Component, Prop } from '../libs/lila-partial';
 
@@ -78,7 +78,7 @@ export default class selectCategoryPartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-select-category-partial {
 

@@ -27,8 +27,8 @@
   </section>
 </template>
 <script lang="ts">
-import ActionNotice, { ErrorsObject } from '@libs/ActionNotice';
-import { ExtPartial, Prop, Watch } from '@libs/lila-partial';
+import ActionNotice, { ErrorsObject } from '@/libs/ActionNotice';
+import { ExtPartial, Prop, Watch } from '@/libs/lila-partial';
 import { ErrorObject } from 'ajv/dist/types';
 import Vue from 'vue';
 import Component from 'vue-class-component';
@@ -195,7 +195,7 @@ export default class ActionNoticePartial extends ExtPartial {
 }
 </script>
 <style lang="less" scoped>
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .action-notice-partial {
   position: relative;

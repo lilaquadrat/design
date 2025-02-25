@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop } from '@libs/lila-component';
-import { ExtPartial } from '@libs/lila-partial';
+import { Component, Prop } from '@/libs/lila-component';
+import { ExtPartial } from '@/libs/lila-partial';
 
 @Component
 export default class LocationPartial extends ExtPartial {
@@ -71,7 +71,7 @@ export default class LocationPartial extends ExtPartial {
 </script>
 
 <style lang="less">
-@import (reference) "@{projectPath}/source/less/shared.less";
+
 
 .lila-location-partial {
 
