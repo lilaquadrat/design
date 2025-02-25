@@ -37,7 +37,7 @@
     "@babel/register": "^7.22.15",
     "@babel/template": "^7.22.15",
     "@ianwalter/exclude-assets-plugin": "^1.0.0",
-    "@lilaquadrat/cli": "^0.9.8",
+    "@lilaquadrat/cli": "^0.10.0",
     "@storybook/addon-essentials": "^7.4.1",
     "@storybook/addon-links": "^7.4.1",
     "@storybook/cli": "^7.4.1",

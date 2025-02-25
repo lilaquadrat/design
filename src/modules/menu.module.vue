@@ -51,8 +51,7 @@
             <lila-link-partial :key="`link-${index}`" class="main" v-if="!element.links" v-bind="element" />
             <section :key="`group-${index}`" v-if="element.links" class="link-group main">
               <button :class="{ hasIcon: element.icon }" @click="toggleElement(element)">
-                <lila-icons-partial v-if="element.icon" colorScheme="white" :type="element.icon" size="small" /> {{
-                  element.text }}
+                <lila-icons-partial v-if="element.icon" colorScheme="white" :type="element.icon" size="small" /> {{ element.text }}
               </button>
               <transition mode="out-in" name="menu">
                 <ul class="link-list" v-if="element.links && element.active">
