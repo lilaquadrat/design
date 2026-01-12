@@ -5,8 +5,8 @@ import {
   Location,
   ListPartiticpantsDetails,
 } from '@lilaquadrat/studio/lib/interfaces';
-import hardCopy from '@mixins/hardCopy';
-import Contact from '@models/Contact.model';
+import hardCopy from '@/mixins/hardCopy';
+import Contact from '@/models/Contact.model';
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
 const mockJs = {};

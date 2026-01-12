@@ -31,7 +31,7 @@
 </template>
 <script lang="ts">
 import AccordionElement from '@interfaces/AccordionElement.interface';
-import hardCopy from '@mixins/hardCopy';
+import hardCopy from '@/mixins/hardCopy';
 import {
   ExtPartial, Component, Prop, Watch,
 } from '../libs/lila-partial';
